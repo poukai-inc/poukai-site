@@ -15,11 +15,21 @@
 import "@poukai-inc/ui/tokens.css";
 import "../styles/site.css";
 import { ShellWrapper } from "../components/ShellWrapper";
-// Vercel Web Analytics — basic-tier signal. SDK is a no-op when not running
-// on Vercel (it inspects deployment env at runtime), so this is safe in dev
-// and on any non-Vercel preview. Enable collection via the Vercel dashboard
-// (Project → Analytics → Enable). Cookieless, no opt-in banner required.
+// Vercel Web Analytics — basic-tier signal.
+//
+// The SDK injects `<script src="/_vercel/insights/script.js">` unconditionally
+// when the component renders. That URL only exists on Vercel deployments, so
+// emitting the tag in a non-Vercel build (e.g. CI's `pnpm preview`) produces
+// a 404 → "Browser errors logged to the console" → drops Lighthouse
+// best-practices from 1.00 to 0.96. Gate the emit on the build-time
+// `VERCEL=1` env var that Vercel sets in its build container. Static builds
+// produced anywhere else (CI, local `pnpm build`) skip the tag entirely.
+//
+// Enable collection via the Vercel dashboard (Project → Analytics → Enable).
+// Cookieless, no opt-in banner required.
 import Analytics from "@vercel/analytics/astro";
+
+const isVercelBuild = process.env.VERCEL === "1";
 
 // Vite resolves these to the same hashed /_astro/*.woff2 URLs that the
 // @poukai-inc/ui tokens.css @font-face rules reference at runtime, so the
@@ -191,6 +201,6 @@ const bugsinkScript = hasBugsinkConfig
     >
       <slot />
     </ShellWrapper>
-    <Analytics />
+    {isVercelBuild ? <Analytics /> : null}
   </body>
 </html>
