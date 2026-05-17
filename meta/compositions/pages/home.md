@@ -240,6 +240,7 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 - **Where it appears**: `/` Hero (this composition). Future: `/principles` Hero is the most likely next consumer (the lower-density register suits a list page); `/roles` and `/why-ai` are open per their own amendments.
 - **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accepts and ships the prop + token before this composition moves from `Approved` to `Built`. The engineer waits.~~ **RESOLVED 2026-05-17**: DS shipped via [poukai-ui#41](https://github.com/poukai-inc/poukai-ui/pull/41) in `@poukai-inc/ui@0.7.0`. Site consumed at commit `38ee1e0` (`size="intimate"` on `<Hero>` in `src/components/HomeHero.tsx`).
 - **Workaround if rejected**: Not applicable — proposal accepted and shipped.
+- **Live-audit follow-up (2026-05-17)**: at `size="intimate"`, the Hero rhythm tokens (`--space-6` status→title, `--space-8` title→lede) read disproportionately generous against the smaller title. The 0.7.0 ship locks rhythm unchanged across size variants per the original proposal — that lock is now reversed via follow-up DS-gap §6.5 ([poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44)). Until #44 lands, the site renders with the wider rhythm; this is documented interim state, not a bug.
 
 ### 6.2 `<Hero illustration>` slot — universal editorial illustration contract
 
@@ -256,6 +257,15 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 - **Status (revised after live audit 2026-05-17)**: `<Button>` `size` prop is in the public DS API at `@poukai-inc/ui@0.6.1` (`sm` 32px, `md` 44px, `lg` 52px). Partial-ship commit `9076cc4` shipped `<Button size="sm">` on `/`. **Live-page audit revealed the `sm/md` gap (12px) is too coarse**: `md` reads visually too heavy against brand restraint; `sm` reads visually too small against the (currently-default) `<Hero size="display">` title. New DS-gap filed for an intermediate `compact` size — see §6.4 below.
 - **Recommendation (composition-level, interim)**: `<Button asChild size="sm">` remains in `src/components/HomeHero.tsx` as a **transitional state** until [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42) ships `size="compact"`. Engineer then flips `size="sm"` → `size="compact"` in the same PR that consumes `<Hero size="intimate">` (poukai-ui#39).
 - **Pairing convention (revised)**: When `<Hero size="intimate">` lands, `size="sm"` Button is the proportional default. When `<Hero size="display">` (current default), the new `size="compact"` (~38px) is the proportional default once it ships; `size="md"` remains the DS-default fallback. This is a composition-layer convention, not a DS rule.
+
+### 6.5 `<Hero size="intimate">` rhythm scaling — follow-up to §6.1
+
+- **Proposed file path in DS repo**: `proposals/hero-intimate-rhythm.md` in `poukai-inc/poukai-ui`.
+- **Tracked**: [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
+- **Scope**: At `<Hero size="intimate">`, scale internal rhythm one rung tighter — status→title `--space-6` → `--space-4` (16px), title→lede `--space-8` → `--space-6` (24px desktop) / `--space-6` → `--space-4` (16px mobile). CTA-gap (`--space-8`) untouched. No new public API; internal Hero CSS change only. **Patch** version bump per ADR-0003.
+- **Where it appears**: `/` Hero. Future: any consumer of `<Hero size="intimate">`.
+- **Blocking dependency**: `@poukai-inc/poukai-ui` maintainers accept and ship the rhythm tweak. Engineer flips zero code on adoption — `pnpm install` after the patch publishes is sufficient.
+- **Why this is a follow-up, not a #39 amendment**: the original proposal we authored explicitly locked rhythm unchanged at `intimate`. Live audit on 2026-05-17 reversed that call. Audit trail preserved in the §6.5 issue body.
 
 ### 6.4 `<Button size="compact">` — universal intermediate-size contract
 

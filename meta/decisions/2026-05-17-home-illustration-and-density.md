@@ -49,6 +49,8 @@ Five decisions resolved in a single sitting on 2026-05-17. Propagated changes:
 
 **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accept #39, ship minor version bump, site bumps DS dep. Engineer waits before consuming `size="intimate"` on `/`.~~ **RESOLVED 2026-05-17**: DS shipped `<Hero size>` prop via [poukai-ui#41](https://github.com/poukai-inc/poukai-ui/pull/41) in `@poukai-inc/ui@0.7.0`. Site bumped dep + consumed `size="intimate"` at commit `38ee1e0` (third partial ship in the home-redesign sequence).
 
+**Follow-up gap discovered on live audit (2026-05-17)**: at `size="intimate"`, the Hero rhythm tokens (`--space-6` status→title, `--space-8` title→lede) read disproportionately generous against the smaller title. The original #39 proposal we authored explicitly locked rhythm unchanged across variants — that lock is reversed via [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44), which proposes scaling rhythm one rung tighter at intimate (16/24px instead of 24/32px). New blocking dependency for the *full* D-18 close. Audit trail: original proposal said "rhythm unchanged"; live audit reversed; follow-up filed.
+
 ---
 
 ## D-19 — `.site-page` padding-block reduction
@@ -108,6 +110,6 @@ This breaks the earlier bundle-lock decision deliberately. The partial bundle is
 ## Open items after this decision cycle
 
 1. **Asset producer for D-17** — **deferred 2026-05-17 end-of-day**: Pouākai SVG production paused; Gemini A/B rev-3 + rev-4 did not converge on register. Prompt pack carries rev-3 + rev-4 long-form + rev-5 short-form as reference for future iteration. Whoever picks this back up: start with §2.2b short-form, fall back to §2.2a long-form if adherence misses.
-2. **DS-side review of [poukai-ui#39](https://github.com/poukai-inc/poukai-ui/issues/39) + [poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40) + [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42).** External lane; tracked via GH.
+2. **DS-side review of [poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40) + [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42) + [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44).** External lane; tracked via GH. [poukai-ui#39](https://github.com/poukai-inc/poukai-ui/issues/39) closed and shipped in 0.7.0; #44 is the live-audit follow-up tightening rhythm at intimate.
 3. **`/why-ai`, `/roles`, `/principles` amendments.** Sequenced post-`/`-ship.
 4. **D-22 candidate** — `<Button size="compact">` DS-gap. Decision was made implicitly when the proposal was filed; formal entry deferred until DS maintainers' response (accept / counter / reject). If accepted: log as D-22 with the chosen min-height and pairing-convention text. If countered or rejected: log as D-22 with the maintainers' framing and the chosen workaround.
