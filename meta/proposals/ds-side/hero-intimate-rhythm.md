@@ -23,15 +23,17 @@ Arian's reaction during live audit at `localhost:4321` on 2026-05-17: *"spacing 
 
 ## Proposed API
 
-**No new public API.** This is an internal Hero CSS adjustment — at `size="intimate"`, the rhythm tokens consumed by Hero shrink one rung on the DS spacing scale:
+**No new public API.** This is an internal Hero CSS adjustment — at `size="intimate"`, the rhythm tokens consumed by Hero shrink on the DS spacing scale. Status→title shrinks **two rungs** (label-relationship register); title→lede shrinks **one rung** (proportional to title mass):
 
 | Gap | At `size="display"` (current) | At `size="intimate"` (proposed) |
 |---|---|---|
-| status → title (status `margin-bottom`) | `--space-6` (24px) | `--space-4` (16px) |
+| status → title (status `margin-bottom`) | `--space-6` (24px) | `--space-3` (12px) |
 | title → lede (title `margin-bottom`, desktop) | `--space-8` (32px) | `--space-6` (24px) |
 | title → lede (title `margin-bottom`, mobile <768px) | `--space-6` (24px) | `--space-4` (16px) |
 
 CTA `margin-top` (`--space-8`) is **untouched** by this proposal — the affordance-to-text gap reads correctly at both sizes per the live audit.
+
+**Rationale for the two-rung status→title shrink** (designer audit, 2026-05-17): the eyebrow is doing *label work* for a softened title. Label-to-thing-it-labels relationships read best at ≤25% of the thing's vertical mass. `--space-3` lands at 23% of the intimate-max title (12 / 52); `--space-4` lands at 31%, still above the label-relationship threshold. The original consumer proposal had `--space-4` based on a mechanical one-rung pattern; the designer audit reversed that on optical grounds. Fallback: if `--space-3` reads cramped on first build, back off to `--space-4` — recoverable.
 
 ---
 
@@ -43,7 +45,7 @@ CTA `margin-top` (`--space-8`) is **untouched** by this proposal — the afforda
 
 CSS sketch:
 ```css
-.sizeIntimate .status { margin-bottom: var(--space-4); }
+.sizeIntimate .status { margin-bottom: var(--space-3); }
 .sizeIntimate .title  { margin-bottom: var(--space-4); }
 
 @media (min-width: 768px) {
@@ -87,7 +89,7 @@ No motion implications. No hydration implications. R-079 zero-JS contract preser
 
 ## Open questions for `@poukai-inc/poukai-ui` maintainers
 
-1. **Exact gap values**: `--space-4`/`--space-6` is the consumer's recommendation. The maintainers' typographic intuition may pick different rungs (`--space-3`/`--space-6`? `--space-4`/`--space-8`?).
+1. **Exact gap values**: `--space-3`/`--space-6` (status→title / title→lede desktop) is the consumer-side recommendation after designer audit. Maintainers may prefer the mechanical one-rung pattern (`--space-4`/`--space-6`) for consistency with how `display`-variant rhythm scales. Both are documented; pick the optical or the mechanical answer.
 2. **Mobile rhythm**: should the mobile gap (`--space-4` proposed) compress further at very narrow viewports (<375px)? Likely not — `--space-4` (16px) is already the minimum that reads as deliberate.
 3. **CTA gap (`--space-8`) at intimate**: keep unchanged as the consumer suggests, or also scale? Consumer's live audit on 2026-05-17 reported the CTA gap reads correctly at intimate; the maintainers may have a different read.
 4. **Future variants**: if a future `size` variant (e.g., `display-loud` or `compact`) lands, does this rhythm-scaling pattern generalize? Maintainers' call.
@@ -124,4 +126,6 @@ Live audit at `localhost:4321` after 0.7.0 consumption on 2026-05-17, Arian:
 
 > *"I see spacing between eyebrow, title and description looking too big."*
 
-This proposal reconciles the two by tightening rhythm at the intimate variant only.
+Initial consumer-side proposal (this document, rev 1) recommended one-rung-down across all gaps. Designer audit on the same day flagged status→title as under-corrected — `--space-4` at 31% of intimate-max title remains above the label-relationship threshold (≤25%). Proposal updated to rev 2 with status→title at `--space-3` (23%); other gaps confirmed by the audit.
+
+This proposal reconciles original spec lock (rhythm unchanged at intimate) with live-audit reality by tightening rhythm at the intimate variant only, with the eyebrow-to-title gap correctly registering as a label relationship.

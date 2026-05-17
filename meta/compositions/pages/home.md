@@ -241,6 +241,7 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 - **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accepts and ships the prop + token before this composition moves from `Approved` to `Built`. The engineer waits.~~ **RESOLVED 2026-05-17**: DS shipped via [poukai-ui#41](https://github.com/poukai-inc/poukai-ui/pull/41) in `@poukai-inc/ui@0.7.0`. Site consumed at commit `38ee1e0` (`size="intimate"` on `<Hero>` in `src/components/HomeHero.tsx`).
 - **Workaround if rejected**: Not applicable — proposal accepted and shipped.
 - **Live-audit follow-up (2026-05-17)**: at `size="intimate"`, the Hero rhythm tokens (`--space-6` status→title, `--space-8` title→lede) read disproportionately generous against the smaller title. The 0.7.0 ship locks rhythm unchanged across size variants per the original proposal — that lock is now reversed via follow-up DS-gap §6.5 ([poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44)). Until #44 lands, the site renders with the wider rhythm; this is documented interim state, not a bug.
+- **Density-signal guardrail (designer audit, 2026-05-17)**: `<Hero size="intimate">` is an **intentional density signal**, not a default downgrade. Future page specs adopting it (`/principles`, `/roles`, `/why-ai`) must justify the choice (e.g., editorial-dense page where smaller hero lets body content breathe earlier) rather than inherit from `/`. `display` remains the brand-canonical pattern for landing-class pages.
 
 ### 6.2 `<Hero illustration>` slot — universal editorial illustration contract
 
@@ -261,8 +262,8 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 ### 6.5 `<Hero size="intimate">` rhythm scaling — follow-up to §6.1
 
 - **Proposed file path in DS repo**: `proposals/hero-intimate-rhythm.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
-- **Scope**: At `<Hero size="intimate">`, scale internal rhythm one rung tighter — status→title `--space-6` → `--space-4` (16px), title→lede `--space-8` → `--space-6` (24px desktop) / `--space-6` → `--space-4` (16px mobile). CTA-gap (`--space-8`) untouched. No new public API; internal Hero CSS change only. **Patch** version bump per ADR-0003.
+- **Tracked**: [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`. **Rev 2 (2026-05-17)** after designer audit: status→title tightened from `--space-4` to `--space-3` (label-relationship register).
+- **Scope**: At `<Hero size="intimate">`, scale internal rhythm tighter — status→title `--space-6` → `--space-3` (12px), title→lede `--space-8` → `--space-6` (24px desktop) / `--space-6` → `--space-4` (16px mobile). CTA-gap (`--space-8`) untouched. No new public API; internal Hero CSS change only. **Patch** version bump per ADR-0003.
 - **Where it appears**: `/` Hero. Future: any consumer of `<Hero size="intimate">`.
 - **Blocking dependency**: `@poukai-inc/poukai-ui` maintainers accept and ship the rhythm tweak. Engineer flips zero code on adoption — `pnpm install` after the patch publishes is sufficient.
 - **Why this is a follow-up, not a #39 amendment**: the original proposal we authored explicitly locked rhythm unchanged at `intimate`. Live audit on 2026-05-17 reversed that call. Audit trail preserved in the §6.5 issue body.
