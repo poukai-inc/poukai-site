@@ -144,7 +144,7 @@ The spec's §4 IA lists three blocks: `SiteShell` chrome (header + hairline foot
 
 - **Motion**:
   - `<StatusBadge status="available">` triggers an automatic CSS keyframe pulse. **No JS, no `client:*` directive, no inline animation override.** The DS's `:root !important` block in `tokens.css` disables the pulse under `prefers-reduced-motion: reduce`. This composition forbids any site-side animation on top of the badge or on the Hero block. Confirms spec §8 AC.
-  - No entrance animation on the Hero. No intersection-triggered reveal. The page is short enough that the Hero is above the fold on every viewport — an entrance animation would be a JS hydration cost with no payoff against the spec's success criteria.
+  - **[Revised 2026-05-17 — was: "no entrance animation, would be a JS hydration cost"; faulty premise corrected after recall of holding-page motion]** Hero entrance animation is currently **not consumed** on `/` (no `entrance` prop passed). Restoration of the pre-cutover staggered reveal is on the DS-gap roadmap as **§6.6** ([poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47)). The lockout's old rationale ("would force `client:visible`, breaking R-079") was wrong — the holding page proved the effect is achievable with pure CSS keyframes + `animation-delay` + `animation-fill-mode: both`, zero JS. When the DS-gap ships, this composition will consume `<Hero entrance="stagger">` and restore the motion. Intersection-triggered reveal remains locked out (would require IntersectionObserver = JS).
   - **[New 2026-05-17]** The illustration is **static**. No hover state. No scroll trigger. No CSS animation of any kind. CSS-only positioning. R-079 zero-JS still binds. `prefers-reduced-motion: reduce` is trivially satisfied.
   - Link hover (the lede-extension `<a>` and the email anchor inside the `<Button>`) uses the DS's `--easing-link` and `--dur-fast` via `<Hero>`-internal and `<Button>`-internal styling. No site-side override.
 
@@ -212,7 +212,9 @@ The page ships zero JavaScript and one CSS-only animation:
 
 **Fires on initial render**: the StatusBadge pulse (CSS keyframes, JS-free).
 
-**Fires never (locked out by this composition)**: Hero entrance animation, stagger between status/title/lede/CTA, fade-in on the wordmark, marquee on the status line, illustration animation of any kind, any animation tied to `IntersectionObserver`. All of these would require a `client:*` directive and would violate the spec's "zero client-side JS shipped on `/`" AC (spec §8) and masterplan §4.3.
+**Fires never (locked out by this composition)**: scroll-triggered reveal, parallax, scroll-spy, marquee on the status line, illustration animation of any kind, any animation tied to `IntersectionObserver`. All of these would require a `client:*` directive and would violate the spec's "zero client-side JS shipped on `/`" AC (spec §8) and masterplan §4.3.
+
+**Pending restoration (via DS-gap §6.6, [poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47))**: Hero staggered entrance animation (status / title / lede / CTA reveal in top-down order, ~1.05s, CSS keyframes + `animation-delay`, gated by `prefers-reduced-motion`). The pre-cutover holding page (`public/index.html`, deleted in commit `9e56cdb`) shipped this with pure CSS — zero JS, R-079 honored. The original "locked out" rationale for entrance animation was faulty (claimed it required `client:*`); corrected on 2026-05-17 after recall of the holding-page implementation. SiteShell wordmark + footer fade-in are NOT in scope for #47 — separate DS-gap if Arian wants full-page parity.
 
 **`prefers-reduced-motion: reduce` behavior**: every animation on the page (the badge pulse and every link transition) is disabled by the DS's `:root !important` block in `tokens.css`. There is no exception. The composition does not need to instruct the engineer to add a `@media (prefers-reduced-motion)` rule — the DS handles it at the token layer. Closes the R21 motion-choreography concern.
 
@@ -258,6 +260,15 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 - **Status (revised after live audit 2026-05-17)**: `<Button>` `size` prop is in the public DS API at `@poukai-inc/ui@0.6.1` (`sm` 32px, `md` 44px, `lg` 52px). Partial-ship commit `9076cc4` shipped `<Button size="sm">` on `/`. **Live-page audit revealed the `sm/md` gap (12px) is too coarse**: `md` reads visually too heavy against brand restraint; `sm` reads visually too small against the (currently-default) `<Hero size="display">` title. New DS-gap filed for an intermediate `compact` size — see §6.4 below.
 - **Recommendation (composition-level, interim)**: `<Button asChild size="sm">` remains in `src/components/HomeHero.tsx` as a **transitional state** until [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42) ships `size="compact"`. Engineer then flips `size="sm"` → `size="compact"` in the same PR that consumes `<Hero size="intimate">` (poukai-ui#39).
 - **Pairing convention (revised)**: When `<Hero size="intimate">` lands, `size="sm"` Button is the proportional default. When `<Hero size="display">` (current default), the new `size="compact"` (~38px) is the proportional default once it ships; `size="md"` remains the DS-default fallback. This is a composition-layer convention, not a DS rule.
+
+### 6.6 `<Hero entrance>` prop — staggered CSS-only reveal on load
+
+- **Proposed file path in DS repo**: `proposals/hero-entrance-stagger.md` in `poukai-inc/poukai-ui`.
+- **Tracked**: [poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
+- **Scope**: Add `entrance?: "stagger"` prop on `<Hero>`. Default `undefined` (no animation, zero regression). When `"stagger"`, animates status (0ms) / title (150ms, +12px rise) / lede (300ms) / cta (450ms), each rising 8–12px with fade-in over 600–700ms. Total ~1.05s. CSS keyframes only; no JS, no IntersectionObserver. `animation-fill-mode: both` required. Gated by `prefers-reduced-motion: reduce`. **Minor** version bump per ADR-0003.
+- **Where it appears**: `/` Hero (this composition, after acceptance). Future: any consumer wanting an editorial-restrained entrance.
+- **Source-of-truth precedent**: pre-cutover `public/index.html` (deleted commit `9e56cdb`) shipped exactly this motion. The current composition's old §4 lockout was authored on the faulty premise that entrance animation requires JS; this gap corrects the premise + restores the capability.
+- **Blocking dependency**: `@poukai-inc/poukai-ui` maintainers accept and ship the prop. Engineer flips `<Hero entrance="stagger">` on consumption.
 
 ### 6.5 `<Hero size="intimate">` rhythm scaling — follow-up to §6.1
 
