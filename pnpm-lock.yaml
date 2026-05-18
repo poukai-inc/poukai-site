@@ -18,10 +18,8 @@ importers:
         specifier: 3.3.0
         version: 3.3.0
       '@poukai-inc/ui':
-
         specifier: 0.13.0
         version: 0.13.0(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(lucide-react@0.511.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
- 494bfda (chore: bump @poukai-inc/ui to 0.13.0)
       '@vercel/analytics':
         specifier: 1.4.1
         version: 1.4.1(react@18.3.1)
@@ -1097,7 +1095,6 @@ packages:
 
   '@poukai-inc/ui@0.13.0':
     resolution: {integrity: sha512-1fLOcL7jOb6DCsaFaQuBpTYW3kPbWDP11UWb+mFce8eOijQ6PQetFVyaYJSEbYdS7FbtUcL/msBa7oKSEeeAsA==, tarball: https://npm.pkg.github.com/download/@poukai-inc/ui/0.13.0/db4d76d47b696b28891ee23a9a2ce5063bb05c84}
- 494bfda (chore: bump @poukai-inc/ui to 0.13.0)
     peerDependencies:
       lucide-react: '>=0.400.0'
       react: '>=18'
@@ -4778,7 +4775,6 @@ snapshots:
 
 
   '@poukai-inc/ui@0.13.0(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(lucide-react@0.511.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
- 494bfda (chore: bump @poukai-inc/ui to 0.13.0)
     dependencies:
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot': 1.2.4(@types/react@18.3.28)(react@18.3.1)
