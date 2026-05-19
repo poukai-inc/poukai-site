@@ -1,7 +1,7 @@
 # Technical Requirements — pouk.ai marketing site
 
 **Status**: Approved
-**Last updated**: 2026-05-13
+**Last updated**: 2026-05-19
 **Author**: pouk-ai-reviewer
 **Decision authority**: Arian (founder)
 **Decisions resolved**: see `meta/decisions/launch-readiness.md` (D-14 through D-22, resolved 2026-05-13)
@@ -56,7 +56,7 @@ Requirements are numbered consecutively across all sub-topics so a future review
 
 **R-006 (HARD)** — Vercel is the deploy target. Build command `pnpm build`, output dir `dist`, install command `pnpm install --frozen-lockfile`, env var `NPM_TOKEN` configured as a Vercel secret. Verification: `vercel.json` (or Vercel project settings, evidenced by a successful preview deploy) match these values. Source: `meta/masterplan.md` section 5.2.
 
-**R-007 (HARD)** — All four canonical routes (`/`, `/why-ai`, `/roles`, `/principles`) exist as `.astro` files under `src/pages/`. No additional routes ship without an approved PM spec in `meta/specs/pages/`. Verification: directory listing of `src/pages/`; reviewer rejects new routes without a spec. Source: `meta/masterplan.md` section 1 ("Scope") and section 4.1.
+**R-007 (HARD)** — All five canonical routes (`/`, `/why-ai`, `/roles`, `/principles`, `/about`) exist as `.astro` files under `src/pages/`. The site also ships `src/pages/404.astro` (excluded from sitemap, `noindex`, no canonical, no JSON-LD per `meta/specs/pages/404.md` §6). No additional routes ship without an approved PM spec in `meta/specs/pages/`. Verification: directory listing of `src/pages/`; reviewer rejects new routes without a spec. Source: `meta/masterplan.md` section 1 ("Scope") and section 4.1; `meta/specs/pages/about.md` (A4 — four-item nav with About); `meta/specs/pages/404.md` (salvage page, not in nav, not in sitemap).
 
 **R-008 (SOFT)** — Astro integrations are limited to `@astrojs/react`, `@astrojs/sitemap`, `@astrojs/check`, and `astro-compress` unless a PR justifies an addition with a one-line rationale. Verification: `astro.config.mjs` integrations match; new integrations called out in PR description. Source: `meta/masterplan.md` section 4.2.
 
@@ -66,9 +66,9 @@ Requirements are numbered consecutively across all sub-topics so a future review
 
 The original posture (zero client JS on `/`) was relaxed on 2026-05-13 by decisions D-15 (Matomo on every page) and D-16 (Bugsink on every page). Zero-JS-on-`/` was a *means*, not the end. The end — fast, private, accessible — is preserved by the budget rules below. See section 5 (Rationale) for the full reasoning.
 
-**R-009 (HARD)** — Client JS on any page is limited to: (a) first-party analytics (Matomo tracker, per R-060); (b) first-party error reporting (Bugsink / Sentry-compatible browser SDK, per R-061); (c) `@poukai-inc/ui` islands explicitly hydrated with an inline `// hydration: <reason>` comment on the same line or the line above. No other client JS — no third-party analytics SDKs, no chat widgets, no A/B testing, no marketing pixels, no embedded video players — ships without an explicit standards revision approved by Arian. Verification: grep the built HTML for `<script` tags and external `src=` attributes; every match must map to one of (a), (b), or (c). Source: `meta/decisions/launch-readiness.md` D-15 and D-16; `meta/masterplan.md` section 4.3 (hydration discipline carries over).
+**R-009 (HARD)** — Client JS on any page is limited to: (a) first-party analytics (Matomo tracker, per R-060); (b) first-party error reporting (Bugsink / Sentry-compatible browser SDK, per R-061); (c) `@poukai-inc/ui` islands explicitly hydrated with an inline `// hydration: <reason>` comment on the same line or the line above; (d) Vercel Web Analytics (`@vercel/analytics/astro`), gated on the build-time `VERCEL=1` env var so the script is emitted only on Vercel deploys (its `/_vercel/insights/script.js` URL 404s elsewhere). Vercel Analytics is cookieless, served same-origin on Vercel deploys, and complements (a) by capturing Vercel-side request signals Matomo cannot. No other client JS — no third-party analytics SDKs, no chat widgets, no A/B testing, no marketing pixels, no embedded video players — ships without an explicit standards revision approved by Arian. Verification: grep the built HTML for `<script` tags and external `src=` attributes; every match must map to one of (a), (b), (c), or (d). Source: `meta/decisions/launch-readiness.md` D-15 and D-16; `meta/masterplan.md` section 4.3 (hydration discipline carries over); Vercel Analytics admitted by review on 2026-05-18 (worktree `funny-chebyshev-beebd7`) — gated emit + cookieless + same-origin on deploy targets satisfies the privacy + budget envelope.
 
-**R-010 (HARD)** — Total third-party JS payload on any page is ≤ 75 kB gzipped. Matomo's tracker (~25 kB) plus Bugsink's browser SDK (~40 kB) together baseline at ~65 kB; the 75 kB ceiling leaves a small headroom and forces a hard conversation if a third tool is proposed. Verification: measure each external `<script src>` artifact's gzipped size on the preview deploy; sum across all third-party scripts on the page; fail the deploy if sum > 75 kB. Source: `meta/decisions/launch-readiness.md` D-15 and D-16 (tool picks); reviewer judgment on headroom calibration.
+**R-010 (HARD)** — Total third-party JS payload on any page is ≤ 75 kB gzipped. Matomo's tracker (~25 kB) plus Bugsink's browser SDK (~40 kB) plus Vercel Web Analytics (~1.5 kB; same-origin on Vercel deploys but counted against the budget for prudence) together baseline at ~66.5 kB; the 75 kB ceiling leaves ~8 kB headroom and forces a hard conversation if a fourth tool is proposed. Verification: measure each external `<script src>` artifact's gzipped size on the preview deploy; sum across all whitelisted scripts on the page (Matomo, Bugsink, Vercel Analytics); fail the deploy if sum > 75 kB. Source: `meta/decisions/launch-readiness.md` D-15 and D-16 (tool picks); reviewer judgment on headroom calibration; Vercel Analytics size added on 2026-05-18 with the R-009 amendment.
 
 **R-011 (HARD)** — Every third-party `<script>` tag is `defer`-ed (or has `async` where defer would re-order critical execution) and is loaded after the meaningful paint. Render-blocking third-party JS is forbidden. Inline `<script>` tags carrying third-party logic are forbidden — third-party logic loads from its own file, even if it lives on the same origin (self-hosted Matomo / Bugsink). Verification: parse every `<script>` tag in the built HTML; every external third-party script has `defer` or `async`; Lighthouse "render-blocking-resources" audit passes. Source: `meta/decisions/launch-readiness.md` D-15 and D-16; `meta/masterplan.md` section 1 (Quality bar implies critical-path discipline).
 
@@ -260,14 +260,16 @@ The original posture (zero client JS on `/`) was relaxed on 2026-05-13 by decisi
 
 | Gate | Tool | Requirements covered |
 | --- | --- | --- |
-| Lint | ESLint (with `no-console`, `no-debugger`) | R-073 |
+| Lint | ESLint `no-console`, `no-debugger` (`pnpm lint`, `--max-warnings=0`) — **CI-enforced** via `lint` job | R-073 |
 | Type check | `astro check` | R-055 |
 | Build | `pnpm build` | R-054 |
 | Lighthouse | `lighthouse-ci` on preview (Perf ≥ 95, A11y/BP/SEO = 100) | R-013, R-014, R-015, R-023, R-056 |
 | Axe-core | `@axe-core/playwright` on preview | R-024–R-033, R-057 |
-| Client-JS budget | parse built HTML; sum gzipped third-party JS ≤ 75 kB | R-009, R-010, R-011, R-012, R-078, R-079, R-080 |
+| Client-JS budget | `node .github/scripts/client-js-budget.mjs` — parse built HTML; sum gzipped third-party JS ≤ 75 kB — **CI-enforced** via `client-js-budget` job | R-009, R-010, R-011, R-012, R-078, R-079, R-080 |
+| HTML weight | `node .github/scripts/html-weight-check.mjs` — gzipped HTML ≤ 110% of `.github/baselines/html-weight.json` per route — **CI-enforced** via `html-weight` job | R-015 |
 | Test coverage | `pnpm test` + coverage report on changed files (≥ 80% when tests exist) | R-058 |
-| Security headers | `curl -I` on preview deploy | R-042–R-045 |
+| Security headers (config) | `node .github/scripts/security-headers-check.mjs` — asserts four required keys in `vercel.json` catch-all rule — **CI-enforced** via `security-headers` job | R-042–R-045 |
+| Security headers (runtime) | `curl -I` on Vercel preview deploy URL — deploy-time check; Astro local preview does not emit Vercel edge headers | R-042–R-045 |
 | security.txt | `curl /.well-known/security.txt` (SOFT until R-047 lands) | R-081 |
 | Dependency audit | `pnpm audit --prod --audit-level=high` | R-049 |
 | License check | `pnpm licenses list` (or `license-checker`) | R-064 |
@@ -301,6 +303,7 @@ The original draft of this document held two related positions: (a) Lighthouse P
 | --- | --- | --- |
 | 2026-05-13 | pouk-ai-reviewer | Initial Draft. R-001 through R-077 published. Status: Draft. |
 | 2026-05-13 | pouk-ai-reviewer | Promoted Draft → Approved via `meta/decisions/launch-readiness.md` D-14 through D-22. Rewrote section 3.2 (Zero-JS contract → Client JS budget and discipline); R-009/R-010/R-011/R-012 replaced; old R-010 hydration discipline → R-078, old R-011 DS-SSR rule → R-079. Updated R-013 (Lighthouse Perf ≥ 95, A11y/BP/SEO = 100), R-046 (no CSP on launch), R-056 (lighthouse-ci thresholds), R-058 (test coverage ≥ 80% on changed files when tests exist), R-060 (Matomo locked), R-061 (Bugsink locked), R-062 (defer discipline for first-party tools), R-070 (branch naming SOFT, reviewer-NIT only), R-072 (Conventional Commits SOFT). Added R-080 (no service worker), R-081 (security.txt, SOFT until email lands). Closed O-001 through O-009; left O-010 noted as resolved; added O-011 (Matomo deployment shape) and O-012 (Bugsink deployment shape). |
+| 2026-05-19 | pouk-ai-engineer | Promoted four declared requirements from aspirational to **CI-enforced** (closes OMC-CI1–CI4). Added `lint` CI job: ESLint 9 flat config (`eslint.config.js`), `no-console: error`, `no-debugger: error`, `@typescript-eslint/no-unused-vars: warn`, `@typescript-eslint/no-explicit-any: warn`, scoped to `src/**/*.{ts,tsx,astro}`; `pnpm lint --max-warnings=0` gates every PR (R-073). Added `client-js-budget` CI job: `.github/scripts/client-js-budget.mjs` walks `dist/**/*.html`, sums gzipped third-party script payload, fails if any page exceeds 75 kB (R-010). Added `html-weight` CI job: `.github/scripts/html-weight-check.mjs` compares gzipped HTML per route against `.github/baselines/html-weight.json` (baseline committed 2026-05-19); fails if any route exceeds 110% of baseline (R-015). Added `security-headers` CI job: `.github/scripts/security-headers-check.mjs` reads `vercel.json` and asserts all four required header keys are present in the catch-all rule (R-042–R-045); runtime `curl -I` check documented as a separate deploy-time step. Updated verification matrix to distinguish CI-enforced gates from deploy-time checks. |
 
 ---
 

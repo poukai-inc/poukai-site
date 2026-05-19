@@ -1,0 +1,11 @@
+{
+  "_comment": "Gzipped HTML byte counts per route. Generated 2026-05-19 against main (worktree funny-chebyshev-beebd7). Update this file in a dedicated PR when intentional HTML growth lands — never auto-update in the same PR as a content or feature change. See .github/scripts/html-weight-check.mjs for the update protocol.",
+  "routes": {
+    "/": 4846,
+    "/why-ai": 8461,
+    "/roles": 6320,
+    "/principles": 7160,
+    "/about": 5672,
+    "/404": 4671
+  }
+}
