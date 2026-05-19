@@ -69,6 +69,129 @@ jobs:
       - name: Build (astro check && astro build)
         run: pnpm build
 
+  client-js-budget:
+    name: client-js-budget — ≤75 kB gzipped third-party JS (R-010)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        # R-010 check requires dist/ HTML to parse for <script> tags.
+        # Matomo/Bugsink env vars are not set here — a default build produces
+        # no third-party script tags, so the check passes at 0 kB. Production
+        # builds (with those env vars set) will surface ~66.5 kB baseline.
+        run: pnpm build
+
+      - name: Check client-JS budget
+        # R-010 HARD: total third-party JS ≤ 75 kB gzipped per page.
+        # First-party /_astro/ hydration islands are exempt (R-009(c)).
+        # Vercel Analytics (~1.5 kB) counted statically when present.
+        run: node .github/scripts/client-js-budget.mjs
+
+  html-weight:
+    name: html-weight — ≤110% of baseline gzipped (R-015)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check HTML weight
+        # R-015 HARD: gzipped HTML weight per route ≤ 110% of the baseline
+        # committed in .github/baselines/html-weight.json. Emits a markdown
+        # table to stdout for review visibility.
+        # Baseline update protocol: see top-of-file comment in
+        # .github/scripts/html-weight-check.mjs — baselines are updated by
+        # hand in a separate PR, never auto-updated.
+        run: node .github/scripts/html-weight-check.mjs
+
+  security-headers:
+    name: security-headers — vercel.json config (R-042–R-045)
+    runs-on: ubuntu-latest
+    # No build dependency — this job only reads vercel.json.
+    # It is a config-correctness check: asserts the four required header keys
+    # are present in the catch-all rule before they ever reach Vercel's edge.
+    # Runtime verification (curl -I on the preview URL) is a deploy-time check
+    # documented in technical-requirements.md R-042–R-045.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check security headers in vercel.json
+        # R-042 HARD: Strict-Transport-Security present.
+        # R-043 HARD: X-Content-Type-Options present.
+        # R-044 HARD: Referrer-Policy present.
+        # R-045 HARD: Permissions-Policy present.
+        # X-Frame-Options is also checked (warn-only — not yet an R-NNN requirement).
+        run: node .github/scripts/security-headers-check.mjs
+
+  lint:
+    name: lint — ESLint no-console/no-debugger (R-073)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint (ESLint)
+        # R-073 HARD: no console.log, no debugger, no dead imports in src/.
+        # --max-warnings=0 makes any warning a CI failure — warnings here
+        # indicate real code-quality issues (@typescript-eslint/no-unused-vars,
+        # @typescript-eslint/no-explicit-any) that must be addressed before merge.
+        run: pnpm lint
+
   audit:
     name: audit — pnpm audit --prod (R-049)
     runs-on: ubuntu-latest
@@ -247,7 +370,7 @@ jobs:
           echo "::error::preview server did not start within 30s"
           exit 1
 
-      - name: Run axe against all four routes
+      - name: Run axe against all five routes
         # R-029 HARD: zero axe violations on every preview deploy.
         # --exit makes a violation non-zero exit (CI red).
         # Default tag set: wcag2a, wcag2aa, wcag21a, wcag21aa, best-practice — matches
@@ -267,6 +390,7 @@ jobs:
             http://localhost:4321/why-ai/ \
             http://localhost:4321/roles/ \
             http://localhost:4321/principles/ \
+            http://localhost:4321/about/ \
             --load-delay 1500 \
             --save .axe-reports/results.json \
             --exit
