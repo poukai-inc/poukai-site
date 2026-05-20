@@ -157,11 +157,29 @@ jobs:
             echo 'LLMS_END'
           } >> "$GITHUB_OUTPUT"
 
+      # Mint a GitHub App installation token so the resulting PR is authored
+      # by the `pouk-ai-bot` App identity rather than the workflow's default
+      # GITHUB_TOKEN. PRs/pushes created via GITHUB_TOKEN are silently exempted
+      # from triggering further workflow runs (GitHub's anti-recursion guard),
+      # which previously left bot-opened DS bump PRs sitting BLOCKED because
+      # ci.yml never fired against them. The App token bypasses that guard.
+      #
+      # Requires repo secrets BOT_APP_ID + BOT_APP_PRIVATE_KEY (provisioned
+      # 2026-05-20). The App needs Contents R/W + Pull requests R/W +
+      # Workflows R/W on this repo.
+      - name: Mint App installation token
+        if: steps.check.outputs.skip != 'true'
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Open draft PR
         if: steps.check.outputs.skip != 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           branch: bot/ds-bump-${{ env.DS_VERSION }}
           delete-branch: true
           title: "chore: bump @poukai-inc/ui to ${{ env.DS_VERSION }}"
