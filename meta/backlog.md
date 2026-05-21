@@ -706,4 +706,73 @@ Source: 4-lane parallel OMC review (architect / pouk-ai-content / code-reviewer 
 
   **Ship sequencing recommendation:** ship after OMC-V1/V2 prospect-audience rewrites land on `/why-ai` + `/principles` (the audience contract is currently mid-flight). `/onboarding` is the third page in the prospect-audience cohort and benefits from landing after the voice contract proves out on the existing pages.
 
+---
+
+## IA restructure — 2026-05-20 planning record
+
+**Status:** Analysis complete. No tasks opened. Blocked on DS component readiness — `@poukai-inc/ui` maintainers are building new components for this expansion.
+
+**Current IA (5 pages):**
+
+```
+/               home
+/why-ai         diagnosis
+/roles          engagement shapes (4 cards)
+/principles     operating values
+/about          founder + name origin
+```
+
+**Proposed IA (8 pages):**
+
+```
+/               home (keep)
+/why-ai         diagnosis (keep — minor nav/CTA update)
+/solutions      replaces /roles; Roles reframed as capabilities
+/enterprise     new — production-grade AI, 7 pillars
+/principles     keep
+/work           new — case studies / proof
+/careers        new — hiring + Roles reframed for candidates
+/about          keep
+```
+
+**Primary nav:** `Why AI · Solutions · Principles · Work · About`
+**Footer nav:** `Careers` (hiring audience is secondary to buyers)
+
+---
+
+### Key decisions recorded
+
+**`/solutions` replaces `/roles`**
+Current `/roles` is a top-level nav item with 4 engagement shapes (Builder, Automator, Educator, Creator). These are service capabilities, not standalone concepts. Moving them under `/solutions` frames them correctly as "what pouk.ai delivers" rather than as a taxonomy page.
+
+**`/careers` is a separate page — not `/roles` renamed**
+pouk.ai is always in hiring mode. `/careers` serves candidates. Content: why join, the four functions we hire into (Roles content reframed), open roles or "always taking introductions." Roles content pulls double duty — capability proof for buyers on `/solutions`, talent signal for candidates on `/careers`. Same cards, different frame.
+
+**`/enterprise` is a new standalone page**
+Content source: founder brief (2026-05-20) covering 7 production pillars (Security & Privacy, Reliability, Monitoring, Human Oversight, Cost Management, Version Control, Interoperability), launch checklist, start-simple ladder, common pitfalls, pre-launch questions. Too substantial to fold into `/solutions` without diluting both. Buyer-objection page: answers "can your systems hold up in production?"
+
+**`/work` is new but build-blocked**
+Needs work to show. Placeholder slot in the IA; don't spec or build until there are 2+ case studies to anchor it.
+
+**`/onboarding` (previous backlog item) stays in the funnel**
+Not affected by this restructure. Ships after `/why-ai` + `/principles` audience-contract rewrites land.
+
+---
+
+### Build order (when DS components are ready)
+
+1. `/solutions` — highest buyer impact, replaces a live route
+2. `/enterprise` — closes production-grade objection
+3. `/careers` — hiring signal, lower urgency
+4. `/work` — blocked until case studies exist
+
+Each page needs: PM spec → content draft → DS composition → engineer build → review. No lane has been opened yet.
+
+---
+
+### DS dependency note
+
+`@poukai-inc/ui` maintainers are building new components specifically for this IA expansion. No site-side work begins until DS components are ready and versioned. Coordination point: once DS cuts a version that includes the new molecules/organisms needed for `/solutions` and `/enterprise`, re-open this section and begin PM spec lane.
+
+
 
