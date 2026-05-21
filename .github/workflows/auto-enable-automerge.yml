@@ -1,0 +1,41 @@
+name: auto-enable-automerge
+
+# Enable GitHub auto-merge on every non-draft PR as soon as it's opened
+# (or marked ready-for-review). Once enabled, the PR sits in the auto-merge
+# queue until all required checks pass and any required reviews are met,
+# then GitHub merges it without further manual action.
+#
+# Repo prerequisites (one-time, already configured 2026-05-19):
+#   - Settings → Pull Requests → "Allow auto-merge"     = ON
+#   - Settings → Pull Requests → "Automatically delete head branches" = ON
+#   - Branch protection on `main` with at least one required status check
+#     (otherwise auto-merge has no gate to wait on and the API refuses).
+#
+# Notes:
+#   - Draft PRs are skipped. When a draft transitions to ready-for-review the
+#     `ready_for_review` event re-runs this workflow and enables auto-merge.
+#   - Uses `--squash` to match the repo's stated merge strategy (linear main).
+#   - Uses the workflow's GITHUB_TOKEN; `pull-requests: write` + `contents: write`
+#     are the minimum scopes needed to call the auto-merge GraphQL mutation.
+#   - If a PR already has auto-merge enabled, `gh pr merge --auto` is a no-op.
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  enable:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge (squash)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh pr merge "$PR_NUMBER" --repo "$REPO" --auto --squash
