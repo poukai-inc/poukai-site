@@ -774,5 +774,77 @@ Each page needs: PM spec → content draft → DS composition → engineer build
 
 `@poukai-inc/ui` maintainers are building new components specifically for this IA expansion. No site-side work begins until DS components are ready and versioned. Coordination point: once DS cuts a version that includes the new molecules/organisms needed for `/solutions` and `/enterprise`, re-open this section and begin PM spec lane.
 
+---
+
+## Stack alignment — 2026-05-20 (issue [#51](https://github.com/poukai-inc/pouk.ai/issues/51))
+
+Cross-repo stack audit on 2026-05-20 (`autopost`, `pouk.ai`, `@poukai-inc/ui`). Five tasks land here. Decisions captured in `poukai org/STACK_ALIGNMENT_DECISIONS.md` (working copy, not pushed). Companion: DS [poukai-inc/poukai-ui#105](https://github.com/poukai-inc/poukai-ui/issues/105); `autopost/BACKLOG.md` rows #37, #38, #117–#121.
+
+### D6 — Bump `@poukai-inc/ui` (HIGH)
+
+**Step 1 (0.17 → 0.18).** Closed — superseded. Repo is at `@poukai-inc/ui@1.0.0` as of [#48](https://github.com/poukai-inc/pouk.ai/pull/48) (commit `f354f94`). Audit snapshot lagged behind real state by ~10 versions; the auto-bump CI pipeline carried the lib all the way through 0.18 → 0.19 → 0.20 → 0.21 → 0.22 → 0.22.1 → 1.0.0 in the interim.
+
+**Step 2 (next R19-compatible release).** Open — gated. Land simultaneously with D1 React 19 upgrade. Trigger: `@poukai-inc/ui` ships the dual-peer (`react >=18 || >=19`) release tracked in [poukai-inc/poukai-ui#105](https://github.com/poukai-inc/poukai-ui/issues/105). Auto-bump CI may pick it up before D1 lands — if so, hold the bump PR until React 19 is ready (do not merge a lib version that drops React 18 peer support until R19 is in place here).
+
+### D1 — React 18 → 19 upgrade (HIGH, gated)
+
+`pouk.ai` runs React 18.3.1; `autopost` runs React 19 (Next 16 forced). Org converges on R19.
+
+**Gate.** Wait for [poukai-inc/poukai-ui#105](https://github.com/poukai-inc/poukai-ui/issues/105) lib release with dual-peer support.
+
+**Tasks (after gate clears):**
+
+- [ ] Bump `react` 18.3.1 → 19.x, `react-dom` 18.3.1 → 19.x in `package.json`
+- [ ] Bump `@types/react` and `@types/react-dom` to 19.x
+- [ ] Bump `@poukai-inc/ui` to the R19-compatible release (D6 step 2)
+- [ ] Update `@astrojs/react` if needed for R19 compatibility (currently 4.2.1)
+- [ ] Re-run Vitest + Playwright + Argos visual tests; resolve regressions
+- [ ] Confirm `eslint.config.js` `settings.react.version` resolves to 19 (currently inherits from `package.json`)
+
+### D4 — `lucide-react` alignment (MEDIUM, cross-repo coordinated)
+
+Three different versions across the org: `autopost` 0.562, `pouk.ai` 0.511, lib peer `>=0.400`. Note: lucide-react has since cut a 1.x line (latest 1.16.0 at audit recheck) — the org-wide decision still stands at "same recent 0.5xx" per [#51](https://github.com/poukai-inc/pouk.ai/issues/51); confirm with `autopost` and `@poukai-inc/ui` whether to revise the target to 1.x before bumping here.
+
+**Tasks:**
+
+- [ ] Confirm coordinated target version with `autopost` + `@poukai-inc/ui` (suggest `0.562` to match autopost; revisit if org agrees on 1.x)
+- [ ] Bump `lucide-react` 0.511 → target in `package.json`
+- [ ] Audit lucide changelog between 0.511 and target for icon renames; verify no breakage in components/pages
+- [ ] Land same minor as the other two repos within the same sprint
+
+### C8 — Pin pnpm via `packageManager` (P2, LOW, deferred)
+
+`autopost` pins `pnpm@10.33.0`. This repo declares pnpm via lockfile but no `packageManager` field → CI/dev machines can resolve different minors → lockfile churn. Local pnpm currently resolves to `10.33.0`.
+
+**Task:**
+
+- [ ] Add `"packageManager": "pnpm@10.33.0"` to `package.json`
+
+### C4 — Vite version duplication in lockfile (P2, LOW, deferred)
+
+Lockfile currently resolves `vite@5.4.21` AND `vite@6.4.2`:
+- Astro 5.18 pulls Vite 6
+- Vitest 2.1 + Playwright CT pull Vite 5
+
+Two majors = duplicated tooling, slower CI, plugin-API mismatch risk. Vitest latest at recheck is 4.x; issue prescribes 3.x as Vite-6-compatible target.
+
+**Tasks:**
+
+- [ ] Bump `vitest` 2.x → 3.x (or 4.x — revisit since 4 is now latest)
+- [ ] Bump `@vitest/coverage-v8` to matching major
+- [ ] If `@playwright/test` still pulls Vite 5, confirm it is a transitive devDep only and accept (Playwright CT's Vite dep is upstream-pinned)
+- [ ] Verify `pnpm-lock.yaml` resolves a single Vite 6 entry (or document Playwright CT exception)
+
+### Priority
+
+| Item | Priority | Status |
+|---|---|---|
+| D6 step 1 | HIGH | **Closed** — superseded by `@poukai-inc/ui@1.0.0` already on `main` |
+| D1 React 19 | HIGH | **Open, gated** on DS [#105](https://github.com/poukai-inc/poukai-ui/issues/105) |
+| D6 step 2 | HIGH | **Open, gated** — lands with D1 |
+| D4 lucide alignment | MEDIUM | **Open** — cross-repo coordination required |
+| C8 pnpm pin | LOW (P2) | **Open** — trivial, no blockers |
+| C4 Vite duplication | LOW (P2) | **Open** — moderate risk; needs visual regression pass |
+
 
 
