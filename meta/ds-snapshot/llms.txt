@@ -4,7 +4,7 @@
 
 Poukai is a React component library organised by Atomic Design (tokens → atoms → molecules → organisms).
 
-Version: `1.0.0`
+Version: `1.2.0`
 
 ## LLM context
 
@@ -32,6 +32,30 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/atoms`
 - `@poukai-inc/ui/molecules`
 - `@poukai-inc/ui/organisms`
+- `@poukai-inc/ui/atoms/Avatar`
+- `@poukai-inc/ui/atoms/Button`
+- `@poukai-inc/ui/atoms/EmailLink`
+- `@poukai-inc/ui/atoms/Eyebrow`
+- `@poukai-inc/ui/atoms/Stat`
+- `@poukai-inc/ui/atoms/StatusBadge`
+- `@poukai-inc/ui/atoms/Tag`
+- `@poukai-inc/ui/atoms/Wordmark`
+- `@poukai-inc/ui/molecules/FailureMode`
+- `@poukai-inc/ui/molecules/FeatureCard`
+- `@poukai-inc/ui/molecules/FieldNote`
+- `@poukai-inc/ui/molecules/Hero`
+- `@poukai-inc/ui/molecules/LinkCard`
+- `@poukai-inc/ui/molecules/Portrait`
+- `@poukai-inc/ui/molecules/Principle`
+- `@poukai-inc/ui/molecules/Pull`
+- `@poukai-inc/ui/molecules/Quote`
+- `@poukai-inc/ui/molecules/RoleCard`
+- `@poukai-inc/ui/molecules/Section`
+- `@poukai-inc/ui/molecules/Statement`
+- `@poukai-inc/ui/molecules/TeamCard`
+- `@poukai-inc/ui/organisms/Dialog`
+- `@poukai-inc/ui/organisms/Footer`
+- `@poukai-inc/ui/organisms/SiteShell`
 - `@poukai-inc/ui/tokens.css`
 - `@poukai-inc/ui/fonts/*`
 - `@poukai-inc/ui/brand/*`
