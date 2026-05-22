@@ -1,0 +1,107 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":dependencyDashboard",
+    ":maintainLockFilesWeekly",
+    "schedule:weekends",
+    "group:monorepos",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "timezone": "America/Los_Angeles",
+  "labels": ["dependencies"],
+  "semanticCommitScope": "deps",
+  "rangeStrategy": "bump",
+  "prHourlyLimit": 4,
+  "prConcurrentLimit": 10,
+  "rebaseWhen": "behind-base-branch",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on Monday"],
+    "commitMessageAction": "refresh",
+    "commitMessageTopic": "pnpm-lock.yaml"
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "schedule": []
+  },
+  "ignoreDeps": [],
+  "packageRules": [
+    {
+      "description": "@poukai-inc/ui is managed by the custom ds-bump.yml workflow (repository_dispatch from the DS repo). Renovate must not race that pipeline.",
+      "matchPackageNames": ["@poukai-inc/ui"],
+      "enabled": false
+    },
+    {
+      "description": "React + React-DOM move together. Major bump (18 -> 19) is gated on @poukai-inc/poukai-ui#105 — bot may open the PR; Arian holds merge until DS dual-peer release lands.",
+      "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
+      "groupName": "react",
+      "labels": ["dependencies", "react"]
+    },
+    {
+      "description": "Astro ecosystem moves together.",
+      "matchPackageNames": ["astro", "@astrojs/check", "@astrojs/react", "@astrojs/sitemap", "astro-compress", "astro-eslint-parser", "eslint-plugin-astro"],
+      "groupName": "astro"
+    },
+    {
+      "description": "Vitest + coverage-v8 are version-locked. Vitest 3.x is the Vite-6-compatible target (issue #51 C4).",
+      "matchPackageNames": ["vitest", "@vitest/coverage-v8"],
+      "groupName": "vitest"
+    },
+    {
+      "description": "Playwright + Argos visual test infra. Any bump needs a visual regression pass — keep manual.",
+      "matchPackageNames": ["@playwright/test", "@argos-ci/cli", "@argos-ci/playwright"],
+      "groupName": "playwright-argos",
+      "automerge": false,
+      "labels": ["dependencies", "visual-tests"]
+    },
+    {
+      "description": "TypeScript + ESLint toolchain.",
+      "matchPackageNames": ["typescript", "eslint", "@typescript-eslint/eslint-plugin", "@typescript-eslint/parser"],
+      "groupName": "typescript-eslint"
+    },
+    {
+      "description": "lucide-react is cross-repo coordinated (autopost + DS share the version floor). Don't auto-merge — issue #51 D4.",
+      "matchPackageNames": ["lucide-react"],
+      "groupName": "lucide-react",
+      "automerge": false,
+      "labels": ["dependencies", "cross-repo-coord"]
+    },
+    {
+      "description": "Auto-merge dev-dependency patch + minor after CI passes.",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Auto-merge prod patch updates after CI passes.",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Never auto-merge majors anywhere.",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "description": "GitHub Actions pin to digests (extends helpers:pinGitHubActionDigests); group + auto-merge patch/minor.",
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "matchUpdateTypes": ["patch", "minor", "digest"]
+    }
+  ],
+  "node": {
+    "enabled": false
+  }
+}
