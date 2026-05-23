@@ -2,6 +2,16 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install --frozen-lockfile",
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "https://pouk-ai-app.vercel.app/admin"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "https://pouk-ai-app.vercel.app/admin/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -12,8 +12,17 @@ export default defineConfig({
     // Exclude /404 from sitemap — meta/specs/pages/404.md §6 requires the
     // 404 route to be absent from sitemap.xml (listing an error page is a
     // crawler-confusion anti-pattern).
+    //
+    // Also exclude anything under /admin — that path is reverse-proxied via
+    // vercel.json `rewrites` to the authenticated product app
+    // (poukai-inc/pouk.ai-app). It is `robots: noindex,nofollow` at the
+    // target, must never appear in pouk.ai's sitemap.
     sitemap({
-      filter: (page) => !page.endsWith("/404/") && !page.endsWith("/404"),
+      filter: (page) =>
+        !page.endsWith("/404/") &&
+        !page.endsWith("/404") &&
+        !page.includes("/admin/") &&
+        !page.endsWith("/admin"),
     }),
     // CSS is already minified by Vite's rollup pipeline (single-line, no whitespace).
     // The double-pass through astro-compress's csso/lightningcss chokes on the
