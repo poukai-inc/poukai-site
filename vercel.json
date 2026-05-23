@@ -8,6 +8,10 @@
       "destination": "https://pouk-ai-app.vercel.app/admin"
     },
     {
+      "source": "/admin/",
+      "destination": "https://pouk-ai-app.vercel.app/admin"
+    },
+    {
       "source": "/admin/:path*",
       "destination": "https://pouk-ai-app.vercel.app/admin/:path*"
     }
