@@ -383,6 +383,14 @@ jobs:
         # explicitly allow it for this `pnpm dlx` invocation via
         # `--allow-build=chromedriver`. Scoped to this command only — local
         # installs are unaffected.
+        #
+        # DETECT_CHROMEDRIVER_VERSION=true makes the chromedriver install
+        # script detect the runner's preinstalled Chrome (currently 148.x)
+        # and pull a matching driver instead of the latest (149.x). Without
+        # this, the GH-hosted runner ends up with Chrome 148 + ChromeDriver
+        # 149 → "session not created: ChromeDriver only supports Chrome 149".
+        env:
+          DETECT_CHROMEDRIVER_VERSION: "true"
         run: |
           mkdir -p .axe-reports
           pnpm dlx --allow-build=chromedriver "@axe-core/cli@4.10.0" \
