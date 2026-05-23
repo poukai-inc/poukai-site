@@ -19,14 +19,18 @@ All tokens live in `src/tokens/tokens.css` on `:root`. Owned exclusively by `pou
 - `--fg: #1d1d1f` — Primary text, wordmark fill, sigil stroke, and the `primary` button background (inverts: `--fg` fill, `--bg` text). The only color allowed for body paragraph text. NEVER use decoratively as a background wash.
 - `--fg-muted: #6e6e73` — Secondary text: captions, footer copy, eyebrow labels, lede paragraphs, hiredBy lines, Stat provenance. NEVER use for primary calls to action. NEVER use as a disabled-state substitute.
 - `--hairline: #d2d2d7` — Dividers, 1px rules, borders. Always applied as a border/border-top/border-bottom, NEVER as a background. Never render thicker than `--hairline-w: 1px`.
+- `--hairline-soft: #e5e5ea` — Quieter decorative separator. Sits between `--hairline` and `--surface` in the neutral ramp. Use where a hairline would be too assertive — e.g. between adjacent tiles that already share a surface background. NEVER use for interactive borders or focus rings.
 - `--accent: #0071e3` — The brand’s single accent. Roles: status dot fill, link underline-on-hover (the accent layer grows over the resting hairline underline), focus rings. NEVER use as a surface fill, body text color, or button background. It is a signal color: interactivity and focus only. `--accent` is NEVER visible in a resting state — it appears only on hover (animated underline) and on focus-visible (ring).
 - `--accent-glow: rgba(0, 113, 227, 0.18)` — Transparent halo for the available status dot and `::selection`. NEVER use as a container fill or hover state. Never stack it.
 - `--bg-warm-accent: #c0452c` — Editorial warm-accent band background (full-bleed orange). Restraint rules in `meta/brand.md`: at most one warm band per page; never adjacent to another `--bg-warm-accent` band. NEVER use for inline elements or component fills.
 - `--fg-on-warm: #fdf5f0` — Primary text on warm bands. Warm-tinted near-white. The only text color permitted as primary copy over `--bg-warm-accent`. NEVER use over `--bg`.
 - `--fg-on-warm-muted: #f5ddd0` — Supporting text on warm bands. Use sparingly; see `meta/brand.md` for the contrast ceiling. NEVER use as primary copy.
 
-**Status color tier — product feedback only (NOT editorial brand).** Six tokens for error/warning state surfaces (Banner danger/warning tones, Form invalid borders, future Toast). Distinct from `--bg-warm-accent` (editorial brand orange) by hue: danger is true red, warning is amber/ochre.
+**Status color tier — product feedback only (NOT editorial brand).** Nine tokens for success/error/warning state surfaces (Banner tones, Form invalid borders, future Toast). Distinct from `--bg-warm-accent` (editorial brand orange) by hue: success is green, danger is true red, warning is amber/ochre.
 
+- `--success: #248a3d` — Apple systemGreen light. Success confirmations, positive feedback. WCAG AA on `--bg` (#FBFBFD): ~4.7:1. NEVER use as surface fill or non-confirmation indicator.
+- `--bg-success: #f0faf3` — Tinted page-tier surface (subtle green). Used by Banner success background. NEVER substitute for `--bg`.
+- `--fg-on-success: #0d3d1e` — Deep forest for text on `--bg-success` (~10.5:1). Use only on `--bg-success` surfaces.
 - `--danger: #b3261e` — True red. Used by Form invalid border (`Input`/`Textarea`/`Field` `[aria-invalid="true"]`), Banner danger left-rule, future destructive button variant. WCAG AA on `--bg` (#FBFBFD): ~7.0:1. NEVER use as surface fill, body text, or non-error indicator.
 - `--bg-danger: #fef0f0` — Tinted page-tier surface (subtle pink). Used by Banner danger background. NEVER use as primary page background; this is reserved for the danger-banner surface.
 - `--fg-on-danger: #5c1310` — Deep oxblood for text on `--bg-danger` (~9.1:1). Use only on `--bg-danger` surfaces.
@@ -55,6 +59,7 @@ Dark mode is implemented as a `@media (prefers-color-scheme: dark)` block append
 | `--fg` | `#F5F5F7` | Primary text. Near-white (10/255 off pure). Contrast on `--bg`: **19.58:1** (AAA). |
 | `--fg-muted` | `#86868B` | Secondary text. Apple `secondaryLabel` dark. Contrast on `--bg`: **6.10:1** (AA). |
 | `--hairline` | `#2C2C2E` | Dividers. Apple `separator` dark value. |
+| `--hairline-soft` | `#3a3a3c` | Quieter decorative separator in dark mode — sits between `--hairline` and `--surface` in the dark neutral ramp. |
 | `--accent` | `#0A84FF` | Links, focus rings. Apple `systemBlue` dark. Contrast on `--bg`: **5.86:1** (AA; ≥3:1 required for non-text). |
 | `--accent-glow` | `rgba(10,132,255,0.24)` | Halo / selection. Higher opacity compensates for dark surface absorption. |
 | `--bg-warm-accent` | `#8A2E1C` | Editorial band — dimmed to ~55% luminance of light value ("deep ember"). |
@@ -63,6 +68,9 @@ Dark mode is implemented as a `@media (prefers-color-scheme: dark)` block append
 | `--danger` | `#FF453A` | Apple `systemRed` dark. |
 | `--bg-danger` | `#1C0A0A` | Near-black, red undertone. |
 | `--fg-on-danger` | `#FFB4B0` | Contrast on `--bg-danger`: **11.63:1** (AAA). |
+| `--success` | `#30D158` | Apple `systemGreen` dark. Contrast on `--bg`: ~10.9:1 (AAA). |
+| `--bg-success` | `#041A09` | Near-black, green undertone. |
+| `--fg-on-success` | `#A8F0BE` | Soft mint. Contrast on `--bg-success`: ~13.1:1 (AAA). |
 | `--warning` | `#FF9F0A` | Apple `systemOrange` dark. |
 | `--bg-warning` | `#1C1408` | Near-black, amber undertone. |
 | `--fg-on-warning` | `#FFD6A0` | Contrast on `--bg-warning`: **13.74:1** (AAA). |
@@ -76,6 +84,7 @@ Dark mode is implemented as a `@media (prefers-color-scheme: dark)` block append
 | `--accent` on `--bg` | 5.86:1 | 3:1 (non-text) | AA normal |
 | `--fg-on-warm` on `--bg-warm-accent` | 7.75:1 | 4.5:1 | AAA |
 | `--fg-on-warm-muted` on `--bg-warm-accent` | ~4.8:1 | 4.5:1 | AA |
+| `--fg-on-success` on `--bg-success` | ~13.1:1 | 4.5:1 | AAA |
 | `--fg-on-danger` on `--bg-danger` | 11.63:1 | 4.5:1 | AAA |
 | `--fg-on-warning` on `--bg-warning` | 13.74:1 | 4.5:1 | AAA |
 
@@ -157,6 +166,17 @@ The `<Button>` height ladder is part of the brand contract. Four named rungs, ha
 
 Padding and font-size stay hand-tuned per size (no separate padding-token scale). Consumed by `src/atoms/Button/Button.module.css`; available to any future primitive (form fields, segmented controls) that needs to align to the same height ladder.
 
+### Icon size scale (4px base grid)
+
+Four named rungs. Semantically distinct from `--space-*` — icon dimensions are not rhythm values. Consumed by `<Icon>` atom via a `SIZE_MAP` lookup. NEVER use raw pixel values for icon sizing; reference these tokens.
+
+- `--icon-xs: 12px` — compact pill / dense label row (e.g. inside `<Tag>`, inside `<Eyebrow>`)
+- `--icon-sm: 16px` — default inline icon; pairs with `--fs-meta` (14px) text. The most common rung.
+- `--icon-md: 20px` — mid-weight; pairs with `--fs-body` (17–19px) text or stands alone in a row
+- `--icon-lg: 24px` — large standalone; navigation rows, feature-card icon slots, prominent markers
+
+Default `size` on `<Icon>` is `"sm"` (16px). Lucide's SVG grid is designed for 16px placement. No rung above 24px exists on the atom; display-scale icons at 32px+ are molecule-level layout decisions.
+
 ---
 
 ## Component recommended usages
@@ -180,10 +200,161 @@ Padding and font-size stay hand-tuned per size (no separate padding-token scale)
 - size="compact" is the editorial CTA — quieter than md, louder than sm. WCAG 2.5.5 AAA tap target (44px) requires md or lg; sm and compact are AA tiers.
 - Use asChild with an <a> element for link-styled buttons. Do NOT nest a <button> inside Button with asChild.
 
+### IconButton
+- Square, icon-only sibling of Button. Same variant union (primary / secondary / ghost) and same size ladder (sm 32 / compact 40 / md 44 / lg 52) driven by the shared --btn-h-* tokens.
+- `aria-label` is REQUIRED at the type level — IconButton without an accessible name is a TypeScript error. The label is mirrored into a VisuallyHidden child as belt-and-suspenders for assistive-tech variants that prefer inner text.
+- Icon size resolves automatically per Button size: sm → 16px, compact / md → 20px, lg → 24px. No consumer override.
+- Composes Button + Icon + VisuallyHidden. No `asChild` in v1 — IconButton always renders a `<button>`. WCAG AAA tap-target posture same as Button: md and lg pass at 44px, sm and compact are AA only.
+- Use for icon-only affordances where the glyph is unambiguous (close, copy, prev/next). For icon+label, use Button with a child Icon, not IconButton.
+
+### Checkbox
+- Wraps `@radix-ui/react-checkbox`. Owns ONLY the control + indicator — label pairing, helper text, error messaging, and `htmlFor` wiring are the molecule layer's job.
+- Fixed 16×16px (`--icon-sm`). No `size` prop. Radius `--radius-1` (2px).
+- States: unchecked (bg `--bg`, border `--hairline`) / checked (bg `--fg`, Lucide `Check` glyph) / indeterminate (bg `--fg`, Lucide `Minus` glyph). Hover (unchecked, pointer): border → `--fg-muted`. Disabled: opacity 0.5. `aria-invalid="true"`: border → `--danger`.
+- `checked` prop is Radix's `CheckedState` (`boolean | "indeterminate"`). Supports controlled (`checked` + `onCheckedChange`) and uncontrolled (`defaultChecked`).
+- Standalone usage fails WCAG 2.5.8 (24px) and 2.5.5 (44px) hit-target rules — practical hit area is control + label, owned by the molecule. Consumers using bare Checkbox must extend the click target externally.
+- Canonical state contract for tests is Radix's `data-state` attribute (`checked` / `unchecked` / `indeterminate`), not icon DOM presence.
+
+### Switch
+- Wraps `@radix-ui/react-switch`. Use when a setting has a persistent on/off state that takes effect immediately — not for one-shot confirmations (use `<Button>`), not for single-item form selection (use `<Checkbox>`).
+- Import: `import { Switch } from "@poukai-inc/ui"` or `import { Switch } from "@poukai-inc/ui/atoms/Switch"`.
+- Track: 32×18px pill. Thumb: 14px circle. Travel: `translateX(0) → translateX(14px)` via CSS transform on `[data-state="checked"]`. No `left` animation.
+- Off: track bg `--surface`, border `--hairline`. On: track bg `--fg`, border transparent. Hover (unchecked, pointer): border → `--fg-muted`. Focus-visible: 2px `--accent` outline on track. Disabled: `opacity 0.5`. Reduced-motion: global `tokens.css` clamps transition — state preserved, animation removed.
+- Supports controlled (`checked` + `onCheckedChange`) and uncontrolled (`defaultChecked`). Forwards all native `<button>` props via `...rest`. `forwardRef` to root button.
+- Label always external — supply `<label htmlFor={id}>` or `aria-label`. Unlabelled Switch = a11y violation.
+- Canonical state contract for tests: Radix `data-state` (`"checked"` / `"unchecked"`).
+- Example:
+  ```tsx
+  // Uncontrolled with sibling label
+  <label htmlFor="notifications">Enable notifications</label>
+  <Switch id="notifications" defaultChecked />
+
+  // Controlled
+  <Switch checked={enabled} onCheckedChange={setEnabled} aria-label="Enable feature" />
+  ```
+
+### Heading
+- Canonical heading atom. Owns the H1 → H6 type ramp. Decoupled `as` (rendered HTML element, drives the document outline) and `size` (visual rank, drives type styling). `size` defaults to whatever `as` is, so `<Heading>Foo</Heading>` renders an `<h2>` styled at h2 rank with no extra props.
+- `as` (default `"h2"`) — closed union of `"h1" | "h2" | "h3" | "h4" | "h5" | "h6"`. An explicit H1 must be opt-in (the default does not auto-promote to H1; one H1 per page is the consumer's responsibility).
+- `size` (optional) — independent of `as`. Use when document outline and visual rank diverge: `<Heading as="h1" size="h2">` keeps the page H1 semantics while sizing the text at h2 rank.
+- Owns no margin. Consumer molecule owns spacing between Heading and adjacent siblings.
+- Do NOT use Heading for non-heading editorial display (statements, taglines). Use `<Statement>` for editorial italic-serif blocks; use `<Hero>` for the page tagline.
+- Do NOT pass arbitrary HTML elements via `as` — the union is closed at the type level.
+
+### Text
+- Canonical paragraph atom. Resolves raw `<p>`, `.lede`, and inline muted `<p style>` patterns into one component with orthogonal `size` and `tone` axes.
+- `size` (default `"body"`): `"body"` (`--fs-body` + `--lh-body`), `"lede"` (`--fs-body` + `--lh-body-relaxed`, capped at `max-inline-size: 36rem`), `"caption"` (`--fs-meta` + `--lh-meta`), `"micro"` (`--fs-micro` + `--lh-meta`). `"micro"` is NOT uppercase — use `<Eyebrow>` for uppercase micro-labels.
+- `tone` (default `"default"`): `"default"` (`--fg`), `"muted"` (`--fg-muted`), `"on-warm"` (`--fg-on-warm`), `"on-warm-muted"` (`--fg-on-warm-muted`). The two `on-warm-*` tones are exclusively for the warm editorial band.
+- `as` (default `"p"`) — closed union of `"p" | "span" | "div" | "dt" | "dd" | "li"`. No heading elements: use `<Heading>` or a raw `<h*>` for those.
+- Owns no margin. Consumer owns spacing.
+- Do NOT use Text for headings, eyebrows, or status — those have their own atoms.
+
+### Prose
+- Typographic context wrapper for long-form HTML. Drop arbitrary `<h1>`–`<h6>`, `<p>`, `<ul>`, `<ol>`, `<blockquote>`, `<code>`, `<pre>`, `<hr>`, `<figure>`, `<table>` markup inside and the DS type contract applies via low-specificity `:where(...)` descendant rules. Consumer overrides always win.
+- `width` (default `"full"`): `"full"` inherits the column from the parent layout (no max-width). `"reading"` caps the column at `64ch` and centers horizontally — canonical editorial body for standalone article pages.
+- `asChild` (default `false`) — when `true`, renders a Radix `<Slot>` and merges all props onto the single child (e.g. `<article>`). Consumer is responsible for passing exactly one child.
+- Use Prose when content is authored as raw HTML (CMS output, MDX, markdown render) — NOT for hand-composed atom layouts. Hand-composed pages compose `<Heading>` + `<Text>` directly.
+- Do NOT nest Prose inside Prose. Do NOT use Prose to style standalone atoms — it is a long-form HTML context, not a typography utility.
+
+### Code
+- Inline code chip — communicates that the wrapped content is a literal token (variable name, CSS custom property, HTML element, shell command, config key).
+- Root is always `<code>` (non-polymorphic). Non-interactive — no hover, focus, or active states.
+- Font size is relative (`0.9em`) so the chip tracks the surrounding text register on any surface.
+- `children` is the literal content. Typically a plain string; ReactNode accepted for parity with the rest of the atomic system.
+- Do NOT use Code for multi-line code blocks — use a `<pre><code>` composition (or future `CodeBlock` primitive). Code is inline-only.
+- Do NOT use Code for keyboard keys — use `<Kbd>`. Code is for code literals; Kbd is for physical keys.
+
+### Kbd
+- Keyboard-key glyph — a compact chip that represents a physical key (`⌘`, `K`, `Enter`, `Esc`). Used inline in onboarding copy, command-menu shortcut hints, help text, and menu rows.
+- Root is always `<kbd>` (non-polymorphic). Non-interactive — no hover, focus, or active states.
+- `children` is the key content. Typically a single character (`"K"`), a symbol (`"⌘"`), or a short token (`"Enter"`, `"Esc"`).
+- For symbol keys whose glyph does not announce well in screen readers, pass a spelled-out name via `aria-label` (e.g. `<Kbd aria-label="Command">⌘</Kbd>`).
+- Multi-key combinations are composed by the consumer as side-by-side `<Kbd>` instances (e.g. `<Kbd>⌘</Kbd> <Kbd>K</Kbd>`).
+- Do NOT use Kbd for code literals — use `<Code>`.
+
+### SkipLink
+- Keyboard skip-to-content anchor. Visually hidden at rest (canonical sr-only clip pattern), becomes a fixed-position high-contrast pill when keyboard-focused. Required first focusable element in any layout shell.
+- Root is always `<a>`, non-polymorphic. No `as` prop — fragment navigation is anchor semantics, full stop. Composes neither `<Link>` nor `<VisuallyHidden>` — owns its own clip + focus CSS in one module so the `:focus-visible` un-clip rule does not fight cross-module specificity.
+- `href` (required string) — the fragment target (e.g. `#main`, `#docs-content`). Consumer supplies; the DS does not compute or default. The target element must exist in the DOM with the matching `id`.
+- `children` (optional ReactNode, default `"Skip to content"`) — override for layouts with multiple navigable regions (e.g. `<SkipLink href="#docs-content">Skip to documentation</SkipLink>`).
+- Focused pill geometry: `position: fixed`, `top: var(--space-2)`, `left: var(--space-2)`, `z-index: 9999` (above Dialog 100/101 and Toast 200 — skip link must never be occluded). `background: var(--fg)`, `color: var(--bg)` (DS-wide max-contrast inversion pair, ~16:1, AAA in light and dark mode). `padding: var(--space-2) var(--space-4)`, `border-radius: var(--radius-2)`, `font-size: var(--fs-meta)`, `font-weight: 500`, `box-shadow: 0 4px 12px rgb(0 0 0 / 0.08)` (same elevated-chip shadow as Toast), `outline: none` (the pill IS the focus indicator — documented deviation from the global `a:focus-visible` accent ring).
+- No motion. No transition. No `:hover` style (skip link is keyboard-only by design — mouse users never see it). Reduced-motion: nothing to suppress.
+- a11y: zero axe violations rest + focused. No `aria-*` required on root. Must be the first focusable element when placed at the top of a layout shell (before nav, header, logo, or any interactive chrome).
+- Usage: place as first child of the layout shell. Note: SiteShell consumer migration is a follow-up audit PR — this atom ships standalone.
+- `forwardRef<HTMLAnchorElement, SkipLinkProps>`, `displayName="SkipLink"`. Remaining `AnchorHTMLAttributes<HTMLAnchorElement>` spread onto the root.
+
+### Mark
+- Editorial highlight chip — an inline `<mark>` that flags a run of prose as the part the reader should notice. Tints the background with `--accent-glow` (the same value the system uses for `::selection`) so the highlight reads as kindred to selected prose rather than as a foreign decoration.
+- Root is always `<mark>` (non-polymorphic). Non-interactive — no hover, focus, or active states.
+- Inherits `font-family`, `font-size`, `font-weight`, `line-height`, and `color` from the surrounding context, so the chip scales with parent text on every surface (body copy, pull-quote, field note, Prose, warm editorial band).
+- `children` is the highlighted content. Typically a short prose fragment; ReactNode accepted for parity with the rest of the atomic system.
+- `box-decoration-break: clone` (plus the WebKit prefix) ensures the highlight tiles cleanly across line wraps — each line-fragment gets its own padding and rounded corners.
+- Token contract: `--accent-glow` (background) + `--space-1` (inline padding) + `--radius-1` (2px corner). No new tokens.
+- Do NOT use Mark for inline code literals — use `<Code>`. Do NOT use Mark for keyboard keys — use `<Kbd>`. Do NOT use Mark for status indication (error/warning/success) — use `<Banner>` or `<StatusBadge>`.
+- Do NOT nest interactive elements inside Mark (no `<button>`, `<a>`, `<input>` children). If the highlighted run must be clickable, the consumer wraps Mark with an anchor that owns the interaction.
+
+### Spacer
+- Explicit-gap atom for contexts where flex/grid `gap` cannot reach. NOT a general spacing utility — use `gap` or section padding tokens by default.
+- `size` (required, closed union `"1" | "2" | "3" | "4" | "6" | "8" | "10"`) maps to `--space-1` … `--space-10`. Layout-tier values (`--space-12`+) are intentionally excluded — those belong to template-level rhythm, not an inline atom.
+- `axis="block"` (default): `display: block; height: var(--space-N); width: 100%`. `axis="inline"`: `display: inline-block; width: var(--space-N); height: 1em`.
+- `as="div"` (default) or `as="span"`. Use `as="span"` with `axis="inline"` inside text flow.
+- Always renders `aria-hidden="true"` — decorative, ignored by AT. No background, no border, no content.
+- Canonical use: between two `<Prose>` siblings where the parent owns no layout; between conditionally-rendered siblings; inside legacy block containers where `gap` is unavailable.
+- Do NOT use between flex/grid siblings (use `gap`), for section-tier rhythm (use Section padding tokens), as a vertical typography hack (fix the type ramp), or as a margin replacement on components that own their margin.
+
+### RadioGroup
+- Container for a mutually-exclusive radio selection. Wraps `@radix-ui/react-radio-group` Root. Radix provides `role="radiogroup"`, keyboard navigation (roving tabindex), and ARIA propagation at zero cost.
+- `value` / `onValueChange` for controlled usage. `defaultValue` for uncontrolled. `name` for native form submission.
+- `orientation` (`"horizontal"` | `"vertical"`, default `"vertical"`) — vertical: `flex-direction: column`, gap `--space-2`; horizontal: `flex-direction: row`, gap `--space-4`.
+- **A11y:** pass either `aria-label` (when no visible heading exists) or `aria-labelledby` (when a visible heading labels the group). In development, a `console.warn` fires when both are absent. Pair with a visible error message linked via `aria-describedby` when in an error state.
+- `disabled` disables all items at the group level. `required` marks the group required for form validation.
+- `forwardRef` to the root `<div>`. `...rest` spread. `displayName = "RadioGroup"`.
+- Tokens consumed: `--space-2`, `--space-4`. No new tokens.
+- Do NOT export as `RadioGroup.Root` — the public API is a flat `<RadioGroup>` named export. No namespace object.
+- Do NOT override Radix keyboard navigation with custom `onKeyDown` handlers — arrow-key routing is Radix-native.
+
+### Radio
+- Individual radio control inside a `RadioGroup`. Wraps `@radix-ui/react-radio-group` Item. Radix provides `role="radio"`, `aria-checked`, and keyboard routing (roving tabindex) within the group.
+- `value` is required — binds this item's checked state to the group's selected value.
+- Checked indicator: a CSS `::after` pseudo on the Radix `Indicator` slot. 8×8 px circle, `background: var(--fg)`. No Lucide, no SVG, no `<Icon>` component.
+- Circle geometry: 16×16 px, `border-radius: 50%`, `border: var(--hairline-w) solid var(--hairline)`, `background: var(--bg)`.
+- States: hover (unselected, enabled) → `border-color: var(--fg-muted)`; checked → Radix mounts Indicator, `::after` dot appears; focus-visible → `outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-1)`; disabled → `opacity: 0.5; cursor: not-allowed; pointer-events: none`; `aria-invalid="true"` → `border-color: var(--danger)`.
+- Label pairing is always the consumer's responsibility — `Radio` renders no label text. Wrap with `<label>` or pair via `htmlFor`/`id`.
+- `forwardRef` to the root `<button>`. `...rest` spread. `displayName = "Radio"`.
+- Tokens consumed: `--bg`, `--fg`, `--fg-muted`, `--hairline`, `--hairline-w`, `--accent`, `--danger`, `--radius-1`, `--dur-fast`, `--easing`. No new tokens.
+- Do NOT export as `RadioGroup.Item` — the public API is a flat `<Radio>` named export.
+- Do NOT add a custom dot SVG, Lucide icon, or `<Icon>` component — the CSS `::after` pseudo is the spec-mandated approach.
+- Do NOT add `onKeyDown` handlers for arrow keys — Radix handles keyboard navigation natively.
+
 ### Stat
 - Requires a caption — numeral alone is not self-explanatory.
 - value must be a numeral or numeral+unit string. source should be citation only.
 - Maximum 4 Stats per section. Maximum 1 size="lg" per section.
+
+### NumberFormat
+- Pure presentational formatter backed by native `Intl.NumberFormat`. Renders a `number` as a locale-correct string and nothing else. NEVER use as a layout or visual primitive — it owns no CSS.
+- Required `value: number`. Optional `notation`: `"standard"` (default — grouped digits), `"compact"` (`1.2M`), `"currency"` (requires `currency`), `"percent"` (pass the decimal fraction, e.g. `0.42` → `42%`).
+- `currency` is an ISO 4217 code (`"USD"`, `"EUR"`, `"JPY"`). REQUIRED whenever `notation="currency"` — Intl throws a `RangeError` otherwise. Ignored for all other notations.
+- `locale` is BCP-47 (`"en-US"`, `"de-DE"`). Omit only for app-default locale; pass explicitly in any i18n-aware surface to guarantee server/client parity. NEVER read `navigator.language` from a consumer — pass the resolved locale in.
+- `minimumFractionDigits` and `maximumFractionDigits` pass through to Intl unchanged.
+- Polymorphic `as`: `"span"` (default) | `"div"` | `"dd"`. Closed union — no heading or interactive elements. Use `as="dd"` inside a `<dl>` for definition-list pairings (`<dt>Total users</dt><NumberFormat as="dd" value={48921} />`).
+- No `children` prop. Value is the rendered content; `children` is TypeScript-disallowed.
+- Edge values: `NaN` → "NaN", `Infinity` → "∞", `-Infinity` → "-∞" (whatever the Intl runtime emits — do NOT assert against literals; assert against `Intl.NumberFormat(locale, options).format(value)` for cross-engine stability).
+- Accessibility: emits plain text. No ARIA needed. For screen-reader expansion of compact/currency output, wrap with `<VisuallyHidden>` (`<><NumberFormat value={1_200_000} notation="compact" /> <VisuallyHidden>(1.2 million)</VisuallyHidden></>`).
+- Non-goals: no date/time formatting, no signed display (no `signDisplay` prop), no scientific/engineering notation, no unit formatting, no animated counters, no copy-to-clipboard. Date formatting is a separate atom.
+- Stat migration to use NumberFormat is a follow-up PR — NOT shipped with this atom.
+
+### Time
+- Semantic `<time datetime>` atom. Non-polymorphic — root is always `<time>`. Downstream consumers: `Byline`, `ArticleHeader`, `TimelineItem`.
+- `dateTime` prop accepts `string | Date`. String values pass verbatim to the `datetime` attribute (date-only strings such as `"2026-05-21"` are NOT round-tripped through `new Date()`). `Date` objects serialize via `.toISOString()`.
+- Four format modes (native `Intl` only — no date-fns, dayjs, luxon):
+  - `absolute` (default): `Intl.DateTimeFormat` with `{ year: "numeric", month: "short", day: "numeric" }` → `May 21, 2026`.
+  - `relative`: `Intl.RelativeTimeFormat` with `{ numeric: "auto" }`. Threshold table (descending, by |diff|): `< 60s` → `"just now"` (English literal); `≥ 345d` → year; `≥ 28d` → month; `≥ 7d` → week; `≥ 1d` → day; `≥ 1h` → hour; `≥ 1min` → minute. Signed value preserves past/future direction.
+  - `long`: `Intl.DateTimeFormat` with `{ year: "numeric", month: "long" }` → `May 2026`.
+  - `time-only`: `Intl.DateTimeFormat` with `{ hour: "2-digit", minute: "2-digit" }` → `02:30 PM` (en-US) / `14:30` (fr-FR).
+- `children` override: when `children` is provided, it replaces the computed label entirely; `format` and `locale` are ignored. The `datetime` attribute still emits the ISO string.
+- SSR locale resolution: `locale` prop → `navigator.language` (browser) → `"en-US"` (server). `format="relative"` is NOT guaranteed stable across SSR/hydration — use `children` or `format="absolute"` for consistent SSR output.
+- Guardrails: no `aria-label` injection, no motion, no color variants, no new tokens. Inherits `color: inherit`. No CSS module.
 
 ### Hero
 - One per page. Do NOT nest Hero inside another Hero.
@@ -225,6 +396,25 @@ Padding and font-size stay hand-tuned per size (no separate padding-token scale)
 - `loading` defaults to `"lazy"`; use `"eager"` for above-the-fold portraits. `fetchPriority` defaults to `"auto"`; pair `loading="eager"` with `fetchPriority="high"` for the LCP image. `sizes` defaults to `"100vw"`. `objectPosition` defaults to `"center"`.
 - `src` accepts either a string URL or an object shaped like Astro's `ImageMetadata` (`.src` is extracted). Do NOT pass `import.meta` imports without unwrapping.
 
+### Image
+- Token-aware plain `<img>` atom for logos, screenshots, illustrations, and decorative photography. Non-polymorphic — root is always `<img>`. No `as` prop, no wrapper.
+- Distinct from `<Portrait>`. Image = single URL, known dimensions, static asset. Portrait = editorial photography with AVIF/WebP/JPEG srcset. Do NOT reach for Image when the asset needs srcset, `<picture>`, or format negotiation — that belongs to Portrait.
+- `src` (required string) — image URL passed directly to the `<img>` src attribute.
+- `alt` (required string) — required at the type level. Pass a descriptive string for meaningful images (`alt="Poukai logo"`); pass an empty string for decorative images (`alt=""`). NEVER omit — the type is `string`, not `string | undefined`.
+- `width` (required number) + `height` (required number) — the asset's intrinsic pixel dimensions from the source file. Both are required: they drive (1) the HTML `width`/`height` attributes for the browser's pre-CSS layout hint, and (2) the inline `aspect-ratio` style for CLS-safe slot reservation before the image bytes arrive.
+- `loading` (`"lazy"` | `"eager"`, default `"lazy"`) — controls the browser's native lazy-loading behavior. Use `"eager"` for above-the-fold / LCP images.
+- `decoding` (`"async"` | `"sync"` | `"auto"`, default `"async"`) — image decoding hint. `"async"` is correct for almost every case; allows off-main-thread decoding without blocking rendering.
+- `fit` (`"cover"` | `"contain"` | `"fill"` | `"none"` | `"scale-down"`, optional) — maps to `object-fit`. NO DS default — when omitted, no `object-fit` style is written and the browser's CSS default (`fill`) applies. Set explicitly when the image occupies a fixed-dimension slot and needs to fill or contain without distortion.
+- `radius` (`"none"` | `"sm"` | `"md"` | `"lg"`, default `"none"`) — maps to `border-radius`. `"none"` → `0`, `"sm"` → `var(--radius-1)` (2px), `"md"` → `var(--radius-2)` (4px), `"lg"` → `var(--radius-3)` (8px). No new tokens introduced.
+- Inline-style baseline (always applied): `max-width: 100%`, `height: auto`, `aspect-ratio: ${width} / ${height}`. The aspect-ratio reservation is the CLS prevention mechanism. Consumer `style` is merged on top — caller can override `maxWidth`/`height` if needed.
+- `forwardRef<HTMLImageElement, ImageProps>`, `displayName="Image"`. Remaining props spread onto the `<img>` element (`className`, `style`, `data-*`, `aria-*`, `fetchPriority`, etc.).
+- Loading state = blank reserved space (from `aspect-ratio`). No skeleton shimmer, no placeholder color. Error state = browser's native broken-image indicator. No `onError`, no fallback URL — consumers who need error handling manage it in their own wrapper.
+- Composition: wrap in `<a>` for linked images, wrap in `<figure>` + `<figcaption>` for captioned images. Image never emits the wrapper. For person attribution disks (24–40px, circular), use `<Avatar>`, not Image.
+- Do NOT add `srcset`, `sizes`, or `<picture>` — that is Portrait's domain.
+- Do NOT add motion, hover effects, or fade-in transitions — Image is a static presentational atom.
+- Do NOT make `alt` optional. Use `alt=""` for decorative images instead.
+- Do NOT use Image for editorial photography with multiple format variants — use `<Portrait>`.
+
 ### Eyebrow
 - Canonical micro-label atom. Uppercase, tracked (`--tracking-eyebrow: 0.06em`), `--font-sans`, `--fs-meta` (14px), weight 500, `--lh-meta` (1.2).
 - `variant="muted"` (default) — color `--fg-muted`. Standard section/category/role label register.
@@ -236,6 +426,25 @@ Padding and font-size stay hand-tuned per size (no separate padding-token scale)
 - Resolves the drift between `RoleCard.eyebrow` (mono, 12px, 0.06em), `FailureMode.index` (sans, 14px, 0.08em), and `.micro` utility (sans, 12px, 0.04em). Migration to consuming molecules is a follow-up PR.
 - Do NOT use `--accent` on Eyebrow — it is a label, not a link or status indicator.
 - Do NOT add truncation or overflow clipping — the DS does not manage Eyebrow overflow.
+
+### Label
+- Canonical form-label atom. Renders a `<label>` element bound to its control via `htmlFor`. Typed, token-aligned wrapper so every form surface speaks the same typographic and semantic contract.
+- Root element: `<label>`. Non-polymorphic — no `as` prop. `<label>` is the only semantically correct root for a form label; swapping it would break the `htmlFor` association contract.
+- `htmlFor` (required, string) — The `id` of the bound control. Type-level required; no default. A `<Label>` without `htmlFor` is a broken label — TypeScript enforces this at authoring time.
+- `children` (required, ReactNode) — Label text. Typically a short string; may include inline `<strong>` or similar emphasis.
+- `required` (optional, boolean, default `false`) — When `true`, renders `<span aria-hidden="true">*</span>` in `var(--danger)` after the label text. Visual only; the ARIA required contract (`aria-required="true"` / `required`) lives on the bound control, not on this element.
+- `tone` (`"default"` | `"muted"`, default `"default"`) — text color only. `"default"` → `var(--fg)`. `"muted"` → `var(--fg-muted)`. Required indicator is always `var(--danger)` regardless of tone.
+- Typography: `--font-sans`, `--fs-meta` (14px), `font-weight: 500`, `--lh-meta` (1.2), `letter-spacing: 0.01em` (raw value — neither `--tracking-eyebrow` nor `--tracking-numeric` fits mixed-case 14px; see spec §3 rationale).
+- Layout: `display: inline-block`, `margin: 0`. Consumer and molecule own all spacing.
+- Tokens consumed: `--font-sans`, `--fs-meta`, `--lh-meta`, `--fg`, `--fg-muted`, `--danger`. No new tokens introduced.
+- Standalone usage: `<Label htmlFor="email">Email address</Label>` / `<input id="email" type="email" />`. Consumer owns spacing between label and control.
+- With `<Field>` molecule: `<Field>` composes `<Label>` internally. Do not pass `<Label>` as a child of `<Field>`.
+- Contrast: `--fg` (#1D1D1F) on `--bg` (#FBFBFD) ≈ 16.1:1 (AAA). `--fg-muted` (#6E6E73) on `--bg` ≈ 4.9:1 (AA — passes WCAG 4.5:1 at 14px/500). `--danger` (#B3261E) on `--bg` ≈ 7.2:1 (AAA).
+- Do NOT default or omit `htmlFor` — it is type-level required. A label without `htmlFor` provides no programmatic association.
+- Do NOT add an `as` prop. Root is always `<label>`.
+- Do NOT add `(optional)` text marker, tooltip slot, icon slot, or inline-with-input layout — all out of scope per spec §10.
+- Do NOT add `aria-required` to the `<label>` element — it belongs on the bound control only.
+- Do NOT use floating-label animation — not brand-aligned, excluded permanently.
 
 ### EmailLink
 - Canonical `mailto:` affordance atom. Not a button — it opens a mail client, it does not commit to an outcome. Choose `<EmailLink>` over `<Button asChild><a href="mailto:…">` when the contact register is "reach out" rather than "commit to action."
@@ -506,19 +715,185 @@ Padding and font-size stay hand-tuned per size (no separate padding-token scale)
 - Do NOT make Avatar polymorphic — root is always `<span>`.
 - Do NOT use Avatar for decorative brand imagery — use `<Portrait>` for editorial photography.
 
+### Skeleton
+- Atom for async content placeholders. Single element — no children, no inner structure.
+- Root element is `<div>` by default; `as="span"` renders `<span>` with `display: inline-block` for inline contexts.
+- `as` prop is a closed union: only `"div"` and `"span"`. No arbitrary elements.
+- `width` / `height` (string | number, optional): bare numbers coerce to px (e.g. `120` → `120px`); strings pass through verbatim (`"100%"`, `"12rem"`). Applied as inline `style`. No intrinsic size — omitting both collapses the element to zero height (silent failure, easy to debug).
+- `radius` (`"sm"` | `"md"` | `"lg"` | `"circle"`, default `"md"`): sm → `--radius-1` (2px), md → `--radius-2` (4px), lg → `--radius-3` (8px), circle → `50%` (geometric instruction, not a token).
+- Animation: opacity pulse only — `poukai-skeleton-pulse` keyframe, `ease-in-out`, `var(--dur-pulse)` (1800ms), infinite. 0%/100% opacity 1 → 50% opacity 0.4. NO gradient shimmer, NO background-position animation, NO moving gradient of any kind. The banlist is explicit: "Skeleton shimmer that's prettier than the loaded state."
+- Reduced-motion: `@media (prefers-reduced-motion: reduce)` sets `animation: none; opacity: 0.6`. The global `tokens.css` block collapses duration to 0.01ms but does NOT set the correct resting opacity — the component must declare this explicitly.
+- `aria-hidden="true"` by default — decorative placeholder, communicates nothing to the a11y tree. Consumer can override via `...rest`.
+- `aria-busy` is NOT the Skeleton's concern — the consumer container owns the `aria-busy="true"` / `aria-busy="false"` lifecycle.
+- Tokens consumed: `--surface` (background fill), `--radius-1`, `--radius-2`, `--radius-3` (corner radii), `--dur-pulse` (animation duration). No new tokens introduced.
+- `display: block` on root div; `display: inline-block` when `as="span"`.
+- Do NOT add children — Skeleton has no inner structure.
+- Do NOT implement shimmer / sweep gradient / background-position animation at any point.
+- Do NOT add a `tone` prop — fill is always `--surface`. No exceptions.
+- Do NOT add default width/height — zero is the deliberate collapsed state.
+- Do NOT set `aria-busy` on the Skeleton itself.
+- Do NOT open the `as` union beyond `"div"` and `"span"`.
+
+```tsx
+// Block placeholder (text lines)
+<div aria-busy="true">
+  <Skeleton width="100%" height={24} radius="sm" />
+  <Skeleton width="60%" height={24} radius="sm" />
+</div>
+
+// Avatar placeholder
+<Skeleton width={40} height={40} radius="circle" />
+
+// Card placeholder
+<Skeleton width="100%" height={220} radius="lg" />
+
+// Inline text placeholder
+<p>Posted by <Skeleton as="span" width={80} height={14} radius="sm" /></p>
+```
+
+### Divider
+- Canonical hairline separator atom. Renders a 1px rule — horizontal (`<hr>`) or vertical (`<div role="separator">`).
+- `orientation` (`"horizontal"` | `"vertical"`, default `"horizontal"`) — horizontal is a full-width top-border rule; vertical is a 1px column rule that requires a flex/grid parent to have visible height.
+- `tone` (`"default"` | `"muted"`, default `"default"`) — `"default"` uses `--hairline`; `"muted"` uses `--hairline-soft` for quieter decorative contexts.
+- `as` (`"hr"` | `"div"`) — closed polymorphic. Horizontal defaults to `<hr>` (implicit `role="separator"`); vertical defaults to `<div>` with explicit `role="separator"` and `aria-orientation="vertical"`.
+- Zero self-margin by design. Parent layout (flex `gap`, padding) controls spacing around the rule.
+- Do NOT use as a background fill or container. Do NOT render thicker than `--hairline-w` (1px). Do NOT apply `--hairline-soft` for structural separators.
+
+### Spinner
+- Indeterminate loading indicator. Signals that an async operation is in progress when the duration is unknown.
+- Root element: `<span role="status" aria-live="polite" aria-label>`. SVG arc inside is `aria-hidden="true"`.
+- `size` (`"sm"` | `"md"` | `"lg"`, default `"md"`) — sm=16px, md=20px, lg=24px. Matches the `--icon-sm/md/lg` rung sizes.
+- `label` (string, default `"Loading"`) — accessible label announced to screen readers.
+- Uses `currentColor` for the arc and track — place inside any colored context without a separate color prop.
+- Under `prefers-reduced-motion: reduce`: rotation stops; a static ellipsis (`…`) is revealed for reduced-motion users.
+- Rotation period: `--dur-spinner` (800ms). Sub-second so the spinner reads as active, not stalled.
+- Do NOT use Spinner as a page-level loading overlay — that is a separate organism. Do NOT add a determinate progress variant here.
+
+### VisuallyHidden
+- Canonical sr-only primitive. Renders children visible to the accessibility tree but invisible to sighted users (WCAG clip pattern).
+- Root element: `<span>` by default; `as="div"` for block-level contexts where `<span>` would be invalid HTML.
+- No tokens, no variants, no motion. Invariant — one shape only.
+- Use `...rest` to forward `id` (for `aria-labelledby`/`aria-describedby` associations) or `aria-live` (for live-region announcements).
+- Do NOT add visible styles or variants. Do NOT use for layout hiding — use CSS `display: none` or `visibility: hidden` for that.
+
+### Icon
+- Thin rendering wrapper around any `lucide-react` icon component. Enforces three system-wide contracts at every call site: a token-aligned size scale (`xs`/`sm`/`md`/`lg`), `currentColor` as the only colour source, and decorative-by-default accessibility (`aria-hidden="true"` unless an explicit label is provided).
+- Root element: the Lucide icon SVG directly. No wrapper `<span>` or `<div>` — the SVG IS the root. Keeps the DOM flat and preserves inline-flex alignment inside button labels and icon-text rows.
+- `icon` (required `LucideIcon`) — the Lucide component reference. Consumer imports directly from `lucide-react` and passes the component. `<Icon>` is a frame, not a catalogue — it does NOT re-export any Lucide icon.
+- `size` (`"xs" | "sm" | "md" | "lg"`, default `"sm"`) — resolves to the `--icon-*` token via a `SIZE_MAP` lookup. xs → 12px, sm → 16px, md → 20px, lg → 24px. NEVER pass raw pixel values.
+- `decorative` (boolean, default `true`) — when `true`, `aria-hidden="true"` is set and the icon is removed from the a11y tree. When `false`, `role="img"` + `aria-label` is set. A dev-mode `console.error` fires when `decorative={false}` and no `aria-label` is provided — this is an a11y contract violation.
+- `aria-label` (optional string) — required when `decorative={false}`. Ignored when `decorative={true}`.
+- `className` — forwarded to the SVG root via `clsx`. Use sparingly; only for layout-level positioning. Never for color.
+- `...rest` — spread to the SVG element (id, data-*, event handlers).
+- `focusable="false"` — always applied (IE11/legacy-Edge SVG focus prevention). `flex-shrink: 0; pointer-events: none; color: currentColor` — always-on in CSS module.
+- No `color` prop. `currentColor` is the entire colour contract. Parent sets `color`; the icon inherits.
+- No numeric `size` prop. Four named rungs are the complete v1 surface.
+- `displayName = "Icon"`. `forwardRef` to the SVG element.
+- Tokens consumed: `--icon-xs` (12px), `--icon-sm` (16px), `--icon-md` (20px), `--icon-lg` (24px). Size classes in `Icon.module.css` set `width`/`height` via these tokens. `currentColor` cascades from parent — no token needed.
+- Composition: inside `<Button>` → `size="sm"`; inside `<Tag>` icon slot → `size="xs"`; inline with body text → `size="md"`; standalone nav/feature → `size="lg"`.
+- Do NOT add a `color` prop — `currentColor` is the contract.
+- Do NOT pass raw pixel values to `size` — the four named rungs are the complete scale.
+- Do NOT make `<Icon>` interactive — the surrounding `<button>` or `<a>` is always the focus target.
+- Do NOT nest inside `<Wordmark>` — Wordmark geometry is inline and hand-coded.
+
+### Link
+- Canonical styled anchor atom. Named, versioned component contract replacing the leaky global `a` rule and the `.muted-link` utility class for all call sites that want an explicit DS primitive.
+- Root element: `<a>` by default. When `asChild={true}`, renders a Radix `<Slot>` that merges all DS styles and event handlers onto the single child — the canonical pattern for Next.js `<Link>` or Remix `<Link>` composition.
+- `href` (required string) — destination URL. A link without an href is not a link; the prop is non-optional at the TypeScript level.
+- `variant` (`"default"` | `"quiet"` | `"muted-link"`, default `"default"`) — visual register. Three variants only; no additional tones without a spec revision.
+- `asChild` (boolean, default `false`) — Radix Slot composition. Consumer must pass exactly one child when `asChild={true}`.
+- `className` — merged via `clsx` onto the root. Consumer owns margin; Link has none.
+- `...rest` — full `AnchorHTMLAttributes<HTMLAnchorElement>` spread: `target`, `rel`, `aria-*`, `data-*`, event handlers, etc.
+- `variant="default"` — two gradient layers: accent grows 0%→100% on hover (layer 1); hairline always at 100% at rest (layer 2). `color: inherit`. `padding-bottom: 2px`. Transition: `background-size var(--dur-mid) var(--easing-link)`. Hover guarded by `@media (hover: hover)`. Direct transcription of the global `a` rule in `tokens.css`.
+- `variant="quiet"` — single gradient layer (accent only, pre-declared at 0% width). No hairline at rest. Hover grow identical to `default`. Pre-declaring a 0%-wide layer is required so the browser interpolates the grow — `none` at rest would snap instead of animate.
+- `variant="muted-link"` — `color: var(--fg-muted)`, `background-image: none`, `transition: color var(--dur-fast) ease`. On hover: `color: var(--fg)`. No underline layers. `padding-bottom: 0`. Byte-for-byte match of the global `.muted-link` class in `tokens.css` — the migration target for `SiteShell`, `Footer`, and story fixtures.
+- External-link security: when `target="_blank"` is passed and no explicit `rel` is provided, the component auto-applies `rel="noopener noreferrer"`. Consumer-supplied `rel` always wins.
+- Focus ring: inherits the global `a:focus-visible` rule (`outline: 2px solid var(--accent)`, `outline-offset: 4px`, `border-radius: var(--radius-1)`). The CSS module suppresses `a:focus` outline (double-ring prevention) and re-states `a:focus-visible` for explicitness.
+- No visited state, no active translateY, no color prop. Same rationale as `EmailLink`.
+- Tokens consumed: `--accent`, `--hairline`, `--fg-muted`, `--fg`, `--dur-mid`, `--dur-fast`, `--easing-link`, `--radius-1`. No new tokens introduced. The `1px` underline thickness and `2px` padding-bottom are literal values matching the global `a` rule (no `--text-underline-thickness` token exists yet).
+- `displayName = "Link"`. `forwardRef<HTMLAnchorElement, LinkProps>`. Named export only.
+- **Migration backlog (do NOT remove the global class in this PR).** The `.muted-link` global class in `tokens.css` is used in: `SiteShell.tsx`, `Footer.tsx`, `SiteShell.stories.tsx`, `a11y.test.tsx`, `System.stories.tsx`, `SiteShellFull.tsx`, `Hero.stories.tsx`. After `<Link variant="muted-link">` ships, each site should migrate. The global class must not be removed until an audit PR confirms all consumers (including the site repo) have migrated.
+- Use `<Link href="/path">` for all styled navigational anchors. Do NOT use a raw `<a>` inside prose copy.
+- Use `variant="muted-link"` inside `<SiteShell>` nav and `<Footer>` nav — direct replacement for the `"muted-link"` className.
+- Use `variant="quiet"` for nav lists where link nature is implicit from layout context. Do NOT use `quiet` in body paragraphs.
+- Use `variant="default"` in prose body copy where the hairline discoverability signal is required.
+- Do NOT use `<Link>` as a wrapper for `<Button>` — they are sibling atoms.
+- Do NOT add a `router` prop or bundle a framework adapter — the DS is framework-agnostic. This item is closed as Won't in the ROADMAP.
+- Do NOT add a `visited` style, `active` style, or `current` prop — out of scope per spec §10.
+- Do NOT add icon slots — inline icon composition is the consumer's responsibility at the call site.
+- Do NOT pass `href` when `asChild={true}` — the child element owns the href in that mode.
+
+```tsx
+// Default — prose body link with hairline underline at rest:
+<Link href="/work">our approach to AI adoption</Link>
+
+// Quiet — nav item, underline on hover only:
+<Link href="/why-ai" variant="quiet">Why AI</Link>
+
+// MutedLink — footer / secondary nav register:
+<Link href="mailto:hello@pouk.ai" variant="muted-link">hello@pouk.ai</Link>
+
+// External — rel auto-applied:
+<Link href="https://example.com/report" target="_blank">Industry report</Link>
+
+// asChild — Next.js router composition:
+<Link href="/about" asChild>
+  <NextLink href="/about">About</NextLink>
+</Link>
+```
+- Do NOT re-export Lucide symbols from `@poukai-inc/ui` — the consumer manages Lucide imports.
+
+```tsx
+import { Mail, AlertCircle } from "lucide-react";
+import { Icon } from "@poukai-inc/ui";
+
+// Decorative (default) — inside a button label:
+<button style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)" }}>
+  <Icon icon={Mail} size="sm" />
+  Send email
+</button>
+
+// Semantic — icon carries meaning not expressed in adjacent text:
+<Icon icon={AlertCircle} size="md" decorative={false} aria-label="Warning: action required" />
+
+// Inheriting color from parent:
+<span style={{ color: "var(--fg-muted)" }}>
+  <Icon icon={Mail} size="sm" />
+</span>
+```
+
+### Logo
+- Partner / customer logo cell. Composes `<Image>` — the root is always a single `<img>` with no wrapper element.
+- `src` (required string) — logo image URL passed directly to `<Image>`.
+- `alt` (required string) — the organisation's name (e.g. `alt="Stripe"`). Required at the type level. Pass `alt=""` for purely decorative logos where the name is stated in adjacent text. NEVER omit.
+- `tone` (`"color"` | `"mono"` | `"muted"`, default `"mono"`) — visual treatment via CSS `filter` and `opacity`. `"color"`: no filter, full opacity. `"mono"`: `grayscale(1) brightness(0)` (true black silhouette), full opacity, static. `"muted"`: same filter + 0.55 opacity at rest; hover/focus-visible raises opacity to 1 with `transition: opacity var(--dur-fast) var(--easing)`.
+- `size` (`"sm"` | `"md"` | `"lg"`, default `"md"`) — max-height constraint: `"sm"` → 24px, `"md"` → 32px, `"lg"` → 40px. Width is always `auto` — logos scale proportionally within the height cap.
+- `width` (optional number, default 200) + `height` (optional number, default 80) — passed to `<Image>` to drive `aspect-ratio` for CLS-safe slot reservation. Override with true intrinsic pixel dimensions when known. Defaults (200 × 80, 2.5:1 ratio) are a centroid for landscape wordmark logos.
+- Inline style overrides passed to `<Image>`: `maxWidth: "none"` (removes Image's `max-width: 100%` so `width: auto` + `max-height` govern dimensions), `width: "auto"`. These combine with Image's baseline `height: auto` and `aspect-ratio`.
+- Hover/focus-visible contract applies only to `tone="muted"`. `tone="color"` and `tone="mono"` are static — no hover state.
+- Reduced-motion: global `@media (prefers-reduced-motion: reduce)` in `tokens.css` collapses the opacity transition to 0.01ms. The opacity change is preserved; only the animation collapses. No component-level reduced-motion handling needed.
+- No new tokens introduced. Reuses `--dur-fast` (180ms) and `--easing` for the muted opacity transition.
+- `forwardRef<HTMLImageElement, LogoProps>`, `displayName="Logo"`. `className` merged via `clsx` onto the root `<img>`. Remaining props (`data-*`, `aria-*`, `loading`, `decoding`) spread through `<Image>` to the `<img>`.
+- Composition: wrap in `<a>` for linked logos — use `tone="muted"` when inside a link so the hover state signals interactivity. The `<a>` is the interactive element; `<Logo>` is never a button or link itself.
+- Do NOT wrap in a `<figure>` — Logo is not captioned content. Do NOT use for person avatars/headshots — use `<Avatar>`. Do NOT use for editorial photography — use `<Image>` or `<Portrait>`. Logo is specifically for the logo-strip use case.
+- Do NOT pass conflicting inline `style` for `maxHeight`, `width`, or `filter` — those are Logo's sizing and tone contract. If you need to override, manage it in a consumer wrapper.
+- Do NOT omit `alt`. Use `alt=""` for purely decorative logos, never omit the prop.
+- Do NOT use `tone="muted"` when `<Logo>` is not inside an interactive element — the hover affordance would be misleading.
+
 ### Input
-- Single-line text input primitive. Root is always `<input>`. Non-polymorphic. Ref forwarded to `HTMLInputElement`.
+**Atomic layer: atom.** Import from `@poukai-inc/ui/atoms/Input`. Molecule path `@poukai-inc/ui/molecules/Input` is a deprecated re-export (works in 1.x, removed in 2.0).
+- Single-line text input atom. Root is always `<input>`. Non-polymorphic. Ref forwarded to `HTMLInputElement`.
 - `type` (`"text"` | `"email"` | `"url"` | `"tel"` | `"password"` | `"search"` | `"number"`, default `"text"`) — constrained to single-line text-like types.
-- `invalid` (optional boolean) — when true, sets `data-invalid="true"` and `aria-invalid="true"` on the root element, applies accent border via CSS. Prefer wiring through `<Field error="…">` which also links `aria-describedby`.
-- Standard `ComponentPropsWithoutRef<"input">` spread: `value`, `onChange`, `placeholder`, `disabled`, `readOnly`, `required`, `autoComplete`, `aria-*`, `data-*`, etc.
+- `size` (`"sm"` | `"md"` | `"lg"`, default `"md"`) — visual height via shared `--btn-h-*` ladder. Pairs with `<Button size="…">` on the same row.
+- `invalid` (optional boolean) — sets `data-invalid="true"` and `aria-invalid="true"`; border → `--danger`. Prefer wiring through `<Field error="…">`.
+- `Omit<ComponentPropsWithoutRef<"input">, "size">` spread. Native HTML `size` attribute intentionally shadowed by DS `size` prop.
 - `clsx` className merge via `className` prop.
-- States: default (`--hairline` border, `--bg-elevated` bg), hover (border → `--fg-muted`), focus-visible (2px `--accent` outline + border), invalid (`--accent` border), disabled (`opacity: 0.5; cursor: not-allowed`).
-- Error border uses `--accent` — the DS does not ship a danger token in v1. This is the correct brand register.
-- Tokens consumed: `--bg-elevated`, `--hairline`, `--fg-muted`, `--fg`, `--accent`, `--font-sans`, `--fs-body`, `--lh-body`, `--space-2`, `--space-3`, `--radius-2`, `--dur-fast`, `--easing`. No new tokens.
+- States: default (`--hairline` border, `--bg-elevated` bg), hover (border → `--fg-muted`, skipped on disabled/readonly), focus-visible (2px `--accent` outline + border), invalid (`--danger` border), disabled (`opacity: 0.5; cursor: not-allowed`), readonly (`cursor: default`).
+- Tokens: `--bg-elevated`, `--hairline`, `--fg-muted`, `--fg`, `--accent`, `--danger`, `--font-sans`, `--fs-body`, `--lh-body`, `--space-2`, `--space-3`, `--radius-2`, `--dur-fast`, `--easing`, `--btn-h-sm`, `--btn-h-md`, `--btn-h-lg`. No new tokens.
 - Idiomatic usage wraps Input in `<Field>`. Standalone usage is valid; consumer owns label association.
-- Do NOT use Input for multi-line text — use `<Textarea>`.
-- Do NOT pass `type="checkbox"`, `type="radio"`, `type="file"`, `type="range"`, `type="date"` — those are not in the allowed type union and require separate primitives.
-- Do NOT add prefix/suffix icon slots in v1 — keep the surface minimal.
+- Do NOT use for multi-line text — use `<Textarea>`.
+- Do NOT pass `type="checkbox"`, `type="radio"`, `type="file"`, `type="range"`, `type="date"` — separate atoms.
+- Do NOT add leading/trailing icon slots — belongs to future `SearchField` molecule.
 
 ```tsx
 // Inside Field (recommended):
@@ -532,26 +907,65 @@ Padding and font-size stay hand-tuned per size (no separate padding-token scale)
 ```
 
 ### Textarea
-- Multi-line textarea primitive. Root is always `<textarea>`. Non-polymorphic. Ref forwarded to `HTMLTextAreaElement`.
-- `invalid` (optional boolean) — when true, sets `data-invalid="true"` and `aria-invalid="true"`, applies accent border. Prefer wiring through `<Field error="…">`.
-- Default `rows={4}`. Consumer can override via `rows` prop.
-- `resize: vertical` — horizontal resize disabled. Min-height corresponds to 4 lines of body text.
-- Standard `ComponentPropsWithoutRef<"textarea">` spread: `value`, `onChange`, `placeholder`, `rows`, `disabled`, `readOnly`, `required`, `aria-*`, `data-*`, etc.
+- **Atom layer.** Multi-line textarea primitive. Root is always `<textarea>`. Non-polymorphic. Ref forwarded to `HTMLTextAreaElement`. Label/helper/error are NOT owned by Textarea — they live in `<Field>`.
+- Import from `@poukai-inc/ui` (root) or `@poukai-inc/ui/atoms/Textarea`. The legacy `@poukai-inc/ui/molecules/Textarea` path is a `@deprecated` re-export shim and will be removed in v2.0.
+- `invalid` (optional boolean) — when true, sets `data-invalid="true"` and `aria-invalid="true"`, applies `--danger` border. Prefer wiring through `<Field error="…">`.
+- `rows` — default `3`. Drives the natural rendered height.
+- `resize` — `"vertical" | "none" | "both"`, default `"vertical"`. Maps directly to the CSS `resize` property on the root. `"both"` is allowed but discouraged — horizontal drag breaks most responsive layouts.
+- Standard `ComponentPropsWithoutRef<"textarea">` spread: `value`, `onChange`, `placeholder`, `disabled`, `readOnly`, `required`, `name`, `aria-*`, `data-*`, etc.
 - `clsx` className merge via `className` prop.
-- States: identical to Input — default, hover, focus-visible, invalid, disabled.
-- Tokens consumed: `--bg-elevated`, `--hairline`, `--fg-muted`, `--fg`, `--accent`, `--font-sans`, `--fs-body`, `--lh-body`, `--space-2`, `--space-3`, `--radius-2`, `--dur-fast`, `--easing`. No new tokens.
+- States: default, hover, focus-visible, readonly, invalid, disabled. Visual register mirrors the `Input` atom exactly.
+- Tokens consumed: `--bg-elevated`, `--hairline`, `--fg-muted`, `--fg`, `--accent`, `--danger`, `--font-sans`, `--fs-body`, `--lh-body`, `--space-3`, `--radius-2`, `--dur-fast`, `--easing`. Strict subset of the `Input` atom's tokens. No new tokens.
+- Padding contract: **symmetric `--space-3` on all four sides** (block + inline). This is the only visual delta from `Input` (which uses `--space-2` block / `--space-3` inline). Multi-line content needs equal vertical headroom so the first and last lines do not feel cramped.
 - Do NOT add character count display — consumer responsibility.
 - Do NOT use Textarea for single-line input — use `<Input>`.
+- Do NOT add autosize / content-height tracking inside the atom. A future `useAutosizeTextarea` utility hook will compose on top; tracked separately.
 
 ```tsx
 // Inside Field (recommended):
 <Field label="Message" id="message">
   <Textarea placeholder="Tell us about your project…" rows={6} />
 </Field>
+
+// Resize locked (fixed-height note):
+<Field label="Internal note">
+  <Textarea rows={2} resize="none" placeholder="Short note…" />
+</Field>
+```
+
+### Select
+**Atomic layer: atom.** Import from `@poukai-inc/ui/atoms/Select` or `@poukai-inc/ui`.
+- Native `<select>` atom. Root is always `<select>`. Non-polymorphic. Ref forwarded to `HTMLSelectElement`. Children are `<option>` / `<optgroup>` nodes — consumer-supplied.
+- `size` (`"sm"` | `"md"` | `"lg"`, default `"md"`) — visual height via shared `--btn-h-*` ladder. Pairs with `<Input size="…">` and `<Button size="…">` on the same row.
+- `invalid` (optional boolean) — sets `data-invalid="true"` and `aria-invalid="true"`; border → `--danger`. Prefer wiring through `<Field error="…">`.
+- `Omit<ComponentPropsWithoutRef<"select">, "size">` spread. Native HTML `size` attribute intentionally shadowed by DS `size` prop.
+- `clsx` className merge via `className` prop.
+- Trailing caret: CSS `background-image` SVG data URL (chevron-down, 16×16, 1.5px round stroke). Color hardcoded per color scheme (`#1d1d1f` light, `#f5f5f7` dark) — `currentColor` is unavailable in SVG background images. Extra inline-end padding reserves room. RTL flips caret. `[multiple]` hides caret and restores native appearance.
+- States: default (`--hairline` border, `--bg-elevated` bg), hover (border → `--fg-muted`, gated `@media (hover: hover)`, skipped on disabled), focus-visible (2px `--accent` outline + border), invalid (`--danger` border), disabled (`opacity: 0.5; cursor: not-allowed`).
+- Tokens: `--bg-elevated`, `--hairline`, `--fg-muted`, `--fg`, `--accent`, `--danger`, `--font-sans`, `--fs-body`, `--lh-body`, `--space-2`, `--space-3`, `--radius-2`, `--dur-fast`, `--easing`, `--btn-h-sm`, `--btn-h-md`, `--btn-h-lg`. No new tokens.
+- Idiomatic usage wraps Select in `<Field>`. Standalone usage valid; consumer owns label association.
+- Do NOT build a custom dropdown with this — use the native platform menu. Portal listbox / combobox is a separate future atom-pair.
+- Do NOT render Icon atoms or arbitrary children inside `<select>` — the platform discards them. The caret is CSS-only.
+
+```tsx
+// Inside Field (recommended):
+<Field label="Country" id="country" helper="Used for tax calculation.">
+  <Select name="country" defaultValue="us">
+    <option value="us">United States</option>
+    <option value="ca">Canada</option>
+  </Select>
+</Field>
+
+// Standalone (consumer owns label):
+<label htmlFor="sort">Sort by</label>
+<Select id="sort" size="sm" defaultValue="recent">
+  <option value="recent">Most recent</option>
+  <option value="popular">Most popular</option>
+</Select>
 ```
 
 ### Field
-- Composition wrapper that connects a visible label, optional helper text, and optional error message to a single form control (`<Input>`, `<Textarea>`, or any HTML form element).
+- Composition wrapper that connects a visible label, optional helper text, and optional error message to a single form control (`<Input>`, `<Textarea>`, `<Select>`, or any HTML form element).
 - Root element: `<div>`. Non-polymorphic. Ref forwarded to `HTMLDivElement`. `...rest` spread passes `data-*`, `aria-*`, `className`, `style`, etc.
 - `label` (required string) — visible label text. Rendered as `<label htmlFor={id}>`. Every Field must have a label.
 - `id` (optional string) — auto-generated via `useId()` when not provided. Wires `<label htmlFor>` and the child control's `id`.
@@ -1013,7 +1427,7 @@ Structured submission container — `<form>` wrapper that composes `Field` + `In
 - `forwardRef<HTMLFormElement, FormProps>`, `displayName = "Form"`, `clsx` className merge.
 - A11y: native `<form>` semantics. No additional ARIA.
 - Tokens consumed: `--space-4`, `--hero-max`, `--font-sans`. No new tokens.
-- Validation: consumer responsibility — pair with Zod, React Hook Form, or hand-rolled. The DS does not ship a validation hook contract.
+- Validation: consumer responsibility — pair with Zod, React Hook Form, or hand-rolled. Use `useFieldErrors` (shipped v1.1.0) for field-keyed error state management.
 - Do NOT add a `<fieldset>`/`<legend>` slot — consumer adds those via children if needed.
 
 ```tsx
@@ -1027,6 +1441,135 @@ Structured submission container — `<form>` wrapper that composes `Field` + `In
   <Button variant="primary" type="submit">Send</Button>
 </Form>
 ```
+
+### useFieldErrors
+
+Validation-lib-agnostic error-state hook for Form surfaces. Shipped in v1.1.0. Co-located with `<Field>` at `src/molecules/Field/useFieldErrors.ts`.
+
+```ts
+import { useFieldErrors, type FieldErrors } from "@poukai-inc/ui";
+
+const { errors, setErrors, setFieldError, clearAll } = useFieldErrors(initial?);
+```
+
+- `errors: FieldErrors` — `Record<string, string | undefined>`. Keys are input `name` attributes; values are user-facing error strings (or `undefined` to clear).
+- `setErrors(next)` — replace the entire error map. Use after full-form validation runs.
+- `setFieldError(name, message | undefined)` — set or clear the error for a single field; preserves all other fields.
+- `clearAll()` — clear all errors. Call on successful submit or after server acknowledgement.
+- All setters are stable across re-renders (`useCallback`). Pure state — no tokens, no DOM, invisible to AT.
+- Compatible with Zod (`flatten().fieldErrors`), React Hook Form (after one transform), Yup, and hand-rolled validators.
+- Do NOT add a validation runner, schema integration, or async handling to the hook. Validation logic lives at the call site.
+
+```tsx
+// Hand-rolled validator
+function ContactForm() {
+  const { errors, setErrors, clearAll } = useFieldErrors();
+  return (
+    <Form onSubmit={(data) => {
+      const email = String(data.get("email") ?? "");
+      const next: FieldErrors = {};
+      if (!email.includes("@")) next.email = "Enter a valid email";
+      if (Object.keys(next).length === 0) { clearAll(); return submit(data); }
+      setErrors(next);
+    }}>
+      <Field label="Email" id="email" error={errors.email}>
+        <Input type="email" name="email" />
+      </Field>
+      <Button type="submit">Send</Button>
+    </Form>
+  );
+}
+```
+
+### VisuallyHidden
+- Canonical sr-only clip-pattern atom. Renders `children` in the accessibility tree while keeping the element invisible to sighted users. Root element is always `<span>`. Non-polymorphic.
+- Use for supplementary screen-reader-only text: off-screen labels, "opens in new tab" notices, icon button labels that must not be visible.
+- Implementation: `position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0`. No CSS token consumption — geometry is fixed at the clip boundary.
+- `children` (required ReactNode) — the text or node to expose to the a11y tree.
+- `forwardRef` to the root `<span>`. `...rest` spread. `displayName = "VisuallyHidden"`.
+- Do NOT use `display: none` or `visibility: hidden` — both suppress from the a11y tree entirely. `VisuallyHidden` is the only correct pattern for sr-only text in this DS.
+- Do NOT substitute with `aria-label` when both a visual and a sr-only label are needed simultaneously — use `VisuallyHidden` for the supplementary text.
+
+### Skeleton
+- Content-placeholder atom for async loading states. Renders a pulsing grey block in the shape of absent content. `currentColor`-independent — uses `--surface` fill.
+- `width` (required, `number | string`) and `height` (required, `number | string`) — dimensions of the placeholder block. Pass numbers as px values; strings for percentages or CSS units.
+- `radius` (`"none"` | `"sm"` | `"md"` | `"lg"` | `"circle"`, default `"md"`) — border-radius variant. `"circle"` produces a pill/avatar placeholder; `"none"` for sharp-edge content like images.
+- `as` (`"div"` | `"span"`, default `"div"`) — root element. Use `"span"` for inline-in-text placeholders.
+- Animation: opacity pulse at `--dur-pulse` (1800ms). Suppressed by the global `prefers-reduced-motion` block in `tokens.css` — no per-component override needed.
+- A11y: root has `aria-hidden="true"`. Wrap groups in a container with `aria-busy="true"` and `aria-label` describing what is loading.
+- Tokens consumed: `--surface`, `--radius-1`, `--radius-2`, `--radius-3`, `--dur-pulse`. No new tokens.
+- Do NOT use Skeleton for indeterminate process feedback — use `<Spinner>`. Skeleton is for known-shape content placeholders only.
+- Do NOT pass meaningful text children — Skeleton is a visual shape, not a label.
+
+### Icon
+- Token-sized Lucide icon wrapper. Renders any Lucide icon at one of four named size rungs, inheriting `currentColor`.
+- `icon` (required) — a Lucide icon component (e.g. `import { Mail } from "lucide-react"`).
+- `size` (`"xs"` | `"sm"` | `"md"` | `"lg"`, default `"md"`) — maps to `--icon-xs` (12px), `--icon-sm` (16px), `--icon-md` (20px), `--icon-lg` (24px).
+- `decorative` (boolean, default `true`) — when `true`, sets `aria-hidden="true"` on the SVG (presentational). When `false`, the consumer must pass `aria-label` for the icon's semantic meaning.
+- `forwardRef` to the root SVG. `...rest` spread. `displayName = "Icon"`.
+- Tokens consumed: `--icon-xs`, `--icon-sm`, `--icon-md`, `--icon-lg`. Color is always `currentColor`.
+- Do NOT hardcode icon pixel sizes — always use the `size` prop and the icon size token scale.
+- Do NOT pass `aria-hidden` directly when `decorative={false}` — the `decorative` prop controls it. When `decorative={false}`, pass `aria-label` instead.
+
+### Link
+- Canonical styled anchor atom. Applies the brand two-layer underline affordance (resting `--hairline` underline; hover: `--accent` underline grows over it) and focus ring. Three variants.
+- Root element: `<a>` by default. `asChild={true}` delegates rendering to a Radix `Slot` — pass a framework `<Link>` component as the child for client-side routing.
+- `variant` (`"default"` | `"quiet"` | `"muted"`, default `"default"`) — color register:
+  - `"default"` — `color: var(--fg)`. Standard in-prose link.
+  - `"quiet"` — `color: var(--fg-muted)`. Use for secondary navigational links where reduced visual weight is appropriate.
+  - `"muted"` — applies the `.muted-link` global class pattern: `color: var(--fg-muted)` at rest, `color: var(--fg)` on hover via `transition`. No underline animation. Use for footer and caption-register links.
+- `href` — standard anchor attribute. Required when `asChild` is false.
+- `forwardRef` to the root `<a>` (or Slot child). `...rest` spread. `displayName = "Link"`.
+- Focus ring: `outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius-1)` — matches global `a:focus-visible` in `tokens.css`.
+- Tokens consumed: `--fg`, `--fg-muted`, `--accent`, `--hairline`, `--dur-mid`, `--easing-link`, `--radius-1`. No new tokens.
+- Do NOT use `<Link>` for `mailto:` — use `<EmailLink>`. Do NOT use `<Link>` for button actions — use `<Button>`.
+
+### Divider
+- Hairline separator rule atom. Horizontal rule (`<hr>`) or vertical rule (`<div>`) at `1px` using `--hairline` or `--hairline-soft`.
+- `orientation` (`"horizontal"` | `"vertical"`, default `"horizontal"`) — axis of the rule. Horizontal emits `<hr>`; vertical emits `<div role="separator" aria-orientation="vertical">`.
+- `tone` (`"default"` | `"muted"`, default `"default"`) — `"default"` uses `--hairline`; `"muted"` uses `--hairline-soft` (quieter decorative separator).
+- Horizontal: `border: 0; border-top: var(--hairline-w) solid <tone-token>; margin: 0`. Vertical: `width: var(--hairline-w); background: <tone-token>; align-self: stretch`.
+- `forwardRef` to the root element. `...rest` spread. `displayName = "Divider"`.
+- Tokens consumed: `--hairline`, `--hairline-soft`, `--hairline-w`. No new tokens.
+- Do NOT use `Divider` as a layout spacer — it is a visual rule only. Use margin/gap tokens on the containing element for spacing.
+- Do NOT render thicker than `--hairline-w` (1px) — brand convention.
+
+### Spinner
+- Indeterminate loading indicator atom. An inline SVG arc that rotates continuously to signal an async operation in progress. Uses `currentColor` throughout — adapts to any surface without a color prop.
+- Root element: `<span>` with `role="status"`, `aria-live="polite"`, `aria-label`. The SVG inside is presentational (`aria-hidden="true"`). A visually-hidden `<span>` sibling contains the label text for virtual browse mode.
+- `size` (`"sm"` | `"md"` | `"lg"`, default `"md"`) — SVG dimensions: `sm`=16px (`--icon-sm`), `md`=20px (`--icon-md`), `lg`=24px (`--icon-lg`).
+- `label` (optional string, default `"Loading"`) — accessible label for `aria-label` and the visually-hidden text. Override with context-specific text: `"Submitting"`, `"Loading results"`.
+- SVG geometry: `viewBox="0 0 24 24"`, `r=10`, `cx=cy=12`, `strokeWidth=2`. Track arc at `opacity: 0.2`; rotating arc at full opacity covers ~270° (`stroke-dasharray ≈ 47.12`).
+- Animation: `animation: poukai-spin var(--dur-spinner) linear infinite` on the arc. `--dur-spinner: 800ms` — sub-second so the spinner reads as actively working. Linear easing (not `--easing`) because a continuous loop must not decelerate.
+- Reduced-motion fallback: explicit `animation: none` on the arc (belt-and-suspenders over the global `tokens.css` collapse) + a `…` (U+2026) ellipsis `<span aria-hidden="true">` revealed via CSS only under `prefers-reduced-motion: reduce`. No JS branching. DOM structure is identical across motion preferences.
+- Tokens consumed: `--dur-spinner`, `--icon-sm`, `--icon-md`, `--icon-lg`. Color: `currentColor`. No color token consumed directly.
+- Do NOT add a `color` prop — `currentColor` inheritance is the contract. Control color on the parent.
+- Do NOT add a `speed` or `duration` prop — override `--dur-spinner` via a scoped CSS custom property on a parent element.
+- Do NOT show `<Spinner>` for interactions that resolve in under ~300ms — it will flash and disappear, reading as a glitch.
+- Do NOT use `<Spinner>` as ambient decoration — motion doctrine bans ambient motion without semantic meaning tied to a real operation.
+- Button loading pairing: `sm`/`compact` buttons use `size="sm"`; `md`/`lg` buttons use `size="md"`. Never `size="lg"` inside a button — 24px competes with the button label.
+
+### ProgressBar
+- Linear progress indicator atom. Determinate mode (known progress percentage) or indeterminate mode (unknown duration). Pairs with `<Spinner>` — use `<Spinner>` when no percentage is available; use `<ProgressBar>` when a percentage or step-count can be derived.
+- Root element: `<div role="progressbar">` with `aria-valuemin="0"`, `aria-valuemax="100"`. Determinate: `aria-valuenow={clamped value}`. Indeterminate: `aria-valuenow` is absent from the DOM entirely (not `undefined`, not empty — the attribute is not rendered at all).
+- Labeling: exactly one of `aria-label` or `aria-labelledby` is required. Enforced at the TypeScript type level via discriminated union — both absent is a type error. No default label is defined; an unlabeled progress bar is inaccessible.
+- `value` (`number | undefined`, default `undefined`) — 0–100. Omitting activates indeterminate mode. Out-of-range values clamp to `[0, 100]`.
+- `size` (`"sm" | "md"`, default `"md"`) — track height: `sm`=2px, `md`=4px. `border-radius: 999px` on track and fill at all sizes (pill shape, brand-fixed).
+- `tone` (`"default" | "success" | "warning" | "danger"`, default `"default"`) — fill color token: `default`→`--fg`, `success`→`--success`, `warning`→`--warning`, `danger`→`--danger`. Track is always `--surface` regardless of tone.
+- Width: not set by the component. Consumer assigns width via `className` or containing layout. Same convention as `<Spinner>`.
+- Determinate fill: `width: 100%`, `transform: scaleX(var(--progress-fraction, 0))`, `transform-origin: left center`. `--progress-fraction` set inline as a CSS custom property (`value / 100`). Transition: `transform var(--dur-mid) var(--easing)`. NEVER animate `width` — `scaleX` only.
+- Indeterminate: track contains two sibling bars (`position: absolute`, `width: 100%`) animated by `@keyframes poukai-progress-bar1` and `poukai-progress-bar2`. Both loop `var(--dur-progress-indeterminate)` (1400ms) with `--easing` (expo-out). Bar 2 starts at `translateX(-200%)` so it emerges behind bar 1 mid-cycle, producing the "two signals in sequence" sweep with no dead-track gap.
+- Keyframes: `poukai-progress-bar1` (0%: -100%, 20%: -100%, 60%: 0%, 80%: 0%, 100%: +100%) and `poukai-progress-bar2` (0%: -200%, 40%: -200%, 80%: 0%, 100%: +100%). The brief 60%–80% hold at 0% in bar1 creates a "full" pause before exit; the overlap prevents dead track.
+- Reduced-motion — indeterminate: `bar1` and `bar2` are `animation: none; display: none`. A `staticFill` element (`display: none` by default, `display: block` under reduced-motion) renders at `scaleX(0.5)` — half-filled, communicates "in progress" without a specific value or motion. Always present in DOM; toggled CSS-only.
+- Reduced-motion — determinate: `transition: none` on the fill (snap to value immediately).
+- New tokens added in this release: `--success` / `--bg-success` / `--fg-on-success` (light + dark), `--dur-progress-indeterminate: 1400ms`.
+- Tokens consumed: `--surface` (track), `--fg` / `--success` / `--warning` / `--danger` (fill by tone), `--dur-mid` (determinate transition), `--easing` (both transition and animation), `--dur-progress-indeterminate` (indeterminate loop period).
+- Do NOT animate `width`. The motion property contract is `transform` only. Playwright CT guards this regression.
+- Do NOT add `aria-valuenow` when indeterminate — the attribute must be absent, not set to `undefined` or `null`.
+- Do NOT omit both `aria-label` and `aria-labelledby` — TypeScript will reject the call site.
+- Do NOT add a `speed` or `duration` prop — override `--dur-progress-indeterminate` via a scoped CSS custom property on a parent element.
+- Do NOT use `<ProgressBar>` inside a `<Button>` — use `<Spinner>` for button-level loading.
+- Do NOT use as ambient decoration — every animation must communicate a real operation state.
 
 ---
 
