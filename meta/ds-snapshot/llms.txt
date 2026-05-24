@@ -4,7 +4,7 @@
 
 Poukai is a React component library organised by Atomic Design (tokens → atoms → molecules → organisms).
 
-Version: `2.0.0`
+Version: `2.9.0`
 
 ## LLM context
 
@@ -63,12 +63,17 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/atoms/Switch`
 - `@poukai-inc/ui/atoms/Input`
 - `@poukai-inc/ui/atoms/Radio`
+- `@poukai-inc/ui/atoms/TimePicker`
+- `@poukai-inc/ui/molecules/Alert`
+- `@poukai-inc/ui/molecules/Byline`
+- `@poukai-inc/ui/molecules/Stepper`
 - `@poukai-inc/ui/molecules/FailureMode`
 - `@poukai-inc/ui/molecules/FeatureCard`
 - `@poukai-inc/ui/molecules/FieldNote`
 - `@poukai-inc/ui/molecules/Input`
 - `@poukai-inc/ui/molecules/Hero`
 - `@poukai-inc/ui/molecules/LinkCard`
+- `@poukai-inc/ui/molecules/LinkList`
 - `@poukai-inc/ui/molecules/Portrait`
 - `@poukai-inc/ui/molecules/Principle`
 - `@poukai-inc/ui/molecules/Pull`
@@ -76,7 +81,25 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/molecules/RoleCard`
 - `@poukai-inc/ui/molecules/Section`
 - `@poukai-inc/ui/molecules/Statement`
+- `@poukai-inc/ui/molecules/MenuItem`
+- `@poukai-inc/ui/molecules/MetaList`
+- `@poukai-inc/ui/molecules/TagList`
 - `@poukai-inc/ui/molecules/TeamCard`
+- `@poukai-inc/ui/molecules/Disclosure`
+- `@poukai-inc/ui/molecules/FormRow`
+- `@poukai-inc/ui/molecules/TimelineItem`
+- `@poukai-inc/ui/molecules/NewsletterField`
+- `@poukai-inc/ui/molecules/SearchField`
+- `@poukai-inc/ui/molecules/NavLink`
+- `@poukai-inc/ui/molecules/CtaBlock`
+- `@poukai-inc/ui/molecules/StatList`
+- `@poukai-inc/ui/molecules/Caption`
+- `@poukai-inc/ui/molecules/Fieldset`
+- `@poukai-inc/ui/molecules/Pagination`
+- `@poukai-inc/ui/molecules/EmptyState`
+- `@poukai-inc/ui/molecules/Breadcrumb`
+- `@poukai-inc/ui/organisms/Sidebar`
+- `@poukai-inc/ui/organisms/HeroSection`
 - `@poukai-inc/ui/organisms/Dialog`
 - `@poukai-inc/ui/organisms/Footer`
 - `@poukai-inc/ui/organisms/SiteShell`
