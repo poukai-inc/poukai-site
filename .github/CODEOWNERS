@@ -1,0 +1,22 @@
+# CODEOWNERS for poukai-inc/pouk.ai
+#
+# Anyone listed here is auto-requested for review on PRs that touch the
+# matched paths. Combined with branch protection (Settings → Branches →
+# `main` → Require review from Code Owners), this prevents silent edits to
+# files whose breakage would propagate beyond this repo.
+#
+# Docs: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-customization/customizing-your-repository/about-code-owners
+
+# Vercel rewrite + sitemap filter — a broken `/admin/*` rewrite block
+# silently breaks the authenticated product app at pouk.ai/admin. The sitemap
+# filter keeps `/admin*` out of sitemap-index.xml. Both must stay aligned with
+# poukai-inc/pouk.ai-app.
+vercel.json          @ArianZargaran
+astro.config.mjs     @ArianZargaran
+
+# CI workflows — silent edits change the quality bar (Lighthouse, axe,
+# Vitest, secret scan, licence allow-list).
+/.github/workflows/  @ArianZargaran
+
+# CODEOWNERS itself — protect the protector.
+/.github/CODEOWNERS  @ArianZargaran
