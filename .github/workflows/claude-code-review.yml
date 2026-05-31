@@ -23,7 +23,9 @@ jobs:
       contents: read
       pull-requests: read
       issues: read
-      id-token: write
+      # No id-token: write — auth is via claude_code_oauth_token (OAuth secret),
+      # not cloud OIDC federation (Bedrock/Vertex). Re-add only if the action is
+      # switched to an OIDC provider, with a one-line reason here. (#99)
 
     steps:
       - name: Checkout repository

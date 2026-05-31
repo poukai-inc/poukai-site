@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Page not found — pouk.ai",
+    "description": "This page doesn't exist on pouk.ai. Use the nav above, or return to the homepage.",
+    "canonical": "https://pouk.ai/404"
+  },
+  "hero": {
+    "title": "This page doesn't exist.",
+    "lede": "The link is broken, or the URL was typed wrong. Try the nav above, or return home.",
+    "ctaText": "Return to pouk.ai →",
+    "ctaHref": "/"
+  },
+  "suggestions": [
+    { "label": "Roles", "descriptor": "What kind of help", "href": "/roles" },
+    { "label": "Why AI", "descriptor": "Why AI projects fail", "href": "/why-ai" },
+    { "label": "Principles", "descriptor": "How pouk.ai works", "href": "/principles" }
+  ]
+}

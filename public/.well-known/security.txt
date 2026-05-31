@@ -1,3 +1,4 @@
 Contact: security@pouk.ai
+Canonical: https://pouk.ai/.well-known/security.txt
 Expires: 2027-05-16T00:00:00Z
 Preferred-Languages: en

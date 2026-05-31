@@ -33,37 +33,32 @@
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { NotFoundHero } from "../components/NotFoundHero";
+// Copy sourced from JSON per R-076 HARD; Zod-validated at build (R-074 HARD).
+// Behavioural flags (robots, omitCanonicalLink) stay in the template — not copy.
+import notFoundRaw from "../content/not-found.json";
+import { notFoundSchema } from "../content/_schemas/not-found";
 
-const pageTitle = "Page not found — pouk.ai";
-const pageDescription =
-  "This page doesn't exist on pouk.ai. Use the nav above, or return to the homepage.";
+const { meta, hero, suggestions } = notFoundSchema.parse(notFoundRaw);
 
-// canonical is required by BaseLayout's prop type but omitCanonicalLink
+// meta.canonical is required by BaseLayout's prop type but omitCanonicalLink
 // suppresses the <link rel="canonical"> emit per spec §6. The value is still
 // used for og:url so social-share previews resolve to something coherent.
-const canonical = "https://pouk.ai/404";
-
-const suggestions = [
-  { label: "Roles", descriptor: "What kind of help", href: "/roles" },
-  { label: "Why AI", descriptor: "Why AI projects fail", href: "/why-ai" },
-  { label: "Principles", descriptor: "How pouk.ai works", href: "/principles" },
-];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  canonical={canonical}
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
   currentRoute="/404"
   robots="noindex,follow"
   omitCanonicalLink={true}
 >
   <div class="site-page not-found">
     <NotFoundHero
-      title="This page doesn't exist."
-      lede="The link is broken, or the URL was typed wrong. Try the nav above, or return home."
-      ctaText="Return to pouk.ai →"
-      ctaHref="/"
+      title={hero.title}
+      lede={hero.lede}
+      ctaText={hero.ctaText}
+      ctaHref={hero.ctaHref}
     />
 
     <hr class="not-found-rule" />
