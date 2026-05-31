@@ -120,24 +120,28 @@ const bugsinkDsn = import.meta.env.PUBLIC_BUGSINK_DSN as string | undefined;
 const hasBugsinkConfig = Boolean(bugsinkDsn);
 
 // Build the Matomo tracker script string at build time (only when configured).
+// Env values are embedded via JSON.stringify so they land as properly-quoted,
+// escaped JS string literals — a value containing `"` / `</script>` / `;` can't
+// break out of the string and execute. set:html does no escaping of its own.
 const matomoScript = hasMatomoConfig
   ? `var _paq = window._paq = window._paq || [];
 _paq.push(['disableCookies']);
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 (function() {
-  var u = "${matomoUrl}";
+  var u = ${JSON.stringify(matomoUrl)};
   _paq.push(['setTrackerUrl', u + 'matomo.php']);
-  _paq.push(['setSiteId', '${matomoSiteId}']);
+  _paq.push(['setSiteId', ${JSON.stringify(matomoSiteId)}]);
   var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
   g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
 })();`
   : null;
 
 // Build the Bugsink SDK script string at build time (only when configured).
+// DSN embedded via JSON.stringify for the same breakout-safety reason as above.
 const bugsinkScript = hasBugsinkConfig
   ? `import("https://browser.sentry-cdn.com/8.0.0/bundle.tracing.min.js").then(function(S) {
-  S.init({ dsn: "${bugsinkDsn}" });
+  S.init({ dsn: ${JSON.stringify(bugsinkDsn)} });
 });`
   : null;
 ---
