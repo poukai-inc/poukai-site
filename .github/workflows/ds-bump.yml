@@ -7,7 +7,7 @@ name: DS package bump
 #
 # To trigger manually (e.g. testing): from the DS repo or any authorized
 # context, hit the GitHub API:
-#   gh api -X POST repos/poukai-inc/pouk.ai/dispatches \
+#   gh api -X POST repos/poukai-inc/poukai-site/dispatches \
 #     -f event_type=ds-package-published \
 #     -f client_payload[version]=0.x.y
 

@@ -46,6 +46,8 @@ const ALLOW = new Set([
 const EXCEPTIONS = {
 	"@poukai-inc/ui@UNLICENSED":
 		"First-party proprietary DS package. UNLICENSED here means private/internal, not 'no license' in the OSS sense.",
+	"@poukai-inc/ui@Unknown":
+		"First-party proprietary DS package. `pnpm licenses` reports `Unknown` when the package omits a SPDX `license` field; same private/internal rationale as the UNLICENSED entry.",
 	"@vercel/analytics@MPL-2.0":
 		"Vercel Web Analytics client SDK. MPL-2.0 is per-file copyleft and only triggers on modification of MPL source files; we consume the package as-is, no source modification. Same rationale as the lightningcss entries below.",
 	"@img/sharp-libvips-darwin-arm64@LGPL-3.0-or-later":
