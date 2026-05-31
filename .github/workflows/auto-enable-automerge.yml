@@ -14,6 +14,11 @@ name: auto-enable-automerge
 # Notes:
 #   - Draft PRs are skipped. When a draft transitions to ready-for-review the
 #     `ready_for_review` event re-runs this workflow and enables auto-merge.
+#   - Fork PRs are skipped (head.repo.full_name != github.repository). Auto-merge
+#     is only ever enabled on branches pushed to this repo by org members; an
+#     external fork PR must be merged by a maintainer after review, never
+#     auto-merged on green checks alone. Branch protection should still require
+#     a reviewer as defence-in-depth — this guard is the first line.
 #   - Uses `--squash` to match the repo's stated merge strategy (linear main).
 #   - Uses the workflow's GITHUB_TOKEN; `pull-requests: write` + `contents: write`
 #     are the minimum scopes needed to call the auto-merge GraphQL mutation.
@@ -29,7 +34,9 @@ permissions:
 
 jobs:
   enable:
-    if: github.event.pull_request.draft == false
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Enable auto-merge (squash)
