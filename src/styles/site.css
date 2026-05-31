@@ -1,17 +1,19 @@
 /*
  * site.css — page-level overrides only.
  *
- * Tokens come from @poukai-inc/ui/tokens.css (imported in BaseLayout.astro).
- * Component CSS ships inside the package.
+ * Tokens come from @poukai-inc/ui/tokens.css and component visual styles from
+ * @poukai-inc/ui/styles.css (both imported in BaseLayout.astro). The two-file
+ * split landed in DS 2.0.0 — prior versions inlined component CSS via JS-side
+ * imports, so a single tokens.css import was enough.
  *
  * Rules here must be:
  *   - page-composition concerns (layout of DS components on a page)
  *   - not duplicating or overriding token values
  *   - not authoring new primitives (those belong in @poukai-inc/ui)
  *
- * Never: new color values, new type sizes, new spacing tokens, !important
- * (the sole !important exception lives in @poukai-inc/ui/tokens.css for
- * prefers-reduced-motion, per the a11y exception documented there).
+ * Never: new color values, new type sizes, new spacing tokens. The sole
+ * !important in this file is the prefers-reduced-motion animation override
+ * at the bottom (documented a11y exception).
  */
 
 /* ---------- Site-side named values ----------
@@ -299,24 +301,16 @@
   margin-block: var(--space-8);
 }
 
-/* ---------- About page v2 — orange portrait band ----------
+/* ---------- About page v2 — portrait band ----------
    Composition: meta/compositions/pages/about.md v2 (Approved 2026-05-18).
    Unit 2 = <AboutBand> wrapping <Hero bleed="full" illustration={<Portrait>}>.
-   The orange surface is applied here because <Hero> has no surface prop —
-   this wrapper sets the background and cascades --fg-on-warm token values
-   so Hero's internal title/lede slots inherit correct foreground colors.
 
-   NOTE: .about-band targets the wrapper div inside AboutBand.tsx, NOT the
-   Hero root element. The Hero's internal --bleed="full" mechanics handle
-   the viewport-width extension; .about-band provides the orange fill. */
-
-/* .about-band wrapper retained as composition anchor (scope for the display
-   statement font-size clamp at .about-band h1, and the caption styling at
-   .about-band__caption below). The orange backdrop + warm foreground cascade
-   were retired on 2026-05-18 per founder direction; the wrapper now declares
-   no surface or color of its own — text inherits neutral --fg / --fg-muted
-   from the page default. Selector survives because the .about-band h1 +
-   .about-band__caption descendant rules below depend on the scope. */
+   .about-band targets the wrapper div inside AboutBand.tsx, NOT the Hero root.
+   The orange backdrop + warm --fg-on-warm cascade were retired 2026-05-18 per
+   founder direction; the wrapper now declares no surface or color of its own —
+   text inherits neutral --fg / --fg-muted from the page default. The selector
+   is retained purely as a composition anchor: the .about-band h1 font-size
+   clamp and .about-band__caption rules below depend on its scope. */
 
 /* ---------- About page v2 — display statement font-size (site-side clamp) ----------
    DS counter-proposal resolution §6.3 path (b): "site can clamp locally for
@@ -355,7 +349,7 @@
 
 /* ---------- About page v2 — tail content (Units 3–5) ----------
    .about-tail contains story body, Pouākai section, end CTA.
-   Returns to --bg canvas after the orange band.
+   Returns to --bg canvas after the portrait band.
    padding-block-start reduced vs .site-page default because the band's
    own bottom padding (--space-24 inside Hero) handles breathing.       */
 
