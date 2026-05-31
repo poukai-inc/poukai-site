@@ -91,7 +91,7 @@ const superscriptGlyphs = ["¹", "²", "³", "⁴"];
         <!-- 4. Five FailureMode molecules (data from collection) -->
         <div class="failure-modes-section">
           {sortedModes.map((mode) => (
-            <section id={mode.anchor} aria-labelledby={`fm-title-${mode.index}`}>
+            <section id={mode.anchor} aria-label={mode.title}>
               <FailureMode index={mode.index} title={mode.title}>
                 {mode.stats.length > 0 && (
                   <div class="stats-row" role="list" aria-label={`Statistics for failure mode ${mode.index}`}>
