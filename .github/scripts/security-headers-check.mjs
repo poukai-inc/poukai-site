@@ -128,8 +128,25 @@ function main() {
     process.exit(1);
   }
 
+  // Content-Security-Policy (Decision 2026-05-31, supersedes D-17): must be
+  // present in some header rule. It lives in a non-catch-all rule scoped to
+  // exclude /admin (the proxied app), so scan every rule rather than only the
+  // catch-all. See meta/decisions/2026-05-31-introduce-csp.md.
+  const allKeys = new Set(
+    config.headers.flatMap((rule) => (rule.headers || []).map((h) => h.key))
+  );
+  if (!allKeys.has("Content-Security-Policy")) {
+    console.error("");
+    console.error(
+      "::error::Content-Security-Policy missing from vercel.json. Required since" +
+      " Decision 2026-05-31 (supersedes D-17). Add it to a header rule scoped to" +
+      ' exclude /admin (source "/((?!admin).*)").'
+    );
+    process.exit(1);
+  }
+
   console.log("");
-  console.log("All required security headers present in vercel.json (R-042–R-045 HARD gate passed).");
+  console.log("All required security headers present in vercel.json (R-042–R-045 + CSP gate passed).");
   console.log("");
   console.log(
     "NOTE: This is a config-correctness check only. Runtime verification" +
