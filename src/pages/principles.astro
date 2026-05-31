@@ -22,35 +22,27 @@ import { Hero, Principle } from "@poukai-inc/ui";
 // src/content/_schemas/principles.ts; parse failures fail the build.
 import principlesRaw from "../content/principles.json";
 import { principlesSchema } from "../content/_schemas/principles";
+// Page-level copy (meta, hero, end-CTA, JSON-LD) sourced from JSON per R-076
+// HARD; intro/conclusion/principles body content stays in principles.json.
+import principlesPageRaw from "../content/principles-page.json";
+import { principlesPageSchema } from "../content/_schemas/principles-page";
 
 const { intro, conclusion, principles } = principlesSchema.parse(principlesRaw);
-
-const pageTitle = "Principles — pouk.ai";
-const pageDescription =
-  "Ten operating principles. Built one project at a time. The compass pouk.ai works from — on ownership, integrity, systems thinking, momentum, and more.";
-const canonical = "https://pouk.ai/principles";
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Principles — pouk.ai",
-  description: pageDescription,
-  url: canonical,
-};
+const { meta, hero, endCta, jsonLd } = principlesPageSchema.parse(principlesPageRaw);
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  canonical={canonical}
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
   jsonLd={jsonLd}
   currentRoute="/principles"
 >
   <div class="site-page">
     <!-- 1. Hero — page h1: "Principles" per D-09 -->
     <Hero
-      title="Principles"
-      lede="Ten operating principles. Built one project at a time. The compass pouk.ai works from."
+      title={hero.title}
+      lede={hero.lede}
     />
 
     <!-- 2. Introduction — Instrument Serif italic per D-10 -->
@@ -79,8 +71,8 @@ const jsonLd = {
     <!-- 5. End CTA — single muted line per spec IA item 6 -->
     <div class="end-cta">
       <p>
-        If this is the kind of partner you want,{" "}
-        <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
+        {endCta.lead}{" "}
+        <a href={endCta.href}>{endCta.email}</a>
       </p>
     </div>
   </div>
