@@ -13,8 +13,6 @@ export const aboutSchema = z.object({
     title: z.string(),
     description: z.string().max(160),
     canonical: z.string().url(),
-    ogTitle: z.string(),
-    ogDescription: z.string(),
   }),
   band: z.object({
     displayStatement: z.string(),

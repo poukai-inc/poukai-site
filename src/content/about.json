@@ -2,9 +2,7 @@
   "meta": {
     "title": "About — pouk.ai",
     "description": "pouk.ai is a technical consultancy that ships AI systems in production. Custom AI builds. Automations. Advisory engagements. hello@pouk.ai.",
-    "canonical": "https://pouk.ai/about",
-    "ogTitle": "About — pouk.ai",
-    "ogDescription": "pouk.ai is a technical consultancy that ships AI systems in production. Custom AI builds. Automations. Advisory engagements. hello@pouk.ai."
+    "canonical": "https://pouk.ai/about"
   },
   "band": {
     "displayStatement": "pouk.ai builds AI that ships.",
