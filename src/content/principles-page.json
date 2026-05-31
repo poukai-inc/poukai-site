@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "title": "Principles — pouk.ai",
+    "description": "Ten operating principles. Built one project at a time. The compass pouk.ai works from — on ownership, integrity, systems thinking, momentum, and more.",
+    "canonical": "https://pouk.ai/principles"
+  },
+  "hero": {
+    "title": "Principles",
+    "lede": "Ten operating principles. Built one project at a time. The compass pouk.ai works from."
+  },
+  "endCta": {
+    "lead": "If this is the kind of partner you want,",
+    "email": "hello@pouk.ai",
+    "href": "mailto:hello@pouk.ai"
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Principles — pouk.ai",
+    "description": "Ten operating principles. Built one project at a time. The compass pouk.ai works from — on ownership, integrity, systems thinking, momentum, and more.",
+    "url": "https://pouk.ai/principles"
+  }
+}
