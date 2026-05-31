@@ -7,7 +7,9 @@
  *   - @poukai-inc/ui/tokens.css import (design tokens)
  *   - @poukai-inc/ui/styles.css import (component styles — new in DS 2.0.0)
  *   - site.css import
- *   - Matomo + Bugsink env-var-gated script tags (emit nothing when unset)
+ *   - Matomo env-var-gated tracker tag (emits nothing when unset)
+ *   - (Bugsink error-reporting SDK intentionally not wired — see frontmatter
+ *     note; removed 2026-05-31 per #90, re-add self-hosted once O-012 lands)
  *   - SiteShell organism wrapping <slot />
  *
  * Does NOT port the static /index.html — that lives verbatim in public/.
@@ -115,9 +117,13 @@ const matomoUrl = import.meta.env.PUBLIC_MATOMO_URL as string | undefined;
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID as string | undefined;
 const hasMatomoConfig = Boolean(matomoUrl && matomoSiteId);
 
-// TODO: provide Bugsink DSN (O-012) — set PUBLIC_BUGSINK_DSN in Vercel env
-const bugsinkDsn = import.meta.env.PUBLIC_BUGSINK_DSN as string | undefined;
-const hasBugsinkConfig = Boolean(bugsinkDsn);
+// NOTE: Bugsink/Sentry error-reporting client SDK is intentionally NOT wired
+// here. The prior implementation inline-imported the SDK from a third-party
+// CDN (browser.sentry-cdn.com) — that violated R-011 (third-party logic must
+// load from its own same-origin file, not inline) and R-050 (no new
+// third-party runtime origin). It was inert (no DSN) and removed 2026-05-31
+// (#90). Re-add as a self-hosted, same-origin <script src> per R-061 when
+// O-012 picks the deploy shape and a DSN exists.
 
 // Build the Matomo tracker script string at build time (only when configured).
 // Env values are embedded via JSON.stringify so they land as properly-quoted,
@@ -135,14 +141,6 @@ _paq.push(['enableLinkTracking']);
   var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
   g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
 })();`
-  : null;
-
-// Build the Bugsink SDK script string at build time (only when configured).
-// DSN embedded via JSON.stringify for the same breakout-safety reason as above.
-const bugsinkScript = hasBugsinkConfig
-  ? `import("https://browser.sentry-cdn.com/8.0.0/bundle.tracing.min.js").then(function(S) {
-  S.init({ dsn: ${JSON.stringify(bugsinkDsn)} });
-});`
   : null;
 ---
 
@@ -236,12 +234,10 @@ const bugsinkScript = hasBugsinkConfig
     {matomoScript ? <script is:inline defer set:html={matomoScript} /> : null}
 
     <!--
-      error-reporting: bugsink
-      Loads only when PUBLIC_BUGSINK_DSN is set.
-      Sentry-compatible browser SDK. Deferred — no render blocking.
-      TODO: O-012 — decide self-hosted vs. Bugsink Cloud before wiring DSN.
+      error-reporting: bugsink — intentionally not wired. See the frontmatter
+      note: the prior third-party-CDN inline import violated R-011/R-050 and was
+      removed 2026-05-31 (#90). Re-add self-hosted (R-061) once O-012 lands.
     -->
-    {bugsinkScript ? <script is:inline defer set:html={bugsinkScript} /> : null}
 
     <!--
       Subtle cross-page view transitions.
