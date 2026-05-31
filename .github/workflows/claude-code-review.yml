@@ -23,9 +23,12 @@ jobs:
       contents: read
       pull-requests: read
       issues: read
-      # No id-token: write — auth is via claude_code_oauth_token (OAuth secret),
-      # not cloud OIDC federation (Bedrock/Vertex). Re-add only if the action is
-      # switched to an OIDC provider, with a one-line reason here. (#99)
+      # Required: claude-code-action@v1 mints its GitHub token via OIDC exchange
+      # (setupGitHubToken -> getOidcToken). Without this the action fails with
+      # "Could not fetch an OIDC token". This is separate from
+      # claude_code_oauth_token, which auths the Anthropic API, not GitHub.
+      # (#99/#110 wrongly removed this as "unused" and broke the review job.)
+      id-token: write
 
     steps:
       - name: Checkout repository
