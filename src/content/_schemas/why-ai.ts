@@ -103,6 +103,7 @@ export const whyAiSchema = z.object({
       name: z.string(),
       url: z.string().url(),
     }),
+    datePublished: z.string(),
     dateModified: z.string(),
   }),
 });
