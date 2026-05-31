@@ -118,6 +118,7 @@
     "url": "https://pouk.ai/why-ai",
     "author": { "@type": "Organization", "name": "pouk.ai", "url": "https://pouk.ai" },
     "publisher": { "@type": "Organization", "name": "pouk.ai", "url": "https://pouk.ai" },
+    "datePublished": "2026-05-13",
     "dateModified": "2026-05-13"
   }
 }
