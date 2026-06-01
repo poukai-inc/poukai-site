@@ -1,0 +1,88 @@
+---
+/**
+ * /writing — essay index (the corpus front-of-house).
+ *
+ * IA per meta/specs/pages/writing.md §4a. Composition per
+ * meta/compositions/pages/writing.md (§2A).
+ *   - Hero size="intimate" (LOCKED §7 Q1) — quiet list page.
+ *   - Essay list = <LinkCard variant="quiet"> per non-draft essay, reverse-chron.
+ *     Each entry: title (h3) + claim one-liner + muted date (<Time>).
+ *   - Retention block: native zero-JS <form action> email line (Buttondown) + RSS.
+ *   - Empty state = silence (LOCKED §7 Q3) — no "more coming" apology.
+ *
+ * Email line (writing.json.md §6 / composition A2): a NATIVE
+ * <form action method="post"> posting to Buttondown — NOT the DS <Form>
+ * molecule (which requires onSubmit + hydration). The <Input>/<Button> DS atoms
+ * render to plain static HTML inside the native form — zero client JS.
+ *
+ * Buttondown endpoint comes from PUBLIC_BUTTONDOWN_ENDPOINT. When unset, the
+ * email line is suppressed and the RSS-alone fallback renders (writing.json.md
+ * §6 documented fallback) — Arian must supply the endpoint to ship the email line.
+ *
+ * sr-only h2 bridges h1 (hero) → h3 (LinkCard) to satisfy axe heading-order.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { Hero, Section, Input, Button, Link } from "@poukai-inc/ui";
+import { WritingList } from "../../components/WritingList";
+import writingPageRaw from "../../content/writing-page.json";
+import { writingPageSchema } from "../../content/_schemas/writing-page";
+
+const { meta, hero, retention, jsonLd } = writingPageSchema.parse(writingPageRaw);
+
+// Non-draft essays, reverse-chronological by datePublished (writing.json.md §5.1).
+const essays = await getCollection("writing", ({ data }) => !data.draft);
+const orderedEssays = essays
+  .map((entry) => entry.data)
+  .sort((a, b) => (a.datePublished < b.datePublished ? 1 : -1));
+
+// Buttondown endpoint — env-var-gated. Unset → RSS-alone fallback (no email form).
+const buttondownEndpoint = import.meta.env.PUBLIC_BUTTONDOWN_ENDPOINT as
+  | string
+  | undefined;
+const hasEmailLine = Boolean(buttondownEndpoint);
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  jsonLd={jsonLd}
+  currentRoute="/writing"
+>
+  <div class="site-page">
+    <!-- 1. Hero — frame the corpus (intimate register) -->
+    <Hero size="intimate" title={hero.title} lede={hero.lede} />
+
+    <!-- 2. Essay list — reverse-chronological index of LinkCards -->
+    <!-- sr-only h2 bridges h1 → h3 (LinkCard titleAs) for axe heading-order. -->
+    <h2 class="visually-hidden">Essays</h2>
+    {orderedEssays.length > 0 && <WritingList essays={orderedEssays} />}
+
+    <!-- 3. Retention block — ungated email line (zero-JS native form) + RSS -->
+    <Section size="tight" as="div" className="writing-retention">
+      {hasEmailLine ? (
+        <>
+          <p>{retention.emailLine}</p>
+          <form class="writing-email-form" action={buttondownEndpoint} method="post" target="_blank">
+            <label for="bd-email" class="visually-hidden">Email address</label>
+            <Input
+              id="bd-email"
+              type="email"
+              name="email"
+              placeholder={retention.emailPlaceholder}
+              required
+            />
+            <Button type="submit" size="compact">{retention.emailButton}</Button>
+          </form>
+        </>
+      ) : (
+        <p>{retention.rssFallbackLine}</p>
+      )}
+      <p class="writing-rss">
+        <Link href="/writing/rss.xml" variant="muted-link">{retention.rssLabel}</Link>
+      </p>
+    </Section>
+  </div>
+</BaseLayout>

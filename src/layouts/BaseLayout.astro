@@ -82,6 +82,12 @@ export interface Props {
    * either self-reference or deceive the crawler).
    */
   omitCanonicalLink?: boolean;
+  /**
+   * Optional absolute OG image URL. Used by /writing/[slug] for per-essay OG
+   * cards (writing.json.md §4 — falls back to the site /og.png when unset).
+   * Must be an absolute https URL; the site default is https://pouk.ai/og.png.
+   */
+  ogImage?: string;
 }
 
 const {
@@ -93,17 +99,22 @@ const {
   portraitPreload,
   robots = "index,follow",
   omitCanonicalLink = false,
+  ogImage,
 } = Astro.props;
 
-const ogImageUrl = "https://pouk.ai/og.png";
+const ogImageUrl = ogImage ?? "https://pouk.ai/og.png";
 const twitterSite = "@pouk_ai";
 
-/** Primary nav — funnel order per D-13; About added per A4 (spec /about §9). */
+/** Primary nav — funnel order per D-13; About added per A4 (spec /about §9).
+ * Engagements added 4th per engagements.md §9 (LOCKED order:
+ * Why AI · Roles · Engagements · Principles · About). /writing is deliberately
+ * NOT in the primary nav (writing.md §9) — footer link + essay cross-links only. */
 const navRoutes = [
-  { href: "/why-ai",     label: "Why AI" },
-  { href: "/roles",      label: "Roles" },
-  { href: "/principles", label: "Principles" },
-  { href: "/about",      label: "About" },
+  { href: "/why-ai",      label: "Why AI" },
+  { href: "/roles",       label: "Roles" },
+  { href: "/engagements", label: "Engagements" },
+  { href: "/principles",  label: "Principles" },
+  { href: "/about",       label: "About" },
 ];
 
 const currentYear = new Date().getFullYear();

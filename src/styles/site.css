@@ -267,6 +267,132 @@
   border-top: 1px solid var(--hairline);
 }
 
+/* ---------- Engagements page — ladder index ----------
+   One-line typographic jump nav. Reinforces sequence (the climb) via inline
+   arrows between rung links. Mirrors .role-jump-nav register. */
+
+.engagements-ladder-index {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-block: var(--space-8) var(--space-12);
+  font-size: var(--fs-meta);
+  color: var(--fg-muted);
+}
+
+.engagements-ladder-index .ladder-arrow {
+  color: var(--fg-muted);
+}
+
+/* ---------- Engagements page — rung ladder (the climb) ----------
+   Single-column stack (NOT a grid) — a stack reads as rungs you ascend, a grid
+   reads as tiles you pick from (composition §3, the sequence-not-shelf rule).
+   Escalating band gap is the ascent cue: the Build→Retainer gap widens to mark
+   the crossing from entry/proof rungs into committed/compounding rungs. Only
+   published --space-N stops are used (no token exists between 48px and 64px,
+   so the ascent is a deliberate two-step). */
+
+.engagements-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin-block: var(--space-8);
+}
+
+/* Widen the gap above the 4th rung (Retainer) — the single clearest ascent
+   signal in the layout (composition §3 item 6). :nth-child(4) is the Retainer
+   FeatureCard root. One-level selector, no !important. */
+.engagements-ladder > :nth-child(4) {
+  margin-block-start: calc(var(--space-16) - var(--space-12));
+}
+
+/* The de-risks line is the supporting "removed-fear" beat beneath the delivers
+   claim — subordinated via the existing --fg-muted token (composition §2,
+   dual-prose treatment). A color application of a published token, not a new
+   token and not a DS override (FeatureCard body is content-agnostic). */
+.rung-derisks {
+  color: var(--fg-muted);
+  margin-block-start: var(--space-3);
+}
+
+/* ---------- Engagements page — end CTA ----------
+   Catches the undecided-but-ready reader. Largest gap above separates "the
+   climb" from "the catch-all" (composition §3 item 7). */
+
+.engagements-end-cta {
+  margin-block-start: calc(var(--space-16) - var(--space-12));
+  border-top: 1px solid var(--hairline);
+}
+
+.engagements-end-cta p {
+  max-width: var(--hero-max);
+  margin-block-end: var(--space-4);
+}
+
+/* ---------- Writing index — essay list ----------
+   Vertical stack of <LinkCard variant="quiet"> entries. The quiet variant
+   provides its own top-hairline + padding per entry, so the inter-entry rhythm
+   IS that padding — no extra gap. A stack reads as an index, not a grid. */
+
+.writing-list {
+  margin-block: var(--space-16);
+}
+
+/* ---------- Writing index — retention block ----------
+   Ungated email line (native zero-JS form) + RSS, once, low on the page. */
+
+.writing-retention {
+  margin-block-start: var(--space-16);
+  border-top: 1px solid var(--hairline);
+}
+
+.writing-retention p {
+  max-width: var(--hero-max);
+  margin-block-end: var(--space-4);
+}
+
+.writing-email-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-end: var(--space-4);
+}
+
+.writing-rss {
+  margin-block: 0;
+  font-size: var(--fs-meta);
+}
+
+/* ---------- Writing essay — template ----------
+   Inherits the /why-ai prose rhythm. Body capped at the --hero-max prose
+   measure for reading speed and screenshot framing. */
+
+.essay {
+  max-width: var(--hero-max);
+}
+
+.essay-dateline {
+  font-size: var(--fs-meta);
+  color: var(--fg-muted);
+  margin-block-start: var(--space-4);
+}
+
+.essay-body {
+  margin-block-start: var(--space-16);
+}
+
+.essay-body p {
+  color: var(--fg);
+}
+
+.essay-funnel-spine {
+  margin-block-start: var(--space-12);
+  padding-block-start: var(--space-8);
+  border-top: 1px solid var(--hairline);
+}
+
 /* ---------- Principles page — bookend serif italic ---------- */
 
 /* The principles intro + conclusion bookends sit at an editorial type rung

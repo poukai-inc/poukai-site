@@ -1,11 +1,24 @@
 # Spec: Visitor-to-conversation flow
 
-**Surfaces affected**: `/`, `/why-ai`, `/roles`, `/principles`, `/about`, `mailto:hello@pouk.ai`
-**Status**: Approved (v1.1 — admits `/about` as parallel trust-loop page; pending atomic deploy with `meta/specs/pages/about.md`)
+**Surfaces affected**: `/`, `/why-ai`, `/roles`, `/engagements`, `/principles`, `/about`, `/writing`, `mailto:hello@pouk.ai`
+**Status**: Approved (v1.2 — adds the Evaluation stage served by `/engagements`; narrows §10 email-capture exclusion per the brand re-open)
 **Owner**: Arian (founder) · Author: pouk-ai-pm
-**Last updated**: 2026-05-18 (v1.1 — `/about` admitted as parallel trust-loop page per A13 in the `/about` PM interview)
+**Last updated**: 2026-05-31 (v1.2 — Evaluation stage added + §10 email-capture narrowed per `meta/proposals/conversion-pivot-and-writing-engine.md`; was 2026-05-18 v1.1)
 **Masterplan reference**: Sections 4.1 (site layout), 2A (decision authority), 6 (cutover)
 **Decisions log**: D-13 (nav order baseline) — resolved via `meta/decisions/launch-readiness.md` on 2026-05-13. A13 (`/about` flow placement) — resolved via the `/about` PM interview on 2026-05-17. A4 (nav order extension to four items) — resolved same interview. A15a (footer order matches nav) — resolved same interview.
+
+---
+
+## v1.2 revision — what changed
+
+v1.2 (2026-05-31) applies the cascade amendment authorized by `meta/proposals/conversion-pivot-and-writing-engine.md` (the brand re-open, §7(a)–(e) locked 2026-05-31):
+
+- **New Evaluation stage (Stage 3b)** served by `/engagements`, inserted between self-identification (`/roles`, Stage 3) and the trust loop (Stage 4). It carries the upsell ladder (discovery → pilot → build → retainer) and is the funnel fix the re-open was authorized to deliver. Existing Stage 4 (trust loop) and Stage 5 (conversion) keep their numbers; the new stage is numbered 3b to preserve the reviewable diff.
+- **§10 out-of-scope narrowed**: a single ungated, zero-JS "get new essays by email" line on `/writing` moves from rejected to in-scope (proposal §7(d) = d1). Popups, modals, gated lead-magnets, and on-site hydrated capture forms stay out.
+- **Surfaces affected** extended to include `/engagements` and `/writing`.
+- Per-rung CTAs on the `/engagements` ladder are scoped to `/engagements` only; `/roles` keeps D-08 (no per-card CTA). See `meta/specs/pages/roles.md` D-08 scope clarification.
+
+All v1.0 and v1.1 content stands. v1.2 deltas land in the header block, §4 (new Stage 3b), and §10.
 
 ---
 
@@ -60,6 +73,15 @@ Five stages, mapped to entry source, page sequence, and conversion event.
 - **Entry sources**: From `/why-ai` end-of-page next-step link; from a referrer's DM that includes a role anchor (e.g., `pouk.ai/roles#automator`); from the top nav.
 - **What happens**: Visitor scans the four roles, matches their situation to a "Hired by" line, reads that role's body, scrolls to the end CTA. Primary exit — `mailto:hello@pouk.ai` with the role name carried as the opening line of the email.
 - **Spec reference**: `meta/specs/pages/roles.md`.
+
+### Stage 3b — Evaluation (`/engagements`)
+
+**Added 2026-05-31** per `meta/proposals/conversion-pivot-and-writing-engine.md` §2.1 + §5 (the brand re-open). The Evaluation stage sits between self-identification (`/roles`) and the trust loop: a visitor who has matched themselves to an archetype but doesn't yet know *what shape the work takes* — scope, sequence, commitment — was previously a silent drop-off (next-pages §2.6). `/engagements` closes that gap with the upsell ladder (discovery → pilot → build → retainer), described in work terms, categorical-only, no dollar figures (proposal §7(a) = a1).
+
+- **Entry sources**: From `/roles` end-of-page hand-off ("here's how we'd work together →"); from a referrer DM linking the ladder for a prospect weighing commitment; from the top nav (`/engagements` slots into nav per proposal §7(c)). Rarely a first touch — this is mid-funnel, post-self-identification.
+- **What happens**: Visitor reads the four engagement rungs, locates the entry point that matches their readiness (a low-commitment Discovery or Pilot rather than a six-figure Build on day one), and converts **with a rung already named** ("we'd want to start with a Pilot"). Each rung carries its own per-rung "start here" CTA (proposal §7(b) = b2 — scoped to `/engagements`, not `/roles`; D-08 still holds for `/roles` role-cards). Primary exit — `mailto:hello@pouk.ai` carrying both the archetype (from `/roles`) and the rung as the opening line of the email, materially better-qualified than a brand-voice-only lead.
+- **Position in the funnel**: Between Stage 3 (`/roles`) and Stage 4 (trust loop). A visitor may climb directly from `/engagements` to `mailto:`, or detour through the trust loop (`/principles` / `/about`) before converting. Both are valid.
+- **Spec reference**: `meta/specs/pages/engagements.md` (authored under the re-decision of record above).
 
 ### Stage 4 — Trust loop (`/principles` and/or `/about`)
 
@@ -178,7 +200,7 @@ Remaining dependencies blocking `Built`:
 
 - Funnel analytics, A/B testing infrastructure, conversion-rate optimization. Zero-JS contract; qualitative signal only at launch.
 - A "next intake" / waitlist flow. The brand competes by being a person; calendared availability is handled in-conversation.
-- Lead-magnet downloads, gated content, or email-capture forms.
+- Lead-magnet downloads, gated content, or email-capture forms — **narrowed 2026-05-31** per `meta/proposals/conversion-pivot-and-writing-engine.md` §7(d) = d1. A **single ungated, zero-JS "get new essays by email" line on `/writing`** (optional, hosted form, no popup/modal/gate, framed as the operator's notes) is now **IN scope**. Still **OUT of scope**: popups, modals, gated lead-magnet downloads, drip sequences, and email-capture *forms hydrated on the site*. RSS ships alongside the email line. The narrowing applies to `/writing` only; all other surfaces remain `mailto:`-only.
 - Multi-step contact form, intro questionnaire, or scheduling embed.
 - Cross-domain funnel tracking (LinkedIn → site, X → site). Out of scope.
 - Personalization based on referrer or visit count.

@@ -34,12 +34,18 @@ export function ShellWrapper({ currentRoute, routes, year, children }: ShellWrap
       currentRoute={currentRoute}
       routes={routes}
       footer={
+        // Footer link order matches the primary nav, plus Writing + RSS — the
+        // /writing entry points (it is absent from the primary nav by design,
+        // writing.md §9). RSS reaches the feed at /writing/rss.xml.
         <p>
           {"© "}{year}{" pouk.ai · "}
           <a href="/why-ai">Why AI</a>{" · "}
           <a href="/roles">Roles</a>{" · "}
+          <a href="/engagements">Engagements</a>{" · "}
           <a href="/principles">Principles</a>{" · "}
           <a href="/about">About</a>{" · "}
+          <a href="/writing">Writing</a>{" · "}
+          <a href="/writing/rss.xml">RSS</a>{" · "}
           <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
         </p>
       }

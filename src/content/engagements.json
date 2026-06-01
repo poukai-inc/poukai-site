@@ -1,0 +1,46 @@
+[
+  {
+    "id": "discovery",
+    "eyebrow": "The entry point",
+    "title": "Discovery",
+    "delivers": "A short, focused diagnosis of where your AI work actually stands — which of the five failure modes you're in, and a written read of the workflow, the data behind it, and what a fix would take. You leave with the diagnosis whether or not we build anything together.",
+    "deRisks": "Lets you understand the problem before committing to a build, so the first thing you buy is clarity, not a bet.",
+    "cta": {
+      "label": "Start with Discovery",
+      "href": "mailto:hello@pouk.ai?subject=Discovery"
+    }
+  },
+  {
+    "id": "pilot",
+    "eyebrow": "The proof",
+    "title": "Pilot",
+    "delivers": "A working result on one scoped workflow — built, measured against a baseline you set up front, and put in front of the team that would actually use it. One team, one process, real signal.",
+    "deRisks": "Proves the approach on a single workflow before you roll it out anywhere else, so a full rollout rides on evidence instead of a pitch.",
+    "cta": {
+      "label": "Start with a Pilot",
+      "href": "mailto:hello@pouk.ai?subject=Pilot"
+    }
+  },
+  {
+    "id": "build",
+    "eyebrow": "The build",
+    "title": "Build",
+    "delivers": "The real system, engineered and shipped into production — wired into your stack, documented, and handed over so an in-house team can run it. A system that works in production, not a deck that describes one.",
+    "deRisks": "Closes the gap between \"we launched an AI pilot\" and \"AI is delivering measurable value,\" so the work lands in production instead of stalling at the demo.",
+    "cta": {
+      "label": "Start a Build",
+      "href": "mailto:hello@pouk.ai?subject=Build"
+    }
+  },
+  {
+    "id": "retainer",
+    "eyebrow": "The partnership",
+    "title": "Retainer",
+    "delivers": "Ongoing operation and iteration of what's shipped — monitoring, tuning, and extending the system as the business changes and the tools move underneath it. The relationship that keeps the work paying off after handoff.",
+    "deRisks": "Keeps a shipped system from decaying or stalling once the build is done, so it goes on earning instead of quietly rotting.",
+    "cta": {
+      "label": "Talk about a Retainer",
+      "href": "mailto:hello@pouk.ai?subject=Retainer"
+    }
+  }
+]

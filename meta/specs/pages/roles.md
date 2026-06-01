@@ -7,6 +7,8 @@
 **Masterplan reference**: Sections 2A (decision authority — Lucide picks are site-owned), 4.1 (content layout), 4.4 (long-form content as data)
 **Decisions log**: D-06 (Lucide picks), D-07 (eyebrow convention), D-08 (universal end CTA) — all resolved via `meta/decisions/launch-readiness.md` on 2026-05-13.
 
+> **D-08 scope clarification (re-decision of record: `meta/proposals/conversion-pivot-and-writing-engine.md`, 2026-05-31, §7(b) = b2 per-rung CTAs).** The proposal authorizes per-rung "start here" CTAs on the new `/engagements` upsell ladder. That reversal is **scoped to `/engagements` only**. **D-08 still holds in full for `/roles`**: the four `RoleCard`s carry **no per-card CTA**, and `/roles` retains its single universal end CTA. The per-rung CTAs live on the engagement-shape ladder rungs (`meta/specs/pages/engagements.md`), never on `/roles` role-cards. The two specs do not contradict: `/roles` = no per-card CTA (D-08 intact); `/engagements` = per-rung CTAs (b2). Read every "No per-card CTA (per D-08)" reference below as governing `/roles` role-cards specifically.
+
 ---
 
 ## 1. Purpose
@@ -102,7 +104,7 @@ Remaining dependencies blocking `Built`:
 ## 10. Out of scope
 
 - Per-role sub-routes (`/roles/builder`, etc.). Anchor-based for launch; promotion to sub-routes is a future call.
-- Per-role pricing, packaging tiers, or "starts at $X" displays. The brand is "let me understand your problem first," not "pick a tier."
+- Per-role **dollar-figure pricing or "starts at $X" displays**. The brand is "let me understand your problem first," not "pick a tier." (Re-decision of record: `meta/proposals/conversion-pivot-and-writing-engine.md`, 2026-05-31, §7(a) = a1 categorical-only.) *Superseded scope note:* the original out-of-scope item read "Per-role pricing, packaging tiers, or 'starts at $X' displays" — a blanket rejection of all packaging/engagement-shape framing. That blanket rejection is **lifted**: engagement-shape framing (the categorical discovery → pilot → build → retainer ladder, no figures) is now in scope, but it lives on the new `/engagements` route, **not** on `/roles`. What survives intact here is only the rejection of *dollar figures* on `/roles`. See the engagement-shape layer at `meta/specs/pages/engagements.md` (authored under the same re-decision) for where packaging/engagement-shape content belongs.
 - Per-role case studies. Pouk.ai is too early; forcing them dilutes the page.
 - A booking/scheduling integration per role. Universal `mailto:` only.
 - Per-role illustrations or marketing imagery. Typography + Lucide icon for launch.

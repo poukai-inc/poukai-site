@@ -1,0 +1,147 @@
+---
+/**
+ * /writing/[slug] — per-essay template.
+ *
+ * Inherits the /why-ai shareability template (writing.md §6.0):
+ *   - claim-shaped <h1> via <Hero size="display"> (essay title = the claim)
+ *   - screenshot-able <Stat> block(s) from frontmatter.statsRow (the /why-ai
+ *     statsRow pattern: value + caption + attributed source)
+ *   - one quotable line via <Pull variant="sans"> (composition §2B, LOCKED)
+ *   - sourced references list with canonical URLs + referencesNote constant
+ *   - REQUIRED foot-of-essay funnel-spine <Link> (frontmatter.funnelExit) — no dead-ends
+ *   - Article JSON-LD per the why-ai.json.jsonLd shape, per-essay OG.
+ *
+ * Body rendering: the essay body is plain prose with two inline split markers,
+ * `::stat::` (where the foregrounded stat block lands) and `::pull::` (where the
+ * quotable line lands). Bodies are Markdown collections (no MDX), so the template
+ * splits the raw body on the markers and renders each prose segment as <p>s,
+ * interleaving the DS <Stat> and <Pull> molecules at the marker positions. This
+ * keeps stat/pull as real DS molecules (screenshot-able, operator-grade) without
+ * pulling in MDX or any client JS (writing.json.md §1 stack note; composition A4).
+ *
+ * Zero client JS (writing.md §8): no hydration directive, no island.
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { Hero, Stat, Pull, Link } from "@poukai-inc/ui";
+
+export async function getStaticPaths() {
+  const essays = await getCollection("writing", ({ data }) => !data.draft);
+  return essays.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const e = entry.data;
+
+const REFERENCES_NOTE =
+  "Source URLs cleaned from email click-trackers to canonical destinations.";
+
+// Split the raw body into prose segments around the inline molecule markers.
+// Markers are on their own line. Each text segment is rendered as paragraphs
+// (blank-line-delimited) — the bodies are pure prose, so this is exact.
+const rawBody = entry.body ?? "";
+type Segment =
+  | { kind: "prose"; paragraphs: string[] }
+  | { kind: "stat" }
+  | { kind: "pull" };
+
+const segments: Segment[] = rawBody
+  .split(/^\s*(::stat::|::pull::)\s*$/m)
+  .map((chunk) => chunk.trim())
+  .filter((chunk) => chunk.length > 0)
+  .map((chunk): Segment => {
+    if (chunk === "::stat::") return { kind: "stat" };
+    if (chunk === "::pull::") return { kind: "pull" };
+    return { kind: "prose", paragraphs: chunk.split(/\n{2,}/).map((p) => p.trim()) };
+  });
+
+// Human-readable dateline (e.g. "May 31, 2026"). Rendered into a native
+// <time datetime> element — a plain semantic dateline needs no DS Time atom,
+// and avoids the Astro-template parse quirk on a component `dateTime` attr.
+const datelineLabel = new Date(`${e.datePublished}T00:00:00Z`).toLocaleDateString(
+  "en-US",
+  { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }
+);
+
+const canonical = `https://pouk.ai/writing/${e.slug}`;
+const pageTitle = `${e.title} — pouk.ai`;
+const ogImage = e.ogImage; // BaseLayout falls back to /og.png when undefined
+
+// Article JSON-LD — mirrors the why-ai.json.jsonLd shape (writing.json.md §5.3).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: e.title,
+  description: e.description,
+  url: canonical,
+  author: { "@type": "Organization", name: "pouk.ai", url: "https://pouk.ai" },
+  publisher: { "@type": "Organization", name: "pouk.ai", url: "https://pouk.ai" },
+  datePublished: e.datePublished,
+  dateModified: e.dateModified,
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={e.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+  ogImage={ogImage}
+  currentRoute="/writing"
+>
+  <div class="site-page">
+    <article class="essay">
+      <!-- 1. Essay hero — <h1> = the canonical claim; dateline as eyebrow-register -->
+      <Hero size="display" title={e.title} lede={e.claim} />
+
+      <div class="essay-dateline">
+        <time datetime={e.datePublished}>{datelineLabel}</time>
+      </div>
+
+      <!-- 2. Body — prose segments interleaved with the stat + pull molecules -->
+      <div class="essay-body">
+        {segments.map((seg) => {
+          if (seg.kind === "stat") {
+            return (
+              <div class="stats-row" role="list" aria-label="Essay statistics">
+                {(e.statsRow ?? []).map((stat) => (
+                  <div role="listitem">
+                    <Stat value={stat.value} caption={stat.caption} source={stat.source} size="lg" />
+                  </div>
+                ))}
+              </div>
+            );
+          }
+          if (seg.kind === "pull") {
+            return e.pull ? <Pull variant="sans">{e.pull}</Pull> : null;
+          }
+          return <>{seg.paragraphs.map((p) => <p>{p}</p>)}</>;
+        })}
+      </div>
+
+      <!-- 3. References — sourced citations, canonical URLs (writing.md §4b item 4) -->
+      {e.references && e.references.length > 0 && (
+        <section class="references" aria-label="References">
+          <h2>References</h2>
+          <ol>
+            {e.references.map((ref) => (
+              <li id={`ref-${ref.index}`}>
+                <a href={ref.url} rel="noopener noreferrer">{ref.title}</a> — {ref.source}
+              </li>
+            ))}
+          </ol>
+          <p><em>{REFERENCES_NOTE}</em></p>
+        </section>
+      )}
+
+      <!-- 4. Internal-link spine — the single earned funnel exit (REQUIRED, no dead-ends) -->
+      <div class="essay-funnel-spine">
+        <Link href={e.funnelExit.href} variant="default">{e.funnelExit.text}</Link>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
