@@ -18,9 +18,9 @@ Outcome of the A1–A18 PM interview with Arian. Full rationale per candidate li
 | `/about` | **P0 — locked, spec authored** | `meta/specs/pages/about.md` lives at `In review`. Atomic with home content draft revision (R14 + R27 close on the same migration: removing the single Pouākai origin sentence from `/`). Type-only at v1; illustration deferred to v2 via parked proposal at `meta/proposals/about-illustration-v2.md`. |
 | `/404` | **P1 — locked** | Hold at P1 (S-effort, on-brand salvage page). No overrides; scoping deferred to spec-time interview. |
 | `/contact` | **P2 — locked** | Hold at P2. `mailto:` is working at current inbound volume. Re-evaluate when analytics show `mailto:` click-throughs falling vs. page views. Scoping (form vs. links-only) deferred to spec-time interview. |
-| `/case-studies` | **Skip until customer permission** | No named customer ready in the next 30 days (A1). Re-promote to P0 the day at least one paying engagement closes with a customer willing to be cited with a quantified outcome. |
-| `/engagements` (or `/services`) | **Skip** | Contradicts the stated `/roles` brand position (§10 of `pages/roles.md` rejects per-role pricing / packaging tiers). Reconsider only if Arian re-decides the `/roles` brand position. |
-| `/writing` (or `/notes`) | **Skip until cadence** | Strong long-term lever, wrong move now. Re-evaluate when Arian has three drafts in flight and confirmed cadence. |
+| `/case-studies` | ~~**Skip until customer permission**~~ → **Conditional (parked), now sequenced behind `/writing`** *(superseded 2026-05-31)* | No named customer ready in the next 30 days (A1). Re-promote the day at least one paying engagement closes with a customer willing to be cited with a quantified outcome. **Superseded by `conversion-pivot-and-writing-engine.md` (2026-05-31):** `/writing` is promoted ahead of it; `/case-studies` now sits *behind* `/writing` in the sequence. |
+| `/engagements` (or `/services`) | ~~**Skip**~~ → **Promoted** *(superseded 2026-05-31)* | Originally Skip: contradicted the stated `/roles` brand position (§10 of `pages/roles.md` rejects per-role pricing / packaging tiers), reconsider only if Arian re-decides the brand position. **Superseded by `conversion-pivot-and-writing-engine.md` (2026-05-31):** Arian exercised exactly that named override. `/engagements` is now a **promoted, separate route** (proposal §7(c) = c1) serving the Evaluation stage as the upsell-ladder surface. Categorical-only, no dollar figures (§7(a) = a1). |
+| `/writing` (or `/notes`) | ~~**Skip until cadence**~~ → **Promoted, launch-earlier** *(superseded 2026-05-31)* | Originally Skip-until-cadence: re-evaluate when Arian has three drafts in flight and confirmed cadence. **Superseded by `conversion-pivot-and-writing-engine.md` (2026-05-31):** promoted as the retention/virality engine and launches **earlier**, without blocking on the 3-drafts/cadence gate (§7(e) = e2, a deliberate founder override accepting the decay risk). |
 | `/uses` / `/stack` | **Skip permanently** | Speaks to peers, not prospects. Off-brand for the operator-first register. |
 | Per-role sub-routes (`/roles/builder` etc.) | **Skip until depth exists** | `roles.md` §10 reserves as future call. Trigger: one role grows 600+ words of unique substance. |
 
@@ -102,6 +102,8 @@ Each entry follows the requested template — one sentence on purpose, funnel po
 
 ### 2.4 `/writing` (or `/notes`)
 
+> **Superseded by `meta/proposals/conversion-pivot-and-writing-engine.md` (2026-05-31).** The P2/Skip-until-cadence recommendation below is overtaken: `/writing` is now promoted as the retention/virality engine and launches earlier, without blocking on the 3-drafts/cadence gate (§7(e) = e2, founder override accepting the decay risk). The cadence/decay analysis and stack-call (content-collections vs. MDX vs. JSON) below remain accurate inputs for the `/writing` spec; only the priority verdict is overtaken. Original analysis kept for the record.
+
 1. **Purpose**: Build a thought-leadership corpus over time — index of essays/posts that demonstrate pouk.ai's POV beyond the one thesis page (`/why-ai`). Doubles as SEO surface for long-tail queries ("AI deployment gap data readiness audit", "vertical AI agent ROI").
 2. **Funnel position**: Top of funnel and re-engagement loop — a reader who finished `/why-ai` and wants more, or a returning visitor who already converted and is now reading because they like the operator's mind. Not directly on the conversion path.
 3. **Effort**: **L** structurally, **M** for v1. Engineering needs (a) a real content collection (`src/content/writing/*.md` or MDX), (b) routing per post (`/writing/[slug]`), (c) index page, (d) RSS feed if we want subscribers, (e) OG image generation per post or a sensible fallback, (f) sitemap entries per post, (g) reading-time/date components. None of this is in `@poukai-inc/ui` today. Content effort is the killer: a `/writing` page with two posts is worse than no `/writing` page (looks abandoned).
@@ -117,6 +119,8 @@ Each entry follows the requested template — one sentence on purpose, funnel po
 5. **Recommendation**: **P1 (next-next).** Cheap and on-brand. The only reason it's not P0 is that pouk.ai's URL space is four pages — the surface area for 404s is tiny right now. Promote to P0 the day we add any page that creates new sub-routes (`/case-studies/[slug]`, `/writing/[slug]`).
 
 ### 2.6 `/engagements` (or `/services`) — packaging + pricing
+
+> **Superseded by `meta/proposals/conversion-pivot-and-writing-engine.md` (2026-05-31).** The "Skip as a separate page" recommendation below was explicitly conditioned on Arian re-deciding the `/roles` brand position — he has now done exactly that. `/engagements` is promoted as a **separate route** (§7(c) = c1) serving the Evaluation stage, **categorical-only / no dollar figures** (§7(a) = a1, which softens but does not delete the pricing tension flagged below), **with per-rung CTAs** (§7(b) = b2). The funnel-gap analysis below ("a reader matched to 'Builder' but doesn't know whether they can afford pouk.ai is currently a silent drop-off") is the exact gap the re-open fills. Original analysis kept for the record.
 
 1. **Purpose**: Make the unit-of-work explicit — what an engagement looks like, what it costs, how long it runs, what the deliverables are. Compress the discovery email volume by letting a prospect self-qualify on scope and price before writing.
 2. **Funnel position**: Adjacent to `/roles`. A reader who has matched themselves to "Builder" but doesn't know whether they can afford pouk.ai is currently a silent drop-off. `/engagements` answers "how does pouk.ai sell?"
@@ -179,6 +183,8 @@ Hand-off bullets so Arian can approve P0 and I can author the full spec next.
 ---
 
 ## 5. Recommended sequence
+
+> **Superseded by `meta/proposals/conversion-pivot-and-writing-engine.md` (2026-05-31).** The sequence below — and especially the "Always Skip: `/engagements` … until the `/roles` brand position is re-decided" line — is overtaken by the re-open. The current sequence of record (proposal §3) is: (1) `/engagements` (the load-bearing Evaluation/funnel fix), (2) `/writing` (promoted growth lever, launches earlier per §7(e)), (3) `/contact` (P2, unchanged), (4) `/case-studies` (conditional, parked, now *behind* `/writing`). Original sequence kept for the record.
 
 If Arian approves this memo:
 
