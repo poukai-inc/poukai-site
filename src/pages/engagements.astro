@@ -1,0 +1,82 @@
+---
+/**
+ * /engagements — Evaluation-stage page: the engagement-shape ladder.
+ *
+ * IA per meta/specs/pages/engagements.md §4. Composition per
+ * meta/compositions/pages/engagements.md (Sections 1–9).
+ *
+ * Four rungs (Discovery → Pilot → Build → Retainer) read from the `engagements`
+ * collection (engagements.json), Zod-validated categorical-only at build
+ * (R-074). Page chrome (meta, hero, ladder index, end CTA, JSON-LD) from
+ * engagements-page.json (R-076 — no copy in templates).
+ *
+ * Decisions honoured:
+ *   - Rung card = <FeatureCard variant="bordered"> (composition A1) — dual prose
+ *     body + per-rung CTA footer. NOT RoleCard (no CTA slot, no dual prose).
+ *   - Per-rung CTA = <Link variant="default"> (composition §7 Q1) — quiet, not Button.
+ *   - Eyebrow = descriptive stage marker (Option B, LOCKED) — engagements.json.
+ *   - Categorical-only (§7(a)) — no figures/currency anywhere, schema-enforced.
+ *   - Single-column climb with escalating band gap (.engagements-ladder CSS).
+ *   - mailto:hello@pouk.ai?subject=<Rung> per-rung; bare mailto end CTA.
+ *
+ * Icon note: Lucide JSX requires a React context — resolved in EngagementsLadder.tsx,
+ * a site-side component (not a DS primitive). Rendered as static HTML; no
+ * hydration directive (R-079).
+ *
+ * Hero eyebrow note: the DS titled <Hero> excludes an eyebrow slot
+ * (HeroDefaultProps.eyebrow: never — only the no-title variant carries one),
+ * mirroring /roles and /why-ai which ship title + lede only. The "Engagements"
+ * page identity is carried by the nav (marked current) and the <title>.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { Hero, Link, Eyebrow, Section, EmailLink } from "@poukai-inc/ui";
+import { EngagementsLadder } from "../components/EngagementsLadder";
+import engagementsPageRaw from "../content/engagements-page.json";
+import { engagementsPageSchema } from "../content/_schemas/engagements-page";
+
+// file() loader returns one CollectionEntry per array item; .data is the item.
+// JSON order (Discovery, Pilot, Build, Retainer) is preserved by the loader and
+// MUST NOT be re-sorted — it encodes the climb (engagements.json.md §5).
+const rungEntries = await getCollection("engagements");
+const orderedRungs = rungEntries.map((e) => e.data);
+
+const { meta, hero, ladderIndex, endCta, jsonLd } =
+  engagementsPageSchema.parse(engagementsPageRaw);
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  jsonLd={jsonLd}
+  currentRoute="/engagements"
+>
+  <div class="site-page">
+    <!-- 1. Hero — frame the ladder as a climb, not a menu -->
+    <Hero title={hero.title} lede={hero.lede} />
+
+    <!-- 2. Ladder index — one-line typographic jump nav per spec IA item 3 -->
+    <nav class="engagements-ladder-index" aria-label="Engagement ladder">
+      <Eyebrow variant="muted">{ladderIndex.leadIn}</Eyebrow>
+      {orderedRungs.map((rung, i) => (
+        <>
+          {i > 0 && <span class="ladder-arrow" aria-hidden="true">&rarr;</span>}
+          <Link href={`#${rung.id}`} variant="quiet">{rung.title}</Link>
+        </>
+      ))}
+    </nav>
+
+    <!-- 3. Four rung FeatureCards (via EngagementsLadder — Lucide JSX needs React context) -->
+    <!-- Rendered as static HTML at build time; no hydration directive (R-079). -->
+    <!-- Each FeatureCard title is an h2, descending cleanly from the Hero h1. -->
+    <EngagementsLadder rungs={orderedRungs} />
+
+    <!-- 4. End CTA — catch the undecided-but-ready reader (spec IA item 8) -->
+    <Section size="tight" as="div" className="engagements-end-cta">
+      <p>{endCta.lead}</p>
+      <EmailLink email={endCta.email} variant="default" />
+    </Section>
+  </div>
+</BaseLayout>

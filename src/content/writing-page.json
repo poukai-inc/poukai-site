@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "Writing — pouk.ai",
+    "description": "Operator-first essays on what happens when AI meets a real workflow — failure modes, fixes, and the patterns that repeat across engagements.",
+    "canonical": "https://pouk.ai/writing"
+  },
+  "hero": {
+    "eyebrow": "Writing",
+    "title": "Notes from the work",
+    "lede": "Essays on what actually happens when AI meets a real workflow — the failure modes, the fixes, and the patterns that repeat across engagements. Written for operators, sourced where it counts, and meant to be useful whether or not you ever work with pouk.ai."
+  },
+  "retention": {
+    "emailLine": "New essays, by email when they land. No list, no pitch — just the notes.",
+    "emailPlaceholder": "you@company.com",
+    "emailButton": "Subscribe",
+    "rssLabel": "RSS",
+    "rssFallbackLine": "Follow new essays by RSS."
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Writing — pouk.ai",
+    "description": "Operator-first essays on what happens when AI meets a real workflow — failure modes, fixes, and the patterns that repeat across engagements.",
+    "url": "https://pouk.ai/writing"
+  }
+}
