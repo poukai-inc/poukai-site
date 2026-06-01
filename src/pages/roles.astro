@@ -64,6 +64,12 @@ const { meta, hero, endCta, jsonLd } = rolesPageSchema.parse(rolesPageRaw);
         {endCta.lead}
         <a href={endCta.href}>{endCta.email} &rarr;</a>
       </p>
+      {endCta.secondary && (
+        <p class="end-cta-secondary">
+          {endCta.secondary.lead}{" "}
+          <a href={endCta.secondary.anchor.href}>{endCta.secondary.anchor.text}</a>
+        </p>
+      )}
     </div>
   </div>
 </BaseLayout>

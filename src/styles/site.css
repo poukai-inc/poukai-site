@@ -267,6 +267,14 @@
   border-top: 1px solid var(--hairline);
 }
 
+/* Secondary hand-off into /engagements — quieter than the primary mailto line
+   so the conversion path stays primary and the funnel link reads as a follow-on. */
+.end-cta-secondary {
+  margin-block-start: var(--space-3);
+  font-size: var(--fs-meta);
+  color: var(--fg-muted);
+}
+
 /* ---------- Engagements page — ladder index ----------
    One-line typographic jump nav. Reinforces sequence (the climb) via inline
    arrows between rung links. Mirrors .role-jump-nav register. */
