@@ -19,6 +19,17 @@ export const rolesPageSchema = z.object({
     lead: z.string(),
     email: z.string().email(),
     href: z.string().regex(/^mailto:/),
+    // Optional hand-off into the Evaluation stage (/engagements) — the funnel
+    // link the brand re-open authorized (proposal conversion-pivot §5).
+    secondary: z
+      .object({
+        lead: z.string(),
+        anchor: z.object({
+          text: z.string(),
+          href: z.string().regex(/^\//),
+        }),
+      })
+      .optional(),
   }),
   jsonLd: z.object({
     "@context": z.string().url(),
