@@ -4,7 +4,7 @@
 
 Poukai is a React component library organised by Atomic Design (tokens → atoms → molecules → organisms).
 
-Version: `2.11.2`
+Version: `2.16.0`
 
 ## LLM context
 
@@ -43,6 +43,7 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/atoms/Heading`
 - `@poukai-inc/ui/atoms/Stat`
 - `@poukai-inc/ui/atoms/StatusBadge`
+- `@poukai-inc/ui/atoms/StatusDot`
 - `@poukai-inc/ui/atoms/Tag`
 - `@poukai-inc/ui/atoms/Text`
 - `@poukai-inc/ui/atoms/Select`
@@ -75,6 +76,7 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/molecules/FeatureCard`
 - `@poukai-inc/ui/molecules/FieldNote`
 - `@poukai-inc/ui/molecules/Input`
+- `@poukai-inc/ui/molecules/Textarea`
 - `@poukai-inc/ui/molecules/Hero`
 - `@poukai-inc/ui/molecules/LinkCard`
 - `@poukai-inc/ui/molecules/LinkList`
@@ -124,6 +126,7 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/organisms/ArticleLayout`
 - `@poukai-inc/ui/molecules/DataTable`
 - `@poukai-inc/ui/molecules/ToastItem`
+- `@poukai-inc/ui/molecules/FileUploader`
 - `@poukai-inc/ui/organisms/Sidebar`
 - `@poukai-inc/ui/organisms/CTASection`
 - `@poukai-inc/ui/organisms/ArticleHeader`
@@ -150,6 +153,8 @@ Authoritative source: `src/tokens/tokens.css`. All values on `:root` — color, 
 - `@poukai-inc/ui/organisms/TimelineSection`
 - `@poukai-inc/ui/organisms/FAQSection`
 - `@poukai-inc/ui/organisms/DocsLayout`
+- `@poukai-inc/ui/organisms/NotFound`
+- `@poukai-inc/ui/organisms/DashboardShell`
 - `@poukai-inc/ui/tokens.css`
 - `@poukai-inc/ui/styles.css`
 - `@poukai-inc/ui/fonts/*`

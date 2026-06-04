@@ -37,6 +37,9 @@ All tokens live in `src/tokens/tokens.css` on `:root`. Owned exclusively by `pou
 - `--warning: #b46100` — Amber/ochre. Used by Banner warning left-rule, future caution indicators. Distinct from `--bg-warm-accent` (#C0452C, brick-red editorial) — different hue family. WCAG AA on `--bg` (#FBFBFD): ~4.6:1.
 - `--bg-warning: #fff7e6` — Tinted page-tier surface (light cream). Used by Banner warning background. NEVER substitute for `--bg-warm-accent`; the warm-accent band is editorial, this is product feedback.
 - `--fg-on-warning: #4a2900` — Deep brown for text on `--bg-warning` (~10.2:1). Use only on `--bg-warning` surfaces.
+- `--line-success: #1a7533` — Saturated border/dot accent for `success` tone. Exceeds 4.5:1 on both `--bg` and `--bg-success`. Use for 4px card borders, kanban-lane rules, and `StatusDot` success fill. NEVER use as text color or surface fill.
+- `--line-danger: #b3261e` — Saturated border/dot accent for `danger` tone. Same value as `--danger`; distinct semantic role (border/dot vs. text-safe). Use for 4px card borders and `StatusDot` danger fill.
+- `--line-warning: #9a5200` — Saturated border/dot accent for `warning` tone. Exceeds 4.5:1 on both `--bg` and `--bg-warning`. Use for 4px card borders and `StatusDot` warning fill. NEVER use as text color or surface fill.
 
 **Elevation rhythm.** Four steps, low to high: `--surface (#F5F5F7) < --surface-section (#F8F8FA) < --bg (#FBFBFD) < --bg-elevated (#FFFFFF)`. Use `--surface` for recessed inline elements (code blocks, quote blocks, card fills). Use `--surface-section` for full-width alternating section bands on editorial pages — this is the only tier permitted as a section divider. Use `--bg` for the page canvas and page-level content. Use `--bg-elevated` for overlays that must read as front-most. Never skip steps. Never use `--surface` as a section divider.
 
@@ -44,7 +47,9 @@ All tokens live in `src/tokens/tokens.css` on `:root`. Owned exclusively by `pou
 
 ### Dark mode
 
-Dark mode is implemented as a `@media (prefers-color-scheme: dark)` block appended to `src/tokens/tokens.css`. It overrides every color token on `:root`. No component CSS changes — every component that consumes `var(--token)` references gains dark mode automatically. Full rationale in `meta/design/dark-mode.md`.
+Dark mode is implemented as a token tier in `src/tokens/tokens.css` that overrides every color token on `:root`. No component CSS changes — every component that consumes `var(--token)` references gains dark mode automatically. Full rationale in `meta/design/dark-mode.md`.
+
+**Activation (two paths).** (1) OS preference via `@media (prefers-color-scheme: dark)` — zero config. (2) Manual toggle: set `class="dark"` or `data-theme="dark"` on `<html>`/`:root` to force dark regardless of OS; `class="light"` / `data-theme="light"` forces light. **Explicit wins over OS** (the media block is scoped `:root:not(.light):not([data-theme="light"])`). The DS sets `color-scheme` per mode so native controls match. For no-flash SSR, set the class in a blocking `<head>` script before stylesheets load. Dark values are duplicated between the `@media` block and the explicit `:root.dark` block — update both together.
 
 **Philosophy.** Dark mode is not an inversion of the light palette. It is a parallel surface stack: backgrounds darken progressively toward black (the floor); foregrounds brighten toward near-white (never pure). The elevation rhythm inverts direction — surfaces RISE through lighter grays as they elevate, rather than toward white. `html { color-scheme: light dark }` is declared so browser-native controls (scrollbars, form inputs, selection) match the token-driven scheme.
 
@@ -186,11 +191,14 @@ Default `size` on `<Icon>` is `"sm"` (16px). Lucide's SVG grid is designed for 1
 - Aspect ratio locked at ~4.08:1 (viewBox 0 0 1184 290). Set only `height`; width is auto.
 - Do NOT render below height={40}. Do NOT add a second Wordmark inside SiteShell's children. Do NOT use as a watermark. Do NOT set label="" (it is the a11y name).
 - Path geometry changes require Arian's approval (ADR-0011).
+- White-label: pass `src` (a logo URL) to render `<img src alt={label} height>` instead of the bundled POUKAI mark. The image does NOT inherit currentColor (no auto dark-mode inversion — swap `src` per theme at the call site). `javascript:`/`data:` schemes are blocked and fall back to the bundled mark. `label` is required as the `<img>` alt when `src` is set.
 
 ### StatusBadge
-- Maximum 1 instance per page. Encodes consultant/service availability — not system status.
-- status="available" triggers pulse animation automatically. Do NOT add additional CSS animation.
-- prefers-reduced-motion disables the pulse at the CSS level — do NOT force-animate via JS or inline styles.
+- `tone` is the primary API: "neutral" | "info" | "success" | "warning" | "danger" | "accent" — a generic colored-dot status indicator. Multiple instances per page are allowed when using `tone` (e.g. list/table rows). Map your domain statuses (draft/scheduled/published/failed/…) onto these tones; do NOT fork the atom for app-specific statuses.
+- `status` ("available" | "idle" | "closed") is the legacy availability API and still works unchanged: it drives `data-status` with the original three colors (available blue+halo+pulse, idle muted, closed near-black). The "max 1 per page, availability only" rule applies to this pulsing availability use, not to generic `tone` badges.
+- `tone` (drives `data-tone`) takes precedence over `status` when both are set — the legacy `status` path is skipped. `pulse` is opt-in (default false); legacy `status="available"` enables it automatically. Only accent/available carry the halo.
+- info shares the neutral dot color in this pass (text carries the distinction); no `--info` token yet.
+- prefers-reduced-motion disables the pulse at the CSS level — do NOT force-animate via JS or inline styles. Do NOT add additional CSS animation.
 - Children: single short clause, 10 words or fewer.
 
 ### Button
@@ -330,6 +338,7 @@ Default `size` on `<Icon>` is `"sm"` (16px). Lucide's SVG grid is designed for 1
 - Requires a caption — numeral alone is not self-explanatory.
 - value must be a numeral or numeral+unit string. source should be citation only.
 - Maximum 4 Stats per section. Maximum 1 size="lg" per section.
+- Optional `icon` (ReactNode) renders above the numeral in an `aria-hidden` wrapper — decorative only; the caption must still carry the meaning. Pass a sized SVG/icon element; it inherits no size from Stat.
 
 ### NumberFormat
 - Pure presentational formatter backed by native `Intl.NumberFormat`. Renders a `number` as a locale-correct string and nothing else. NEVER use as a layout or visual primitive — it owns no CSS.
@@ -1375,9 +1384,68 @@ import { Icon } from "@poukai-inc/ui";
 - Do NOT add onClick-only handlers — items are `<a>` anchors, not `<button>` elements.
 
 ### SiteShell
-- Do NOT nest SiteShell inside another SiteShell. It is min-height: 100dvh.
-- Emits plain <a href> tags — framework-router consumers intercept at app level.
-- navLabel (default: "Primary") is the aria-label for the nav element.
+
+Full-page chrome organism: sticky-capable header (wordmark + primary nav + optional end slot), main content slot, and hairline footer. Supports nested dropdown nav items (desktop Radix DropdownMenu) and a hamburger mobile panel (below 768px). No router awareness, no auth logic — purely compositional.
+
+**Props**
+- `currentRoute` (string, optional) — matched against `routes[i].href` to set `aria-current="page"` on the active flat link.
+- `routes` (SiteShellRoute[], optional) — primary nav items. Each item: `{ href?: string; label: ReactNode; items?: SiteShellRoute[] }`. A route with `items` renders as a Radix dropdown trigger on desktop and an inline disclosure on mobile. A route with no `href` and an `items` array is a group label (e.g. "More"). One level of nesting only.
+- `footer` (ReactNode, optional) — footer slot. Rendered beneath a hairline rule. Pass a `<Footer as="div">` for the canonical composition.
+- `homeHref` (string, default `"/"`) — href for the wordmark link.
+- `navLabel` (string, default `"Primary"`) — `aria-label` for the `<nav>` landmark.
+- `sticky` (boolean, default `false`) — makes the header `position: sticky; top: 0` with a hairline `border-bottom` and compact block padding (`--space-4`). Non-sticky behavior is identical to the original.
+- `end` (ReactNode, optional) — right-edge slot for consumer-supplied controls (avatar, sign-out, theme toggle). SiteShell provides the layout container; the consumer owns the contents. On desktop it appears at the trailing edge of the header; on mobile it appears at the bottom of the mobile panel.
+- `mobileMenuLabel` (string, default `"Open navigation"`) — accessible label for the hamburger button when closed. Exposed for i18n.
+- `mobileCloseLabel` (string, default `"Close navigation"`) — accessible label for the close button when open. Exposed for i18n.
+- `children` (ReactNode, required) — page content, rendered in `<main>`.
+
+**Behaviour**
+- Desktop (≥768px): nav items render inline. Items with `items` use `DropdownMenu.Root modal={false}` + `Trigger asChild` + `Content align="start"` + `Item` per child.
+- Mobile (<768px): nav collapses to hamburger button. Panel slides in with `translateY(-8px→0)` + opacity at `--dur-mid`/`--easing`. Focus moves to first panel item on open; returns to hamburger on close/Escape. NOT modal — no focus trap.
+- Nested items on mobile render as inline disclosures (plain `<button aria-expanded>` toggles child list). No Radix on mobile.
+- Auth composition: pass different `routes` and `end` for logged-in vs marketing. SiteShell has no auth prop.
+
+**Do NOT**
+- Nest SiteShell inside another SiteShell. It is `min-height: 100dvh`.
+- Pass auth state as a prop — compose via `routes` and `end`.
+- Use `as="footer"` on `<Footer>` inside SiteShell — this nests two `<footer>` landmarks. Use default `as="div"`.
+- Add `import { ... } from "lucide-react"` inside SiteShell — icons are inline SVG per spec §6.
+
+**Tokens consumed**: `--bg`, `--bg-elevated`, `--fg`, `--fg-muted`, `--hairline`, `--hairline-w`, `--accent`, `--radius-1`, `--radius-2`, `--font-sans`, `--fs-meta`, `--dur-fast`, `--dur-mid`, `--easing`, `--space-2`, `--space-4`, `--space-6`, `--space-8`, `--space-12`, `--space-24`, `--page-pad`, `--content-max`. Z-index `100` is a documented raw-value exception (see DS z-index informal scale).
+
+```tsx
+// Marketing shell (unchanged pattern)
+<SiteShell
+  currentRoute="/why-ai"
+  routes={[
+    { href: "/why-ai", label: "Why AI" },
+    { href: "/roles", label: "Roles" },
+  ]}
+  footer={<Footer copyright="© Pouk AI INC 2026" email="hello@pouk.ai" />}
+>
+  {pageContent}
+</SiteShell>
+
+// App shell — sticky, end slot, nested "More" group
+<SiteShell
+  sticky
+  currentRoute="/dashboard"
+  routes={[
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "/posts", label: "Posts" },
+    {
+      label: "More",
+      items: [
+        { href: "/settings", label: "Settings" },
+        { href: "/billing", label: "Billing" },
+      ],
+    },
+  ]}
+  end={<Avatar name="Arian" />}
+>
+  {appContent}
+</SiteShell>
+```
 
 ### TimelineItem
 - Single entry in a sequential chronological list. Renders a date, title, and optional body copy with a left-rail marker dot and optional connector line to the next item.
@@ -3570,4 +3638,217 @@ useEffect(() => {
 <DocsLayout sidebar={<Sidebar>…</Sidebar>} sidebarLabel="Navigation">
   <ArticleLayout as="div">…</ArticleLayout>
 </DocsLayout>
+```
+
+### NotFound
+- Canonical 404 page organism for all pouk.ai surfaces. Composes a chrome-less `SiteShell` (wordmark-only header, no nav, no footer) with a centered content column presenting the error code, headline, description, optional suggestions list, and a home CTA.
+- Root element: `<div>` via `SiteShell`. `forwardRef<HTMLDivElement, NotFoundProps>`. `...rest` spread to `SiteShell` root. `displayName = "NotFound"`.
+- RSC-safe: no `'use client'`, no `useState`, no `useEffect`, no event handlers. Static render works in RSC, SSR, SSG, and client-only environments.
+- `homeHref` (string, default `"/"`) — destination for both the SiteShell wordmark link and the home CTA button. Both always agree.
+- `headline` (string, default `"Page not found."`) — rendered as `<h1>`. Sub-apps override for context-specific copy.
+- `description` (string, default `"The page you're looking for doesn't exist or has been moved."`) — rendered as `<p>` below the headline. One to two sentences maximum.
+- `suggestions` (array of `{ label: string; href: string }`, default `[]`) — when non-empty, renders a `<ul>` of plain `<a>` links above the home CTA. Each item inherits the global animated underline treatment.
+- `homeLabel` (string, default `"Go home"`) — visible label on the home CTA `<Button variant="primary" size="md" asChild>`.
+- Anatomy (top to bottom): SiteShell header (wordmark only, no nav) → content column → `<p class=code>` ("404", `--fs-stat`, `--font-serif`, `--fg-muted`, `--tracking-stat`) → `<h1>` headline (`--fs-tagline-intimate`, `--font-serif`, `--fg`) → `<p>` description (`--fs-body`, `--font-sans`, `--fg-muted`) → `<ul>` suggestions (conditional) → `<Button>` home CTA.
+- Vertical rhythm: code→headline `--space-4`, headline→description `--space-6`, description→suggestions (or CTA) `--space-8`, suggestions→CTA `--space-8`.
+- Tokens: `--hero-max`, `--space-2`, `--space-4`, `--space-6`, `--space-8`, `--space-16`, `--fs-stat`, `--fs-tagline-intimate`, `--fs-body`, `--font-serif`, `--font-sans`, `--fg`, `--fg-muted`, `--tracking-stat`, `--lh-meta`, `--lh-body`.
+- Composition rules: render `<NotFound />` as the entire page — NEVER inside an existing `SiteShell` (nested landmarks are a structural error). The `homeHref` prop drives both the wordmark link and the CTA.
+- HTTP status: component renders the visual only. Consumers set the 404 response code via their framework (`notFound()` in Next.js, `CatchBoundary` in Remix, etc.).
+- Do NOT compose NotFound inside `Section`, `Hero`, or any content molecule. It is a full-page organism, not a content slot.
+
+```tsx
+// (a) Default (all defaults):
+<NotFound />
+
+// (b) With suggestions:
+<NotFound
+  suggestions={[
+    { label: "Home", href: "/" },
+    { label: "Why AI", href: "/why-ai" },
+  ]}
+/>
+
+// (c) Custom headline and home destination:
+<NotFound
+  headline="This role doesn't exist."
+  description="The URL may have changed or this role was removed."
+  homeHref="/roles"
+  homeLabel="Back to roles"
+/>
+
+// (d) All props:
+<NotFound
+  homeHref="/dashboard"
+  headline="Dashboard page not found."
+  description="The dashboard page you requested has been moved or no longer exists."
+  homeLabel="Go to dashboard"
+  suggestions={[
+    { label: "Home", href: "/" },
+    { label: "Overview", href: "/dashboard/overview" },
+  ]}
+/>
+```
+
+### FileUploader
+- Drag-and-drop file selection molecule with per-file progress, validation, and removal. Provides a visually-styled drop zone, a hidden `<input type="file">`, and a file list with optional `<ProgressBar>` per entry. No remote upload logic — the component collects local `File` objects only; the caller owns the upload transport.
+- Root element: `<div>`. `forwardRef<HTMLDivElement, FileUploaderProps>`. `...rest` spread to root div. `displayName = "FileUploader"`.
+- Uncontrolled by default (manages its own `FileEntry[]` state). Becomes controlled when `files` prop is supplied — caller must update it in response to `onFilesAdded` / `onFileRemoved`. Both modes fire all callbacks.
+- `FileEntry` interface: `{ id: string; file: File; progress?: number; error?: string }`. IDs are auto-generated via `crypto.randomUUID()` (or a module counter fallback); stable for the entry's lifetime.
+- `accept` (string, optional) — forwarded to `<input accept>` and used for drop-event client-side validation. Supports MIME types (`image/*`, `application/pdf`) and extensions (`.pdf`, `.jpg`).
+- `maxSizeBytes` (number, optional) — files exceeding this are rejected with a human-readable error message (e.g. "File exceeds maximum size of 10.0 MB").
+- `multiple` (boolean, default `true`) — forwarded to `<input multiple>`. When `false`, dropping more than one file shows a zone-level error and only the first file is accepted.
+- `disabled` (boolean, default `false`) — entire component is inert: no drag, no dialog, no remove. `opacity: 0.5`, `pointer-events: none`.
+- `files` (FileEntry[], optional) — controlled file list. Omit for uncontrolled mode.
+- `onFilesAdded` ((entries: FileEntry[]) => void, optional) — called with newly accepted entries after validation passes.
+- `onFileRemoved` ((id: string) => void, optional) — called when user removes a file via the × button.
+- `onFileRejected` ((entry: FileEntry) => void, optional) — called for every file that fails `accept` or `maxSizeBytes` validation. Entry has `error` set; entry is NOT added to the file list.
+- `dropZoneLabel` (string, default `"Drag files here, or click to browse"`) — overrides the primary instruction line in the drop zone.
+- `className` (string, optional) — merged onto the root `<div>`.
+- Field integration: accepts `id`, `aria-describedby`, `aria-invalid`, `required` props injected by `<Field>` and forwards them to the hidden `<input>`.
+- Drop zone states: idle (`--bg` background, dashed `--hairline` border), drag-over-valid (`--accent-glow` bg, `--accent` border/text), drag-over-invalid (`--bg-danger` bg, `--danger` border/text), focus-visible (2px solid `--accent` outline), disabled (opacity 0.5).
+- File row states: default (`--bg-elevated` bg, `--hairline` border), error (border `--danger`), with-progress (`<ProgressBar size="sm">` below filename row).
+- A11y: drop zone has `role="button"` + `tabIndex={0}`. Enter/Space opens file dialog. Hidden input uses visually-hidden CSS (not `display:none`) to remain in the accessibility tree. Polite live region announces add/remove/reject events. Assertive live region announces drag-state changes. Remove buttons have `aria-label="Remove {filename}"`. Focus management on remove: moves to next/previous remove button, or drop zone when list empties.
+- No lucide-react. All three glyphs (upload arrow, file page, remove ×) are inline SVG with `aria-hidden="true"` and `currentColor` stroke.
+- Tokens: `--surface`, `--bg-elevated`, `--bg-danger`, `--accent`, `--accent-glow`, `--danger`, `--fg`, `--fg-muted`, `--hairline`, `--hairline-w`, `--radius-2`, `--radius-3`, `--font-sans`, `--fs-meta`, `--lh-meta`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-6`, `--dur-fast`, `--dur-press`, `--easing`, `--icon-lg`, `--icon-sm`, `--btn-h-sm`.
+
+```tsx
+// (a) Zero-config uncontrolled:
+<FileUploader />
+
+// (b) With constraints:
+<FileUploader accept="image/*,application/pdf" maxSizeBytes={10485760} />
+
+// (c) Single-file mode:
+<FileUploader multiple={false} accept=".pdf" />
+
+// (d) Inside Field (canonical):
+<Field label="Attach media" helper="JPEG, PNG · max 5 MB" id="media-upload">
+  <FileUploader accept="image/*" maxSizeBytes={5242880} />
+</Field>
+
+// (e) Controlled (React Hook Form):
+<FileUploader
+  files={files}
+  onFilesAdded={(entries) => setFiles((prev) => [...prev, ...entries])}
+  onFileRemoved={(id) => setFiles((prev) => prev.filter((f) => f.id !== id))}
+  onFileRejected={(entry) => toast.error(entry.error ?? "File rejected")}
+  accept="image/*,application/pdf"
+  maxSizeBytes={26214400}
+/>
+
+// (f) With progress (caller drives progress updates):
+<FileUploader
+  files={files.map((f) => ({ ...f, progress: uploadProgress[f.id] }))}
+  onFilesAdded={(entries) => setFiles((prev) => [...prev, ...entries])}
+  onFileRemoved={(id) => setFiles((prev) => prev.filter((f) => f.id !== id))}
+/>
+```
+
+### DashboardShell
+- Full-page layout organism for authenticated ops and admin surfaces. Owns a two-column flex-row layout: a persistent fixed-width left rail (wordmark + optional slot + vertical nav + bottom-anchored footer) and a scrollable `<main>` content column.
+- Root element: `<div>` — `display: flex; flex-direction: row; min-height: 100vh`. `forwardRef<HTMLDivElement, DashboardShellProps>`. `...rest` spread. `displayName = "DashboardShell"`.
+- Distinct from `<SiteShell>` (horizontal top-bar marketing chrome). The two organisms are never co-present on the same page. DashboardShell replaces SiteShell on authenticated surfaces.
+- **Desktop (≥ 768px)**: `<aside>` rail (14rem, sticky, `--surface` background, `border-right` hairline) on the left; `<main>` (`flex: 1 1 0`, `overflow-y: auto`, `padding: var(--space-8)`) fills the remaining width.
+- **Mobile (< 768px)**: sticky top bar (`--surface`, `border-bottom` hairline, z-index 100) with hamburger button + compact Wordmark. Off-canvas `<aside>` (position: fixed, z-index 101, `--bg-elevated`, `transform: translateX(-100%)`) slides in on hamburger click. Semi-transparent backdrop (position: fixed, z-index 100, `rgba(0,0,0,0.4)`) rendered after the top bar in DOM so same-layer paint order ensures backdrop covers top bar.
+- No Radix dependency for mobile panel — local `useState` + CSS `transform`. No focus trap. No `inert`.
+- `DashboardShellRoute`: `{ href: string; label: ReactNode; icon?: ReactNode }`. All nav items are direct links (`href` required). No nested groups (out of scope).
+- `currentRoute` (optional string) — strict equality match against `route.href`. Matching link receives `aria-current="page"`, `color: var(--fg)`, and `border-left: 2px solid var(--accent)` with compensated `padding-left: calc(var(--space-3) - 2px)`.
+- `routes` (optional array of `DashboardShellRoute`) — vertical nav list. When empty or omitted, `<nav>` is not rendered.
+- `footer` (optional ReactNode) — slot pinned to rail bottom via `margin-top: auto` + `border-top` hairline. Canonical usage: identity row (Avatar + name) + server-action sign-out form. Omit to suppress footer container.
+- `rail` (optional ReactNode) — slot between Wordmark and nav. Workspace selectors, environment badges, account switchers. Omit to suppress.
+- `homeHref` (optional string, default `"/"`) — href for Wordmark anchor.
+- `navLabel` (optional string, default `"Sidebar"`) — `aria-label` for `<nav>`.
+- `railLabel` (optional string, default `"Navigation"`) — `aria-label` for `<aside>`.
+- `mobileMenuLabel` (optional string, default `"Open navigation"`) — hamburger button label when closed.
+- `mobileCloseLabel` (optional string, default `"Close navigation"`) — hamburger button label when open.
+- `children` (required ReactNode) — `<main>` content.
+- A11y: `<aside aria-label="Navigation">` = complementary landmark; `<nav aria-label="Sidebar">` = navigation landmark nested inside aside; `<main>` = main landmark. `aria-current="page"` on active nav link. Hamburger: `aria-expanded`, `aria-controls="dashboardshell-rail-panel"`. Focus moves to first focusable element inside panel on open; returns to hamburger on close (Escape key or backdrop click). Backdrop is `aria-hidden="true"` + `tabIndex={-1}`.
+- Tokens: `--bg`, `--bg-elevated`, `--surface`, `--fg`, `--fg-muted`, `--hairline`, `--hairline-w`, `--accent`, `--radius-1`, `--radius-2`, `--font-sans`, `--fs-meta`, `--lh-meta`, `--dur-fast`, `--dur-mid`, `--easing`, `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-6`, `--space-8`, `--page-pad`.
+- Non-tokenised exceptions (spec §4, §13): rail width `14rem`; z-index 100 (top bar, backdrop), 101 (off-canvas panel).
+- Do NOT use alongside `SiteShell` — one per page. Do NOT use for marketing/editorial pages (use `SiteShell`). Do NOT add router awareness — emits plain `<a href>`. Do NOT add auth logic — identity is passed via `footer` slot.
+
+```tsx
+// (a) Full composition:
+<DashboardShell
+  currentRoute="/dashboard/jobs"
+  routes={[
+    { href: "/dashboard", label: "Overview", icon: <LayoutDashboard size={16} aria-hidden="true" /> },
+    { href: "/dashboard/jobs", label: "Jobs", icon: <FileText size={16} aria-hidden="true" /> },
+    { href: "/dashboard/team", label: "Team", icon: <Users size={16} aria-hidden="true" /> },
+    { href: "/dashboard/settings", label: "Settings", icon: <Settings size={16} aria-hidden="true" /> },
+  ]}
+  rail={<div style={{ fontSize: "var(--fs-meta)", color: "var(--fg-muted)" }}>Acme Corp</div>}
+  footer={
+    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+      <Avatar src={user.avatarUrl} name={user.name} size="sm" />
+      <span style={{ flex: 1, minWidth: 0, fontFamily: "var(--font-sans)", fontSize: "var(--fs-meta)" }}>
+        {user.name}
+      </span>
+      <form action={signOutAction}>
+        <Button type="submit" variant="ghost" size="sm">Sign out</Button>
+      </form>
+    </div>
+  }
+>
+  <h1>Jobs</h1>
+  {/* page content */}
+</DashboardShell>
+
+// (b) Minimal (no nav, no footer):
+<DashboardShell>
+  <h1>Loading…</h1>
+</DashboardShell>
+
+// (c) Custom nav / rail labels for i18n:
+<DashboardShell
+  routes={routes}
+  navLabel="Hauptnavigation"
+  railLabel="Seitenleiste"
+  mobileMenuLabel="Navigation öffnen"
+  mobileCloseLabel="Navigation schließen"
+>
+  {children}
+</DashboardShell>
+```
+
+### StatusDot
+- Standalone colored circle communicating semantic state without a text label. The visual primitive beneath `StatusBadge`'s dot anatomy, extracted for independent composition. No pulse animation — `StatusDot` is always static.
+- Root element: `<span>`. `forwardRef<HTMLSpanElement, StatusDotProps>`. `...rest` spread to root span. `displayName = "StatusDot"`.
+- `tone` (`"neutral" | "info" | "success" | "warning" | "danger" | "accent"`, default `"neutral"`) — controls the dot fill color via `data-tone` attribute + CSS attribute selectors. `neutral` and `info` use `--fg-muted`. `success` uses `--line-success`. `warning` uses `--line-warning`. `danger` uses `--line-danger`. `accent` uses `--accent` with `box-shadow: 0 0 0 2px var(--accent-glow)` halo.
+- `size` (`"sm" | "md"`, default `"md"`) — `sm` = 8px diameter (inline badge dot, tight label rows), `md` = 10px diameter (kanban indicators, standalone dots). Both values are literal px in the CSS module (not tokenized — they are size-only constants with no reuse surface outside this component).
+- `disabled` (boolean, default `false`) — when `true`, sets `opacity: 0.4` on the root span via `data-disabled` attribute selector. All tones are equally dimmed.
+- Forwards all standard `<span>` HTML attributes including `id`, `className`, `style`, `data-*`, `aria-*`.
+- Accessibility contract — two permitted patterns:
+  1. Standalone: `<StatusDot tone="success" aria-label="Published" />` — renders `role="img"` + `aria-label`. Screen readers announce the label.
+  2. Decorative alongside text: `<StatusDot tone="success" aria-hidden />` + adjacent `<span>Published</span>` — no `role` is rendered; `aria-hidden="true"` is set. Accessible name deferred to the adjacent text.
+  - Dev-mode warning emitted (`process.env.NODE_ENV !== 'production'`) when neither `aria-label` nor `aria-hidden` is present.
+  - Not focusable — `tabIndex` must never be set to 0 or positive on this component.
+- No state, no event handlers, no client-only behavior. Static render works in RSC, SSR, SSG, and client-only environments.
+- Do NOT nest a `StatusDot` inside `StatusBadge` — `StatusBadge` renders its own dot internally. Do NOT use `StatusDot` for `Alert`'s icon slot. Do NOT add pulse animation — use `StatusBadge` with `pulse` for animated presence signals.
+- Tokens: `--fg-muted`, `--accent`, `--accent-glow`, `--line-success`, `--line-warning`, `--line-danger`.
+
+```tsx
+// (a) Standalone with accessible label:
+<StatusDot tone="success" aria-label="Published" />
+
+// (b) Decorative alongside visible text:
+<div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+  <StatusDot tone="warning" aria-hidden />
+  <span>Pending approval</span>
+</div>
+
+// (c) Small size — inline label rows:
+<StatusDot tone="danger" size="sm" aria-label="Failed" />
+
+// (d) Disabled:
+<StatusDot tone="success" disabled aria-label="Success (inactive)" />
+
+// (e) Kanban card header (canonical layout):
+<div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+  <StatusDot tone="accent" size="md" aria-hidden />
+  <span>Active feature branch</span>
+</div>
+
+// (f) Subpath import:
+import { StatusDot } from "@poukai-inc/ui/atoms/StatusDot";
 ```
