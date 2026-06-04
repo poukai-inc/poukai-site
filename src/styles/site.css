@@ -41,6 +41,20 @@
   box-sizing: border-box;
 }
 
+/* ---------- SiteShell header — wordmark height (DS bug workaround) ----------
+   The SiteShell wordmark <svg> ships an explicit inline height:56px, but the
+   DS's own rule sizes the SVG to height:100% of a flex ancestor that has no
+   resolved height — a circular dependency that collapses the lockup to 0×0, so
+   the wordmark renders invisible in the header (observed in prod 2026-06-03).
+   Force the intended pixel height back. Structural selector (not the DS's
+   hashed class) so it survives DS version bumps. width:auto lets the lockup
+   keep its aspect ratio from the viewBox. Remove once the DS ships a fix
+   (tracked in the @poukai-inc/poukai-ui issue filed alongside this change). */
+header a[href="/"] svg {
+  height: 56px !important;
+  width: auto !important;
+}
+
 /* ---------- Page wrapper ---------- */
 
 .site-page {
@@ -265,6 +279,14 @@
   margin-block-start: var(--space-12);
   padding-block-start: var(--space-8);
   border-top: 1px solid var(--hairline);
+}
+
+/* Secondary hand-off into /engagements — quieter than the primary mailto line
+   so the conversion path stays primary and the funnel link reads as a follow-on. */
+.end-cta-secondary {
+  margin-block-start: var(--space-3);
+  font-size: var(--fs-meta);
+  color: var(--fg-muted);
 }
 
 /* ---------- Engagements page — ladder index ----------
