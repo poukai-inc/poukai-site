@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Terms of Service — pouk.ai",
+    "description": "The terms governing use of the pouk.ai scheduling app at cal.pouk.ai, including the Google Calendar integration.",
+    "canonical": "https://pouk.ai/terms/"
+  },
+  "heading": "Terms of Service",
+  "lede": "These terms govern your use of the pouk.ai scheduling app at cal.pouk.ai. By connecting an account, you agree to them.",
+  "lastUpdated": "Last updated 9 June 2026",
+  "sections": [
+    {
+      "heading": "The service",
+      "anchor": "service",
+      "blocks": [
+        "cal.pouk.ai is a self-hosted scheduling application operated by pouk.ai. It lets you publish a booking page, share your availability, and create calendar events when bookings are made. The Google Calendar integration is optional and is used only to read availability and write booking events, as described in the Privacy Policy."
+      ]
+    },
+    {
+      "heading": "Your account",
+      "anchor": "account",
+      "blocks": [
+        "You are responsible for the accuracy of the information on your booking page and for keeping your access to connected accounts secure. You agree to use the service only for lawful scheduling purposes and not to disrupt, overload, or attempt to gain unauthorized access to it."
+      ]
+    },
+    {
+      "heading": "Google Calendar integration",
+      "anchor": "google",
+      "blocks": [
+        "If you connect Google Calendar, you authorize the app to access your calendar for the scheduling features described in the Privacy Policy. You can revoke that access at any time by disconnecting the integration or removing pouk.ai's access from your Google Account. Our use of Google user data adheres to the Google API Services User Data Policy, including the Limited Use requirements."
+      ],
+      "links": [
+        {
+          "label": "Privacy Policy",
+          "href": "https://pouk.ai/privacy/"
+        }
+      ]
+    },
+    {
+      "heading": "Availability and changes",
+      "anchor": "availability",
+      "blocks": [
+        "The service is provided on a best-effort basis. We may modify, suspend, or discontinue features at any time. We will give reasonable notice of material changes where we can.",
+        "We may update these terms from time to time. The date above reflects the current version; continued use after a change constitutes acceptance."
+      ]
+    },
+    {
+      "heading": "Disclaimer and liability",
+      "anchor": "liability",
+      "blocks": [
+        "The service is provided \"as is,\" without warranties of any kind. To the maximum extent permitted by law, pouk.ai is not liable for any indirect, incidental, or consequential damages, or for missed, double-booked, or incorrectly scheduled events arising from your use of the service or from third-party services (including Google) it integrates with."
+      ]
+    }
+  ],
+  "contact": {
+    "text": "Questions about these terms? Email",
+    "email": "hello@pouk.ai",
+    "href": "mailto:hello@pouk.ai"
+  }
+}
