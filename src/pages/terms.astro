@@ -1,0 +1,29 @@
+---
+/**
+ * /terms — Terms of Service for the cal.pouk.ai scheduling app.
+ *
+ * Recommended Google OAuth verification asset (#122): publicly reachable,
+ * on the pouk.ai authorized domain.
+ *
+ * Copy: src/content/terms.json (R-076). Validated: src/content/_schemas/legal.ts (R-074).
+ * Utility page — no PM spec / composition recipe by design.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalArticle from "../components/LegalArticle.astro";
+import { legalPageSchema } from "../content/_schemas/legal";
+import termsRaw from "../content/terms.json";
+
+const page = legalPageSchema.parse(termsRaw);
+const { meta } = page;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  currentRoute="/terms"
+>
+  <div class="site-page">
+    <LegalArticle page={page} />
+  </div>
+</BaseLayout>

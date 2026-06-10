@@ -1,0 +1,62 @@
+---
+/**
+ * /scheduling — public description of the cal.pouk.ai scheduling app and its
+ * Google Calendar integration.
+ *
+ * Google OAuth verification asset (#122): a no-login-wall page on the pouk.ai
+ * authorized domain that plainly describes the app and how each requested
+ * Calendar scope is used. Links out to the live app (cal.pouk.ai) and to
+ * /privacy. The consent-screen Homepage URL points at cal.pouk.ai itself;
+ * this page backstops it on the apex domain.
+ *
+ * Copy: src/content/scheduling.json (R-076). Validated: src/content/_schemas/scheduling.ts (R-074).
+ * Utility page — no PM spec / composition recipe by design.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { schedulingSchema } from "../content/_schemas/scheduling";
+import schedulingRaw from "../content/scheduling.json";
+
+const page = schedulingSchema.parse(schedulingRaw);
+const { meta, hero, intro, scopes, privacyNote } = page;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  currentRoute="/scheduling"
+>
+  <div class="site-page">
+    <article class="scheduling-page">
+      <header class="scheduling-hero">
+        <h1>{hero.title}</h1>
+        <p class="scheduling-hero__lede">{hero.lede}</p>
+        <a class="scheduling-hero__cta" href={hero.cta.href} rel="noopener">
+          {hero.cta.label}
+        </a>
+      </header>
+
+      <section class="scheduling-intro" aria-label="What cal.pouk.ai does">
+        {intro.map((p) => <p>{p}</p>)}
+      </section>
+
+      <section class="scheduling-scopes" aria-labelledby="scopes">
+        <h2 id="scopes">{scopes.heading}</h2>
+        <p class="scheduling-scopes__intro">{scopes.intro}</p>
+        <ul class="scheduling-scopes__list">
+          {scopes.items.map((item) => (
+            <li>
+              <h3>{item.heading}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <p class="scheduling-privacy-note">
+        {privacyNote.text}{" "}
+        <a href={privacyNote.linkHref}>{privacyNote.linkLabel}</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

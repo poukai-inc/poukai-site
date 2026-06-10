@@ -1,0 +1,59 @@
+---
+/**
+ * LegalArticle.astro
+ *
+ * Renders a legal/policy page body from a parsed `legalPageSchema` object
+ * (/privacy, /terms). Pure presentation — copy is supplied by the caller from
+ * content JSON (R-076), validated by the page via the schema (R-074).
+ *
+ * Each section emits an <h2> anchor + ordered prose blocks (paragraphs and
+ * bullet lists), and an optional labelled reference-link list.
+ */
+import type { LegalPage } from "../content/_schemas/legal";
+
+interface Props {
+  page: LegalPage;
+}
+
+const { page } = Astro.props;
+const { heading, lede, lastUpdated, sections, contact } = page;
+---
+
+<article class="legal-page">
+  <header class="legal-page__head">
+    <h1>{heading}</h1>
+    <p class="legal-page__lede">{lede}</p>
+    <p class="legal-page__updated">{lastUpdated}</p>
+  </header>
+
+  {sections.map((section) => (
+    <section class="legal-section" aria-labelledby={section.anchor}>
+      <h2 id={section.anchor}>{section.heading}</h2>
+      {section.blocks.map((block) =>
+        typeof block === "string" ? (
+          <p>{block}</p>
+        ) : (
+          <ul>
+            {block.list.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      )}
+      {section.links ? (
+        <ul class="legal-section__links">
+          {section.links.map((link) => (
+            <li>
+              <a href={link.href} rel="noopener" target="_blank">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </section>
+  ))}
+
+  <p class="legal-page__contact">
+    {contact.text}{" "}
+    <a href={contact.href}>{contact.email}</a>.
+  </p>
+</article>

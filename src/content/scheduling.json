@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "Scheduling — pouk.ai",
+    "description": "cal.pouk.ai is pouk.ai's self-hosted scheduling app. Connect Google Calendar to share real availability and let people book time without the back-and-forth.",
+    "canonical": "https://pouk.ai/scheduling/"
+  },
+  "hero": {
+    "title": "Book time without the back-and-forth.",
+    "lede": "cal.pouk.ai is pouk.ai's self-hosted scheduling app. Connect your Google Calendar, share one link, and let people book real availability — no double-bookings, no email tag.",
+    "cta": {
+      "label": "Open cal.pouk.ai →",
+      "href": "https://cal.pouk.ai"
+    }
+  },
+  "intro": [
+    "Scheduling sounds simple until you are three emails deep trying to find a slot that still exists. cal.pouk.ai removes that loop: you publish a booking page, it reads your calendar, and people pick a time that is genuinely free.",
+    "The app is self-hosted by pouk.ai and built on Cal.com / Cal.diy. The Google Calendar integration is optional — but when you connect it, the app stays in sync with the calendar you already live in."
+  ],
+  "scopes": {
+    "heading": "How the Google Calendar integration is used",
+    "intro": "When you connect Google Calendar, cal.pouk.ai requests the minimum Calendar access needed to schedule on your behalf. Each permission maps to a feature you can see:",
+    "items": [
+      {
+        "heading": "Reading your availability",
+        "body": "The app reads your existing calendar events and busy/free times so your booking page only ever offers slots that are actually open. Nothing is shown to the people booking with you beyond \"free\" or \"busy.\""
+      },
+      {
+        "heading": "Creating booking events",
+        "body": "When a booking is confirmed, the app writes the event to your Google Calendar — and updates or cancels it if the booking changes — so the meeting lands in the calendar you already check."
+      },
+      {
+        "heading": "Keeping in sync",
+        "body": "Because the app reads availability at the moment it is needed, your booking page reflects your real schedule even as it changes throughout the day."
+      }
+    ]
+  },
+  "privacyNote": {
+    "text": "We request only Calendar and basic-profile access — never Gmail, Drive, or Contacts — and our use of Google data follows the Google API Services User Data Policy, including Limited Use. Full detail, and how to disconnect or delete your data, is in the",
+    "linkLabel": "Privacy Policy",
+    "linkHref": "/privacy/"
+  }
+}
