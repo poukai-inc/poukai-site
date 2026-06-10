@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Privacy Policy — pouk.ai",
+    "description": "How pouk.ai's cal.pouk.ai scheduling app accesses, uses, stores, and deletes Google Calendar data, and how it complies with the Google API Services User Data Policy.",
+    "canonical": "https://pouk.ai/privacy/"
+  },
+  "heading": "Privacy Policy",
+  "lede": "This policy explains what data the pouk.ai scheduling app (cal.pouk.ai) collects, how it is used, stored, and retained, and how you can have it deleted.",
+  "lastUpdated": "Last updated 9 June 2026",
+  "sections": [
+    {
+      "heading": "Who this covers",
+      "anchor": "scope",
+      "blocks": [
+        "pouk.ai operates a self-hosted scheduling application at cal.pouk.ai (built on Cal.com / Cal.diy). This policy applies to that application and to anyone who connects an account to it.",
+        "pouk.ai is operated by an independent technical consultancy. The data controller for the scheduling app can be reached at the contact address at the foot of this page."
+      ]
+    },
+    {
+      "heading": "Google user data we access",
+      "anchor": "google-data",
+      "blocks": [
+        "When you connect your Google account to cal.pouk.ai, we request access to your Google Calendar so the app can schedule on your behalf. The Google data we access is:",
+        {
+          "list": [
+            "Your Google Calendar events and busy/free times — read, so the app can show your real availability and avoid double-booking.",
+            "Your Google Calendar events — write, so the app can create, update, and cancel booking events you (or someone booking with you) confirm.",
+            "Your basic Google profile (name and email address) — to identify the connected account and attach it to your booking page."
+          ]
+        },
+        "We request the minimum scopes needed for scheduling. We do not access Gmail, Drive, Contacts, or any Google data outside the Calendar and basic-profile scopes listed above."
+      ]
+    },
+    {
+      "heading": "How we use this data",
+      "anchor": "use",
+      "blocks": [
+        "Google Calendar data is used solely to provide the scheduling features you asked for:",
+        {
+          "list": [
+            "Reading your calendar to compute and display the times you are available to be booked.",
+            "Writing events to your calendar when a booking is confirmed, rescheduled, or cancelled.",
+            "Keeping your booking page in sync with your real calendar so availability stays accurate."
+          ]
+        },
+        "We do not use Google user data for advertising. We do not sell it. We do not use it to train, fine-tune, or improve any general-purpose or AI model. We do not allow humans to read it except where you give explicit consent, where it is necessary for security or to comply with applicable law, or where the data has been aggregated and anonymized."
+      ]
+    },
+    {
+      "heading": "Limited Use — Google API Services User Data Policy",
+      "anchor": "limited-use",
+      "blocks": [
+        "pouk.ai's use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. We only use Google user data to provide and improve the user-facing scheduling features described above, and we never transfer it except as required to operate those features, on your instruction, for security or legal reasons, or as part of a merger or acquisition with prior notice."
+      ],
+      "links": [
+        {
+          "label": "Google API Services User Data Policy",
+          "href": "https://developers.google.com/terms/api-services-user-data-policy"
+        },
+        {
+          "label": "Limited Use requirements",
+          "href": "https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"
+        }
+      ]
+    },
+    {
+      "heading": "How we store and protect it",
+      "anchor": "storage",
+      "blocks": [
+        "OAuth access and refresh tokens issued by Google are stored in the scheduling app's own database on infrastructure controlled by pouk.ai. They are transmitted only over encrypted (HTTPS) connections and are used only to call the Google Calendar API on your behalf.",
+        "We do not keep a separate long-term copy of your calendar contents. Calendar data is read from Google at the time it is needed to render availability or write a booking; we cache only what is required for the app to function."
+      ]
+    },
+    {
+      "heading": "How long we keep it",
+      "anchor": "retention",
+      "blocks": [
+        "We retain your Google OAuth tokens and the minimal account data needed to keep your booking page working for as long as your account remains connected to cal.pouk.ai.",
+        "When you disconnect Google from the app, or ask us to delete your account, we revoke the tokens and delete the stored Google data associated with your account. Routine application logs that may incidentally reference an account are rotated and expire on a rolling basis."
+      ]
+    },
+    {
+      "heading": "How to request deletion",
+      "anchor": "deletion",
+      "blocks": [
+        "You can remove our access to your Google data at any time, in any of these ways:",
+        {
+          "list": [
+            "Disconnect the Google Calendar integration from inside cal.pouk.ai — this revokes the stored tokens.",
+            "Revoke pouk.ai's access directly from your Google Account at the Google security page linked below.",
+            "Email us at the address at the foot of this page and ask us to delete your account and all associated Google data. We action deletion requests promptly and confirm when complete."
+          ]
+        }
+      ],
+      "links": [
+        {
+          "label": "Manage third-party access in your Google Account",
+          "href": "https://myaccount.google.com/permissions"
+        }
+      ]
+    },
+    {
+      "heading": "Changes to this policy",
+      "anchor": "changes",
+      "blocks": [
+        "If we materially change how the scheduling app handles Google user data, we will update this page and revise the date above. Continued use of cal.pouk.ai after a change constitutes acceptance of the updated policy."
+      ]
+    }
+  ],
+  "contact": {
+    "text": "Questions about this policy or a data deletion request? Email",
+    "email": "hello@pouk.ai",
+    "href": "mailto:hello@pouk.ai"
+  }
+}

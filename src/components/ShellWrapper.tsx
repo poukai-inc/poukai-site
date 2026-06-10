@@ -36,7 +36,9 @@ export function ShellWrapper({ currentRoute, routes, year, children }: ShellWrap
       footer={
         // Footer link order matches the primary nav, plus Writing + RSS — the
         // /writing entry points (it is absent from the primary nav by design,
-        // writing.md §9). RSS reaches the feed at /writing/rss.xml.
+        // writing.md §9). RSS reaches the feed at /writing/rss.xml. Privacy +
+        // Terms close the row — utility/legal pages (the cal.pouk.ai Google
+        // OAuth verification assets, #122), surfaced here only.
         <p>
           {"© "}{year}{" pouk.ai · "}
           <a href="/why-ai">Why AI</a>{" · "}
@@ -46,7 +48,9 @@ export function ShellWrapper({ currentRoute, routes, year, children }: ShellWrap
           <a href="/about">About</a>{" · "}
           <a href="/writing">Writing</a>{" · "}
           <a href="/writing/rss.xml">RSS</a>{" · "}
-          <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
+          <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>{" · "}
+          <a href="/privacy">Privacy</a>{" · "}
+          <a href="/terms">Terms</a>
         </p>
       }
     >

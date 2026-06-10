@@ -18,6 +18,9 @@ const routes = [
   { name: "roles", path: "/roles/" },
   { name: "principles", path: "/principles/" },
   { name: "about", path: "/about/" },
+  { name: "scheduling", path: "/scheduling/" },
+  { name: "privacy", path: "/privacy/" },
+  { name: "terms", path: "/terms/" },
 ];
 
 for (const route of routes) {
