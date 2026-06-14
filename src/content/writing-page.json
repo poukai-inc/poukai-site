@@ -2,7 +2,7 @@
   "meta": {
     "title": "Writing — pouk.ai",
     "description": "Operator-first essays on what happens when AI meets a real workflow — failure modes, fixes, and the patterns that repeat across engagements.",
-    "canonical": "https://pouk.ai/writing"
+    "canonical": "https://pouk.ai/writing/"
   },
   "hero": {
     "eyebrow": "Writing",
@@ -21,6 +21,6 @@
     "@type": "CollectionPage",
     "name": "Writing — pouk.ai",
     "description": "Operator-first essays on what happens when AI meets a real workflow — failure modes, fixes, and the patterns that repeat across engagements.",
-    "url": "https://pouk.ai/writing"
+    "url": "https://pouk.ai/writing/"
   }
 }

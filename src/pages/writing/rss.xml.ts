@@ -17,6 +17,11 @@ export async function GET(context: APIContext) {
     .map((entry) => entry.data)
     .sort((a, b) => (a.datePublished < b.datePublished ? 1 : -1));
 
+  // Resolve item links to absolute URLs. @astrojs/rss does not reliably prefix
+  // a relative `link` with `site`, and some readers require absolute URLs.
+  // Trailing slash mirrors the page canonical (build format: "directory").
+  const siteOrigin = context.site ?? new URL("https://pouk.ai");
+
   return rss({
     title: "pouk.ai — Writing",
     description:
@@ -26,7 +31,7 @@ export async function GET(context: APIContext) {
     items: ordered.map((essay) => ({
       title: essay.title,
       description: essay.description,
-      link: `/writing/${essay.slug}`,
+      link: new URL(`/writing/${essay.slug}/`, siteOrigin).href,
       pubDate: new Date(`${essay.datePublished}T00:00:00Z`),
     })),
   });

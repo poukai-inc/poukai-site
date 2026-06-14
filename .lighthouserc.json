@@ -7,7 +7,13 @@
         "http://localhost:4321/why-ai/",
         "http://localhost:4321/roles/",
         "http://localhost:4321/principles/",
-        "http://localhost:4321/about/"
+        "http://localhost:4321/about/",
+        "http://localhost:4321/engagements/",
+        "http://localhost:4321/writing/",
+        "http://localhost:4321/writing/why-ai-pilots-stall-at-integration/",
+        "http://localhost:4321/scheduling/",
+        "http://localhost:4321/privacy/",
+        "http://localhost:4321/terms/"
       ],
       "startServerCommand": "pnpm preview --port 4321",
       "startServerReadyPattern": "Local",

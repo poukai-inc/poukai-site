@@ -2,7 +2,7 @@
   "meta": {
     "title": "Engagements — pouk.ai",
     "description": "How work with pouk.ai starts and grows: Discovery, Pilot, Build, Retainer — four shapes of one relationship, not a price list.",
-    "canonical": "https://pouk.ai/engagements"
+    "canonical": "https://pouk.ai/engagements/"
   },
   "hero": {
     "eyebrow": "Engagements",
@@ -21,6 +21,6 @@
     "@type": "WebPage",
     "name": "Engagements — pouk.ai",
     "description": "How work with pouk.ai starts and grows: Discovery, Pilot, Build, Retainer — four shapes of one relationship, not a price list.",
-    "url": "https://pouk.ai/engagements"
+    "url": "https://pouk.ai/engagements/"
   }
 }

@@ -106,6 +106,23 @@ export const whyAiSchema = z.object({
     datePublished: z.string(),
     dateModified: z.string(),
   }),
-});
+})
+  // Every opening-argument citation must resolve to a real reference index —
+  // the page renders `#ref-${stat.citation}` anchors that point into
+  // references[]. Without this guard an author typo yields a dead footnote
+  // anchor that ships green (the per-array `.length(4)` checks don't catch a
+  // mismatch between the two). (backlog CR-8)
+  .superRefine((data, ctx) => {
+    const refIndices = new Set(data.references.map((r) => r.index));
+    data.openingArgument.stats.forEach((stat, i) => {
+      if (!refIndices.has(stat.citation)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `openingArgument.stats[${i}].citation=${stat.citation} has no matching references[].index.`,
+          path: ["openingArgument", "stats", i, "citation"],
+        });
+      }
+    });
+  });
 
 export type WhyAi = z.infer<typeof whyAiSchema>;

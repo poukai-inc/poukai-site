@@ -2,7 +2,7 @@
   "meta": {
     "title": "Roles — pouk.ai",
     "description": "Builder, Automator, Educator, Creator. Four archetypes — each pinned to a hiring trigger. Find which shape of help pouk.ai delivers for your situation.",
-    "canonical": "https://pouk.ai/roles"
+    "canonical": "https://pouk.ai/roles/"
   },
   "hero": {
     "title": "Four shapes of help",
@@ -25,6 +25,6 @@
     "@type": "WebPage",
     "name": "Roles — pouk.ai",
     "description": "Builder, Automator, Educator, Creator. Four archetypes — each pinned to a hiring trigger. Find which shape of help pouk.ai delivers for your situation.",
-    "url": "https://pouk.ai/roles"
+    "url": "https://pouk.ai/roles/"
   }
 }
