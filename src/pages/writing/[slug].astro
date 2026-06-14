@@ -25,6 +25,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Hero, Stat, Pull, Link } from "@poukai-inc/ui";
+import writingPageRaw from "../../content/writing-page.json";
+import { writingPageSchema } from "../../content/_schemas/writing-page";
 
 export async function getStaticPaths() {
   const essays = await getCollection("writing", ({ data }) => !data.draft);
@@ -37,8 +39,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const e = entry.data;
 
-const REFERENCES_NOTE =
-  "Source URLs cleaned from email click-trackers to canonical destinations.";
+// referencesNote sourced from writing-page.json (R-076 — copy in content, not templates).
+// Matches the /why-ai pattern where referencesNote lives in why-ai.json.
+const { referencesNote } = writingPageSchema.parse(writingPageRaw);
 
 // Split the raw body into prose segments around the inline molecule markers.
 // Markers are on their own line. Each text segment is rendered as paragraphs
@@ -115,6 +118,7 @@ const jsonLd = {
   canonical={canonical}
   jsonLd={jsonLd}
   ogImage={ogImage}
+  ogType="article"
   currentRoute="/writing"
 >
   <div class="site-page">
@@ -158,7 +162,7 @@ const jsonLd = {
               </li>
             ))}
           </ol>
-          <p><em>{REFERENCES_NOTE}</em></p>
+          <p><em>{referencesNote}</em></p>
         </section>
       )}
 

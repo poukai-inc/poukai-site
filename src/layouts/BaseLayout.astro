@@ -88,6 +88,13 @@ export interface Props {
    * Must be an absolute https URL; the site default is https://pouk.ai/og.png.
    */
   ogImage?: string;
+  /**
+   * og:type for this page. Defaults to "website".
+   * Pass "article" for pages that ship Article JSON-LD: /why-ai and /writing/[slug].
+   * R-037 — the Open Graph spec treats "article" as a distinct type; declaring
+   * "website" on a content page is a correctness defect, not a cosmetic one.
+   */
+  ogType?: string;
 }
 
 const {
@@ -100,6 +107,7 @@ const {
   robots = "index,follow",
   omitCanonicalLink = false,
   ogImage,
+  ogType = "website",
 } = Astro.props;
 
 const ogImageUrl = ogImage ?? "https://pouk.ai/og.png";
@@ -177,7 +185,7 @@ const matomoConfigJson = hasMatomoConfig
     <meta name="robots" content={robots} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

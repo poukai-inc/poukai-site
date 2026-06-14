@@ -2,6 +2,58 @@
 
 Things to ship before / around launch. Roughly priority-ordered within sections.
 
+## Final-state push (added 2026-06-14) — ✅ APPROVED (Phase 0 complete)
+
+The site is out of beta with **12 live routes**. `pouk-ai-pm` authored a site-wide final-state strategy defining the final shape. **Arian APPROVED the full push on 2026-06-14** with these decisions locked:
+
+1. **Scope** — full push; all phases proceed.
+2. **FS-CF-1** — `cal.pouk.ai` booking sits BESIDE `mailto:` as a SECONDARY affordance; `mailto:` stays primary/low-friction; never replace, never force a calendar.
+3. **FS-OB-1** — `/onboarding` pricing COMPRESSED — "transparent SOW, milestone-based payments", NO numerals/day-rates (matches `/engagements` categorical-only).
+4. **FS-SCH-1** — `/scheduling` stays the off-funnel OAuth scope-justification / product-explainer page; `contact-flow` owns surfacing the booking action into the funnel.
+
+- **Strategy doc**: [`meta/specs/final-state-strategy.md`](specs/final-state-strategy.md) — **`Approved`** — page-by-page verdict (5 KEEP / 6 REVISE / 1 NEW / 0 CUT), final nav/IA, rollout, and the now-ratified retirement of the stale 2026-05-20 8-page plan (`/solutions`/`/enterprise`/`/work`/`/careers`). See strategy §7.
+
+**Specs — all now `Approved` (decisions locked; statuses flipped 2026-06-14):**
+
+| Spec | Status | Priority | What it does |
+|---|---|---|---|
+| [`specs/pages/privacy.md`](specs/pages/privacy.md) | **Approved** (governance contract) | **P0** | Governs the OAuth privacy policy; pins scope-alignment so an edit can't break Google verification. |
+| [`specs/pages/terms.md`](specs/pages/terms.md) | **Approved** (governance contract) | **P0** | Governs the OAuth terms page; fences app-terms off from the consulting SOW. |
+| [`specs/pages/scheduling.md`](specs/pages/scheduling.md) | **Approved** | **P0** | Governs the `cal.pouk.ai` explainer + OAuth scope-justification; funnel-role RESOLVED (FS-SCH-1). |
+| [`specs/features/contact-flow.md`](specs/features/contact-flow.md) | **Approved** | **P1** | `cal.pouk.ai` booking BESIDE `mailto:` (secondary, FS-CF-1). Closes the biggest conversion gap. |
+| [`specs/pages/onboarding.md`](specs/pages/onboarding.md) | **Approved** | **P1** | Operational-reassurance stage (four-phase model). Pricing compressed (FS-OB-1); footer-tier (FS-OB-2). |
+| [`specs/flows/visitor-to-conversation.md`](specs/flows/visitor-to-conversation.md) | **Approved (v1.3)** | **P1** | Admits `/onboarding`, the `/writing` loop, the dual mechanism, the final IA. Closes the flow-spec debts. |
+| [`specs/content/onboarding.json.md`](specs/content/onboarding.json.md) | **Approved** | **P1** | Four-phase content schema (categorical-only). Per-phase OUTCOMES defined; prose is the content lane. |
+
+### Now-unblocked work items (owners + P-tags)
+
+Phase 0 (approve strategy) ✅ done. Phase 1 (legal-surface specs) ✅ done — they're spec-only governance contracts; **no rebuild required** unless an Arian scope-alignment review surfaces a copy correction. Phase 2 (flow-spec v1.3) ✅ done. Remaining build work, by lane:
+
+**Phase 3 — `contact-flow` (booking beside `mailto:`):**
+- [ ] **FSP-3.1 — Content: booking-path CTA copy variants** (Owner: `pouk-ai-content` · P1) — the quiet "or grab a time →" secondary line beside `mailto:` at each governed conversion point (`/` Hero, `/why-ai`, `/roles`, `/engagements` end, `/onboarding` end, footer), per `contact-flow.md` §5 voice discipline. Arian-verified.
+- [ ] **FSP-3.2 — Composition: secondary booking affordance** (Owner: `pouk-ai-designer` · P1) — how the secondary booking link sits beside the primary `mailto:` CTA without breaking restraint; reuses the existing `<Button>` (confirm no DS gap). Recorded in the relevant page compositions or a shared note.
+- [ ] **FSP-3.3 — Build: dual-CTA wiring** (Owner: `pouk-ai-engineer` · P1) — plain `<a href="https://cal.pouk.ai">` at the governed points; canonical booking URL defined once (shared constant/field, R-076); zero-JS; trust-loop + legal pages excluded.
+
+**Phase 4 — `/onboarding` (new route):**
+- [ ] **FSP-4.1 — Content: four-phase prose** (Owner: `pouk-ai-content` · P1) — Discovery → Scoping → Build → Handoff, prospect-facing, against `pages/onboarding.md` §5 + `content/onboarding.json.md` §5 OUTCOMES. Categorical-only (no figures); pricing posture compressed into the Scoping phase. Arian-verified.
+- [ ] **FSP-4.2 — Composition: phase sections** (Owner: `pouk-ai-designer` · P1) — four numbered phase sections (likely the `/why-ai` `FailureMode` register) + the end CTA via `contact-flow`, in `meta/compositions/pages/onboarding.md`. Files a DS proposal only if a new phase molecule is needed (PM expects reuse).
+- [ ] **FSP-4.3 — Build: `/onboarding` route** (Owner: `pouk-ai-engineer` · P1) — `src/pages/onboarding.astro` + `src/content/onboarding.json` + `src/content/_schemas/onboarding.ts`; add to footer utility tier (not primary nav); add to sitemap + all four CI route lists (lhci / axe / tab-order / visual); R-007 12→13 amendment.
+
+**Phase 5 — `/` + `/writing` light revisions (P2):**
+- [ ] **FSP-5.1 — `/` booking secondary** (Owner: content + engineer · P2) — folds into Phase 3 (the `/` Hero gets the booking secondary). The home illustration amendment stays `paused` per `pages/home-amendment-illustration-and-density.md` until Arian re-opens the asset.
+- [ ] **FSP-5.2 — `/writing` close-out** (Owner: PM + engineer · P2) — the page build is done; this closes the flow-spec cross-ref (now done in v1.3) and confirms the `/writing` footer-utility placement. Largely documentation.
+
+**PM amendment pass (non-blocking — does not gate content/designer):**
+- [ ] **FSP-X.1 — `mailto:`-only out-of-scope cascade** (Owner: `pouk-ai-pm` · P2) — narrow the `mailto:`-only lines in `pages/{home,why-ai,roles,engagements}.md` to admit the booking secondary, per `contact-flow.md` §9.
+
+**Masterplan deltas (ratified by Arian's approval — text owed):**
+- [ ] **FSP-X.2 — R-007 route-inventory amendment** (Owner: `pouk-ai-engineer` · P1) — update R-007 in `meta/standards/technical-requirements.md` to the current 12→13 route inventory (engineer authors the requirement text; PM flagged across the new specs). The CI-coverage gap was already fixed (CR-3); this is the requirement text catching up.
+- [ ] **FSP-X.3 — Masterplan route-framing note** (Owner: Arian/PM · P2) — annotate the masterplan's "four pages" framing as historically true / operationally superseded, with `meta/specs/` as the live route registry (strategy §7.2).
+
+**Deferred / gated (NOT in this push, per strategy §7.1):** `/enterprise` (re-open only if `/onboarding` under-carries the production objection), `/work` (gated on 2+ permissioned case studies), `/careers` (gated on an active public hiring motion + `/about`-positioning reconciliation).
+
+---
+
 ## Blockers for launch
 
 - [x] **Register `pouk.ai`.** Done 2026-05-13 via Vercel (registrar partner: Name.com, Inc.). Registration term covers through 2028-05-13. Originally noted as "Porkbun" in this backlog — that was a mis-recording; the actual purchase went through Vercel, which is why NS records pointed to `ns1.vercel-dns.com`/`ns2.vercel-dns.com` from the start.

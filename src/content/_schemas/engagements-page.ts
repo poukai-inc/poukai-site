@@ -33,7 +33,6 @@ export const engagementsPageSchema = z.object({
     canonical: z.string().url(),
   }),
   hero: z.object({
-    eyebrow: z.string(),
     title: categorical,
     lede: categorical,
   }),

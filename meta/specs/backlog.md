@@ -68,11 +68,50 @@ This file is the running, prioritized list of every spec authored under `meta/sp
 
 ---
 
+### Final-state push specs (added 2026-06-14 — APPROVED, Arian-ratified)
+
+Authored against [`final-state-strategy.md`](final-state-strategy.md), **approved by Arian 2026-06-14** (full push; product decisions FS-CF-1, FS-OB-1, FS-SCH-1 locked). All specs below are now `Approved` and unblocked for content / designer / engineer. See `final-state-strategy.md` §8 for the rollout and §2 for the page-by-page verdict.
+
+9. **`final-state-strategy.md`** — **`Approved`** (2026-06-14)
+   - The keystone. Site-wide final-state strategy: per-page verdicts, new pages, final IA, rollout, retirement of the stale 2026-05-20 8-page plan. Phase 0 complete; downstream unblocked.
+
+10. **`pages/privacy.md`** — **`Approved`** (governance contract) · **P0**
+    - Legitimizes the live OAuth privacy page (#122). Pins scope-alignment to `cal.pouk.ai`'s actual scopes so an edit can't break Google verification. Spec-only; no rebuild gated on it.
+    - Live obligation: scope-alignment verified against the consent screen (Arian); maintenance rule (scope change ⇒ same-commit page update). R-007 route-inventory amendment owed (engineer).
+
+11. **`pages/terms.md`** — **`Approved`** (governance contract) · **P0**
+    - Legitimizes the live OAuth terms page (#122). Fences app-terms off from the consulting SOW. Spec-only.
+    - Live obligation: app-terms-vs-engagement-terms boundary held (Arian). R-007 amendment owed.
+
+12. **`pages/scheduling.md`** — **`Approved`** · **P0**
+    - Legitimizes the `cal.pouk.ai` explainer + OAuth scope-justification page (#122); funnel-role RESOLVED (FS-SCH-1 — off-funnel explainer; `contact-flow` owns the booking action, not `/scheduling`).
+    - Live obligation: scope-justification verified against the consent screen (Arian). Coupled with `features/contact-flow.md`.
+
+13. **`features/contact-flow.md`** — **`Approved`** (decisions locked) · **P1**
+    - NEW feature spec. Adds `cal.pouk.ai` booking as the high-intent path BESIDE `mailto:` (secondary, never replace/force — FS-CF-1) at governed conversion points (not trust-loop, not legal). Closes the biggest conversion underperformance. Decisions FS-CF-1/2/3 RESOLVED.
+    - Ready for: content (CTA copy variants) + designer (secondary affordance). Reuses existing `<Button>` (likely no DS gap). Cascade owed: narrow `mailto:`-only out-of-scope lines in `pages/{home,why-ai,roles,engagements}.md` (PM amendment pass).
+
+14. **`pages/onboarding.md`** — **`Approved`** (decisions locked) · **P1**
+    - NEW route (12→13). The funnel's operational-reassurance stage — four-phase model (Discovery → Scoping → Build → Handoff), prospect-facing. Decisions FS-OB-1 (pricing compressed, no figures) + FS-OB-2 (footer-tier, not primary nav) RESOLVED.
+    - Ready for: content + designer + engineer. Depends on `features/contact-flow.md` (end CTA) + `content/onboarding.json.md` (below, `Approved`). R-007 amendment; reuses `/why-ai` `FailureMode` register (likely no DS gap).
+
+15. **`flows/visitor-to-conversation.md`** — **`Approved` (v1.3)** (2026-06-14) · **P1**
+    - v1.3 amendment (not rewrite): admits `/onboarding` (Stage 4½), the `/writing` retention/virality loop, the dual contact mechanism (`mailto:` + `cal.pouk.ai`), and the final IA (five-item nav + two-tier footer). Closes the overdue debts from `pages/writing.md` §9 and `pages/engagements.md` §9.
+
+16. **`content/onboarding.json.md`** — **`Approved`** (2026-06-14) · **P1**
+    - Four-phase content-data spec (Discovery → Scoping → Build → Handoff). Categorical-only (FS-OB-1 — no figures). Defines the array shape + per-phase content-requirement OUTCOMES; prose is the content agent's lane. Required before `/onboarding` engineer build.
+
+**Owed next from PM (flagged, not yet authored — non-blocking for content/designer to start):**
+- **Page out-of-scope cascade** — narrow the `mailto:`-only lines in `pages/{home,why-ai,roles,engagements}.md` to admit the booking secondary (per `contact-flow.md` §9). A small amendment pass; does not block the content/designer lanes on `contact-flow`.
+- **R-007 route-inventory amendment** — engineer's lane to author the requirement text (12→13 routes); PM flags it across the new specs.
+
+---
+
 ## Not yet specced (future work surfaced this pass)
 
 Items that surfaced while writing the active specs but are out of launch scope. Listed here so they don't get lost.
 
-- **`features/contact-flow.md`** — if/when `mailto:` is augmented or replaced (scheduling link, intro questionnaire, contact form). Not needed for launch; the brand competes by being a person.
+- ~~**`features/contact-flow.md`**~~ — **Authored + Approved 2026-06-14** (see item 13 above). The "if/when `mailto:` is augmented" trigger fired: `cal.pouk.ai` booking is now the secondary mechanism beside `mailto:`. No longer a future item.
 - **`features/site-shell-nav.md`** — only if the `SiteShell`'s consumption pattern (nav contents, social links in footer, current-route highlighting) becomes complex enough to need its own spec. For now, covered in `pages/home.md` and `flows/visitor-to-conversation.md`.
 - **`features/seo-meta.md`** — per-page `<title>`, `<meta description>`, OG image, JSON-LD definitions consolidated. For launch, each page spec covers its own meta in acceptance criteria (sections 8). Promote to a feature spec if the engineer asks for it.
 - **`flows/post-launch-iteration.md`** — once analytics arrive, the rules for revising the funnel based on measured behavior. Defer until there's at least one quarter of inbound data.
