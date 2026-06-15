@@ -2,7 +2,7 @@
   "meta": {
     "title": "Why AI projects fail — pouk.ai",
     "description": "Only 12–18% of companies deploying AI capture meaningful ROI. Here are the five failure modes — data readiness, wrong use case, integration, governance, and change management — and what to do about each.",
-    "canonical": "https://pouk.ai/why-ai"
+    "canonical": "https://pouk.ai/why-ai/"
   },
   "hero": {
     "title": "Why AI projects fail — and what to do about it",
@@ -74,6 +74,9 @@
         "text": "Roles →",
         "href": "/roles"
       }
+    },
+    "booking": {
+      "label": "Or grab a time →"
     }
   },
   "references": [
@@ -115,7 +118,7 @@
     "@type": "Article",
     "headline": "Why AI projects fail — and what to do about it",
     "description": "Only 12–18% of companies deploying AI capture meaningful ROI. Here are the five failure modes — data readiness, wrong use case, integration, governance, and change management — and what to do about each.",
-    "url": "https://pouk.ai/why-ai",
+    "url": "https://pouk.ai/why-ai/",
     "author": { "@type": "Organization", "name": "pouk.ai", "url": "https://pouk.ai" },
     "publisher": { "@type": "Organization", "name": "pouk.ai", "url": "https://pouk.ai" },
     "datePublished": "2026-05-13",

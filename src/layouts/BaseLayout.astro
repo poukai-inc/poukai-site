@@ -29,7 +29,7 @@ import { ClientRouter } from "astro:transitions";
 import { ShellWrapper } from "../components/ShellWrapper";
 // Vercel Web Analytics — basic-tier signal.
 //
-// The SDK injects `<script src="/_vercel/insights/script.js">` unconditionally
+// The SDK injects a script element (src="/_vercel/insights/script.js") unconditionally
 // when the component renders. That URL only exists on Vercel deployments, so
 // emitting the tag in a non-Vercel build (e.g. CI's `pnpm preview`) produces
 // a 404 → "Browser errors logged to the console" → drops Lighthouse
@@ -59,7 +59,7 @@ export interface Props {
   canonical: string;
   /**
    * JSON-LD structured data object for this page.
-   * BaseLayout serialises it into a <script type="application/ld+json">.
+   * BaseLayout serialises it into a script element (type="application/ld+json").
    */
   jsonLd?: Record<string, unknown>;
   /** The href of the currently active route — passed to SiteShell for aria-current. */
@@ -88,6 +88,13 @@ export interface Props {
    * Must be an absolute https URL; the site default is https://pouk.ai/og.png.
    */
   ogImage?: string;
+  /**
+   * og:type for this page. Defaults to "website".
+   * Pass "article" for pages that ship Article JSON-LD: /why-ai and /writing/[slug].
+   * R-037 — the Open Graph spec treats "article" as a distinct type; declaring
+   * "website" on a content page is a correctness defect, not a cosmetic one.
+   */
+  ogType?: string;
 }
 
 const {
@@ -100,6 +107,7 @@ const {
   robots = "index,follow",
   omitCanonicalLink = false,
   ogImage,
+  ogType = "website",
 } = Astro.props;
 
 const ogImageUrl = ogImage ?? "https://pouk.ai/og.png";
@@ -119,8 +127,19 @@ const navRoutes = [
 
 const currentYear = new Date().getFullYear();
 
+// Escape characters that could break out of an inline script element when
+// injected via set:html. JSON.stringify alone leaves `<` intact, so a closing
+// script tag (or a stray `<`) inside any string value would terminate the
+// inline script element early. Escaping `<`, `>`, and `&` to their unicode
+// escapes keeps the payload inert while remaining valid JSON. (backlog CR-5)
+const escapeForInlineScript = (json: string) =>
+  json
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+
 // Serialise JSON-LD at build time — safe because content comes from typed props.
-const jsonLdString = jsonLd ? JSON.stringify(jsonLd) : null;
+const jsonLdString = jsonLd ? escapeForInlineScript(JSON.stringify(jsonLd)) : null;
 
 // Env-var-gated analytics / error reporting — emit nothing when unset.
 // TODO: provide Matomo endpoint (O-011) — set PUBLIC_MATOMO_URL + PUBLIC_MATOMO_SITE_ID in Vercel env
@@ -133,25 +152,20 @@ const hasMatomoConfig = Boolean(matomoUrl && matomoSiteId);
 // CDN (browser.sentry-cdn.com) — that violated R-011 (third-party logic must
 // load from its own same-origin file, not inline) and R-050 (no new
 // third-party runtime origin). It was inert (no DSN) and removed 2026-05-31
-// (#90). Re-add as a self-hosted, same-origin <script src> per R-061 when
+// (#90). Re-add as a self-hosted, same-origin script element (src) per R-061 when
 // O-012 picks the deploy shape and a DSN exists.
 
-// Build the Matomo tracker script string at build time (only when configured).
-// Env values are embedded via JSON.stringify so they land as properly-quoted,
-// escaped JS string literals — a value containing `"` / `</script>` / `;` can't
-// break out of the string and execute. set:html does no escaping of its own.
-const matomoScript = hasMatomoConfig
-  ? `var _paq = window._paq = window._paq || [];
-_paq.push(['disableCookies']);
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-(function() {
-  var u = ${JSON.stringify(matomoUrl)};
-  _paq.push(['setTrackerUrl', u + 'matomo.php']);
-  _paq.push(['setSiteId', ${JSON.stringify(matomoSiteId)}]);
-  var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-  g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
-})();`
+// Matomo config as an INERT JSON data block (not executable JS). The actual
+// bootstrap lives in the first-party /matomo.js loader, which reads this block
+// and injects the tracker. Emitting the executable logic from a same-origin
+// script element (src) instead of an inline `set:html` script is what makes the
+// tracker compatible with the site CSP (`script-src 'self'`) — an inline script
+// would be blocked outright with no 'unsafe-inline'/nonce. (backlog CR-2)
+//
+// A `type="application/json"` script is data, not script, so it is not subject
+// to script-src; escapeForInlineScript still neutralises any closing script tag.
+const matomoConfigJson = hasMatomoConfig
+  ? escapeForInlineScript(JSON.stringify({ url: matomoUrl, siteId: matomoSiteId }))
   : null;
 ---
 
@@ -171,7 +185,7 @@ _paq.push(['enableLinkTracking']);
     <meta name="robots" content={robots} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -240,9 +254,19 @@ _paq.push(['enableLinkTracking']);
       analytics: matomo
       Loads only when PUBLIC_MATOMO_URL + PUBLIC_MATOMO_SITE_ID are set.
       Cookieless mode at launch (no _pk_* cookies). Deferred — no render blocking.
-      TODO: O-011 — decide self-hosted vs. Matomo Cloud before wiring endpoints.
+
+      Two parts, both CSP-safe under `script-src 'self'` (backlog CR-2):
+        1. An inert application/json config block (data, not script).
+        2. A first-party /matomo.js loader that reads (1) and injects the tracker.
+      The Matomo *host* still needs CSP allowance unless served same-origin —
+      see public/matomo.js residual-CSP note (A-SEC-1 / O-011).
     -->
-    {matomoScript ? <script is:inline defer set:html={matomoScript} /> : null}
+    {matomoConfigJson ? (
+      <Fragment>
+        <script is:inline type="application/json" id="matomo-config" set:html={matomoConfigJson} />
+        <script is:inline defer src="/matomo.js"></script>
+      </Fragment>
+    ) : null}
 
     <!--
       error-reporting: bugsink — intentionally not wired. See the frontmatter

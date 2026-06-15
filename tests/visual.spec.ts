@@ -18,9 +18,13 @@ const routes = [
   { name: "roles", path: "/roles/" },
   { name: "principles", path: "/principles/" },
   { name: "about", path: "/about/" },
+  { name: "engagements", path: "/engagements/" },
+  { name: "writing", path: "/writing/" },
+  { name: "writing-essay", path: "/writing/why-ai-pilots-stall-at-integration/" },
   { name: "scheduling", path: "/scheduling/" },
   { name: "privacy", path: "/privacy/" },
   { name: "terms", path: "/terms/" },
+  { name: "onboarding", path: "/onboarding/" },
 ];
 
 for (const route of routes) {

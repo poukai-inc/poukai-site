@@ -138,6 +138,39 @@ jobs:
         # hand in a separate PR, never auto-updated.
         run: node .github/scripts/html-weight-check.mjs
 
+  csp-compat:
+    name: csp-compat — built HTML vs vercel.json CSP (CR-4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check CSP compatibility of built HTML
+        # CR-4: lhci/axe/Playwright run against `pnpm preview`, which serves
+        # dist/ WITHOUT the vercel.json headers — so an inline <script>/<style>
+        # the production CSP would block ships green. This static gate parses
+        # the CSP from vercel.json and fails if dist/ HTML contains constructs
+        # `script-src 'self'` / `style-src 'self'` would refuse.
+        run: node .github/scripts/csp-compat-check.mjs
+
   security-headers:
     name: security-headers — vercel.json config (R-042–R-045)
     runs-on: ubuntu-latest
@@ -370,7 +403,7 @@ jobs:
           echo "::error::preview server did not start within 30s"
           exit 1
 
-      - name: Run axe against all five routes
+      - name: Run axe against all public routes
         # R-029 HARD: zero axe violations on every preview deploy.
         # --exit makes a violation non-zero exit (CI red).
         # Default tag set: wcag2a, wcag2aa, wcag21a, wcag21aa, best-practice — matches
@@ -399,6 +432,14 @@ jobs:
             http://localhost:4321/roles/ \
             http://localhost:4321/principles/ \
             http://localhost:4321/about/ \
+            http://localhost:4321/engagements/ \
+            http://localhost:4321/writing/ \
+            http://localhost:4321/writing/why-ai-pilots-stall-at-integration/ \
+            http://localhost:4321/scheduling/ \
+            http://localhost:4321/privacy/ \
+            http://localhost:4321/terms/ \
+            http://localhost:4321/onboarding/ \
+            http://localhost:4321/404 \
             --load-delay 1500 \
             --save .axe-reports/results.json \
             --exit

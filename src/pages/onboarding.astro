@@ -1,0 +1,141 @@
+---
+/**
+ * /onboarding — Operational-reassurance stage: the four-phase engagement arc.
+ *
+ * Spec: meta/specs/pages/onboarding.md (Approved 2026-06-14)
+ * Content-data spec: meta/specs/content/onboarding.json.md (Approved 2026-06-14)
+ * Composition: meta/compositions/pages/onboarding.md (PROPOSAL)
+ * Feature spec: meta/specs/features/contact-flow.md (Approved 2026-06-14)
+ *
+ * Four phases (Discovery → Scoping → Build → Handoff) from src/content/onboarding.json,
+ * Zod-validated at build time (R-074). Page chrome (meta, hero, end CTA) is
+ * page-template prose per onboarding.json.md §4/§9 (engineer call).
+ *
+ * Decisions honoured:
+ *   - FS-OB-1 — categorical-only pricing; no figures in JSON or template prose.
+ *   - FS-OB-2 — /onboarding is NOT a primary-nav item; footer-utility + funnel
+ *     cross-links only. currentRoute={undefined} so no nav item is aria-current.
+ *   - FS-CF-1 — mailto: primary everywhere; booking is a quiet secondary link
+ *     (Context B, booking-affordance §2 — muted link beside the primary EmailLink).
+ *   - Heading hierarchy: H1 (Hero title) → H2 (FailureModeList section heading) →
+ *     H3 (each FailureMode title). No level skipped (spec §8 AC).
+ *   - Phase index: typographic jump nav, each link to #${id} (composition §3).
+ *   - Each phase wrapped in <section id={id}> for anchor-scroll (spec §8 AC).
+ *   - deliverable renders as an emphasized closing line inside FailureMode children
+ *     (composition A2); duration as a muted lead-in (composition A3).
+ *   - End CTA: dual contact mechanism — EmailLink primary + booking muted link.
+ *     Micro-variation: "Or skip the email and grab a time →" (contact-flow draft §2).
+ *   - Zero client-side JS (R-079 — no hydration directive).
+ *   - JSON-LD: HowTo (engineer's call per spec §9) — no price/offers fields (FS-OB-1).
+ *   - og:type = "website" (spec §6 — not an Article).
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Hero, Eyebrow, FailureModeList, FailureMode, Section, EmailLink, Link } from "@poukai-inc/ui";
+import { onboardingSchema } from "../content/_schemas/onboarding";
+import { BOOKING_URL } from "../lib/booking";
+import onboardingRaw from "../content/onboarding.json";
+
+const phases = onboardingSchema.parse(onboardingRaw);
+
+const meta = {
+  title: "Onboarding — pouk.ai",
+  description:
+    "How an engagement with pouk.ai runs: a four-phase method — discovery, scoping, build, handoff — with named deliverables and a day-30 check-in.",
+  canonical: "https://pouk.ai/onboarding/",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How an engagement with pouk.ai works",
+  description:
+    "A four-phase engagement method: discovery, scoping, build, and handoff — with named deliverables and a day-30 check-in.",
+  url: "https://pouk.ai/onboarding/",
+  step: phases.map((phase) => ({
+    "@type": "HowToStep",
+    name: phase.title,
+    text: phase.body,
+    ...(phase.deliverable ? { itemListElement: [{ "@type": "HowToDirection", text: `Deliverable: ${phase.deliverable}` }] } : {}),
+  })),
+};
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  jsonLd={jsonLd}
+  currentRoute={undefined as unknown as string}
+>
+  <div class="site-page">
+
+    <!-- 1. Hero — frames the six weeks from the prospect's standpoint (spec §4 IA item 2).
+         Eyebrow interim (F-101, Arian 2026-06-14): the DS titled <Hero> has no eyebrow slot
+         at @poukai-inc/ui@2.11.2 (eyebrow is only valid on variant="no-title", which emits
+         no heading element). The DS atom <Eyebrow as="p" variant="muted"> is placed directly
+         above the <Hero> with a single --space-2 (8px) gap via .onboarding-hero-eyebrow.
+         The atom owns the eyebrow's shape; the page owns only placement + one spacing token.
+         Migrates to <Hero eyebrow="…" title="…" /> when hero-eyebrow-with-title.md lands.
+         See: meta/compositions/pages/onboarding.md §2 Section 2, §6; meta/proposals/ds-side/hero-eyebrow-with-title.md. -->
+    <Eyebrow as="p" variant="muted" className="onboarding-hero-eyebrow">How we work together</Eyebrow>
+    <Hero
+      size="display"
+      title="What saying yes actually looks like"
+      lede="Saying yes to pouk.ai starts a four-phase engagement: discovery, scoping, build, handoff. Here's what the first six weeks actually look like — the deliverables you get, who owns what, and how the work lands with your team instead of stalling at a demo."
+    />
+
+    <!-- 2. Phase index — typographic jump nav, reinforces the sequence (spec §4 IA item 3;
+         composition §3; each word links to its phase anchor per content-data §7). -->
+    <nav class="onboarding-phase-index" aria-label="Engagement phases">
+      {phases.map((phase, i) => (
+        <>
+          {i > 0 && <span class="phase-arrow" aria-hidden="true">&rarr;</span>}
+          <Link href={`#${phase.id}`} variant="quiet">{phase.title}</Link>
+        </>
+      ))}
+    </nav>
+
+    <!-- 3. Four phase sections — FailureModeList + FailureMode register (composition A1).
+         titleAs="h2" so phases render as h3, descending cleanly from the Hero h1. -->
+    <FailureModeList
+      eyebrow="The engagement arc"
+      heading="The four phases"
+      titleAs="h2"
+    >
+      {phases.map((phase) => (
+        <section id={phase.id} aria-label={phase.title}>
+          <FailureMode index={phase.index} title={phase.title}>
+            {phase.duration && (
+              <p class="phase-duration">{phase.duration}</p>
+            )}
+            <p>{phase.body}</p>
+            {phase.deliverable && (
+              <p class="phase-deliverable">
+                <strong>Deliverable:</strong> {phase.deliverable}
+              </p>
+            )}
+          </FailureMode>
+        </section>
+      ))}
+    </FailureModeList>
+
+    <!-- 4. End CTA — single quiet closing block (spec §4 IA item 9; spec §5 "one quiet end CTA").
+         Dual contact mechanism (FS-CF-1, booking-affordance §2 Context B):
+         EmailLink primary + booking muted link secondary.
+         Lead differentiated from /engagements, /roles, /principles (spec §8 AC). -->
+    <Section size="tight" as="div" className="onboarding-end-cta">
+      <p>
+        Now you know how the work runs. When you're ready to talk it through,
+        the first move is an email — name the workflow you'd want to start with,
+        and we'll pick up at Discovery.
+      </p>
+      <p class="end-cta-affordances">
+        <EmailLink email="hello@pouk.ai" variant="default" />
+        {" — "}
+        <a href={BOOKING_URL} class="booking-link">Or skip the email and grab a time &rarr;</a>
+      </p>
+    </Section>
+
+  </div>
+</BaseLayout>

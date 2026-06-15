@@ -45,3 +45,10 @@ coverage/
 test-results/
 playwright-report/
 .argos-screenshots/
+
+# Lighthouse CI run artefacts (generated reports)
+.lighthouseci/
+
+# Local tooling (not part of the deploy repo)
+.codex/
+scripts/.cache/

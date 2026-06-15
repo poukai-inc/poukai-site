@@ -9,7 +9,6 @@ draft: false
 funnelExit:
   text: "Why AI →"
   href: "/why-ai"
-ogClaim: "Pilots stall at integration, not at the model."
 statsRow:
   - value: "95%"
     caption: "of enterprise generative-AI pilots delivered no measurable P&L impact — the barrier is the integration and learning gap, not model quality"

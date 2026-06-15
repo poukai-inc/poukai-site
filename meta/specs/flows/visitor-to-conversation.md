@@ -1,11 +1,22 @@
 # Spec: Visitor-to-conversation flow
 
-**Surfaces affected**: `/`, `/why-ai`, `/roles`, `/engagements`, `/principles`, `/about`, `/writing`, `mailto:hello@pouk.ai`
-**Status**: Approved (v1.2 — adds the Evaluation stage served by `/engagements`; narrows §10 email-capture exclusion per the brand re-open)
+**Surfaces affected**: `/`, `/why-ai`, `/roles`, `/engagements`, `/onboarding`, `/principles`, `/about`, `/writing` (+ `/writing/[slug]`), `mailto:hello@pouk.ai`, `cal.pouk.ai` booking
+**Status**: Approved (v1.3 — admits `/onboarding`, the dual contact mechanism (`mailto:` + `cal.pouk.ai`), the `/writing` ungated email line as an in-funnel surface, and the final IA: five-item primary nav + two-tier footer)
 **Owner**: Arian (founder) · Author: pouk-ai-pm
-**Last updated**: 2026-05-31 (v1.2 — Evaluation stage added + §10 email-capture narrowed per `meta/proposals/conversion-pivot-and-writing-engine.md`; was 2026-05-18 v1.1)
+**Last updated**: 2026-06-14 (v1.3 — final-state push per `meta/specs/final-state-strategy.md`; was 2026-05-31 v1.2)
 **Masterplan reference**: Sections 4.1 (site layout), 2A (decision authority), 6 (cutover)
-**Decisions log**: D-13 (nav order baseline) — resolved via `meta/decisions/launch-readiness.md` on 2026-05-13. A13 (`/about` flow placement) — resolved via the `/about` PM interview on 2026-05-17. A4 (nav order extension to four items) — resolved same interview. A15a (footer order matches nav) — resolved same interview.
+**Decisions log**: D-13 (nav order baseline) — resolved via `meta/decisions/launch-readiness.md` on 2026-05-13. A13 (`/about` flow placement) — resolved via the `/about` PM interview on 2026-05-17. A4 (nav order extension to four items) — resolved same interview. A15a (footer order matches nav) — resolved same interview. **FS-CF-1** (booking beside `mailto:`, secondary), **FS-CF-3** (`mailto:`-only narrowed to dual mechanism), **FS-OB-2** (`/onboarding` footer-tier, not primary nav) — resolved via Arian's approval of `meta/specs/final-state-strategy.md` on 2026-06-14.
+
+---
+
+## v1.3 revision — what changed
+
+v1.3 (2026-06-14) applies the final-state push locked in `meta/specs/final-state-strategy.md` (Arian-approved 2026-06-14). It closes the flow-spec debts flagged in `pages/writing.md` §9 and `pages/engagements.md` §9, and admits the two new final-state surfaces. **Amendment, not rewrite** — all v1.0/v1.1/v1.2 content stands; v1.3 deltas land in the header, §3 (success criteria — dual-mechanism conversion), §4 (new Stage 4½ Onboarding + `/writing` retention loop + conversion-stage dual mechanism), §5 (new hand-offs), §6 (final IA: five-item nav + two-tier footer), §7 (entry-source rows for `/writing`/`/onboarding`), §8 (new ACs), §10 (booking admitted; `/writing` email line confirmed).
+
+- **`/onboarding` admitted as Stage 4½ (Onboarding / operational reassurance)**, between Evaluation (`/engagements`, Stage 3b) and the trust loop (Stage 4). It answers the prospect's last pre-conversion question — "what does saying yes actually look like operationally?" — with the four-phase model. Numbered 4½ to preserve the reviewable diff (Stages 4 and 5 keep their numbers). Reached from the `/engagements → /onboarding` hand-off, the footer utility tier, and the `/writing` spine — **not** the primary nav (FS-OB-2).
+- **`/writing` admitted as a top-of-funnel + retention surface.** Essays are the dominant deep-link front door; the internal-link spine drains each essay back into `/why-ai → /roles → /engagements → /onboarding → convert`. The single ungated, zero-JS "get new essays by email" line + RSS are the retention mechanism (already narrowed IN at v1.2; v1.3 records `/writing`'s funnel position explicitly, not just the email-line exception).
+- **Dual conversion mechanism (FS-CF-1, FS-CF-3).** Conversion (Stage 5) now has two mechanisms: `mailto:hello@pouk.ai` (primary, low-friction — unchanged) and `cal.pouk.ai` booking (secondary, high-intent — new). Booking sits *beside* `mailto:`, never replaces it, never forces a calendar. Governed centrally by `meta/specs/features/contact-flow.md`. Trust-loop pages (`/principles`, `/about`) stay `mailto:`-only; the legal trio stays off-funnel.
+- **Final IA recorded (§6).** Primary nav unchanged at five items (`Why AI · Roles · Engagements · Principles · About`). Footer becomes two-tier: a funnel-mirror row (matching nav) + a utility row (`Writing · Onboarding · Scheduling · Privacy · Terms` + RSS + the `cal.pouk.ai` booking link).
 
 ---
 
@@ -48,9 +59,9 @@ This spec defines the prospect journey across the four-route site, from first to
 
 ## 3. Success criteria
 
-- **Behavior**: A first-time visitor follows the canonical path **`/` → `/why-ai` → `/roles` → `mailto:`** in the majority of cases, with **`/principles` or `/about` (one or the other, not both)** reached as a trust-loop closer either pre- or post-email. A returning visitor follows the shorter path **`/roles` (or `/principles` or `/about`) → `mailto:`**.
-- **Signal**: Qualitatively — inbound emails arrive with funnel-aware context ("I read your why-ai page and we're in failure mode 3 — Builder seems right"); referrer DMs cite specific anchors; referrer DMs introducing a prospect to Arian-the-operator cite `/about` rather than `/principles`. When analytics arrive, the cross-page click-through pattern matches the canonical path above on at least the majority of multi-page sessions, and the OR semantics of the trust-loop stage holds (most multi-page sessions touch *one* of `/principles` / `/about`, not both).
-- **Failure mode**: A visitor lands on `/why-ai`, `/roles`, or `/about` directly (deep link from a share, referrer DM) and **cannot find the next step**. Or, opposite failure: the funnel is so prescriptive that a reader who just wanted to read `/principles` or `/about` and leave feels pushed into a sales path. A new v1.1 failure mode: prospects forced to read *both* `/principles` and `/about` to complete the funnel — the OR semantics is part of the design, not a defect.
+- **Behavior**: A first-time visitor follows the canonical path **`/` → `/why-ai` → `/roles` → `/engagements` → `/onboarding` → convert**, with **`/principles` or `/about` (one or the other, not both)** reached as a trust-loop closer either pre- or post-conversion. **Convert** = `mailto:hello@pouk.ai` (primary) **or** a `cal.pouk.ai` booking (secondary, v1.3). A returning visitor follows a shorter path (`/roles` / `/engagements` / `/onboarding` / `/principles` / `/about` → convert). A `/writing` reader re-enters the canonical path via the essay spine.
+- **Signal**: Qualitatively — inbound arrives with funnel-aware context ("I read your why-ai page, we're in failure mode 3, Builder seems right, we'd want to start with a Pilot, and your day-30 check-in is exactly what we lacked"); referrer DMs cite specific anchors; `/about` rather than `/principles` for operator-intros; **booked slots start appearing attributable to site traffic (the new high-intent signal)**; essays get cited/forwarded (the `/writing` virality signal). When analytics arrive, the cross-page click-through pattern matches the canonical path on the majority of multi-page sessions; the trust-loop OR semantics holds; booking-vs-`mailto:` mix is the new conversion read-out.
+- **Failure mode**: A visitor lands on any page directly (deep link, referrer DM) and **cannot find the next step**. Opposite failure: the funnel is so prescriptive that a reader who just wanted to read `/principles` / `/about` feels pushed into a sales path. v1.1 failure: prospects forced through *both* trust-loop pages. **v1.3 failures**: a booking CTA appears on a trust-loop page or outweighs `mailto:` (over-push — FS-CF-1); a booking calendar is *forced* on a not-yet-ready prospect; or a `/writing` essay dead-ends with no spine back into the funnel.
 
 ## 4. The canonical journey
 
@@ -104,12 +115,35 @@ Five stages, mapped to entry source, page sequence, and conversion event.
 
 #### Trust-loop OR semantics
 
-Most multi-page sessions touch *one* of `/principles` / `/about`, not both. This is by design — both pages do trust work, but they answer different questions; forcing a prospect through both is funnel inflation. A prospect who reads both is fine (no penalty), but the engineer does not wire any link or cue that suggests "now read the other one." Each trust-loop page funnels to `mailto:` or back to the canonical funnel via top nav.
+Most multi-page sessions touch *one* of `/principles` / `/about`, not both. This is by design — both pages do trust work, but they answer different questions; forcing a prospect through both is funnel inflation. A prospect who reads both is fine (no penalty), but the engineer does not wire any link or cue that suggests "now read the other one." Each trust-loop page funnels to convert (Stage 5) or back to the canonical funnel via top nav.
 
-### Stage 5 — Conversion (`mailto:hello@pouk.ai`)
+### Stage 4½ — Onboarding / operational reassurance (`/onboarding`)
 
-- **What counts as conversion**: A first email to `hello@pouk.ai` from a prospect not previously in conversation, or a LinkedIn DM equivalent. Volume target is qualitative for now — Arian's read of inbound quality and reply rate.
-- **What does not count**: A page view, a click to social, a click to a citation URL on `/why-ai`. These are funnel inputs, not conversions.
+**Added 2026-06-14 (v1.3)** per `meta/specs/final-state-strategy.md` §3.1 + §6.2. The Onboarding stage sits between Evaluation (`/engagements`, Stage 3b) and the trust loop (Stage 4). It answers the prospect's last pre-conversion objection — *"if I say yes, will this be a chaotic, unscoped, unaccountable engagement?"* — with pouk.ai's four-phase operating model (Discovery → Scoping → Build → Handoff), prospect-facing, categorical-only (no figures, FS-OB-1). It is the operational sibling of `/engagements`: `/engagements` answers *how the relationship is shaped commercially*; `/onboarding` answers *how the work actually runs*. Numbered 4½ to preserve the reviewable diff (Stages 4 and 5 keep their numbers).
+
+- **Entry sources**: From the `/engagements → /onboarding` end-of-page hand-off ("here's what saying yes looks like →"); from a referrer DM linking the page (or a phase anchor) to de-risk an intro for a stakeholder; from the footer utility tier; from a `/writing` essay's internal-link spine when the essay lands on a late-funnel reader. Reached **not** via the primary nav (FS-OB-2 — five-item nav unchanged). Rarely a cold first touch — this is late-funnel.
+- **What happens**: Visitor reads the four phases, registers a structured, accountable method (named deliverables, the paid Discovery, the day-30 check-in), and converts (Stage 5) with materially lower perceived risk — often referencing a phase ("we'd want to start with your Discovery"). A reader may also detour to the trust loop (`/principles` / `/about`) for the character read before converting.
+- **Position in the funnel**: Between Stage 3b (`/engagements`) and Stage 4 (trust loop). A visitor may convert directly from `/onboarding`, or detour through the trust loop first. Both are valid.
+- **Spec reference**: `meta/specs/pages/onboarding.md`.
+
+### The `/writing` retention + virality loop (parallel surface, not a numbered stage)
+
+**Recorded 2026-06-14 (v1.3)** — `/writing` was admitted as a surface at v1.2 (the email-line narrowing); v1.3 records its funnel *position*. `/writing` is **not** a numbered funnel stage — it is a parallel **top-of-funnel + retention** surface. Essays (`/writing/[slug]`) are the dominant deep-link front door (search, LinkedIn/X shares, peer citations). Each essay's internal-link spine drains the reader back into the canonical funnel (`/why-ai` or `/roles#anchor`, and optionally `/engagements`/`/onboarding`). The ungated, zero-JS "get new essays by email" line + RSS are the retention mechanism — a non-converting first-time reader subscribes and re-enters on a later essay with conviction accrued. `/writing` does direct-conversion work only incidentally; its job is to feed and re-feed the funnel.
+
+- **Entry sources**: Deep-link to a specific `/writing/[slug]` (dominant); the `/writing` index (secondary — footer link, RSS, a returning subscriber).
+- **What happens**: Reader consumes an essay, screenshots/cites a stat or quotable line (virality), and either follows the spine into the funnel, subscribes (retention), or banks trust.
+- **Position in the funnel**: Parallel front door + retention loop; re-enters the canonical funnel via the essay spine. Reached via the footer utility tier, not the primary nav (its v1.2/`pages/writing.md` §9 decision).
+- **Spec reference**: `meta/specs/pages/writing.md`.
+
+### Stage 5 — Conversion (`mailto:hello@pouk.ai` **or** `cal.pouk.ai` booking)
+
+**v1.3**: conversion now has **two mechanisms**, governed centrally by `meta/specs/features/contact-flow.md` (FS-CF-1, FS-CF-3):
+
+- **`mailto:hello@pouk.ai` — primary, low-friction (unchanged).** The proven path. Carries context where possible (`?subject=<Rung>` from `/engagements`, role-as-opening-line from `/roles`, phase from `/onboarding`).
+- **`cal.pouk.ai` booking — secondary, high-intent (new).** A prospect who is ready to talk books a real slot. Sits **beside** `mailto:` as a clearly subordinate secondary affordance at the governed conversion points (`/` Hero, `/why-ai` end, `/roles` end, `/engagements` end, `/onboarding` end, footer). **Never** replaces `mailto:`; **never** forces a calendar; **never** appears on the trust-loop pages (`/principles`, `/about` stay `mailto:`-only) or the legal trio (off-funnel).
+
+- **What counts as conversion**: A first email to `hello@pouk.ai` **or a booked `cal.pouk.ai` slot** from a prospect not previously in conversation, or a LinkedIn DM equivalent. A booked slot is the higher-intent signal. Volume target is qualitative for now — Arian's read of inbound quality and reply rate.
+- **What does not count**: A page view, a click to social, a click to a citation URL on `/why-ai`, a click to `cal.pouk.ai` that does not complete a booking. These are funnel inputs, not conversions.
 
 ## 5. Inter-page hand-offs
 
@@ -119,19 +153,30 @@ Each hand-off below is a specific link the engineer must wire. These are the fun
 | --- | --- | --- | --- |
 | `/` | `/why-ai` | Lede sentence ends in "Most AI projects fail to deliver. Here's why →" | `pages/home.md` section 5 |
 | `/why-ai` | `/roles` | End-of-page next-step link below the references section ("Next: which role fits your situation? →") | `pages/why-ai.md` section 4 (footer-of-page next step) |
-| `/why-ai` | `mailto:` | End CTA after the discovery questions block | `pages/why-ai.md` section 4 |
-| `/roles` | `mailto:` | End CTA after the four `RoleCard`s | `pages/roles.md` section 4 |
-| `/principles` | `mailto:` | Minimal end-CTA line below the conclusion | `pages/principles.md` section 4 |
-| `/about` | `mailto:` | Minimal end-CTA line below section 3 (Pouākai origin) | `pages/about.md` section 4 item 6 |
-| Any | Any | Top nav via `SiteShell`, order: Why AI → Roles → Principles → About | This spec, section 6 (v1.1) |
+| `/roles` | `/engagements` | End-of-page next-step link ("here's how we'd work together →") — shipped #116 | `pages/engagements.md` §7 |
+| `/engagements` | `/onboarding` | **v1.3** End-of-page hand-off ("here's what saying yes looks like →") | `pages/onboarding.md` §7 |
+| `/why-ai` | convert (`mailto:` + booking) | End CTA after the discovery questions block | `pages/why-ai.md` §4 + `features/contact-flow.md` §4 |
+| `/roles` | convert (`mailto:` + booking) | Universal end CTA after the four `RoleCard`s | `pages/roles.md` §4 + `features/contact-flow.md` §4 |
+| `/engagements` | convert (`mailto:?subject=<Rung>` per-rung; `mailto:` + booking at end CTA) | Per-rung CTAs + end CTA | `pages/engagements.md` §4 + `features/contact-flow.md` §4 |
+| `/onboarding` | convert (`mailto:` + booking) | End CTA | `pages/onboarding.md` §4 + `features/contact-flow.md` §4 |
+| `/principles` | `mailto:` (only — no booking) | Minimal end-CTA line below the conclusion | `pages/principles.md` section 4 |
+| `/about` | `mailto:` (only — no booking) | Minimal end-CTA line below section 3 (Pouākai origin) | `pages/about.md` section 4 item 6 |
+| `/writing/[slug]` | `/why-ai` or `/roles#anchor` (opt. `/engagements`/`/onboarding`) | Foot-of-essay internal-link spine | `pages/writing.md` §4b / §5.3 |
+| `/scheduling` | `cal.pouk.ai` (the app) | Hero CTA — explainer→app hand-off, not a funnel CTA (FS-SCH-1) | `pages/scheduling.md` §4 |
+| Any | Any | Top nav via `SiteShell`, order: Why AI → Roles → Engagements → Principles → About | This spec, section 6 |
+| Any | utility pages | Footer utility tier: Writing · Onboarding · Scheduling · Privacy · Terms + RSS + `cal.pouk.ai` | This spec, section 6 (v1.3) |
 | Any | `/` | `SiteShell` wordmark click | `pages/home.md` section 8 |
 
-**v1.1 negative hand-offs (deliberately not wired)**:
+**Dual-mechanism convention (v1.3, FS-CF-1).** At every "convert" hand-off above, `mailto:hello@pouk.ai` is the **primary** affordance and `cal.pouk.ai` booking is a **secondary** affordance beside it — except `/principles` and `/about`, which stay `mailto:`-only (no booking on trust-loop pages), and the legal trio, which is off-funnel. The booking treatment is governed centrally by `features/contact-flow.md`, not re-decided per page.
 
-- `/principles` → `/about` and `/about` → `/principles`: no inline link, no "see also" cue. Per A13 OR semantics, the two trust-loop pages are parallel, not sequential. Top nav is the connecting tissue if a prospect wants both; no in-body affordance.
-- `/about` → `/roles` and `/about` → `/why-ai`: no end-of-page next-step link. `/about` is trust-loop, not funnel-forward. Top nav covers re-entry to the funnel.
+**Negative hand-offs (deliberately not wired)**:
 
-The masterplan section 2A reserves nav contents as **site repo's** decision. The order below is this spec's recommendation; Arian's call.
+- `/principles` → `/about` and `/about` → `/principles`: no inline link, no "see also" cue. Per A13 OR semantics, the two trust-loop pages are parallel, not sequential. Top nav is the connecting tissue if a prospect wants both; no in-body affordance. (v1.1.)
+- `/about` → `/roles` and `/about` → `/why-ai`: no end-of-page next-step link. `/about` is trust-loop, not funnel-forward. Top nav covers re-entry to the funnel. (v1.1.)
+- **A booking CTA on `/principles` or `/about`** (v1.3, FS-CF-1) — trust-loop pages stay `mailto:`-only; a calendar ask on a character page over-sells.
+- **The legal trio (`/privacy`, `/terms`, `/scheduling`) → funnel** (v1.3) — off-funnel; `/scheduling`'s only outbound is to `cal.pouk.ai` (the app), not into the prospect funnel (FS-SCH-1).
+
+The masterplan section 2A reserves nav contents as **site repo's** decision. The order below is this spec's recommendation; Arian's call (ratified at five items via FS-CF/FS-OB approvals 2026-06-14).
 
 ## 6. Top-nav order
 
@@ -139,9 +184,17 @@ The masterplan section 2A reserves nav contents as **site repo's** decision. The
 
 **v1.1 extension (A4)**: nav order is `Why AI`, `Roles`, `Principles`, `About` — funnel pages cluster left, trust-loop pages cluster right. `/about` slots fourth (rightmost) for two reasons: (a) it preserves the D-13 funnel-order baseline intact, and (b) the trust-loop pages (`/principles` and `/about`) naturally cluster as the right-end of the nav, separating funnel-forward affordances from trust-loop affordances. A first-time visitor reads the nav left-to-right and sees the funnel; a returning visitor jumps to the right-end for trust pages. Alternative orders considered and rejected: `Why AI · Roles · About · Principles` (interleaves the trust-loop pair — breaks the cluster); `About · Why AI · Roles · Principles` (leads with the operator — over-personalises before the prospect has agreed to the problem).
 
+**v1.2 (shipped 2026-05-31)**: nav order is `Why AI · Roles · Engagements · Principles · About` — `/engagements` slots fourth, immediately after `/roles`, preserving funnel order (diagnosis → self-ID → evaluation) and keeping the trust-loop pair (`/principles`, `/about`) clustered at the right end. Resolved in `pages/engagements.md` §9.
+
+**v1.3 final IA (2026-06-14)**: the **primary nav stays at five items** — `Why AI · Roles · Engagements · Principles · About` — unchanged. `/onboarding` and `/writing` do **not** enter the primary nav (FS-OB-2; `pages/writing.md` §9): both are deep-read surfaces reached by hand-off, footer, and deep link, not top-nav destinations. Adding them would crowd the bar and dilute the funnel signal.
+
+The **footer becomes two-tier** (v1.3):
+- **Funnel-mirror row** — matches the primary nav order exactly: `Why AI · Roles · Engagements · Principles · About` (A15a — footer mirrors nav).
+- **Utility row** (lower-weight) — `Writing · Onboarding · Scheduling · Privacy · Terms`, plus the RSS feed link and the `cal.pouk.ai` booking link. This is where the non-nav surfaces live: the deep-read funnel pages (`/writing`, `/onboarding`), the product explainer (`/scheduling`), and the legal pages (`/privacy`, `/terms`). The legal links in the footer also satisfy a Google OAuth-verification expectation (privacy policy reachable from the site root). Exact footer composition (one row vs. two, visual tier separation) is the designer's call; this spec fixes *what is reachable and in what grouping*.
+
 The homepage `/` is reachable via the `SiteShell` wordmark, not a separate "Home" nav item. This is consistent with the holding page's restraint and with `pages/home.md` section 4.
 
-**Cascade**: the sitemap (`sitemap.xml`) and footer link ordering match the same nav order — Why AI → Roles → Principles → About. Engineer wires sitemap and footer consistent with this nav order. Per A15a in the `/about` PM interview, footer matches nav exactly (no separate footer rationale).
+**Cascade**: `sitemap.xml` lists every public route (the funnel five + `/onboarding`, `/writing` (+ non-draft `/writing/[slug]`), `/scheduling`, `/privacy`, `/terms`; `/404` excluded). The footer funnel-mirror row matches nav order; the utility row carries the rest. Engineer wires sitemap and footer consistent with this.
 
 ## 7. Entry-source distribution (assumed, pre-analytics)
 
@@ -152,6 +205,8 @@ These are working assumptions, not measured truth — re-baseline once analytics
 - **`/why-ai` deep links** — meaningful share once Arian starts sharing the page publicly (LinkedIn posts, X threads). Likely the second-largest source after `/` direct.
 - **`/roles` deep links** — moderate share; mostly from referrers ("I think you need their Automator work — `pouk.ai/roles#automator`").
 - **`/principles` deep links** — low absolute volume, high quality. Mostly social shares of single-principle screenshots.
+- **`/writing/[slug]` deep links (v1.3)** — expected to grow into a meaningful top-of-funnel source as the corpus and Arian's distribution build (6–12 month SEO horizon). Essays are the dominant front door for `/writing`; the index `/writing` is a secondary entry. Re-feeds the funnel via the essay spine.
+- **`/onboarding` (v1.3)** — low first-touch volume; predominantly reached *within-session* from the `/engagements` hand-off, or as a referrer-sent URL to de-risk an intro for a stakeholder. Late-funnel, not a cold front door.
 
 Implication for engineer: every page must be **self-sufficient at first touch** — a clear path forward, the email address one click away, brand identity unmistakable. The `SiteShell` is the floor of that contract on every page. v1.1 implication for Arian: outgoing communications (DM, signature, LinkedIn reply) point at `/about` when introducing the operator and at `/` when introducing the brand cold. Both are valid; the split is contextual.
 
@@ -185,6 +240,18 @@ v1.1 ACs (new, atomic with `/about` deploy):
 - [ ] On the `/about` route, the `SiteShell` top nav highlights `About` as current (not `Principles`, not `Why AI`).
 - [ ] `/about` does *not* include an end-of-page next-step link to `/roles` or `/why-ai`. Trust-loop pages are funnel-rest, not funnel-forward; top nav handles re-entry.
 
+v1.3 ACs (new — final-state push):
+
+- [ ] `SiteShell` top nav exposes exactly five items in order: `Why AI · Roles · Engagements · Principles · About`. Neither `/onboarding` nor `/writing` appears in the primary nav (FS-OB-2; `pages/writing.md` §9).
+- [ ] The `SiteShell` footer carries a funnel-mirror row (matching nav order) **and** a utility row exposing `/writing`, `/onboarding`, `/scheduling`, `/privacy`, `/terms`, the RSS link, and the `cal.pouk.ai` booking link.
+- [ ] `/engagements` exposes an end-of-page hand-off link to `/onboarding` ("here's what saying yes looks like →").
+- [ ] At each governed conversion point (`/` Hero, `/why-ai` end, `/roles` end, `/engagements` end, `/onboarding` end), both a `mailto:hello@pouk.ai` (primary) and a `cal.pouk.ai` booking (secondary) affordance render, with booking clearly subordinate (FS-CF-1; enforced in detail by `features/contact-flow.md` §8).
+- [ ] **No `cal.pouk.ai` booking affordance renders on `/principles` or `/about`** — both stay `mailto:`-only.
+- [ ] **No funnel CTA (email or booking) renders on `/privacy` or `/terms`;** `/scheduling`'s hero CTA links to `cal.pouk.ai` as the app, not as a funnel CTA (FS-SCH-1).
+- [ ] Every non-draft `/writing/[slug]` ends with an internal-link spine into `/why-ai` or a `/roles#anchor` (no dead-end essays).
+- [ ] `sitemap.xml` includes `/`, `/why-ai`, `/roles`, `/engagements`, `/onboarding`, `/principles`, `/about`, `/writing` (+ non-draft `/writing/[slug]`), `/scheduling`, `/privacy`, `/terms`; `/404` excluded.
+- [ ] No page on the site is a dead-end — every funnel page funnels to convert or a clearly-labeled next page; every essay carries the spine; the legal trio links to `cal.pouk.ai` / between legal pages.
+
 ## 9. Open questions / dependencies
 
 The original draft's open question (nav order) was resolved via `meta/decisions/launch-readiness.md` on 2026-05-13. See decision D-13.
@@ -194,14 +261,17 @@ Remaining dependencies blocking `Built`:
 - **Email address — locked.** `hello@pouk.ai` is the single contact point. LinkedIn DM is a secondary channel handled outside the site (linked from `SiteShell` footer per masterplan section 3.2 if `SiteShell` exposes social links; otherwise not surfaced).
 - **DS dependency — `SiteShell`.** Required to enforce the nav order and the wordmark hand-off on every page. In scope for DS Phase 1.3.
 - **Analytics — out of scope.** This spec relies on qualitative signals (inbound email content, referrer cite patterns) at launch. Once analytics arrive, this spec's section 3 and 7 should be revisited against measured data.
-- **Contact-flow extension — backlog candidate.** If `mailto:` is later replaced or augmented (scheduling link, contact form, intro questionnaire), a separate `features/contact-flow.md` spec governs that change. Not in launch scope.
+- **Contact-flow extension — now `Approved` (v1.3).** `meta/specs/features/contact-flow.md` is `Approved` (2026-06-14) and governs the dual mechanism (`mailto:` primary + `cal.pouk.ai` booking secondary). This flow spec defers all booking-treatment specifics to it; the dual-mechanism rows in §5 and the conversion definition in §4 Stage 5 are the flow-level record. (Supersedes the original "backlog candidate" framing.)
+- **`/onboarding` build (v1.3).** `meta/specs/pages/onboarding.md` is `Approved`; the `/engagements → /onboarding` hand-off and the Stage 4½ position are recorded here. The page's content/composition/build are tracked in the final-state-push rollout (`final-state-strategy.md` §8 Phase 4).
+- **Page out-of-scope cascade (owed).** The `mailto:`-only out-of-scope lines in `pages/{home,why-ai,roles,engagements}.md` narrow to admit booking — a PM amendment pass flagged in `contact-flow.md` §9, not executed in this flow spec.
 
 ## 10. Out of scope
 
-- Funnel analytics, A/B testing infrastructure, conversion-rate optimization. Zero-JS contract; qualitative signal only at launch.
-- A "next intake" / waitlist flow. The brand competes by being a person; calendared availability is handled in-conversation.
-- Lead-magnet downloads, gated content, or email-capture forms — **narrowed 2026-05-31** per `meta/proposals/conversion-pivot-and-writing-engine.md` §7(d) = d1. A **single ungated, zero-JS "get new essays by email" line on `/writing`** (optional, hosted form, no popup/modal/gate, framed as the operator's notes) is now **IN scope**. Still **OUT of scope**: popups, modals, gated lead-magnet downloads, drip sequences, and email-capture *forms hydrated on the site*. RSS ships alongside the email line. The narrowing applies to `/writing` only; all other surfaces remain `mailto:`-only.
-- Multi-step contact form, intro questionnaire, or scheduling embed.
+- Funnel analytics, A/B testing infrastructure, conversion-rate optimization. Qualitative signal only at launch (Matomo / Vercel Analytics excepted per the standards).
+- A "next intake" / waitlist flow. The brand competes by being a person; calendared availability now lives in `cal.pouk.ai` (the booking secondary), not a waitlist.
+- Lead-magnet downloads, gated content, or email-capture forms — **narrowed 2026-05-31** per `meta/proposals/conversion-pivot-and-writing-engine.md` §7(d) = d1. A **single ungated, zero-JS "get new essays by email" line on `/writing`** (optional, hosted form, no popup/modal/gate, framed as the operator's notes) is **IN scope**. Still **OUT of scope**: popups, modals, gated lead-magnet downloads, drip sequences, and email-capture *forms hydrated on the site*. RSS ships alongside the email line. The narrowing applies to `/writing` only.
+- **Replacing `mailto:` with booking, or forcing a calendar (v1.3).** `cal.pouk.ai` booking is admitted as a **secondary** affordance beside `mailto:` at governed conversion points (FS-CF-1) — it never replaces `mailto:`, never appears on trust-loop pages, and is never forced. An **embedded scheduling widget / island** on the marketing site stays OUT (zero-JS, R-009); booking happens on `cal.pouk.ai`, linked to. Booking-context routing (archetype/rung in the booking URL) is deferred to v2 (FS-CF-2).
+- Multi-step contact form, intro questionnaire, or on-site scheduling embed.
 - Cross-domain funnel tracking (LinkedIn → site, X → site). Out of scope.
 - Personalization based on referrer or visit count.
 - Internationalization / regional flows. English-only at launch.

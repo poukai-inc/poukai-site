@@ -19,6 +19,10 @@ export const rolesPageSchema = z.object({
     lead: z.string(),
     email: z.string().email(),
     href: z.string().regex(/^mailto:/),
+    /** Booking secondary — label for the muted "Or grab a time →" link (FS-CF-1, Context B). */
+    booking: z.object({
+      label: z.string(),
+    }),
     // Optional hand-off into the Evaluation stage (/engagements) — the funnel
     // link the brand re-open authorized (proposal conversion-pivot §5).
     secondary: z

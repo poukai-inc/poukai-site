@@ -32,6 +32,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Hero, Link, Eyebrow, Section, EmailLink } from "@poukai-inc/ui";
+import { BOOKING_URL } from "../lib/booking";
 import { EngagementsLadder } from "../components/EngagementsLadder";
 import engagementsPageRaw from "../content/engagements-page.json";
 import { engagementsPageSchema } from "../content/_schemas/engagements-page";
@@ -73,10 +74,21 @@ const { meta, hero, ladderIndex, endCta, jsonLd } =
     <!-- Each FeatureCard title is an h2, descending cleanly from the Hero h1. -->
     <EngagementsLadder rungs={orderedRungs} />
 
-    <!-- 4. End CTA — catch the undecided-but-ready reader (spec IA item 8) -->
+    <!-- 4. End CTA — catch the undecided-but-ready reader (spec IA item 8).
+         Dual contact mechanism (FS-CF-1, booking-affordance §2 Context B):
+         mailto: primary (EmailLink) + booking secondary (muted link).
+         /onboarding hand-off sits below as a separate navigational line (spec §8 cross-surface AC). -->
     <Section size="tight" as="div" className="engagements-end-cta">
       <p>{endCta.lead}</p>
-      <EmailLink email={endCta.email} variant="default" />
+      <p class="end-cta-affordances">
+        <EmailLink email={endCta.email} variant="default" />
+        {" — "}
+        <a href={BOOKING_URL} class="booking-link">{endCta.booking.label}</a>
+      </p>
+      <p class="end-cta-secondary">
+        {endCta.onboardingHandoff.lead}{" "}
+        <a href={endCta.onboardingHandoff.anchor.href}>{endCta.onboardingHandoff.anchor.text}</a>
+      </p>
     </Section>
   </div>
 </BaseLayout>

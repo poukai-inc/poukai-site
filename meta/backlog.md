@@ -2,6 +2,58 @@
 
 Things to ship before / around launch. Roughly priority-ordered within sections.
 
+## Final-state push (added 2026-06-14) — ✅ APPROVED (Phase 0 complete)
+
+The site is out of beta with **12 live routes**. `pouk-ai-pm` authored a site-wide final-state strategy defining the final shape. **Arian APPROVED the full push on 2026-06-14** with these decisions locked:
+
+1. **Scope** — full push; all phases proceed.
+2. **FS-CF-1** — `cal.pouk.ai` booking sits BESIDE `mailto:` as a SECONDARY affordance; `mailto:` stays primary/low-friction; never replace, never force a calendar.
+3. **FS-OB-1** — `/onboarding` pricing COMPRESSED — "transparent SOW, milestone-based payments", NO numerals/day-rates (matches `/engagements` categorical-only).
+4. **FS-SCH-1** — `/scheduling` stays the off-funnel OAuth scope-justification / product-explainer page; `contact-flow` owns surfacing the booking action into the funnel.
+
+- **Strategy doc**: [`meta/specs/final-state-strategy.md`](specs/final-state-strategy.md) — **`Approved`** — page-by-page verdict (5 KEEP / 6 REVISE / 1 NEW / 0 CUT), final nav/IA, rollout, and the now-ratified retirement of the stale 2026-05-20 8-page plan (`/solutions`/`/enterprise`/`/work`/`/careers`). See strategy §7.
+
+**Specs — all now `Approved` (decisions locked; statuses flipped 2026-06-14):**
+
+| Spec | Status | Priority | What it does |
+|---|---|---|---|
+| [`specs/pages/privacy.md`](specs/pages/privacy.md) | **Approved** (governance contract) | **P0** | Governs the OAuth privacy policy; pins scope-alignment so an edit can't break Google verification. |
+| [`specs/pages/terms.md`](specs/pages/terms.md) | **Approved** (governance contract) | **P0** | Governs the OAuth terms page; fences app-terms off from the consulting SOW. |
+| [`specs/pages/scheduling.md`](specs/pages/scheduling.md) | **Approved** | **P0** | Governs the `cal.pouk.ai` explainer + OAuth scope-justification; funnel-role RESOLVED (FS-SCH-1). |
+| [`specs/features/contact-flow.md`](specs/features/contact-flow.md) | **Approved** | **P1** | `cal.pouk.ai` booking BESIDE `mailto:` (secondary, FS-CF-1). Closes the biggest conversion gap. |
+| [`specs/pages/onboarding.md`](specs/pages/onboarding.md) | **Approved** | **P1** | Operational-reassurance stage (four-phase model). Pricing compressed (FS-OB-1); footer-tier (FS-OB-2). |
+| [`specs/flows/visitor-to-conversation.md`](specs/flows/visitor-to-conversation.md) | **Approved (v1.3)** | **P1** | Admits `/onboarding`, the `/writing` loop, the dual mechanism, the final IA. Closes the flow-spec debts. |
+| [`specs/content/onboarding.json.md`](specs/content/onboarding.json.md) | **Approved** | **P1** | Four-phase content schema (categorical-only). Per-phase OUTCOMES defined; prose is the content lane. |
+
+### Now-unblocked work items (owners + P-tags)
+
+Phase 0 (approve strategy) ✅ done. Phase 1 (legal-surface specs) ✅ done — they're spec-only governance contracts; **no rebuild required** unless an Arian scope-alignment review surfaces a copy correction. Phase 2 (flow-spec v1.3) ✅ done. Remaining build work, by lane:
+
+**Phase 3 — `contact-flow` (booking beside `mailto:`):**
+- [ ] **FSP-3.1 — Content: booking-path CTA copy variants** (Owner: `pouk-ai-content` · P1) — the quiet "or grab a time →" secondary line beside `mailto:` at each governed conversion point (`/` Hero, `/why-ai`, `/roles`, `/engagements` end, `/onboarding` end, footer), per `contact-flow.md` §5 voice discipline. Arian-verified.
+- [ ] **FSP-3.2 — Composition: secondary booking affordance** (Owner: `pouk-ai-designer` · P1) — how the secondary booking link sits beside the primary `mailto:` CTA without breaking restraint; reuses the existing `<Button>` (confirm no DS gap). Recorded in the relevant page compositions or a shared note.
+- [ ] **FSP-3.3 — Build: dual-CTA wiring** (Owner: `pouk-ai-engineer` · P1) — plain `<a href="https://cal.pouk.ai">` at the governed points; canonical booking URL defined once (shared constant/field, R-076); zero-JS; trust-loop + legal pages excluded.
+
+**Phase 4 — `/onboarding` (new route):**
+- [ ] **FSP-4.1 — Content: four-phase prose** (Owner: `pouk-ai-content` · P1) — Discovery → Scoping → Build → Handoff, prospect-facing, against `pages/onboarding.md` §5 + `content/onboarding.json.md` §5 OUTCOMES. Categorical-only (no figures); pricing posture compressed into the Scoping phase. Arian-verified.
+- [ ] **FSP-4.2 — Composition: phase sections** (Owner: `pouk-ai-designer` · P1) — four numbered phase sections (likely the `/why-ai` `FailureMode` register) + the end CTA via `contact-flow`, in `meta/compositions/pages/onboarding.md`. Files a DS proposal only if a new phase molecule is needed (PM expects reuse).
+- [ ] **FSP-4.3 — Build: `/onboarding` route** (Owner: `pouk-ai-engineer` · P1) — `src/pages/onboarding.astro` + `src/content/onboarding.json` + `src/content/_schemas/onboarding.ts`; add to footer utility tier (not primary nav); add to sitemap + all four CI route lists (lhci / axe / tab-order / visual); R-007 12→13 amendment.
+
+**Phase 5 — `/` + `/writing` light revisions (P2):**
+- [ ] **FSP-5.1 — `/` booking secondary** (Owner: content + engineer · P2) — folds into Phase 3 (the `/` Hero gets the booking secondary). The home illustration amendment stays `paused` per `pages/home-amendment-illustration-and-density.md` until Arian re-opens the asset.
+- [ ] **FSP-5.2 — `/writing` close-out** (Owner: PM + engineer · P2) — the page build is done; this closes the flow-spec cross-ref (now done in v1.3) and confirms the `/writing` footer-utility placement. Largely documentation.
+
+**PM amendment pass (non-blocking — does not gate content/designer):**
+- [ ] **FSP-X.1 — `mailto:`-only out-of-scope cascade** (Owner: `pouk-ai-pm` · P2) — narrow the `mailto:`-only lines in `pages/{home,why-ai,roles,engagements}.md` to admit the booking secondary, per `contact-flow.md` §9.
+
+**Masterplan deltas (ratified by Arian's approval — text owed):**
+- [ ] **FSP-X.2 — R-007 route-inventory amendment** (Owner: `pouk-ai-engineer` · P1) — update R-007 in `meta/standards/technical-requirements.md` to the current 12→13 route inventory (engineer authors the requirement text; PM flagged across the new specs). The CI-coverage gap was already fixed (CR-3); this is the requirement text catching up.
+- [ ] **FSP-X.3 — Masterplan route-framing note** (Owner: Arian/PM · P2) — annotate the masterplan's "four pages" framing as historically true / operationally superseded, with `meta/specs/` as the live route registry (strategy §7.2).
+
+**Deferred / gated (NOT in this push, per strategy §7.1):** `/enterprise` (re-open only if `/onboarding` under-carries the production objection), `/work` (gated on 2+ permissioned case studies), `/careers` (gated on an active public hiring motion + `/about`-positioning reconciliation).
+
+---
+
 ## Blockers for launch
 
 - [x] **Register `pouk.ai`.** Done 2026-05-13 via Vercel (registrar partner: Name.com, Inc.). Registration term covers through 2028-05-13. Originally noted as "Porkbun" in this backlog — that was a mis-recording; the actual purchase went through Vercel, which is why NS records pointed to `ns1.vercel-dns.com`/`ns2.vercel-dns.com` from the start.
@@ -911,4 +963,30 @@ Re-checked against live code. **Still UNRESOLVED:** OMC-P2.4, P2.5, P2.7 (now el
 ### Health summary (2026-05-30)
 
 Repo is in good shape: build/lint/test green, prod audit within the allow-list, the DS 2.0.0 bump itself is clean and well-documented (BaseLayout docblock is exemplary). The one true ship-blocker is **A-A11Y-1** (dangling `aria-labelledby`) — verify the axe gate catches it. The DS-bump PR is the natural moment to also sweep the stale-comment cluster (A-DS-1/2/3) and the committed `coverage/` dir (A-HYG-1), since they all touch the same migration surface.
+
+## End-to-end code review (2026-06-13)
+
+Full-repo review at branch `feat/oauth-verification-pages-122`. No critical security surface (static site, no user input / DB / auth). Findings are SEO correctness, a latent CSP conflict, and CI coverage gaps on routes added after the original 5-route gate was written (`/engagements`, `/writing`, `/writing/[slug]`, `/privacy`, `/terms`, `/scheduling`, `/404`).
+
+### P1 — fix before they bite
+
+- [x] **CR-1 — Canonical URLs disagree with the sitemap/served URLs (trailing slash)** ~~(Owner: engineer · Effort: S)~~ — Fixed 2026-06-13: added trailing slash to `meta.canonical` + `jsonLd.url` in `about/engagements-page/principles-page/roles-page/why-ai/writing-page.json`, and to the `/writing/[slug]` template canonical. Root-domain org refs (`https://pouk.ai`) left as-is; `/404` left slash-less (served as `dist/404.html`). — Build is `format:"directory"`, so pages are served and sitemap'd as `/roles/`, `/principles/`, `/about/`, `/engagements/`, `/writing/`. But `meta.canonical` in `roles-page.json`, `principles-page.json`, `about.json`, `engagements-page.json`, `writing-page.json` is slash-less (`https://pouk.ai/roles`). The #122 legal batch (`/privacy/`, `/terms/`, `/scheduling/`) correctly carries the trailing slash. Mixed canonicalization signal: the `<link rel="canonical">` points at a URL that differs from the one in `sitemap.xml`. **Fix:** normalize every `meta.canonical` to the trailing-slash form. Also check `/writing/[slug]` (built as `https://pouk.ai/writing/${slug}` in the template — add trailing slash for parity).
+
+- [x] **CR-2 — Matomo tracker will be blocked by the site's own CSP** ~~(Owner: engineer · Effort: M)~~ — Fixed 2026-06-13: replaced the inline `set:html` Matomo bootstrap (which `script-src 'self'` would block) with a first-party `public/matomo.js` loader + an inert `application/json` config block in BaseLayout. The executable logic now loads same-origin → CSP-clean. Residual: the Matomo *host* must be same-origin or added to `script-src`/`connect-src`/`img-src` when O-011 picks the endpoint — documented in `public/matomo.js` and tracked under A-SEC-1. — `BaseLayout.astro` emits the Matomo tracker as an inline `<script is:inline set:html={matomoScript}>`. The `vercel.json` catch-all CSP is `script-src 'self'` (no `'unsafe-inline'`, no nonce/hash) → the inline script is blocked, and `connect-src 'self'` blocks the beacon to the external `matomoUrl`. Inert today (env unset), but the moment O-011 wires `PUBLIC_MATOMO_URL` analytics silently dies in prod. **Fix:** self-host the tracker as a same-origin `<script src>` (R-061 pattern already chosen for Bugsink) and add the Matomo origin to `connect-src`, or nonce the inline block. Pairs with the open A-SEC-1 CSP decision.
+
+### P2 — worth a sweep
+
+- [x] **CR-3 — CI a11y/perf/visual gates cover only 5 of 12 routes** ~~(Owner: engineer · Effort: M)~~ — Fixed 2026-06-13: added `/engagements/`, `/writing/`, `/writing/why-ai-pilots-stall-at-integration/`, `/scheduling/`, `/privacy/`, `/terms/` (+ `/404` for axe) to all four lists — `.lighthouserc.json`, the `axe` job in `ci.yml`, `tests/tab-order.spec.ts`, and `tests/visual.spec.ts`. — `.lighthouserc.json` (lhci) and the `axe` job in `ci.yml` test only `/`, `/why-ai/`, `/roles/`, `/principles/`, `/about/`. `tests/tab-order.spec.ts` likewise. Routes added later — `/engagements/`, `/writing/`, `/writing/[slug]`, `/privacy/`, `/terms/`, `/scheduling/`, `/404` — have no axe or Lighthouse gate, yet R-029 reads "zero axe violations on **every** deploy." `tests/visual.spec.ts` covers privacy/terms/scheduling but still misses engagements + writing. **Fix:** add the missing routes to all four lists (lhci url[], axe job args, tab-order routes, visual.spec routes).
+
+- [x] **CR-4 — CSP / security headers never exercised in CI** ~~(Owner: engineer · Effort: M)~~ — Fixed 2026-06-13: added `.github/scripts/csp-compat-check.mjs` + a `csp-compat` CI job that parses the CSP from `vercel.json` and fails if built `dist/` HTML contains inline `<script>`/`<style>`/`style=` that `script-src 'self'`/`style-src 'self'` would block. Static gate (no live headers); passes on current output. A live-header smoke test against a Vercel preview URL remains a future iteration (needs the `deployment_status` webhook, already noted in ci.yml). — lhci, axe, and Playwright all run against `pnpm preview`, which serves `dist/` WITHOUT the `vercel.json` headers. So a CSP that breaks an inline style/script (see CR-2) ships to prod with a green CI. **Fix:** add a header smoke test against a real Vercel preview deployment (curl the `deployment_status` URL and assert the CSP + the four security headers), or stand up a local proxy that injects `vercel.json` headers in front of `pnpm preview` for the axe/lhci runs.
+
+### P3 — defensive / cosmetic
+
+- [x] **CR-5 — JSON-LD `set:html` does not escape `<`** ~~(Owner: engineer · Effort: S)~~ — Fixed 2026-06-13: added `escapeForInlineScript()` in BaseLayout (`<`→`<`, `>`→`>`, `&`→`&`) applied to the JSON-LD payload and the new Matomo config block before `set:html`. — `BaseLayout.astro` serialises `jsonLd` via `JSON.stringify` then `set:html`. `JSON.stringify` leaves `<` unescaped, so a `</script>` (or `<`) inside any JSON-LD string value breaks out of the inline `<script>`. Build-time author-controlled content = low risk, but the Matomo path already guards this exact breakout. **Fix:** escape `<`→`<` (and `>`/`&` for completeness) in `jsonLdString` before `set:html`.
+
+- [x] **CR-6 — `/writing/[slug]` renders prose as raw text; inline Markdown shows literally** ~~(Owner: engineer · Effort: S)~~ — Fixed 2026-06-13: added a build-time guard in the `[slug]` template that throws if a prose paragraph contains an inline Markdown link, bold, or inline-code marker — converting the silent literal-render into a loud build failure, keeping the documented "pure prose, no MDX" constraint honest. Docblock updated. — The template splits the body on `::stat::`/`::pull::` and emits each paragraph as `<p>{p}</p>`, so any inline Markdown (a `[link](url)`, `**bold**`, `*em*`) renders as literal source. Works for the one pure-prose essay today; the first essay with an inline link will ship broken. **Fix:** either document the "pure prose only, no inline Markdown" constraint in the schema/template, or run paragraph text through a minimal inline-Markdown renderer.
+
+- [x] **CR-7 — Verify RSS item links are absolute** ~~(Owner: engineer · Effort: S)~~ — Fixed 2026-06-13: `rss.xml.ts` now builds each item `link` with `new URL(\`/writing/${slug}/\`, context.site)` → absolute + trailing-slash parity with the page canonical. — `rss.xml.ts` sets `link: /writing/${slug}` (relative). Confirm `@astrojs/rss` prefixes it with `site` so the feed ships absolute URLs; some readers require them. **Fix:** if not auto-prefixed, build the absolute URL explicitly from `context.site`.
+
+- [x] **CR-8 — `/why-ai` citation→reference index mapping is not schema-enforced** ~~(Owner: engineer · Effort: S)~~ — Fixed 2026-06-13: added a `.superRefine` to `whyAiSchema` asserting every `openingArgument.stats[].citation` resolves to a `references[].index` — a mismatched citation now fails the build instead of rendering a dead `#ref-N` anchor. — The opening-argument stats render `#ref-${stat.citation}` anchors that must resolve to a `references[].index`. The schema enforces both arrays are `.length(4)` but nothing ties citation numbers to existing reference indices — an author typo yields a dead footnote anchor. **Fix:** add a `superRefine` asserting every `stat.citation ∈ references.map(r => r.index)`.
 

@@ -10,11 +10,19 @@
  *   - By wrapping SiteShell here, BaseLayout.astro passes only scalar props
  *     (strings, numbers, plain arrays) — no JSX prop values cross the boundary.
  *
+ * Footer uses the DS <Footer> organism's `links` prop (FooterLink[]) for the
+ * secondary link row — this is the correct slot per llms-full.txt §Footer.
+ * Booking link (FS-CF-1, FS-CF-2) rides the utility tier as the lowest-weight
+ * treatment: bare label "Book a time", no arrow, no urgency (booking-affordance
+ * §2 footer utility tier). /onboarding and /writing surface here as footer-only
+ * destinations (not in primary nav per FS-OB-2 / writing.md §9).
+ *
  * Rendered as static HTML at build time — no hydration directive (R-079).
  */
 
 import type { ReactNode } from "react";
-import { SiteShell } from "@poukai-inc/ui";
+import { SiteShell, Footer } from "@poukai-inc/ui";
+import { BOOKING_URL } from "../lib/booking";
 
 interface NavRoute {
   href: string;
@@ -34,24 +42,18 @@ export function ShellWrapper({ currentRoute, routes, year, children }: ShellWrap
       currentRoute={currentRoute}
       routes={routes}
       footer={
-        // Footer link order matches the primary nav, plus Writing + RSS — the
-        // /writing entry points (it is absent from the primary nav by design,
-        // writing.md §9). RSS reaches the feed at /writing/rss.xml. Privacy +
-        // Terms close the row — utility/legal pages (the cal.pouk.ai Google
-        // OAuth verification assets, #122), surfaced here only.
-        <p>
-          {"© "}{year}{" pouk.ai · "}
-          <a href="/why-ai">Why AI</a>{" · "}
-          <a href="/roles">Roles</a>{" · "}
-          <a href="/engagements">Engagements</a>{" · "}
-          <a href="/principles">Principles</a>{" · "}
-          <a href="/about">About</a>{" · "}
-          <a href="/writing">Writing</a>{" · "}
-          <a href="/writing/rss.xml">RSS</a>{" · "}
-          <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>{" · "}
-          <a href="/privacy">Privacy</a>{" · "}
-          <a href="/terms">Terms</a>
-        </p>
+        <Footer
+          copyright={`© ${year} pouk.ai`}
+          email="hello@pouk.ai"
+          linksLabel="Footer navigation"
+          links={[
+            { href: "/writing",   label: "Writing" },
+            { href: "/onboarding", label: "Onboarding" },
+            { href: BOOKING_URL,  label: "Book a time", external: true },
+            { href: "/privacy",   label: "Privacy" },
+            { href: "/terms",     label: "Terms" },
+          ]}
+        />
       }
     >
       {children}

@@ -2,10 +2,9 @@
   "meta": {
     "title": "Engagements — pouk.ai",
     "description": "How work with pouk.ai starts and grows: Discovery, Pilot, Build, Retainer — four shapes of one relationship, not a price list.",
-    "canonical": "https://pouk.ai/engagements"
+    "canonical": "https://pouk.ai/engagements/"
   },
   "hero": {
-    "eyebrow": "Engagements",
     "title": "How the work starts, and how it grows",
     "lede": "Work with pouk.ai starts small and deepens. Discovery, Pilot, Build, Retainer — four shapes of one relationship, not four products on a shelf. Any kind of work can start at any rung, so you don't have to commit to a full build on day one."
   },
@@ -14,13 +13,23 @@
   },
   "endCta": {
     "lead": "Not sure which rung is yours? Say where your problem sits and we'll find the right place to start.",
-    "email": "hello@pouk.ai"
+    "email": "hello@pouk.ai",
+    "booking": {
+      "label": "Or grab a time →"
+    },
+    "onboardingHandoff": {
+      "lead": "Or see what saying yes actually looks like:",
+      "anchor": {
+        "text": "How we work together →",
+        "href": "/onboarding"
+      }
+    }
   },
   "jsonLd": {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Engagements — pouk.ai",
     "description": "How work with pouk.ai starts and grows: Discovery, Pilot, Build, Retainer — four shapes of one relationship, not a price list.",
-    "url": "https://pouk.ai/engagements"
+    "url": "https://pouk.ai/engagements/"
   }
 }

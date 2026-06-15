@@ -9,6 +9,10 @@
  * Decisions honoured:
  *   D-11 — integrated lede-extension link sentence at end of lede, href="/why-ai".
  *   D-12 — status-line text from public/index.html ("Currently taking conversations for Q3.").
+ *   FS-CF-1 — mailto: is primary; booking is a quiet secondary Button (Context A,
+ *     booking-affordance §2). The two sit as a button-beside-button pair — the
+ *     only surface on the site where booking is a <Button>. All other end CTAs
+ *     use a muted link (Context B). Both remain subordinate to the Hero title.
  *
  * Hero posture: editorial-doorway → size="intimate" + entrance="stagger" per
  * meta/decisions/2026-05-19-hero-stagger-scope.md.
@@ -17,6 +21,7 @@
  */
 
 import { Hero, StatusBadge, Button } from "@poukai-inc/ui";
+import { BOOKING_URL } from "../lib/booking";
 
 interface HomeHeroProps {
   status: string;
@@ -29,6 +34,8 @@ interface HomeHeroProps {
   ledeAnchorHref: string;
   ctaLabel: string;
   ctaHref: string;
+  /** Secondary booking line label — "Or grab a time →" (contact-flow draft §2). */
+  bookingLabel: string;
 }
 
 export function HomeHero({
@@ -42,6 +49,7 @@ export function HomeHero({
   ledeAnchorHref,
   ctaLabel,
   ctaHref,
+  bookingLabel,
 }: HomeHeroProps) {
   return (
     <Hero
@@ -65,9 +73,18 @@ export function HomeHero({
         </>
       }
       cta={
-        <Button asChild size="compact">
-          <a href={ctaHref}>{ctaLabel}</a>
-        </Button>
+        /* Context A — button-beside-button (booking-affordance §2 Context A).
+           mailto: Button is primary (default variant); booking Button is secondary variant.
+           Both are size="compact" to match the existing Hero CTA rung.
+           Both subordinate to the Hero title (home composition "title is primary anchor"). */
+        <>
+          <Button asChild size="compact">
+            <a href={ctaHref}>{ctaLabel}</a>
+          </Button>
+          <Button asChild size="compact" variant="secondary">
+            <a href={BOOKING_URL}>{bookingLabel}</a>
+          </Button>
+        </>
       }
     />
   );

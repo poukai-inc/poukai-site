@@ -132,7 +132,6 @@ const writingCollection = defineCollection({
       // present, references[] is required (validated by superRefine below).
       statsRow: z.array(writingStatSchema).optional(),
       references: z.array(writingReferenceSchema).optional(),
-      ogClaim: z.string().max(100).optional(),
       ogImage: z.string().optional(),
       // The single lift-able quotable line (writing.json.md §5.1). Rendered as
       // <Pull variant="sans"> by the [slug] template (composition §2B).

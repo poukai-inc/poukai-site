@@ -70,6 +70,8 @@ const mockProps = {
 	ledeAnchorHref: "/why-ai",
 	ctaLabel: "hello@pouk.ai",
 	ctaHref: "mailto:hello@pouk.ai",
+	/** FS-CF-1: secondary booking label added to the Hero CTA pair (booking-affordance §2 Context A). */
+	bookingLabel: "Or grab a time →",
 };
 
 describe("HomeHero", () => {
@@ -116,12 +118,17 @@ describe("HomeHero", () => {
 		expect(anchors[0].textContent).toMatch(/Here.{1,3}s why/);
 	});
 
-	it("renders the email CTA as a mailto: anchor (no form, no scheduler)", () => {
+	it("renders the primary mailto: CTA and secondary booking CTA (FS-CF-1 button pair)", () => {
 		render(<HomeHero {...mockProps} />);
 		const cta = screen.getByTestId("hero-cta");
 		const anchors = cta.querySelectorAll("a");
-		expect(anchors.length).toBe(1);
+		// Two anchors: mailto: primary + cal.pouk.ai secondary (booking-affordance §2 Context A).
+		expect(anchors.length).toBe(2);
+		// Primary: mailto: link.
 		expect(anchors[0].getAttribute("href")).toBe("mailto:hello@pouk.ai");
 		expect(anchors[0].textContent).toBe("hello@pouk.ai");
+		// Secondary: booking link — plain <a> to cal.pouk.ai (zero-JS, R-079).
+		expect(anchors[1].getAttribute("href")).toBe("https://cal.pouk.ai");
+		expect(anchors[1].textContent).toBe("Or grab a time →");
 	});
 });

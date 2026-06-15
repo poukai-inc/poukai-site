@@ -12,10 +12,15 @@ export const writingPageSchema = z.object({
     canonical: z.string().url(),
   }),
   hero: z.object({
-    eyebrow: z.string(),
     title: z.string(),
     lede: z.string(),
   }),
+  /**
+   * Boilerplate note appended after every essay's references list.
+   * Lives here (shared across all essays) so the copy is in content, not the
+   * template — matching the /why-ai referencesNote pattern (R-076 HARD).
+   */
+  referencesNote: z.string(),
   retention: z.object({
     emailLine: z.string(),
     emailPlaceholder: z.string(),

@@ -1,0 +1,31 @@
+[
+  {
+    "index": 1,
+    "id": "discovery",
+    "title": "Discovery",
+    "duration": "1–2 weeks",
+    "body": "Every engagement starts with diagnosis, not a build. In the first one to two weeks, pouk.ai works with your team to answer four questions: which workflow you're trying to improve and what it costs you today, who owns the data behind it and what shape that data is in, who inside the company will own the result after launch, and what success looks like in 90 days. Discovery is a real, scoped, paid first step — not free spec work, and not a sales call in a different jacket. You leave with a written diagnosis whether or not we build anything together.",
+    "deliverable": "Discovery Brief"
+  },
+  {
+    "index": 2,
+    "id": "scoping",
+    "title": "Scoping",
+    "body": "Scoping turns the Discovery Brief into a Statement of Work — the document that makes the engagement legible before anyone commits. The SOW names the deliverables, states plainly what's out of scope, sets the milestones the work is measured against, and lays out when data access has to be in place for each one. Pricing is part of that document, not a separate negotiation: a transparent SOW with milestone-based payments, so you always know what you're paying for and what it produces. Nothing in the build is a surprise, because the boundaries were written down first.",
+    "deliverable": "Statement of Work"
+  },
+  {
+    "index": 3,
+    "id": "build",
+    "title": "Build",
+    "body": "The build happens inside your stack, in layers. pouk.ai prototypes on sample data first to prove the approach, then integrates against your real data, then tests and iterates against the success metric set in Discovery — which is tracked from the first day, not measured after the fact. You see working software at each layer, not a status deck describing one. What you end up with is a system running in production and wired into your tools, built so your in-house team can run it.",
+    "deliverable": "A working production system"
+  },
+  {
+    "index": 4,
+    "id": "handoff",
+    "title": "Handoff",
+    "body": "Handoff is the point of the whole engagement: your team owns the system, not pouk.ai. You get documentation written for the people who'll run it, a live walkthrough rather than a screen recording to file away, and a scheduled day-30 check-in once it's been running on its own. The work is built for you to run, not to keep you dependent. And the day-30 check-in is usually where the next piece of work starts — once a system is earning, the question shifts from \"does this work?\" to \"what's next?\"",
+    "deliverable": "A live walkthrough and a day-30 check-in"
+  }
+]

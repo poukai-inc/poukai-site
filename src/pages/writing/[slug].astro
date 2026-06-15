@@ -25,6 +25,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Hero, Stat, Pull, Link } from "@poukai-inc/ui";
+import writingPageRaw from "../../content/writing-page.json";
+import { writingPageSchema } from "../../content/_schemas/writing-page";
 
 export async function getStaticPaths() {
   const essays = await getCollection("writing", ({ data }) => !data.draft);
@@ -37,8 +39,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const e = entry.data;
 
-const REFERENCES_NOTE =
-  "Source URLs cleaned from email click-trackers to canonical destinations.";
+// referencesNote sourced from writing-page.json (R-076 — copy in content, not templates).
+// Matches the /why-ai pattern where referencesNote lives in why-ai.json.
+const { referencesNote } = writingPageSchema.parse(writingPageRaw);
 
 // Split the raw body into prose segments around the inline molecule markers.
 // Markers are on their own line. Each text segment is rendered as paragraphs
@@ -59,6 +62,30 @@ const segments: Segment[] = rawBody
     return { kind: "prose", paragraphs: chunk.split(/\n{2,}/).map((p) => p.trim()) };
   });
 
+// Essay bodies are PURE PROSE (writing.json.md §1 stack note): the template
+// renders each paragraph as a plain <p>{text}</p>, so inline Markdown is NOT
+// parsed — it would render as literal source (e.g. `[text](url)`). Rather than
+// silently ship that, fail the build if a prose paragraph contains an inline
+// Markdown link, bold, or inline-code marker. Keeps the "no MDX" constraint
+// honest instead of trusting every future author to remember it. (backlog CR-6)
+const INLINE_MARKDOWN = [
+  { name: "link", re: /\[[^\]]+\]\([^)]+\)/ },
+  { name: "bold", re: /\*\*[^*]+\*\*/ },
+  { name: "inline code", re: /`[^`]+`/ },
+];
+for (const seg of segments) {
+  if (seg.kind !== "prose") continue;
+  for (const p of seg.paragraphs) {
+    for (const { name, re } of INLINE_MARKDOWN) {
+      if (re.test(p)) {
+        throw new Error(
+          `[writing/${e.slug}] essay body contains inline Markdown (${name}) — bodies are pure prose and render literally. Remove the markup or extend the [slug] template to parse inline Markdown safely. Offending paragraph: ${p.slice(0, 80)}…`
+        );
+      }
+    }
+  }
+}
+
 // Human-readable dateline (e.g. "May 31, 2026"). Rendered into a native
 // <time datetime> element — a plain semantic dateline needs no DS Time atom,
 // and avoids the Astro-template parse quirk on a component `dateTime` attr.
@@ -67,7 +94,7 @@ const datelineLabel = new Date(`${e.datePublished}T00:00:00Z`).toLocaleDateStrin
   { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }
 );
 
-const canonical = `https://pouk.ai/writing/${e.slug}`;
+const canonical = `https://pouk.ai/writing/${e.slug}/`;
 const pageTitle = `${e.title} — pouk.ai`;
 const ogImage = e.ogImage; // BaseLayout falls back to /og.png when undefined
 
@@ -91,6 +118,7 @@ const jsonLd = {
   canonical={canonical}
   jsonLd={jsonLd}
   ogImage={ogImage}
+  ogType="article"
   currentRoute="/writing"
 >
   <div class="site-page">
@@ -134,7 +162,7 @@ const jsonLd = {
               </li>
             ))}
           </ol>
-          <p><em>{REFERENCES_NOTE}</em></p>
+          <p><em>{referencesNote}</em></p>
         </section>
       )}
 
