@@ -24,6 +24,7 @@ const routes = [
   { name: "scheduling", path: "/scheduling/" },
   { name: "privacy", path: "/privacy/" },
   { name: "terms", path: "/terms/" },
+  { name: "onboarding", path: "/onboarding/" },
 ];
 
 for (const route of routes) {

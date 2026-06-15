@@ -13,7 +13,17 @@
   },
   "endCta": {
     "lead": "Not sure which rung is yours? Say where your problem sits and we'll find the right place to start.",
-    "email": "hello@pouk.ai"
+    "email": "hello@pouk.ai",
+    "booking": {
+      "label": "Or grab a time →"
+    },
+    "onboardingHandoff": {
+      "lead": "Or see what saying yes actually looks like:",
+      "anchor": {
+        "text": "How we work together →",
+        "href": "/onboarding"
+      }
+    }
   },
   "jsonLd": {
     "@context": "https://schema.org",

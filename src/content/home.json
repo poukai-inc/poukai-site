@@ -22,7 +22,8 @@
     "cta": {
       "label": "hello@pouk.ai",
       "href": "mailto:hello@pouk.ai"
-    }
+    },
+    "bookingLabel": "Or grab a time →"
   },
   "jsonLd": {
     "@context": "https://schema.org",

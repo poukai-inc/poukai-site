@@ -33,6 +33,7 @@ const routes = [
   { name: "scheduling", path: "/scheduling/" },
   { name: "privacy", path: "/privacy/" },
   { name: "terms", path: "/terms/" },
+  { name: "onboarding", path: "/onboarding/" },
 ];
 
 const MAX_TABS = 80;

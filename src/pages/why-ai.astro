@@ -20,6 +20,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Hero, FailureMode, Stat } from "@poukai-inc/ui";
+import { BOOKING_URL } from "../lib/booking";
 import whyAiRaw from "../content/why-ai.json";
 import { whyAiSchema } from "../content/_schemas/why-ai";
 
@@ -151,11 +152,16 @@ const toSuperscript = (n: number) =>
 
         <p>{whereWorks.closing}</p>
 
-        <!-- 8. End CTA -->
+        <!-- 8. End CTA — dual contact mechanism (FS-CF-1, booking-affordance §2 Context B).
+             Conversion pair: mailto: primary + booking secondary (muted link).
+             Navigational hand-off: Roles → stays as a separate read-on line below.
+             Three affordances read as: conversion pair | navigation hand-off (§6 Flag 1 resolved). -->
         <div class="end-cta">
           <p>
             {endCta.primary.lead}{" "}
             <a href={endCta.primary.href}>{endCta.primary.email}</a>
+            {" — "}
+            <a href={BOOKING_URL} class="booking-link">{endCta.booking.label}</a>
           </p>
           <p>
             {endCta.secondary.lead}{" "}

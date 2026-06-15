@@ -42,6 +42,18 @@ export const engagementsPageSchema = z.object({
   endCta: z.object({
     lead: categorical,
     email: z.string().email(),
+    /** Booking secondary — label for the muted "Or grab a time →" link (FS-CF-1, Context B). */
+    booking: z.object({
+      label: z.string(),
+    }),
+    /** /onboarding hand-off link — spec §8 cross-surface AC (engagements → onboarding). */
+    onboardingHandoff: z.object({
+      lead: z.string(),
+      anchor: z.object({
+        text: z.string(),
+        href: z.string().regex(/^\//),
+      }),
+    }),
   }),
   jsonLd: z.object({
     "@context": z.string().url(),

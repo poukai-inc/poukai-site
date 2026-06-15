@@ -74,6 +74,9 @@
         "text": "Roles →",
         "href": "/roles"
       }
+    },
+    "booking": {
+      "label": "Or grab a time →"
     }
   },
   "references": [

@@ -16,6 +16,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Hero } from "@poukai-inc/ui";
+import { BOOKING_URL } from "../lib/booking";
 import { RolesGrid } from "../components/RolesGrid";
 // Page-level copy sourced from JSON (R-076 HARD — no copy in templates) and
 // Zod-validated at build time (R-074 HARD). The four role cards come from the
@@ -58,11 +59,15 @@ const { meta, hero, endCta, jsonLd } = rolesPageSchema.parse(rolesPageRaw);
     <h2 class="visually-hidden">Role archetypes</h2>
     <RolesGrid roles={orderedRoles} />
 
-    <!-- 4. Universal end CTA — per D-08, single block for all four roles -->
+    <!-- 4. Universal end CTA — per D-08, single block for all four roles.
+         Dual contact mechanism (FS-CF-1, booking-affordance §2 Context B):
+         mailto: primary + booking secondary (muted link). No per-card booking (D-08). -->
     <div class="end-cta">
       <p>
         {endCta.lead}
         <a href={endCta.href}>{endCta.email} &rarr;</a>
+        {" — "}
+        <a href={BOOKING_URL} class="booking-link">{endCta.booking.label}</a>
       </p>
       {endCta.secondary && (
         <p class="end-cta-secondary">

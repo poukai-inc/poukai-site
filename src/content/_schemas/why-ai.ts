@@ -68,6 +68,10 @@ export const whyAiSchema = z.object({
         href: z.string(),
       }),
     }),
+    /** Booking secondary — label for the muted "Or grab a time →" link (FS-CF-1, Context B). */
+    booking: z.object({
+      label: z.string(),
+    }),
   }),
   references: z
     .array(

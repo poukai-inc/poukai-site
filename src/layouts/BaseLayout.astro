@@ -29,7 +29,7 @@ import { ClientRouter } from "astro:transitions";
 import { ShellWrapper } from "../components/ShellWrapper";
 // Vercel Web Analytics — basic-tier signal.
 //
-// The SDK injects `<script src="/_vercel/insights/script.js">` unconditionally
+// The SDK injects a script element (src="/_vercel/insights/script.js") unconditionally
 // when the component renders. That URL only exists on Vercel deployments, so
 // emitting the tag in a non-Vercel build (e.g. CI's `pnpm preview`) produces
 // a 404 → "Browser errors logged to the console" → drops Lighthouse
@@ -59,7 +59,7 @@ export interface Props {
   canonical: string;
   /**
    * JSON-LD structured data object for this page.
-   * BaseLayout serialises it into a <script type="application/ld+json">.
+   * BaseLayout serialises it into a script element (type="application/ld+json").
    */
   jsonLd?: Record<string, unknown>;
   /** The href of the currently active route — passed to SiteShell for aria-current. */
@@ -127,11 +127,11 @@ const navRoutes = [
 
 const currentYear = new Date().getFullYear();
 
-// Escape characters that could break out of an inline <script> when injected
-// via set:html. JSON.stringify alone leaves `<` intact, so a `</script>` (or a
-// stray `<`) inside any string value would terminate the inline script element
-// early. Escaping `<`, `>`, and `&` to their unicode escapes keeps the payload
-// inert inside a <script> while remaining valid JSON. (backlog CR-5)
+// Escape characters that could break out of an inline script element when
+// injected via set:html. JSON.stringify alone leaves `<` intact, so a closing
+// script tag (or a stray `<`) inside any string value would terminate the
+// inline script element early. Escaping `<`, `>`, and `&` to their unicode
+// escapes keeps the payload inert while remaining valid JSON. (backlog CR-5)
 const escapeForInlineScript = (json: string) =>
   json
     .replace(/</g, "\\u003c")
@@ -152,18 +152,18 @@ const hasMatomoConfig = Boolean(matomoUrl && matomoSiteId);
 // CDN (browser.sentry-cdn.com) — that violated R-011 (third-party logic must
 // load from its own same-origin file, not inline) and R-050 (no new
 // third-party runtime origin). It was inert (no DSN) and removed 2026-05-31
-// (#90). Re-add as a self-hosted, same-origin <script src> per R-061 when
+// (#90). Re-add as a self-hosted, same-origin script element (src) per R-061 when
 // O-012 picks the deploy shape and a DSN exists.
 
 // Matomo config as an INERT JSON data block (not executable JS). The actual
 // bootstrap lives in the first-party /matomo.js loader, which reads this block
 // and injects the tracker. Emitting the executable logic from a same-origin
-// <script src> instead of an inline `set:html` script is what makes the tracker
-// compatible with the site CSP (`script-src 'self'`) — an inline script would
-// be blocked outright with no 'unsafe-inline'/nonce. (backlog CR-2)
+// script element (src) instead of an inline `set:html` script is what makes the
+// tracker compatible with the site CSP (`script-src 'self'`) — an inline script
+// would be blocked outright with no 'unsafe-inline'/nonce. (backlog CR-2)
 //
 // A `type="application/json"` script is data, not script, so it is not subject
-// to script-src; escapeForInlineScript still neutralises any `</script>`.
+// to script-src; escapeForInlineScript still neutralises any closing script tag.
 const matomoConfigJson = hasMatomoConfig
   ? escapeForInlineScript(JSON.stringify({ url: matomoUrl, siteId: matomoSiteId }))
   : null;

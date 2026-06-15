@@ -12,6 +12,9 @@
     "lead": "Not sure which fits? Describe your situation.",
     "email": "hello@pouk.ai",
     "href": "mailto:hello@pouk.ai",
+    "booking": {
+      "label": "Or grab a time →"
+    },
     "secondary": {
       "lead": "Or see how an engagement starts and grows:",
       "anchor": {

@@ -438,6 +438,7 @@ jobs:
             http://localhost:4321/scheduling/ \
             http://localhost:4321/privacy/ \
             http://localhost:4321/terms/ \
+            http://localhost:4321/onboarding/ \
             http://localhost:4321/404 \
             --load-delay 1500 \
             --save .axe-reports/results.json \

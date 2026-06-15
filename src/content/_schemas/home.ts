@@ -28,6 +28,8 @@ export const homeSchema = z.object({
       label: z.string(),
       href: z.string(),
     }),
+    /** Secondary booking line label — "Or grab a time →" (contact-flow draft §2 / FS-CF-1). */
+    bookingLabel: z.string(),
   }),
   /** Organization JSON-LD (R-037 + masterplan §6.2). */
   jsonLd: z.object({

@@ -5,13 +5,18 @@
  *
  * Page structure:
  *   - SiteShell (via BaseLayout + ShellWrapper)
- *   - HomeHero (status + title + lede + CTA inside <Hero size="intimate"
- *     entrance="stagger">)
+ *   - HomeHero (status + title + lede + primary CTA + secondary booking Button)
  *
  * The Hero's display posture is editorial-doorway (entrance="stagger" per
  * meta/decisions/2026-05-19-hero-stagger-scope.md). No body sections beyond
  * the Hero — spec §4 forbids additional sections ("adding sections is a
  * brand violation").
+ *
+ * Contact-flow wiring (FS-CF-1, booking-affordance §2 Context A):
+ *   - Primary CTA = <Button asChild size="compact"> → mailto:hello@pouk.ai
+ *   - Secondary CTA = <Button asChild size="compact" variant="secondary"> → cal.pouk.ai
+ *   This is the ONLY page where booking is a <Button>. All other end CTAs use
+ *   a muted link (Context B, booking-affordance §2).
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -42,6 +47,7 @@ const { meta, hero, jsonLd } = home;
       ledeAnchorHref={hero.lede.anchor.href}
       ctaLabel={hero.cta.label}
       ctaHref={hero.cta.href}
+      bookingLabel={hero.bookingLabel}
     />
   </div>
 </BaseLayout>
