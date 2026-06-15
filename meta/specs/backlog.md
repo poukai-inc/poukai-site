@@ -107,6 +107,53 @@ Authored against [`final-state-strategy.md`](final-state-strategy.md), **approve
 
 ---
 
+### Raise-the-ceiling Phase 1 specs (added 2026-06-14 — PROPOSAL, awaiting Arian per-page approval)
+
+Authored against the wave-1 assessments (`meta/assessments/ds-capability-vs-usage.md`, `sales-content-gaps.md`, `creative-exploration.md`, `imagery-illustration-direction.md`). Arian approved the **full Phase-1 batch in principle** (all pure-site, no real-world evidence) + the feather-as-motif resolution; each spec below is a PROPOSAL pending **per-page sign-off**. **Three items reverse ratified decisions** and need explicit re-ratification (flagged ⚠ below). All are pure-site — **no DS gap surfaced** (every primitive named ships in `@poukai-inc/ui@2.17.0`). Owners: PM authored; content drafts copy/answers; designer composes; engineer builds.
+
+17. **`pages/home-amendment-raise-the-ceiling.md`** — **PROPOSAL / In review** · **P1** · ⚠ reverses ratified decision
+    - Display doorway (H-A): `Hero size="intimate"` → `size="display"` + proportional CTA revert. Thesis conviction stays in the lede (IA lock forbids a `Statement` section on `/`). Feather colophon optional/deferred.
+    - **⚠ Re-ratify**: RR-1 (reverse 2026-05-17 `size="intimate"` density decision / D-17 path / poukai-ui#39 — footer drops ~80px, presence-over-fold); RR-2 (reverse coupled CTA step-down poukai-ui#42). Recommendation: reverse both. Supersedes `home-amendment-illustration-and-density.md` §4.2/§4.4 for `/` (annotation owed).
+    - Ready for: designer (composition revision) on Arian sign-off. No content/DS dependency.
+
+18. **`pages/why-ai-amendment-raise-the-ceiling.md`** — **PROPOSAL / In review** · **P1**
+    - Depth pass (W-A): hero stagger + one recessed `StatsSection fill` band + `FailureModeList` refactor + thesis `Statement` pivot + **vs-alternatives section** (sales-gap #2, resolved: fold into `/why-ai`, NOT a new route). W-B (two bands) held as fast-follow.
+    - No ratified reversal (page has no composition doc — one is owed). Statement copy = promotion of existing tail line (Arian confirms). vs-alternatives copy = content's lane (honest trade-off, categorical, no dunking, no metrics).
+    - Ready for: content (Statement line + vs-alternatives) + designer (new composition doc).
+
+19. **`pages/engagements-amendment-raise-the-ceiling.md`** — **PROPOSAL / In review** · **P1** · ⚠ reverses ratified decision
+    - Climb-arrives (E-A): hero stagger + summit `Statement` + outcome-language pass (→ #21) + FAQSection (→ #22). E-B (ceiling stat) rejected. No band (categorical-only / no-comparison-table holds).
+    - **⚠ Re-ratify**: RR-3 (reverse engagements.md §7 Q4 "hero static"). Recommendation: stagger on (CSS-only, revertible).
+    - Ready for: content (Statement + outcome copy) + designer (composition revision; `compositions/pages/engagements.md` → Pending revision on Approved).
+
+20. **`features/outcome-language-pass.md`** — **PROPOSAL / In review** · **P2**
+    - Copy-direction pass on `/roles` (role `body`/`hiredBy`) + `/engagements` (rung `delivers`/`deRisks`): process → felt-outcome register. **Hard guardrail: NO invented metrics** (categorical only). No schema/IA change.
+    - Ready for: content drafts; Arian approves against the no-metrics guardrail. No DS/designer dependency.
+
+21. **`features/faq-section.md`** — **PROPOSAL / In review** · **P2**
+    - Zero-JS native `<details>` objection-handling on `/engagements` + `/onboarding`. Question sets DECIDED (4 per page — see spec §4). Answers = content's lane (declarative, categorical, short, no CTA).
+    - Ready for: content (answers) + designer (placement). Engineer confirms DS FAQ register is zero-JS native `<details>` (else plain semantic `<details>`).
+
+22. **`features/og-cards.md`** — **PROPOSAL / In review** · **P2**
+    - Per-page + per-essay typographic OG cards (sales-gap #4 / writing.md §6.1). Priority: `/writing/[slug]` (claim + real sourced stat) > `/why-ai` > `/engagements` (figure-free) > `/writing` index > remaining routes (fallback OK). Typographic-only, no illustration except optional feather corner. Zero page-weight.
+    - Layers on R-037 (no standards change). Generation = asset-production prompts (Assets A/B/C, already authored). Open: per-essay manual-vs-templated generation (engineer/Arian).
+
+23. **`features/feather-motif-policy.md`** — **PROPOSAL / In review** · **P1** (central imagery decision — gates the others' feather use)
+    - Three-tier ruling: Tier 1 feather = canonical Pouākai motif (max one deliberate per page beyond the Wordmark; inline `currentColor` SVG; static; `aria-hidden`); Tier 2 eagle = optional deferred **unblocked** anchor (demoted from D-17 deferral, not retired); Tier 3 banned (literal eagle as recurring decoration; ALL Māori surface ornament, ever; second figurative vocabulary).
+    - **Central decision** — `/` colophon, OG feather corner, `/404`, editorial-divider feather all follow from it. Feather SVG extraction = engineer. No DS gap (isotype geometry already in Wordmark).
+
+**Statement thesis beats (deliverable #2) — where they live:**
+- `/why-ai` — `Statement` pivot beat, spec'd in #18 §4.4 (between failure modes and leaders section).
+- `/engagements` — summit `Statement` beat, spec'd in #19 §4.2 (between Retainer rung and end CTA).
+- `/` — **no `Statement` section** (IA lock); conviction carried by the lede at display scale, ruled in #17 §4.2.
+(No separate "statement-beats" spec — the once-per-page placement + conviction-outcome is recorded in each page amendment.)
+
+**Owed next from PM (flagged, non-blocking):**
+- Annotate `home-amendment-illustration-and-density.md` §4.2/§4.4 as superseded-for-`/` once #17 is Approved.
+- On `/why-ai` amendment Approved: ensure `compositions/pages/why-ai.md` is authored (designer) — page currently has no composition doc.
+
+---
+
 ## Not yet specced (future work surfaced this pass)
 
 Items that surfaced while writing the active specs but are out of launch scope. Listed here so they don't get lost.
