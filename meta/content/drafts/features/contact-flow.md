@@ -1,7 +1,7 @@
 ---
 feature: contact-flow
-status: Draft
-version: 0.1
+status: Approved
+version: 1.0
 lastUpdated: 2026-06-14
 owner: Arian (founder)
 author: pouk-ai-content
@@ -10,6 +10,9 @@ relatedSpec: meta/specs/pages/onboarding.md (consumes this feature's end-CTA con
 compositionReference: none yet (designer composes the secondary affordance beside the primary mailto after this draft lands — contact-flow.md §9)
 backlogItem: FSP-3.1
 revisionHistory:
+  - version: 1.0
+    date: 2026-06-14
+    summary: v1.0 — Arian ratified all open questions; status → Approved.
   - version: 0.1
     date: 2026-06-14
     summary: First draft. Secondary booking-line copy for the six governed conversion points + footer, per contact-flow.md §4/§5. Core line offered in 3 options with a recommendation. mailto: primary stays untouched (FS-CF-1, locked). All copy DRAFT — awaiting Arian approval.
@@ -19,9 +22,9 @@ revisionHistory:
 
 **Feature**: `contact-flow` (the dual conversion mechanism)
 **Dataset**: none — this feature governs CTA *treatment and placement*, not a content corpus (`contact-flow.md` §6). The copy below lands in each affected page's existing content source; the canonical booking URL is defined once as a shared value (engineer's call, §6).
-**Status**: DRAFT — awaiting Arian approval. Nothing here is final until Arian flips status to `Approved`.
+**Status**: Approved — Arian ratified all open questions on 2026-06-14 (v1.0). Shipped copy traces to this Approved source (closes review finding F-102).
 **Owner**: Arian (founder) · Author: pouk-ai-content
-**Last updated**: 2026-06-14 (v0.1)
+**Last updated**: 2026-06-14 (v1.0)
 **Governing spec**: `meta/specs/features/contact-flow.md` (§4 placement, §5 treatment discipline)
 **Composition reference**: none yet. Per `contact-flow.md` §9, `pouk-ai-designer` composes how the secondary booking affordance sits beside the primary `mailto:` at each point. Composition-fit flags for that pass are in §6.
 
@@ -155,10 +158,13 @@ For the designer's pass (the secondary affordance beside the primary `mailto:` a
 
 ## 7. Open questions for Arian
 
-- **Q1 — core line: `grab` vs. `book`.** §5 recommends `Or grab a time →` (operator-register) with the footer using `Book a time` (utility). Confirm the `grab`/`book` split, or standardize on one verb across all surfaces. (My recommendation: keep the split — it's intentional, not inconsistent.)
-- **Q2 — `/why-ai` three-affordance block.** Adding booking makes three links in that end block (email + booking + the existing `Roles →`). I read the conversion pair as still two (email + booking) with `Roles →` as a separate navigational hand-off, so §5 holds — but this is a placement decision for you + the designer (§6 Flag 1). Confirm booking is *added* to `/why-ai`, or that you'd rather the `/why-ai` block stay email + `Roles →` only and let the footer carry booking for that page.
-- **Q3 — `/onboarding` micro-variation.** Recommended: `Or skip the email and grab a time →` (a gentle late-funnel nudge, still subordinate, no urgency). Approve the variation, or ship the bare `Or grab a time →` there for uniformity?
-- **Q4 — `/` Hero booking line: present or footer-only?** Default per §4 is present-but-quiet on the doorway. If you'd rather keep `/` strictly title-led with email-only and let the global footer carry booking for the homepage, say so (§6 Flag 2). The spec lists `/` Hero as governed, so default is present.
+**All resolved — Arian ratified 2026-06-14 (v1.0). Recorded below; shipped copy matches.**
+
+- **Q1 — core line: `grab` vs. `book`.** **RESOLVED — keep the split.** `Or grab a time →` in-sentence (the four in-sentence surfaces + `/onboarding`); `Book a time` in the footer. The split is intentional register adaptation (operator in-sentence, bare utility label in the footer), not inconsistency.
+- **Q2 — `/why-ai` three-affordance block.** **RESOLVED — ADD booking.** Email + booking is the conversion pair at `/why-ai`'s end CTA; the existing `Roles →` line stays a separate navigational hand-off, not a third conversion affordance. §5's "never more than two conversion affordances" holds (the conversion pair is two). Designer composes the block so booking pairs with the email and `Roles →` stays visually distinct as the read-on line (§6 Flag 1).
+- **Q3 — `/onboarding` micro-variation.** **RESOLVED — use the micro-variation.** `/onboarding` end CTA ships `Or skip the email and grab a time →` (the gentle late-funnel nudge, still subordinate, no urgency). Cross-referenced in `pages/onboarding.md` §2 / §7 Q4.
+- **Q4 — `/` Hero booking line: present or footer-only?** **RESOLVED — present (quiet).** The `/` Hero secondary booking line is PRESENT but quiet, subordinate to both the title (primary anchor) and the email CTA, per §4 default.
+- **Register split — RESOLVED.** Secondary `<Button>` beside the email `<Button>` on the `/` Hero; muted link beside the email link on the other funnel pages. (Designer composes the exact variant; copy works in either treatment per A3 / §6 Flag 3.)
 
 ---
 

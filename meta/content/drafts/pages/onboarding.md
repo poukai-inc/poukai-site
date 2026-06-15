@@ -1,7 +1,7 @@
 ---
 route: /onboarding
-status: Draft
-version: 0.1
+status: Approved
+version: 1.0
 lastUpdated: 2026-06-14
 owner: Arian (founder)
 author: pouk-ai-content
@@ -12,6 +12,9 @@ endCtaDraft: meta/content/drafts/features/contact-flow.md (the secondary booking
 compositionReference: none yet (designer composes after this draft lands — onboarding.md §9; PM expects the /why-ai FailureMode-register pattern)
 backlogItem: FSP-4.1
 revisionHistory:
+  - version: 1.0
+    date: 2026-06-14
+    summary: v1.0 — Arian ratified all open questions; status → Approved.
   - version: 0.1
     date: 2026-06-14
     summary: First draft. Hero + four phase bodies/deliverables (Discovery → Scoping → Build → Handoff) + phase-index lead + end-CTA lead + page meta. Audience-flipped to prospect-facing. Pricing COMPRESSED into Scoping (FS-OB-1, no numerals). "Seamless" not used. All copy DRAFT — awaiting Arian approval.
@@ -20,9 +23,9 @@ revisionHistory:
 # Content: Onboarding (`/onboarding`)
 
 **Route**: `/onboarding`
-**Status**: DRAFT — awaiting Arian approval. Nothing here is final until Arian flips status to `Approved`.
+**Status**: Approved — Arian ratified all open questions on 2026-06-14 (v1.0). Shipped copy traces to this Approved source (closes review finding F-102).
 **Owner**: Arian (founder) · Author: pouk-ai-content
-**Last updated**: 2026-06-14 (v0.1)
+**Last updated**: 2026-06-14 (v1.0)
 **Governing spec**: `meta/specs/pages/onboarding.md` (§5 content requirements)
 **Content-data spec**: `meta/specs/content/onboarding.json.md` (binding field contract — array of 4 phase objects, categorical-only, §5 per-phase OUTCOMES)
 **Coupled feature spec**: `meta/specs/features/contact-flow.md` (the end CTA's dual mechanism; the booking line is drafted in `meta/content/drafts/features/contact-flow.md`)
@@ -223,11 +226,13 @@ For the designer's pass (`meta/compositions/pages/onboarding.md`; PM expects the
 
 ## 7. Open questions for Arian
 
-- **Q1 — hero eyebrow: `How we work together` vs. `Onboarding`.** Recommended `How we work together` (prospect-facing, sets up the flip); `Onboarding` stays the `<title>`/route noun regardless. Confirm the on-page eyebrow.
-- **Q2 — hero title: `What saying yes actually looks like`.** It assumes the reader is close to deciding (correct for late-funnel, slightly presumptuous on a cold deep-link). Approve, or prefer a less decision-forward title (alternatives in §5)?
-- **Q3 — `duration` cues.** Authored only on Discovery (`1–2 weeks`); omitted on Scoping/Build/Handoff (they vary). Approve the asymmetry, author categorical windows for all four, or drop `duration` entirely (the field is optional)?
-- **Q4 — `/onboarding` end-CTA booking line.** The coupled `contact-flow.md` draft recommends the micro-variation `Or skip the email and grab a time →` for this surface (a gentle late-funnel nudge, still subordinate, no urgency). Confirm here or in the contact-flow draft (cross-referenced; one approval covers both).
-- **Q5 — sharpness of two specific lines.** "Not a sales call in a different jacket" (Discovery) and "a live walkthrough rather than a screen recording to file away" (Handoff) are the two sharpest lines — both name a thing the reader has been burned by. They're on-register for the `/roles`-tempo target, but they're the two most likely to read as a *touch* pointed. Keep both, soften one, or soften both?
+**All resolved — Arian ratified 2026-06-14 (v1.0). Recorded below; shipped copy matches.**
+
+- **Q1 — hero eyebrow: `How we work together` vs. `Onboarding`.** **RESOLVED — `How we work together`** (the on-page eyebrow). `Onboarding` stays the `<title>`/route noun. **Note: the eyebrow TEXT is approved; rendering it on the titled Hero is PENDING a DS-correct mechanism** — the default Hero has no eyebrow slot, and the designer is assessing how to render an eyebrow on a titled Hero. Text approved; rendering pending DS.
+- **Q2 — hero title: `What saying yes actually looks like`.** **RESOLVED — keep `What saying yes actually looks like`.**
+- **Q3 — `duration` cues.** **RESOLVED — keep the asymmetry.** Discovery shows `1–2 weeks`; Scoping/Build/Handoff omit `duration` (those vary by scope; the SOW milestones carry the timeline).
+- **Q4 — `/onboarding` end-CTA booking line.** **RESOLVED — `Or skip the email and grab a time →`** (the gentle late-funnel micro-variation, still subordinate, no urgency). Cross-ref `meta/content/drafts/features/contact-flow.md` §2 (`/onboarding` surface) / §7 Q3 — one approval covers both.
+- **Q5 — sharpness of two specific lines.** **RESOLVED — keep both.** "Not a sales call in a different jacket" (Discovery) and "a live walkthrough rather than a screen recording to file away" (Handoff) both stay as drafted.
 
 ---
 

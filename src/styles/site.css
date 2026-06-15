@@ -352,6 +352,18 @@ header a[href="/"] svg {
   margin-block-end: var(--space-4);
 }
 
+/* ---------- Onboarding page — hero eyebrow spacing (interim) ----------
+   Interim until hero-eyebrow-with-title.md lands in @poukai-inc/ui.
+   The DS <Eyebrow> atom owns margin:0 (DS contract — the consuming molecule
+   owns spacing). This rule applies the single --space-2 (8px) gap between the
+   eyebrow and the <Hero> below it, per composition §2 Section 2 (eyebrow→title
+   rhythm, site-side only — no DS token override, no shadow of atom styles).
+   See: meta/compositions/pages/onboarding.md §2 Section 2 + §6. */
+
+.onboarding-hero-eyebrow {
+  margin-block-end: var(--space-2);
+}
+
 /* ---------- Writing index — essay list ----------
    Vertical stack of <LinkCard variant="quiet"> entries. The quiet variant
    provides its own top-hairline + padding per entry, so the inter-entry rhythm

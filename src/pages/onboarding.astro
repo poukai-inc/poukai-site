@@ -31,7 +31,7 @@
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Hero, FailureModeList, FailureMode, Section, EmailLink, Link } from "@poukai-inc/ui";
+import { Hero, Eyebrow, FailureModeList, FailureMode, Section, EmailLink, Link } from "@poukai-inc/ui";
 import { onboardingSchema } from "../content/_schemas/onboarding";
 import { BOOKING_URL } from "../lib/booking";
 import onboardingRaw from "../content/onboarding.json";
@@ -71,10 +71,14 @@ const jsonLd = {
   <div class="site-page">
 
     <!-- 1. Hero — frames the six weeks from the prospect's standpoint (spec §4 IA item 2).
-         No eyebrow: the DS default Hero variant (title + lede) excludes the eyebrow slot
-         (eyebrow is only available on variant="no-title"). The page eyebrow intent is
-         carried by the <title> tag and the FailureModeList eyebrow below. Mirrors
-         the /why-ai and /engagements pattern (title + lede only, no eyebrow on Hero). -->
+         Eyebrow interim (F-101, Arian 2026-06-14): the DS titled <Hero> has no eyebrow slot
+         at @poukai-inc/ui@2.11.2 (eyebrow is only valid on variant="no-title", which emits
+         no heading element). The DS atom <Eyebrow as="p" variant="muted"> is placed directly
+         above the <Hero> with a single --space-2 (8px) gap via .onboarding-hero-eyebrow.
+         The atom owns the eyebrow's shape; the page owns only placement + one spacing token.
+         Migrates to <Hero eyebrow="…" title="…" /> when hero-eyebrow-with-title.md lands.
+         See: meta/compositions/pages/onboarding.md §2 Section 2, §6; meta/proposals/ds-side/hero-eyebrow-with-title.md. -->
+    <Eyebrow as="p" variant="muted" className="onboarding-hero-eyebrow">How we work together</Eyebrow>
     <Hero
       size="display"
       title="What saying yes actually looks like"
