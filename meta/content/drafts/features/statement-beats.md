@@ -1,9 +1,9 @@
 ---
 feature: statement-beats
 surfaces: ["/", "/why-ai", "/engagements"]
-status: Draft
-version: 0.1
-lastUpdated: 2026-06-15
+status: Partially approved — /why-ai pivot Statement ratified + built 2026-06-16 (see /why-ai section); / and /engagements beats remain Draft
+version: 0.2
+lastUpdated: 2026-06-16
 owner: Arian (founder)
 author: pouk-ai-content
 governingSpecs:
@@ -55,9 +55,10 @@ The `Statement` molecule is the site's once-per-page italic-serif conviction bea
 
 Placement: between the five failure modes and "What the leaders do differently" (IA beat 7), on `--bg`, italic-serif at `--fs-statement`.
 
-- **Statement (recommended)**: `The diagnosis comes before the build. That is the order pouk.ai works in.`
+- **Statement (recommended — 2026-06-16)**: `Diagnosis before the build — the order pouk.ai works in.` **[APPROVED by Arian 2026-06-16 for the /why-ai pivot. Sharpest one-line option ratified. Coupled tail edit (below, §A2 "Proposed") also approved: whereWorks.closing → "Those four answers decide what — if anything — gets built." Cleared for build.]**
+- **Statement (verbatim alternative)**: `The diagnosis comes before the build. That is the order pouk.ai works in.` *(not selected)*
 
-*(This is the existing `why-ai.json` `whereWorks.closing` line, promoted verbatim to the pivot. It is already the page's most quotable sentence; the move is to raise its voice at the structural pivot rather than let it close quietly in the tail. Two short sentences here read as one conviction beat — the second sentence is the turn that makes it pouk.ai's, not a general maxim. Alternatives, including a single-sentence collapse, in §5.)*
+*(Both are promotions of the existing `why-ai.json` `whereWorks.closing` line — same conviction, no new claim. The recommended line collapses it to one italic-serif beat with the em-dash turn the page's house style embraces (OMC-V4 — em-dashes are `/why-ai`'s established register, unlike the HOME zero-dash cycle). At `--fs-statement` a single line is the cleaner raised voice. The verbatim two-sentence alternative is the drop-in if Arian prefers the period-stop rhythm; the designer-crowding check in §7 applies to it. Either way the move is to raise the line's voice at the structural pivot rather than let it close quietly in the tail. Full table in §5.)*
 
 - **Coupled tail-prose edit (A2 — flag for Arian).** If the line is promoted out of `whereWorks.closing`, the tail must not dangle. The current tail closes:
   - *(current)* `… They need a partner who can diagnose which failure mode the work is in and fix it — at the intersection of business knowledge and AI tooling.` → then the discovery questions → then `The diagnosis comes before the build. That is the order pouk.ai works in.`
@@ -95,11 +96,13 @@ Placement: between the Retainer rung and the end CTA (new IA beat between base �
 
 ### `/why-ai` pivot Statement
 
+> **2026-06-16 finalization (em-dash convention ratified).** `/why-ai` uses em-dashes deliberately as house style (OMC-V4; see `why-ai.astro` decisions) — the zero-em-dash rule was HOME-cycle-only and does **not** apply here. That makes the em-dash single-line collapse a first-class option for this beat, not the compromise the original draft framed it as. The amendment §4.4 is explicit that this is a **promotion** of the existing tail line, not a new claim — so the new-category-claim option stays out of scope. The real choice is verbatim two-sentence vs. em-dash single-line. **Recommendation flipped to Sharpest** for the raised-voice beat (reason below); the verbatim two-sentence Safest remains the drop-in if Arian prefers the period-stop rhythm.
+
 | Option | Copy | Rationale | Risk |
 |---|---|---|---|
-| Safest | `The diagnosis comes before the build. That is the order pouk.ai works in.` | The existing line, promoted verbatim — zero new claim, already the page's most quotable sentence. **Recommended.** | Two sentences where a Statement is often one; the designer should confirm `--fs-statement` holds a two-sentence beat without crowding. |
-| Sharpest | `Diagnosis before build — the order pouk.ai works in.` | Single line, em-dash turn; tighter at display scale, reads as one breath. | Loses the period-stop rhythm of the original; "the order pouk.ai works in" leans on the dash rather than a full second sentence — slightly less declarative. |
-| Weirdest | `Everyone can build now. Almost no one diagnoses first.` | Reframes the conviction as a category observation (the AI-tooling-is-cheap, judgment-is-scarce thesis); very operator. | Drifts from the *promotion* the amendment asked for into a *new* claim — out of the stated scope; would need Arian to authorize a fresh line over a promotion. |
+| Safest | `The diagnosis comes before the build. That is the order pouk.ai works in.` | The existing `whereWorks.closing` line, promoted verbatim — zero new claim, already the page's most quotable sentence. The drop-in if Arian wants the two-sentence period-stop rhythm at the pivot. | Two sentences where a `Statement` reads most cleanly as one line at `--fs-statement`; designer should confirm the two-sentence beat holds without reading as a paragraph. |
+| Sharpest (recommended) | `Diagnosis before the build — the order pouk.ai works in.` | One italic-serif line, one breath, with the em-dash turn the page's house style embraces (OMC-V4). At `--fs-statement` a single line *is* the raised voice; the em-dash carries the "general maxim → this practice's discipline" turn that the period did in the original, now in one beat. Still a promotion — same words, same conviction, collapsed. | Loses the period-stop rhythm of the original; leans on the em-dash for the turn (which is exactly the page's ratified register, so the risk is muted here). |
+| Weirdest | `Everyone can build now. Almost no one diagnoses first.` | Reframes the conviction as a category observation (AI tooling is cheap, judgment is scarce); very operator. | Drifts from the *promotion* the amendment asked for into a *new* claim — out of the stated scope (§4.4); would need Arian to authorize a fresh line over a promotion. Holstered. |
 
 ### `/engagements` summit Statement
 
@@ -138,7 +141,7 @@ The raise-the-ceiling reversal on `/` is **scale, not words** (home-amendment §
 
 ## 8. Open questions for Arian
 
-- **Q1 — `/why-ai` Statement: promote verbatim (two sentences) or collapse to one?** Recommended: promote verbatim (Safest). The Sharpest single-sentence collapse is available if the designer reports the two-sentence beat crowds `--fs-statement`. Your call on register.
+- **Q1 — `/why-ai` Statement: collapse to one em-dash line, or promote the two-sentence verbatim?** Recommended (2026-06-16): the Sharpest single line `Diagnosis before the build — the order pouk.ai works in.` — the em-dash is `/why-ai`'s ratified house style (OMC-V4), so the one-breath collapse is the cleaner raised-voice beat at `--fs-statement`, and it is still a promotion (same conviction, no new claim). The verbatim two-sentence `The diagnosis comes before the build. That is the order pouk.ai works in.` is the drop-in if you prefer the period-stop rhythm. Your call on register; both are promotions, both on-spec.
 - **Q2 — `/why-ai` coupled tail edit.** Approve the replacement closing `Those four answers decide what gets built.` (or elect "end on the last discovery question, no closing line"). One of the two is needed so the tail doesn't dangle once the conviction line moves up. **Blocking the `/why-ai` Statement landing cleanly.**
 - **Q3 — `/engagements` summit: confirm the bookend.** The recommended line deliberately echoes the hero's "not four products on a shelf" thesis as a payoff. Confirm you want the bookend (recommended) vs. a non-echoing close. If you'd rather the summit not reuse hero vocabulary, the Weirdest option is the alternative.
 - **Q4 — `/` adds nothing: confirm.** Confirm the home conviction stays lede-carried with no Statement (per the IA lock). The parked `/` line in §5 is for the record only unless you re-open the IA.

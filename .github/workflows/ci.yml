@@ -8,12 +8,17 @@
 # Also hardens R-054 (HARD) — build must exit 0 on every PR HEAD and on main.
 #
 # Also closes:
-#   - R22 / R-013 / R-056 (HARD) — `lighthouse` job runs lhci against a local
-#     `pnpm preview` server. Thresholds in `.lighthouserc.json` per R-013:
-#     Perf ≥ 95, A11y/BP/SEO = 1.0 on mobile, three runs per route for flake.
+#   - R22 / R-013 / R-056 — `lighthouse` job runs lhci against a local
+#     `pnpm preview` server. Thresholds in `.lighthouserc.json`: Perf ≥ 95,
+#     A11y/BP/SEO = 1.0 on mobile, three runs per route for flake.
+#     ADVISORY as of D-25 (2026-06-16 JS revocation): tracked for situational
+#     awareness, NOT merge-blocking (job carries continue-on-error). Binding
+#     accessibility is enforced separately by the `axe` job below. The lhci
+#     artifact upload (R-056) is retained for the reviewer's metrics block.
 #   - R23 / R-029 / R-057 (HARD) — `axe` job runs @axe-core/cli (the official
 #     axe runner; R-057 explicitly accepts "or equivalent") against the same
-#     local preview server. Fails on any WCAG 2.1 AA violation.
+#     local preview server. Fails on any WCAG 2.1 AA violation. Accessibility
+#     remains a HARD, merge-blocking gate under D-25 — unchanged.
 #
 # Both lhci and axe run against `localhost:4321` (the `pnpm preview` server),
 # not Vercel's preview URL — that needs a `deployment_status` webhook from
@@ -70,8 +75,15 @@ jobs:
         run: pnpm build
 
   client-js-budget:
-    name: client-js-budget — ≤75 kB gzipped third-party JS (R-010)
+    name: client-js-budget — third-party JS size (R-010, advisory)
     runs-on: ubuntu-latest
+    # ADVISORY as of D-25 (2026-06-16 JS revocation). R-010's ≤75 kB per-page
+    # budget and the two-script whitelist are STRUCK — client JS is now
+    # permitted anywhere with no budget. This job is retained only to report
+    # third-party JS size for situational awareness; continue-on-error keeps a
+    # regression from blocking merge. Remove this job from branch-protection
+    # required checks (GitHub UI) when convenient.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -98,15 +110,21 @@ jobs:
         # builds (with those env vars set) will surface ~66.5 kB baseline.
         run: pnpm build
 
-      - name: Check client-JS budget
-        # R-010 HARD: total third-party JS ≤ 75 kB gzipped per page.
-        # First-party /_astro/ hydration islands are exempt (R-009(c)).
-        # Vercel Analytics (~1.5 kB) counted statically when present.
+      - name: Report client-JS size
+        # ADVISORY (D-25): formerly the R-010 HARD ≤75 kB gate, now struck.
+        # Output is informational; the job's continue-on-error means a non-zero
+        # exit here does not block merge.
         run: node .github/scripts/client-js-budget.mjs
 
   html-weight:
-    name: html-weight — ≤110% of baseline gzipped (R-015)
+    name: html-weight — gzipped weight vs baseline (R-015, advisory)
     runs-on: ubuntu-latest
+    # ADVISORY as of D-25 (2026-06-16 JS revocation). R-015's ≤110%-of-baseline
+    # HTML-weight ceiling is converted from a HARD gate to advisory — tracked,
+    # not merge-blocking. continue-on-error keeps a regression visible (red but
+    # non-blocking) without gating PRs. Remove from branch-protection required
+    # checks (GitHub UI) when convenient.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -310,11 +328,20 @@ jobs:
         run: pnpm licenses list --prod --json | node .github/scripts/license-check.mjs
 
   lighthouse:
-    name: lighthouse — lhci (R-013, R-056)
+    name: lighthouse — lhci (R-013 advisory, R-056 artifact)
     runs-on: ubuntu-latest
+    # ADVISORY as of D-25 (2026-06-16 JS revocation). R-013's Lighthouse
+    # thresholds (Perf ≥ 95, BP/SEO = 1.0) are tracked, not merge-blocking;
+    # continue-on-error keeps a regression from gating PRs. Binding
+    # accessibility is enforced by the separate `axe` job (HARD, unchanged).
+    # The R-056 artifact upload still runs (if: always) for the reviewer's
+    # metrics block. Remove from branch-protection required checks (GitHub UI)
+    # when convenient.
+    #
     # Independent of the build job — surfaces its own build error if it can't
     # produce dist/ — so a flaky lhci run doesn't mask a real build failure
     # in the upstream `build` job, and vice versa.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -338,7 +365,7 @@ jobs:
         run: pnpm build
 
       - name: Run lighthouse-ci
-        # R-013 HARD thresholds: Perf ≥ 95, A11y/BP/SEO = 1.0 on mobile.
+        # R-013 thresholds (ADVISORY per D-25): Perf ≥ 95, A11y/BP/SEO = 1.0 on mobile.
         # Three runs per route — lhci takes the median, which absorbs the 1–2
         # point Performance flake D-14 warned about.
         # Config: .lighthouserc.json at repo root. Pin lhci version explicitly;

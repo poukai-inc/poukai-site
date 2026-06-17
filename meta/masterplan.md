@@ -29,10 +29,10 @@ Pulled directly from your answers; restated so they can't drift:
 | **Dep mode**      | Dual. `pnpm` workspace link locally (`@poukai-inc/ui` resolves to the in-repo build); CI installs the versioned package from `npm.pkg.github.com`.                                                                          |
 | **Scope**         | All four surfaces -- `/`, `/why-ai`, `/roles`, `/principles`.                                                                                                                                                           |
 | **Deploy**        | Vercel.                                                                                                                                                                                                                 |
-| **Quality bar**   | Lighthouse 100 across Performance, Accessibility, Best-practices, SEO -- on every page, on mobile.                                                                                                                      |
+| **Quality bar**   | Accessibility (WCAG AA, axe 0 violations) and `prefers-reduced-motion` are the binding quality bar on every page, mobile. Lighthouse (Performance/Best-practices/SEO) and HTML weight are **advisory** as of 2026-06-16 (founder JS revocation -- see §4.3) -- tracked, not merge-blocking.                                                              |
 | **Atomic Design** | Tokens, atoms, molecules, organisms live in the DS. Templates and pages live in the client repo (pouk.ai). The DS must be reusable by other Pouk AI INC services -- so nothing in it is allowed to know about the site. |
 
-The Lighthouse 100 + Astro choice has one immediate implication: **the holding page must ship zero client JS by default**, including the package. React is a build-time concern only on `/`.
+> **REVOKED 2026-06-16 (founder decision).** This line previously asserted that the Lighthouse 100 + Astro choice forced **zero client JS by default on the holding page**, with React a build-time-only concern. That coupling is struck. Client-side JS is now permitted anywhere, for any reason — no whitelist, no `// hydration:` justification, no zero-JS contract. Lighthouse and HTML weight are advisory (see the revised quality-bar row above and §4.3). The only constraints that survive are accessibility (WCAG AA, axe 0 violations) and `prefers-reduced-motion`. Astro static rendering remains the default *because it's a sensible engineering choice*, not because a contract requires it. See the decisions log entry D-25 (`meta/decisions/2026-06-16-revoke-zero-js.md`).
 
 ---
 
@@ -264,27 +264,32 @@ poukai-inc/pouk.ai
 
 ### 4.2A CI shape
 
-The Astro build is the easy part. The CI pipeline that fronts every PR (and every merge to `main` before the Vercel domain alias is touched) has four gates:
+The Astro build is the easy part. The CI pipeline that fronts every PR (and every merge to `main` before the Vercel domain alias is touched) has these gates:
 
-- **Build & typecheck** -- `pnpm build` + `astro check`. Green or the PR doesn't merge.
-- **Lighthouse-CI** -- `lighthouse-ci` runs against every route on the Vercel preview URL, mobile profile. Thresholds per `meta/standards/technical-requirements.md` R-013 (Performance ≥ 95, Accessibility = 100, Best Practices = 100, SEO = 100).
-- **Axe accessibility** -- `@axe-core/playwright` runs against every route. 0 violations required (HARD per R-NNN in the standards doc).
-- **Content-schema validation** -- every file under `src/content/*.json` validates against its Zod schema at build time. Schema drift fails the build.
+- **Build & typecheck** -- `pnpm build` + `astro check`. Green or the PR doesn't merge. **(BLOCKING.)**
+- **Axe accessibility** -- `@axe-core/playwright` runs against every route. 0 violations required. **(BLOCKING — survives the 2026-06-16 JS revocation; a11y is the binding bar.)**
+- **Content-schema validation** -- every file under `src/content/*.json` validates against its Zod schema at build time. Schema drift fails the build. **(BLOCKING.)**
+- **Lighthouse-CI** -- `lighthouse-ci` runs against every route on the Vercel preview URL, mobile profile. As of 2026-06-16 this is **ADVISORY, not merge-blocking** (founder JS revocation — §4.3): Performance / Best-practices / SEO are reported and tracked but do not fail a PR. The Accessibility audit remains expected at 100, but the binding a11y gate is axe, not Lighthouse. Thresholds per the reviewer's revised `meta/standards/technical-requirements.md` R-013 (converted from blocking to advisory in the parallel revision).
 
-The Lighthouse + Axe gates run against the Vercel preview, not against `pnpm dev`, because the preview is what Vercel actually serves. CI calls the Vercel API to grab the preview URL for the current commit before running the audit. If `lighthouse-ci` is configured locally, the engineer can dry-run before pushing.
+The Axe gate runs against the Vercel preview, not against `pnpm dev`, because the preview is what Vercel actually serves. CI calls the Vercel API to grab the preview URL for the current commit before running the audit. Lighthouse runs the same way for its advisory report.
 
 ### 4.3 Client-JS posture
 
-`@poukai-inc/ui` components render through Astro's server-renderer (`<Hero client:none />` is the default -- no hydration directive). The shipped HTML contains the rendered DOM and the imported CSS. No React runtime is sent to the browser for the DS layer.
+> **REVOKED 2026-06-16 (founder decision — "Full removal").** The entire client-JS contract this section used to assert is struck. This note is retained (not deleted) so documents that cite §4.3 still resolve. See the decisions log: **D-25** (`meta/decisions/2026-06-16-revoke-zero-js.md`).
+>
+> **What this section used to require (now void):**
+> - Astro static rendering with no hydration directive was *mandatory* (`<Hero client:none />` as the enforced default); no React runtime could ship to the browser for the DS layer.
+> - Exactly two first-party client scripts were permitted on every page (Matomo, Bugsink); a combined budget of ≤ 75 KB gzipped per page (R-010) was enforced.
+> - Any third script — third-party hydration, a `<Dialog>` island, a Stripe checkout, anything — required an inline `// hydration: <reason>` justification comment and counted against the budget. The practical bar was "no JS that isn't first-party or explicitly justified."
+>
+> **What now holds (2026-06-16 onward):**
+> - **Client-side JS is permitted anywhere, for any reason.** No whitelist, no `// hydration:` justification comment, no per-page JS budget, no zero-JS / static-HTML-only contract. Hydration directives (`client:load`, `client:visible`, `client:only`, etc.), islands, third-party widgets, and embeds are all allowed without ceremony.
+> - **Lighthouse and HTML weight are advisory, not merge-blocking** (see §4.2A and §6.1). They are tracked for situational awareness; they do not gate a PR or the cutover.
+> - **What survived the revocation (still binding):** Accessibility — WCAG AA, axe-core 0 violations on every route — and `prefers-reduced-motion`. The founder's revocation did **not** touch a11y. Any interactive/hydrated surface introduced under the new freedom must still be keyboard-accessible, screen-reader-correct, axe-clean, and must honor reduced-motion. The reviewer's parallel revision of `meta/standards/technical-requirements.md` strikes the client-JS-posture rules (R-009 / R-078 / R-079) and converts R-013 (Lighthouse) + the HTML-weight gate from blocking to advisory; the a11y and reduced-motion rules remain binding there.
+>
+> **Founder rationale (recorded):** "Zero-JS is a limitation; full removal." The contract was constraining design and engineering choices for a performance posture the founder no longer wants enforced as a gate. Static rendering remains a reasonable default *by choice*, not by mandate.
 
-Two pieces of first-party client JS run on every page (decision recorded in `meta/decisions/launch-readiness.md` D-15 / D-16, 2026-05-13):
-
-- **Matomo** -- privacy-respecting first-party analytics, JS tracker on every route including `/`. Cookieless mode; loaded `defer`.
-- **Bugsink** -- Sentry-compatible self-hostable error reporter; client SDK on every route including `/`. Loaded `defer`.
-
-The combined budget is ≤ 75 KB gzipped per page (R-010). Any third script -- third-party hydration, a `<Dialog>` island, a Stripe checkout, anything -- requires an inline `// hydration: <reason>` comment and counts against the budget. The earlier "zero JS on `/`" formulation has been retired; the practical bar now is "no JS that isn't first-party (Matomo / Bugsink / explicitly justified `@poukai-inc/ui` island)."
-
-`StatusBadge`'s pulse is CSS keyframes, not state -- it remains JS-free regardless of the budget conversation.
+`StatusBadge`'s pulse is CSS keyframes, not state — it remains JS-free as an implementation detail (not as a contract requirement), and like all motion it still collapses under `prefers-reduced-motion`.
 
 ### 4.4 Long-form content as data
 
@@ -351,11 +356,11 @@ Before any DNS / Vercel domain swap, every page in the new build has to pass:
 | Check                             | Tool                                | Pass bar                                                 |
 | --------------------------------- | ----------------------------------- | -------------------------------------------------------- |
 | Visual diff vs. current `pouk.ai` | screenshot, manual                  | "indistinguishable" on `/`                               |
-| Lighthouse mobile                 | `lighthouse-ci` in CI               | Perf ≥ 95 · A11y = 100 · BP = 100 · SEO = 100 (per R-013) |
-| Axe a11y                          | `@axe-core/playwright`              | 0 violations                                             |
+| Axe a11y **(BLOCKING)**           | `@axe-core/playwright`              | 0 violations                                             |
+| `prefers-reduced-motion` **(BLOCKING)** | manual                        | all animation off                                        |
 | JSON-LD                           | manual JSON validate                | identical to current page                                |
-| HTML weight (`/`)                 | `gzip -c built.html \| wc -c`        | gzipped bytes ≤ current page + 10% (per R-015)           |
-| `prefers-reduced-motion`          | manual                              | all animation off                                        |
+| Lighthouse mobile **(ADVISORY 2026-06-16)** | `lighthouse-ci` in CI     | Perf / BP / SEO tracked, not gating; A11y expected 100 but axe is the binding check (per revised R-013) |
+| HTML weight (`/`) **(ADVISORY 2026-06-16)** | `gzip -c built.html \| wc -c` | reported for awareness; no longer gates cutover (per the JS revocation, §4.3) |
 
 ### 6.2 Switch order
 

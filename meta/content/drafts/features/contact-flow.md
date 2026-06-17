@@ -41,7 +41,7 @@ This draft does **not** restate or revise the primary `mailto:` copy at any surf
   - A second, optional path is present at each governed point (`/` Hero, `/why-ai` end, `/roles` end, `/engagements` end, `/onboarding` end, footer). `mailto:` stays primary; booking is subordinate (§5, AC).
   - No urgency, no scarcity, no exclamation, no "book now," no "limited slots," no countdown (§5 — hard).
   - One primary, one quiet secondary — never a wall of buttons (§5).
-  - The booking link is a plain `<a href>` to the canonical `cal.pouk.ai` URL — copy carries no widget/embed language (§5, zero-JS).
+  - The booking link is a plain `<a href>` to the canonical `cal.pouk.ai` URL — copy carries no widget/embed language (§5; booking happens on `cal.pouk.ai`, linked to). [Note: the old zero-JS rationale here is superseded by D-25 (2026-06-16 JS revocation) — client JS is permitted; the plain-link treatment now stands as a design choice, not a contract requirement. a11y + reduced-motion remain binding.]
   - Trust-loop exclusion is absolute: **no booking line on `/principles` or `/about`** (§4, §10). This draft authors no booking copy for those surfaces.
 - **Voice anchor**: agent §4.1 (direct — the line is short, no throat-clearing), §4.2 (operator-first — "grab a time" is how an operator talks about a calendar, not "schedule a consultation"), §4.4 (no marketing-speak — the banned list plus the spec's own anti-urgency rule), §4.6 (implied confidence — the line offers a slot, it doesn't sell one). The register target is the existing `/why-ai` end-CTA secondary line ("Or read about the four shapes…") — a quiet *or*-clause that points at an alternative without competing.
 - **Assumptions** (flagged for Arian to accept or override):
@@ -176,5 +176,6 @@ For the designer's pass (the secondary affordance beside the primary `mailto:` a
 - **Per-rung booking links on `/engagements`** and **per-card booking links on `/roles`** — §4 / §10 / D-08. Booking appears only at end CTAs.
 - **The booking URL value and the shared-constant mechanism** — engineer's call (§6, R-076). Content owns the *label*; href is `https://cal.pouk.ai` (FS-CF-2, locked single URL at v1).
 - **Booking-context routing** (archetype/rung in the booking URL) — deferred to a fast-follow (FS-CF-2). v1 is one canonical URL.
-- **Any embedded `cal.com` widget / iframe / island / modal copy** — zero-JS; booking happens on `cal.pouk.ai`, linked to (§5, §10). No widget language authored.
+- **Any embedded `cal.com` widget / iframe / island / modal copy** — booking happens on `cal.pouk.ai`, linked to (§5, §10). No widget language authored.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The link-not-embed treatment stays as a design choice, not a JS-contract requirement.)
 - **Visual weight, button variant, footer slot, the beside-the-primary composition** — `pouk-ai-designer`'s lane (§6 hands these off).

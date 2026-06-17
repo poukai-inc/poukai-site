@@ -14,10 +14,12 @@
  *     only surface on the site where booking is a <Button>. All other end CTAs
  *     use a muted link (Context B). Both remain subordinate to the Hero title.
  *
- * Hero posture: editorial-doorway → size="intimate" + entrance="stagger" per
- * meta/decisions/2026-05-19-hero-stagger-scope.md.
+ * Hero posture: display doorway → size="display" + entrance="stagger" per
+ * RR-1 (ratified-decision reversal, raise-the-ceiling Phase 1).
  *
- * Rendered as static HTML at build time — no hydration directive (R-079).
+ * Rendered as static HTML at build time — static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import { Hero, StatusBadge, Button } from "@poukai-inc/ui";
@@ -53,7 +55,7 @@ export function HomeHero({
 }: HomeHeroProps) {
   return (
     <Hero
-      size="intimate"
+      size="display"
       entrance="stagger"
       status={
         <StatusBadge status="available">{status}</StatusBadge>
@@ -75,16 +77,20 @@ export function HomeHero({
       cta={
         /* Context A — button-beside-button (booking-affordance §2 Context A).
            mailto: Button is primary (default variant); booking Button is secondary variant.
-           Both are size="compact" to match the existing Hero CTA rung.
+           RR-1/RR-2: size="md" matches display-scale Hero (was "compact" at intimate scale).
            Both subordinate to the Hero title (home composition "title is primary anchor"). */
-        <>
-          <Button asChild size="compact">
+        /* The DS Hero `cta` slot wrapper is `inline-flex` with no gap (built for a
+           single CTA). The button-beside-button pair needs its own gapped flex
+           container, else the two buttons abut. flex-wrap lets them stack on
+           narrow viewports instead of overflowing. (--space-3 = DS button-row gap.) */
+        <span className="home-hero-cta-pair">
+          <Button asChild size="md">
             <a href={ctaHref}>{ctaLabel}</a>
           </Button>
-          <Button asChild size="compact" variant="secondary">
+          <Button asChild size="md" variant="secondary">
             <a href={BOOKING_URL}>{bookingLabel}</a>
           </Button>
-        </>
+        </span>
       }
     />
   );

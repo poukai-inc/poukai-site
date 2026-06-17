@@ -102,8 +102,9 @@ Constraint: `scopes.items[]` is the field the OAuth reviewer reads. Its feature 
 - [ ] `SiteShell` renders with **no funnel-nav item marked current**.
 - [ ] `<title>` and `<meta description>` describe the scheduling app (factual product copy).
 - [ ] Content lives in `src/content/scheduling.json` validated by a Zod schema (R-074/R-076).
-- [ ] Lighthouse mobile: Perf ≥ 95, A11y = 100, BP = 100, SEO = 100.
-- [ ] No client-side JS beyond the sitewide `BaseLayout` posture; axe-core 0 violations (route in CI coverage per CR-3).
+- [ ] Lighthouse mobile (advisory, not a merge gate per D-25): tracked for situational awareness; not blocking.
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
+- [ ] axe-core 0 violations (route in CI coverage per CR-3) and `prefers-reduced-motion` honored — both binding. Client-side JS is permitted on this route (the prior "no client-side JS beyond `BaseLayout`" clause is revoked by D-25).
 - [ ] **Scope-justification verified** against the live `cal.pouk.ai` consent screen (Arian-verified) — the compliance check.
 
 ## 9. Decisions (RESOLVED) + dependencies
@@ -117,7 +118,8 @@ Constraint: `scopes.items[]` is the field the OAuth reviewer reads. Its feature 
 ## 10. Out of scope
 
 - Becoming the funnel's primary booking path. The direct booking CTA at conversion points (`contact-flow`) owns that; `/scheduling` is the explainer/justification.
-- An embedded `cal.com` booking widget on `/scheduling`. The page links *out* to `cal.pouk.ai`; embedding a third-party scheduling iframe/island would violate the zero-JS + client-JS-budget posture (R-009/R-010). Booking happens on the app, not in an embed here.
+- An embedded `cal.com` booking widget on `/scheduling`. The page links *out* to `cal.pouk.ai`; booking happens on the app, not in an embed here. (This stays a product/scope call. The earlier rationale — "would violate the zero-JS + client-JS-budget posture (R-009/R-010)" — no longer applies: D-25 revoked that posture and permits client-side JS, including third-party embeds. The reason to keep booking on the app is funnel/UX restraint, not a JS prohibition.)
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - Prospect-funnel CTAs interrupting the scope-justification section.
 - Brand-register experiments that dilute the compliance read.
 - Rewriting the shipped product/compliance copy. This spec ratifies and governs it.

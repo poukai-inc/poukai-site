@@ -203,7 +203,7 @@ jobs:
 
             ## Build artifact sizes
 
-            Per `meta/standards/technical-requirements.md` R-015 (gzipped HTML weight ≤ prior + 10%). Compare against the previous bump PR's table to spot regressions.
+            Per `meta/standards/technical-requirements.md` R-015 (gzipped HTML weight ≤ prior + 10% — ADVISORY since D-25, 2026-06-16; tracked, not merge-blocking). Compare against the previous bump PR's table to spot regressions.
 
             ${{ steps.sizes.outputs.table }}
 

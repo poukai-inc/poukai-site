@@ -127,7 +127,8 @@ describe("HomeHero", () => {
 		// Primary: mailto: link.
 		expect(anchors[0].getAttribute("href")).toBe("mailto:hello@pouk.ai");
 		expect(anchors[0].textContent).toBe("hello@pouk.ai");
-		// Secondary: booking link — plain <a> to cal.pouk.ai (zero-JS, R-079).
+		// Secondary: booking link — plain <a> to cal.pouk.ai (static by design; no embed needed).
+		// [R-079 zero-JS contract superseded by D-25, 2026-06-16.]
 		expect(anchors[1].getAttribute("href")).toBe("https://cal.pouk.ai");
 		expect(anchors[1].textContent).toBe("Or grab a time →");
 	});

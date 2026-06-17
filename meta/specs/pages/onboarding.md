@@ -114,10 +114,12 @@ Cross-surface / conversion:
 
 Quality:
 
-- [ ] Lighthouse mobile: Perf ≥ 95, A11y = 100, BP = 100, SEO = 100.
-- [ ] No client-side JS shipped beyond the sitewide `BaseLayout` posture.
-- [ ] `prefers-reduced-motion` honored on any composition motion (CSS-only).
-- [ ] axe-core 0 violations; route added to all four CI route lists (lhci / axe / tab-order / visual).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse advisory, not blocking. a11y (axe-core 0 violations) + reduced-motion remain binding.
+
+- [ ] Lighthouse mobile tracked as advisory (target A11y = 100; Perf/BP/SEO for situational awareness). Not a merge gate.
+- [ ] Client-side JS is permitted per D-25; the page may stay at the sitewide `BaseLayout` posture by choice, but no JS prohibition applies.
+- [ ] `prefers-reduced-motion` honored on any composition motion (CSS or JS-driven).
+- [ ] axe-core 0 violations; route added to the axe / tab-order / visual CI route lists (lhci remains as an advisory run).
 - [ ] `<title>`, `<meta description>`, canonical (trailing-slash) correct.
 
 Process:
@@ -150,7 +152,7 @@ Process:
 - **The "first client" / consultant-self-talk content** from the source. Retired.
 - **Per-phase sub-routes** (`/onboarding/discovery`, etc.). Anchor-based for v1.
 - **Phase-level CTAs.** One quiet end CTA via `contact-flow`; no per-phase buttons, no urgency.
-- **A scheduling embed or contact form on the page.** The end CTA offers `mailto:` + a link to `cal.pouk.ai` (governed by `contact-flow`); no embedded widget (zero-JS, R-009).
+- **A scheduling embed or contact form on the page.** The end CTA offers `mailto:` + a link to `cal.pouk.ai` (governed by `contact-flow`); no embedded widget — a brand-restraint choice. (Per D-25 the prior "zero-JS, R-009" rationale is superseded — client JS is permitted; the embed stays out by design, not by JS prohibition.)
 - **Folding `/enterprise`'s 7 production pillars in as a separate route.** The strongest production-grade content may inform the Build/Handoff phases (§ `final-state-strategy.md` §7.1), but `/onboarding` does not spawn `/enterprise`.
 - **Authoring the DS phase-section component API.** Site-side need only; DS API is `@poukai-inc/poukai-ui` maintainers' domain.
 - **Final copy and visual composition.** Content and designer lanes respectively.

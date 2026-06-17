@@ -7,13 +7,14 @@
 **Branch context**: `explore/raise-the-ceiling`
 **Source assessment**: `meta/assessments/ds-capability-vs-usage.md` §2 #6 (FAQSection / Disclosure — objection-handling, zero-JS, gated on PM/content deciding the Q&A pairs are worth surfacing).
 **Companion specs**: `meta/specs/pages/engagements.md` + `engagements-amendment-raise-the-ceiling.md` §4.4, `meta/specs/pages/onboarding.md`, `meta/specs/features/contact-flow.md` (end CTA the FAQ precedes).
-**Masterplan reference**: §4.3 (zero-JS contract). **Standards**: R-009/R-078 (zero-JS / no hydration), R-028 (focus-visible), R-026 (heading order).
+**Masterplan reference**: §4.3 (client-JS posture — REVOKED per D-25). **Standards**: R-009/R-078 (zero-JS / no hydration — struck per D-25), R-028 (focus-visible — binding), R-026 (heading order — binding).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (R-009/R-078 no longer gate this feature; R-028 focus-visible and R-026 heading order are retained as binding a11y constraints.)
 
 ---
 
 ## 1. Purpose
 
-`/engagements` and `/onboarding` both answer implicit buyer questions in prose. A scanning operator — the brand's actual reader — often wants to jump straight to "how long does this take / what do you need from me / how does it start," and prose makes them hunt. A small FAQ rendered as native `<details>/<summary>` lets that reader self-serve the answer, costs zero JS, and reads as operator-practical rather than marketing fluff — *if* the questions are real objections and the answers stay declarative. This spec decides the Q&A pairs worth surfacing on each page, fixes the zero-JS mechanism, and sets the answer register. The PM call (resolving sales-gap / ds-capability open question #4/#6): **yes, surface these as an FAQ — they are operator-practical and on-brand**, scoped to these two evaluation/onboarding pages only (not the doorway, not the trust-loop pages, not `/why-ai`).
+`/engagements` and `/onboarding` both answer implicit buyer questions in prose. A scanning operator — the brand's actual reader — often wants to jump straight to "how long does this take / what do you need from me / how does it start," and prose makes them hunt. A small FAQ rendered as native `<details>/<summary>` lets that reader self-serve the answer, needs no JS, and reads as operator-practical rather than marketing fluff — *if* the questions are real objections and the answers stay declarative. This spec decides the Q&A pairs worth surfacing on each page, recommends native `<details>` as the default mechanism (a hydrated disclosure is now permitted per D-25 if the engineer prefers one), and sets the answer register. The PM call (resolving sales-gap / ds-capability open question #4/#6): **yes, surface these as an FAQ — they are operator-practical and on-brand**, scoped to these two evaluation/onboarding pages only (not the doorway, not the trust-loop pages, not `/why-ai`).
 
 ## 2. Audience
 
@@ -24,7 +25,8 @@
 
 - **Behavior**: A reader with a procedural objection expands the matching question, gets a direct declarative answer, and proceeds to the end CTA with the objection cleared — rather than bouncing because the answer wasn't obvious.
 - **Signal**: Qualitatively — inbound emails arrive with *fewer* of these procedural questions (they were answered on-page) and more substance ("we've read how you start; here's our workflow"). The FAQ removes friction, it doesn't generate it.
-- **Failure mode**: The FAQ reads as marketing filler (vague, self-promotional answers), reintroduces sales pressure ("Book now to learn more!"), bloats into a dozen questions nobody asked, or — worst — ships as a hydrated accordion island, breaking the zero-JS contract. An FAQ that answers questions no real operator has is theatre and should not ship.
+- **Failure mode**: The FAQ reads as marketing filler (vague, self-promotional answers), reintroduces sales pressure ("Book now to learn more!"), bloats into a dozen questions nobody asked, or — worst — ships a disclosure that is not keyboard-operable / not screen-reader-correct (an a11y failure, still binding). An FAQ that answers questions no real operator has is theatre and should not ship.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (A hydrated accordion is no longer itself a failure mode; the surviving failure is breaking a11y.)
 
 ## 4. The question sets (the PM decision)
 
@@ -57,18 +59,18 @@ Each question is a **real procedural objection** a late-funnel operator holds. A
 ## 6. Acceptance criteria
 
 - [ ] A `FAQSection` renders on `/engagements` (after the four rungs + summit Statement, before/near the end CTA per `engagements-amendment-raise-the-ceiling.md` §4.4) and on `/onboarding` (after the four phases, before the end CTA). Verifier: DOM shows the block in the specified window on each page.
-- [ ] The block is **native `<details>/<summary>`** — **zero client-side JS**, no hydration, no accordion island. Verifier: built-HTML grep shows `<details>` elements; no new `<script>` tag and no `client:*` directive (R-009/R-078). Each item is independently expandable/collapsible via the browser default.
+- [ ] The block is a disclosure that is **independently expandable/collapsible and keyboard-operable**; native `<details>/<summary>` is the recommended default. A hydrated disclosure is permitted (D-25) provided it stays keyboard-operable and axe-clean. Verifier: DOM shows independently-togglable disclosures; if native, built-HTML grep shows `<details>` elements. [The former "zero client-side JS / no `client:*` directive (R-009/R-078)" gate is superseded by D-25 — client JS is permitted; a11y is the binding check.]
 - [ ] Each page surfaces exactly the **four questions named in §4** for that page (no more, no fewer, without Arian's sign-off). Verifier (Arian): question set matches §4.1 / §4.2.
 - [ ] Every answer holds the §5 register: declarative, categorical (no figures), operator-first, short, no embedded CTA. Verifier (Arian): answer copy reviewed against §5; grep confirms no numerals in answers.
 - [ ] `<summary>` elements have a visible `:focus-visible` focus ring using `--accent` (R-028) and are keyboard-operable (Enter/Space toggles). Verifier: keyboard tab-through + axe.
 - [ ] Heading order is preserved — the FAQ section heading is the correct level under the page `<h1>`, and `<summary>` text does not introduce a skipped heading level (R-026). Verifier: axe heading-order + manual outline.
 - [ ] axe-core 0 violations on both pages with the FAQ present; color contrast on summary/answer text meets WCAG AA (R-027). Verifier: axe run.
-- [ ] Lighthouse mobile holds 100/100/100/100 (Perf ≥ 95 per R-013) on both pages. Verifier: lighthouse-ci.
+- [ ] Lighthouse mobile is tracked as **advisory** on both pages (the former 100/100/100/100 / Perf ≥ 95 per R-013 target is no longer a merge gate). Verifier: lighthouse-ci for situational awareness, non-blocking. [Superseded by D-25 — Lighthouse/HTML-weight advisory, not a gate; a11y + reduced-motion remain binding.]
 - [ ] Answer copy is tracked via the content drafts (`meta/content/drafts/pages/engagements.md`, `…/onboarding.md`) carrying `status: Approved`.
 
 ## 7. Open questions / dependencies
 
-- **DS dependency — confirm native-`<details>` composition.** ds-capability §1b lists `Disclosure`/`Accordion`/`FAQItem`/`FAQSection` in the DS as native-`<details>`, zero-JS. The engineer/designer confirms the page composes the FAQ with the zero-JS DS register (or plain semantic `<details>` if cleaner) — **no hydrated DS island**. `<NEEDS: confirm the DS FAQ register renders as zero-JS native <details>; if any variant requires hydration, use plain semantic <details> instead>`. No DS *authoring* needed (PM does not author the DS API).
+- **DS dependency — confirm disclosure composition.** ds-capability §1b lists `Disclosure`/`Accordion`/`FAQItem`/`FAQSection` in the DS. The engineer/designer picks the register — native `<details>` is the recommended default; a hydrated DS variant is permitted (D-25) provided it is keyboard-operable and axe-clean. `<NEEDS: confirm the DS FAQ register and that, whatever the mechanism, the disclosure is keyboard-operable + axe-clean>`. No DS *authoring* needed (PM does not author the DS API). [The earlier "zero-JS native `<details>` only; if any variant requires hydration use plain semantic `<details>`" mandate is superseded by D-25 — client JS is permitted.]
 - **Answer copy — content's lane.** Drafted against §4/§5; Arian approves.
 - **Placement — designer's call** within the windows fixed in §6 (after rungs+Statement on `/engagements`; after the four phases on `/onboarding`).
 - **Coupling.** `/engagements` FAQ is coupled to that page's raise-the-ceiling amendment (§4.4); `/onboarding` FAQ can land with the `/onboarding` build (its spec is already Approved). Both depend on `contact-flow.md` only insofar as the FAQ sits *before* that end CTA, not inside it.
@@ -78,7 +80,7 @@ Each question is a **real procedural objection** a late-funnel operator holds. A
 - An FAQ on any other page — explicitly **not** `/` (doorway stays a doorway), **not** `/why-ai` (the argument is the page; an FAQ would fragment it), **not** `/principles` or `/about` (trust-loop pages carry no procedural sales content), **not** `/roles` (self-identification, not procedure).
 - More than four questions per page without Arian's sign-off.
 - Any figure, day-rate, or fixed-timeline commitment in an answer (categorical-only).
-- A search box, filtering, "was this helpful?" voting, or any stateful/JS FAQ feature (zero-JS contract).
+- A search box, filtering, "was this helpful?" voting, or any stateful FAQ feature (out by product/scope decision). [The earlier "zero-JS contract" rationale is superseded by D-25 — client JS is permitted; these stay out by product call, not a JS ban.]
 - A site-wide / standalone `/faq` route (objection-handling lives in-context on the two pages where the objections arise).
 - A CTA inside any answer.
 - Final answer copy and visual composition (content / designer lanes).

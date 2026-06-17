@@ -13,7 +13,8 @@
 **Assumptions** (flagged for Arian to accept or override):
 
 - **A1 — The feather is a site-side inline SVG, NOT a DS primitive.** The feather *geometry* lives inside the DS `<Wordmark>` (the isotype paths cluster at viewBox x=140–200 per `meta/proposals/ds-wordmark-feather-flush-left.md`). But the DS rule is explicit: **"Do NOT use `<Wordmark>` as a watermark."** So the recurring quiet mark is a *separate, site-side inline SVG* whose path is extracted from the Wordmark isotype geometry — not the `<Wordmark>` primitive scaled down, and not a new DS component. This keeps the DS contract intact (no second Wordmark, no watermark misuse) and keeps the feather in the site's lane (a site asset, like the deferred eagle). See §6.
-- **A2 — `currentColor`, inline, decorative, static.** The feather renders in `currentColor` (resolves to `--fg`; inverts for dark mode for free), inlined (so it inherits color and carries no extra network request), `aria-hidden="true"` (purely decorative — it duplicates the brand the Wordmark already names), and **fully static** (no animation, no hover, no scroll trigger). Near-zero bytes, zero JS, zero CLS, zero Lighthouse risk (imagery §4.3).
+- **A2 — `currentColor`, inline, decorative, static.** The feather renders in `currentColor` (resolves to `--fg`; inverts for dark mode for free), inlined (so it inherits color and carries no extra network request), `aria-hidden="true"` (purely decorative — it duplicates the brand the Wordmark already names), and **fully static** (no animation, no hover, no scroll trigger). Near-zero bytes, no CLS; negligible against advisory performance tracking (imagery §4.3).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The feather stays static by design choice; the byte/Lighthouse framing is now advisory.)
 - **A3 — Max one deliberate feather per page, beyond the Wordmark.** The `<Wordmark>` already carries the isotype on every page. The recurring mark is *one additional* feather moment per page, used sparingly as punctuation, never as decoration sprawl (imagery §3 Tier 1, §5 do-not #5). A page may have zero; it must not have two.
 - **A4 — Strike via contrast, not quantity.** A single feather lands hard *because* the site is otherwise type-only. The mark earns its place as a quiet figurative spine, not as ornament (imagery §1, §3).
 
@@ -29,7 +30,8 @@ The feather is the brand's one recurring figurative element — the Pouākai abs
 - **Color**: `currentColor` only. Resolves to `--fg` (`#1D1D1F` light / the dark-mode `--fg` when dark mode ships). **Never** `--accent`, never multi-color, never a fill other than the inherited text color. Monochrome by register, not by styling choice.
 - **Rendering**: **inline `<svg>`** (not `<img src>`), so it (a) inherits `currentColor`, (b) inverts in dark mode automatically, (c) carries no extra HTTP request, (d) embeds its own intrinsic `viewBox` for CLS-safe sizing. SVGO-minified.
 - **A11y**: `aria-hidden="true"` on the root `<svg>`. No `<title>`, no `role`, no `alt`. It is decorative — it conveys no information the page text doesn't already carry. (Contrast `<Portrait>`, which the DS forbids from being decorative; the feather is the opposite case — never meaningful.)
-- **Weight**: target ≤2KB inline (far smaller than the deferred eagle's ≤8KB budget — the feather is a single simple shape). Byte-cheap against the `/` HTML-weight gate (R-015); negligible elsewhere.
+- **Weight**: target ≤2KB inline (far smaller than the deferred eagle's ≤8KB budget — the feather is a single simple shape). Byte-cheap against the `/` HTML-weight tracking (R-015, now advisory); negligible elsewhere.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 ## 3. Sizing scale
 

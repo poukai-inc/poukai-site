@@ -71,9 +71,11 @@ The homepage is hardcoded prose in the page template — no JSON file. The four 
 - [ ] Email link renders as `<a href="mailto:hello@pouk.ai">`.
 - [ ] No additional sections (services, about, testimonials, logo bar) are present.
 - [ ] Visual parity with the current `index.html` on `/` confirmed per masterplan section 6.1: "indistinguishable" on screenshot diff.
-- [ ] Lighthouse mobile: 100/100/100/100.
-- [ ] Zero client-side JS shipped on `/` (per masterplan section 4.3 — the zero-JS contract is strictest on the homepage).
-- [ ] HTML weight stays within +10% of the current `index.html` (per masterplan section 6.1).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted (the masterplan §4.3 zero-JS contract is revoked); Lighthouse + HTML-weight (masterplan §6.1) advisory, not blocking. a11y + reduced-motion remain binding.
+
+- [ ] Lighthouse mobile tracked as advisory (not a merge gate).
+- [ ] Client-side JS is permitted on `/` per D-25. Static-first remains a sensible default by choice, not by mandate; the prior "zero-JS contract strictest on the homepage" framing no longer gates.
+- [ ] HTML weight tracked as advisory (the prior +10% vs `index.html` ceiling, masterplan §6.1, is advisory, not blocking).
 - [ ] `prefers-reduced-motion` honored — pulse and any entrance animations disabled per the current page's behavior.
 - [ ] `<title>`, `<meta description>`, OG image, and JSON-LD render correctly with values appropriate to the post-cutover page (canonical: `https://pouk.ai/`).
 - [ ] `SiteShell` top nav links to `/why-ai`, `/roles`, `/principles` work; wordmark links back to `/`.
@@ -95,7 +97,7 @@ Remaining dependencies blocking `Built`:
 - A services / about / pricing block on `/`. Restraint is the credential; adding sections is a regression.
 - A newsletter signup, scheduling widget, or contact form. `mailto:` only at launch.
 - A featured-content carousel ("read our latest principle"). The homepage is a doorway.
-- Per-visit personalization, A/B copy variants, or dynamic stat insertion. Zero-JS contract.
+- Per-visit personalization, A/B copy variants, or dynamic stat insertion. Out of scope as a product/brand-restraint choice (the prior "Zero-JS contract" rationale is superseded by D-25 — JS is now permitted; these stay out by design, not by JS prohibition).
 - A logo bar / customer logos. Pouk.ai is too early.
 - Adjusting the typographic rhythm of the holding page during cutover. Parity first, evolution later.
 - An interstitial / cookie banner. None of the launch dependencies justify one.

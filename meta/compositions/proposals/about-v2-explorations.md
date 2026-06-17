@@ -40,7 +40,8 @@ So this memo retires `containment` and replaces it with `register-lead`. It also
 - A3 (no illustration in v1) **is re-opened** by this memo per the founder's feedback, but the surface is broader than "commission an urban sketcher" — it's *illustration-as-language*. See §4.
 - PM A5 (first-person voice) **is reversed**. v2 is brand-voice throughout. The founder's "this is a company, not Arian's story" is read as a direct reversal of A5.
 - PM A6 (~400–600 words, three sections) **is collapsed**. v2's target is ~120–250 words across whatever the chosen direction's IA shape is. Three sections is no longer a structural lock.
-- Lighthouse 100/100/100/100 and `prefers-reduced-motion` and zero-JS-unless-justified contracts **all hold**. The recalibration buys creative scope; it does not buy out the engineering contract.
+- `prefers-reduced-motion` and a11y (WCAG AA, axe-clean) contracts **all hold**. ~~Lighthouse 100/100/100/100 and zero-JS-unless-justified~~ are no longer binding contracts. The recalibration buys creative scope; the surviving engineering contract is accessibility + reduced-motion.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 ---
 
@@ -249,7 +250,8 @@ The trade-off I'm explicitly accepting: **Direction A is the least visually "ric
 - All three ship **static at first paint** by default.
 - Direction A's display statement *can* consume `<Hero entrance="stagger">`-equivalent for its first render — a single 600ms rise, gated by `prefers-reduced-motion`, zero JS. Brand-voice declarative statements at this scale benefit from arrival animation in a way body prose doesn't.
 - Directions B and C ship fully static.
-- **Scroll-triggered, parallax, intersection-observer-driven motion is out** for v2 (would force `client:*`, breaking R-079).
+- **Scroll-triggered, parallax, intersection-observer-driven motion is out** for v2 by composition choice (~~would force `client:*`, breaking R-079~~ — a register decision now, not a JS contract).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - If the Pouākai section ever gets a visual companion (§4 Direction X below), that companion may carry ambient motion — but that's a separate decision and a separate DS-gap (`--ambient-period` token, not yet filed).
 
 ### §3.6 Word-count discipline

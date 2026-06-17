@@ -6,7 +6,9 @@
  *   - Lucide is a direct site dep (not re-exported by @poukai-inc/ui per masterplan 2A)
  *   - JSX in Astro frontmatter can't resolve dynamic component names
  *
- * Rendered as static HTML at build time — no hydration directive used.
+ * Rendered as static HTML at build time — static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import { RoleCard } from "@poukai-inc/ui";

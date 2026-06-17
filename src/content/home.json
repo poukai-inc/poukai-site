@@ -25,6 +25,24 @@
     },
     "bookingLabel": "Or grab a time →"
   },
+  "statement": {
+    "text": "Most teams can build now. Few can ship it and keep it running."
+  },
+  "differentiation": {
+    "heading": "Why pouk.ai, specifically",
+    "body": "You can build this yourself, hire a generic agency, or staff an in-house team. Each is the right call sometimes. pouk.ai earns its place when the hard part is wiring the work into the systems you already run, and keeping it running after the demo.",
+    "link": {
+      "text": "See when to hire us, and when not to →",
+      "href": "/why-ai"
+    }
+  },
+  "closingCta": {
+    "heading": "If the hard part is shipping it, let's talk.",
+    "body": "Taking on a few engagements this quarter.",
+    "ctaLabel": "hello@pouk.ai",
+    "ctaHref": "mailto:hello@pouk.ai",
+    "bookingLabel": "Or grab a time →"
+  },
   "jsonLd": {
     "@context": "https://schema.org",
     "@type": "Organization",

@@ -1,14 +1,16 @@
 # Composition: Home
 
 **Route**: `/`
-**Status**: PROPOSAL — revision 2026-06-14 "raise the ceiling" (H-A display doorway + feather colophon). Awaiting Arian approval. Supersedes the Approved 2026-05-17 revision on the two clauses §2 (Hero `size`) and §2 (Hero CTA `size`) only; every other ratified clause carries forward unchanged.
+**Status**: PROPOSAL — revision 2026-06-15 "destination" (doorway → destination homepage). Awaiting Arian approval. Carries the 2026-06-14 "raise the ceiling" display-doorway Hero forward intact; adds three sections below it (Statement → differentiation preview → closing CTA) per the Approved `home-amendment-destination.md` (RR-1/RR-2/RR-3 ratified 2026-06-15). Supersedes the 2026-06-14 revision's §2 "zero added sections" / §3 "single section break" / §4 "fires never" framing only; every other clause carries forward.
 **Owner**: Arian (founder) · Author: pouk-ai-designer
-**Last updated**: 2026-06-14
-**Governing spec**: `meta/specs/pages/home.md` (Approved) + `meta/specs/pages/home-amendment-illustration-and-density.md` (in flight; this revision implements the design side of its §4 criteria)
+**Last updated**: 2026-06-15
+**Governing spec**: `meta/specs/pages/home-amendment-destination.md` (Approved — §4 section list, §5 IA render contract, §6 ACs, §9 OQ-1..OQ-4) — authoritative for everything not composed here. Builds on `meta/specs/pages/home-amendment-raise-the-ceiling.md` (RR-1/RR-2 display Hero, carried forward) and `meta/specs/pages/home.md` (Approved base, §4 IA lock now reversed by the destination amendment).
 **DS version targeted (original)**: `@poukai-inc/ui@0.6.1` (with three pending DS-gap proposals — see §6).
 **DS version shipped (current, 2026-05-19)**: `@poukai-inc/ui@0.15.0`. The three §6 proposals shipped between 0.7.0 and 0.9.0: `<Hero size="intimate">` (0.7.0), `<Button size="compact">` (0.9.0), `<Hero entrance="stagger">` (0.8.0; consumed on `/` per D-17 + this composition's §2). The illustration-slot proposal stays open via [poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40); deferral note above remains in force.
 **Ratifies**: shipped implementation in `src/pages/index.astro`, `src/components/HomeHero.tsx`, `src/components/ShellWrapper.tsx`, `src/layouts/BaseLayout.astro` as of 2026-05-16, **plus** the four deltas introduced by Arian's 2026-05-17 direction-pick (engraving Pouākai in-flight, `<Hero size="intimate">`, `<Button size="sm">` on the Hero CTA, `.site-page` padding-block reduced to `--space-12`).
 **Supersedes**: the ratified 2026-05-16 revision of this file. Every ratified clause that is not delta'd below remains binding.
+
+> **Superseded by the 2026-06-16 JS revocation (D-25, `meta/decisions/2026-06-16-revoke-zero-js.md`).** Every clause in this composition that asserts "zero hydration / static HTML only / no `client:*`" or invokes the R-079 zero-JS contract (the §2 hydration-model lock, the per-section "Motion: None / zero-JS" notes, the §"Fires never" lock-out tying motion to a `client:*` prohibition, the Lighthouse-100 framing) is no longer binding as a *contract*. Client JS, islands, and scroll-triggered motion are now permitted. The DS-owned `prefers-reduced-motion` collapse and axe accessibility remain binding. Static rendering may still be the designer's chosen default — but it is no longer mandated. Clauses left in place pending revision.
 
 ---
 
@@ -19,6 +21,8 @@
 ---
 
 > **[PROPOSAL 2026-06-14 — "raise the ceiling" revision H-A + feather colophon.]** This block lays the creative-exploration §1 (Direction H-A) and imagery-direction §2 (home colophon) deltas on top of the Approved 2026-05-17 revision. It reverses exactly two ratified clauses; nothing else changes. Reads on `meta/assessments/creative-exploration.md` §1, `meta/assessments/imagery-illustration-direction.md` §2 / Tier 1, `meta/compositions/components/feather-mark.md` (this pass). DS targeted: `@poukai-inc/ui@2.17.0`.
+>
+> **[Partially superseded 2026-06-15 by the destination block above.]** This block's Hero deltas (Delta 1 display, Delta 2 proportional CTA, Delta 3 feather) **all carry forward unchanged** — the destination builds beneath them. Only this block's "**zero added sections** (spec §10 unbroken)" guardrail (in Delta 1 and the Restraint-guardrail line below) is **overtaken**: `home-amendment-destination.md` RR-1/RR-2 re-opened the IA, and `/` now renders three sections below the Hero. Read "the page stays a doorway / zero added sections" here as the *then-true* record; the live IA is the destination's five-region render contract (§2/§3/§5).
 >
 > **Delta 1 — Hero flips `size="intimate"` → `size="display"` (the display doorway).** This is the single highest-leverage strike on the site (creative §1 signature moment): the 8-word tagline lands at `--fs-tagline` (36–68px) instead of `--fs-tagline-intimate` (32–52px), so the italic Instrument-Serif `<em>AI</em>` becomes a genuine typographic event. `size="display"` is *the DS default for marketing pages* — this is choosing the canonical register, not escalating. No copy changes (same 8 words). The page stays a doorway (spec §10 honored — zero added sections); the door is rendered at full height. **Reverses the 2026-05-17 §2 `size="intimate"` decision** (which was made to fit the footer at the fold; see §3 fold math and Open Question H1 below).
 >
@@ -31,6 +35,22 @@
 > **Restraint guardrail this bolder move still obeys:** one Hero, one `<h1>`, one `<StatusBadge>`, **zero added sections** (spec §10 unbroken), one Button at `variant="default"`, at most one feather beyond the Wordmark, no color, no new token, no new copy. The strike comes entirely from *scale* (the lever creative §0 names), not from volume.
 >
 > **Pure-site confirmation:** Delta 1, 2, and 3 are 100% pure-site. `size="display"`, `entrance="stagger"`, and `<Button size="md">` all ship in `@poukai-inc/ui@2.17.0` today; the feather is a site-side inline SVG (not a DS primitive — see feather-mark §6). **No DS gap.** The only dependency is Arian's sign-off on reversing the two 2026-05-17 clauses (and, for Delta 3, the colophon go-ahead).
+
+---
+
+> **[PROPOSAL 2026-06-15 — "destination" revision. Doorway → destination homepage.]** This block lays the `home-amendment-destination.md` (Approved; RR-1/RR-2/RR-3 ratified 2026-06-15) section set on top of the carried-forward display-doorway Hero. It **reverses the single-Hero IA** that every prior revision of this file held: `/` now renders **three sections below the Hero** — a conviction `Statement`, a "Why pouk.ai, specifically" differentiation preview, and a closing conversion section — then the footer. Reads on `home-amendment-destination.md` §4/§5/§6/§9, `creative-exploration.md` §1 (display doorway, surface-band lever), `ds-capability-vs-usage.md` §2 #2 (surface-band rhythm) + #4 (`Statement` beat). DS targeted: `@poukai-inc/ui@2.17.0`.
+>
+> **What carries forward unchanged**: the entire Hero composition from the 2026-06-14 revision — `<Hero size="display" entrance="stagger">`, the dual CTA (`mailto:` primary + `cal.pouk.ai` secondary), D-11 lede hand-off, D-12 status line, the optional feather colophon. The destination *builds beneath* the Hero; it does not re-open Hero scale, Hero copy, or the contact-flow CTA contract.
+>
+> **What this revision reverses on this file**: (a) the 2026-06-14 §2 Section 3 "End — no further sections / zero added sections" lock; (b) the §3 "exactly one section break (Hero → footer)" rhythm; (c) the §4 "fires never: scroll-triggered reveal … any animation" framing is *retained* (no new motion ships) but re-scoped to a 5-section page. The IA-lock ratifications those clauses encoded are superseded by `home-amendment-destination.md` RR-1/RR-2.
+>
+> **The two judgement calls this revision makes (the spec left them to the designer):**
+> - **OQ-1 — the page's one `--surface-section` band goes to the Closing CTA section** (`CTASection surface="recessed"`). Statement and differentiation preview both sit on `--bg`. Justification in §2 Section 5 and §3. This is the spec's PM recommendation; I concur and ratify it.
+> - **OQ-4 — the `Statement` sits high, immediately after the Hero** (present → assert → justify → convert). Not the `/engagements` summit pattern. Justification in §2 Section 3. This is the spec's PM recommendation; I concur and ratify it.
+>
+> **Restraint guardrail this destination still obeys (the §3 named failure mode — "the doorway became a generic SaaS landing page"):** five regions total, not a feature grid; **at most one `--surface-section` band on the entire page** (the hard restraint floor — ds-capability §2 #2); one `<h1>` (Hero) with clean descending `<h2>`s; one `Statement` (DS rule: once per page); one availability `StatusBadge` (DS rule: max 1 — it stays in the Hero, the closing section does **not** get a second); the dual CTA appears exactly twice (Hero + close), one-primary/one-secondary each, no third CTA register, no urgency, no scarcity; zero added JS, zero scroll-triggered reveals, zero new tokens, zero fabricated proof (no `Quote`/`TestimonialBlock`/`Stat`/logo bar). The strike comes from *scale, one stated conviction, and a single recessed band at the close* — not from quantity of sections. See §2 Section "the 13–14\" laptop read" note and §3.
+>
+> **Pure-site confirmation:** every primitive named below ships in `@poukai-inc/ui@2.17.0` today — `Hero size="display"`, `entrance="stagger"`, `Statement`, `Section`, `CTASection surface="recessed"`, `Button`, `StatusBadge`. **No DS gap** (see §6: one near-miss flagged, not invented). The only dependencies are Arian's sign-off and the parallel content drafts (the promoted Statement line, the differentiation-preview compression, the closing-CTA copy) — slot budgets handed to content in §2 and §7.
 
 ---
 
@@ -66,11 +86,13 @@
 
 **[Added 2026-05-17.]** The page now carries a Pouākai engraving — wings spread, mid-flight — as a quiet figurative companion to the Hero text. The title sits at an *intimate* density (smaller than the DS display scale, still primary in the visual hierarchy), and the page-vertical padding is reduced so the SiteShell footer settles within 120px of the fold at 1440×900. Restraint is still the credential; the bird is present, not performing. The reader registers the bird as "this brand chose to draw this" — a single editorial moment per page — rather than as imagery. A returning visitor who saw the wireframe-feeling launch version should now read the page as finished. A first-time visitor who clicks through from a LinkedIn post should not pattern-match the page to "another Astro starter with good typography."
 
+**[Revised 2026-06-15 — destination.]** The doorway framing above (one Hero, footer at the fold, "any urge to add a section is a brand violation") is **superseded for the destination** by `home-amendment-destination.md`. The page is now a place a visitor can read top-to-bottom and leave converted — not only a hand-off to `/why-ai`. The *felt* arc is **present → assert → justify → convert**, in four beats with deliberate air between them: the display Hero announces (unchanged); a single italic-serif `Statement`, set on the bare canvas just below the Hero, says the one thing the brand most wants believed; a short "Why pouk.ai, specifically" preview gives the still-undecided reader one honest reason before any ask; then the page *lands* on a recessed closing band — the one moment of surface depth on the entire page — that restates availability and offers both conversion paths. The reader should feel the page get *more finished*, never more salesy. Density stays deliberately low: the strike is the *interval* between a 60px serif Hero and a 28–44px italic Statement, then the one recessed band at the close — not a stack of marketing modules. The returning-visitor fast read is preserved (Hero + status answer "alive and shipping" in the first screen, exactly as the doorway did); the scroll is a reward, not a tax. The line this composition must not cross is the §3 failure mode — "the doorway became a generic SaaS landing page." Restraint is still the credential; the destination is the brand's confident *front room*, not a feature grid with a logo wall.
+
 ---
 
 ## 2. Section-by-section composition
 
-The spec's §4 IA lists three blocks: `SiteShell` chrome (header + hairline footer), the `Hero` block, and the explicit "end — no further sections" terminator. The composition mirrors this exactly.
+**[Revised 2026-06-15 — destination.]** The governing spec's §5 IA (the locked render contract) lists six regions in order: `SiteShell` chrome → `Hero` (display doorway) → `Statement` (conviction) → "Why pouk.ai" differentiation preview → Closing conversion section → `SiteShell` footer. **The order in this document IS the render order.** Sections 1 and 2 (SiteShell + Hero) carry forward from the prior revisions unchanged; Sections 3, 4, 5 are new; the old "Section 3 — End (no further sections)" terminator is retired and replaced by the destination's closing section + footer.
 
 ### Section 1 — `SiteShell` (page chrome)
 
@@ -178,46 +200,202 @@ The spec's §4 IA lists three blocks: `SiteShell` chrome (header + hairline foot
   - The Hero CTA is **the only Button on the page**. Default variant (no `variant="primary"` set). `size="sm"`. One CTA, one conversion path. (DS rule "Maximum one variant='primary' per visual section" — trivially satisfied; the page ships with zero `primary` Buttons.)
   - **No hydration**: `<HomeHero>` and `<ShellWrapper>` both render as static HTML at build time. No `client:load`, `client:idle`, `client:visible`, or `client:only` directive. The page ships zero React runtime. Closes R30.
 
-### Section 3 — End (no further sections)
+### Section 3 — `Statement` (the conviction beat) **[NEW 2026-06-15 — destination Section 3 / spec §4 §5.3]**
 
-**[Ratified — no delta. Carries forward verbatim from 2026-05-16, with the one footnote that `.site-page` padding-block is now `--space-12` per §3 of this revision.]**
+The page's one raised-voice moment. The single felt assertion — *pouk.ai is a technical partner that ships, not an advisor that decks* — stated once, at editorial scale, so the destination reads as **authored**, not as a list. This is the beat the IA lock specifically forbade; re-opening the lock without it would be re-opening it for the weaker additions only (spec RR-3).
 
-- **DS primitive(s)**: None. The page ends. The `<SiteShell>` hairline footer (already specified in Section 1) closes the page.
-- **Props (substantive)**: None.
-- **Layout / spacing**: `.site-page` provides `--space-12` of padding below the Hero before the `<SiteShell>` footer's own internal padding takes over. No additional spacer element.
-- **Motion**: None.
-- **Content slot**: None.
+- **DS primitive(s)**: `<Statement>` (molecule). One instance — the **only** `Statement` on the page (DS rule: "use sparingly, once per page"; ds-capability §2 #4 — idle everywhere on the site today). Emits **no heading element** (`--fs-statement`, 28–44px, italic Instrument Serif, `line-height 1.2`, `letter-spacing -0.005em`, `text-wrap: balance`) — so it does **not** disturb the page's h1→h2 hierarchy (see §2 heading-hierarchy note and R-026). It is not an `<h2>`; the first `<h2>` on the page is Section 4.
+- **Props (substantive)**:
+  ```
+  <Statement
+    statement={<>…the single conviction line…</>}   // content slot, ~8–14 words — see budget below
+    // supporting:  NOT set. The Statement carries no second line on /.
+    // as:          "p" (default). NOT "blockquote" — this is the brand's own
+    //              assertion, not an attributed external source.
+    // hairline:    false (default). NO top rule — see Layout note for why the
+    //              bare-canvas turn is the right read here, not a banner.
+  />
+  ```
+- **Layout / spacing**: On `--bg` — **no band** (OQ-1 call: the page's one `--surface-section` band is spent at the close, not here; see §3). Rendered inside a thin site-side wrapper (a `<Section as="div" size="tight">` with no eyebrow/title/lede so its empty-header guard fires and it contributes only block padding, OR a bare site `<div>` on the `.site-page` rhythm — engineer's structural call; the DS `Statement` carries no block padding of its own). The interval **above** the Statement is the load-bearing spacing decision: a generous `--space-16` (64px) gap between the Hero block and the Statement so the assertion reads as a *quiet turn after a breath*, not as a subtitle crowding the Hero. Below the Statement, `--space-16` again into Section 4. Header-block / content max-width: the Statement inherits `--content-max` (64rem) via `.site-page`; the line itself wraps via `text-wrap: balance` and reads best at 1–2 lines (the word budget below enforces this). `hairline={false}` deliberately: a top rule would read as a section divider and start building the "module stack" the §3 failure mode warns against; the bare turn keeps it editorial.
+- **Motion**: **None.** The `Statement` is static — no entrance animation, no scroll trigger. The display Hero's `entrance="stagger"` is the page's one entrance moment; adding a second entrance to the Statement would (a) require either DS support the `Statement` molecule does not expose or a site-side scroll trigger (= `IntersectionObserver` = JS, breaking R-079), and (b) dilute the Hero's signature moment. The Statement *arrives by being read*, not by animating. `prefers-reduced-motion`: trivially satisfied (no motion to gate).
+- **Content slot**: **net-new draft, content's lane — anchored to an existing parked candidate.** `statement-beats.md` §5 parked the `/` line for the record under the old IA lock: `Most teams can build now. Few can ship and keep it running.` On RR-3 ratification, content promotes that parked line (or supplies a replacement) from "parked / not for build" to an `Approved` Statement draft. No new conviction is invented — the assertion already lives across the lede and the parked line; this section gives it a home. **Slot budget handed to content: one or two short sentences, target 8–14 words total, ideally landing on 1–2 balanced lines at `--fs-statement` on a 13–14" laptop.** No CTA, no stat, no attribution (the `Statement` discipline, `statement-beats.md` §0).
 - **Brand notes**:
-  - **No additional sections.** No "About," no "Services," no "Customers," no testimonial block, no logo bar, no newsletter signup, no scheduling embed, no featured-content carousel. Spec §10 explicitly enumerates these as out of scope and frames adding them as "a brand violation, not a feature improvement." This composition ratifies that and locks it: any future PR adding a section to `/` is a spec-level conversation, not a composition revision. Closes R28 (IA order matches spec; no drift).
+  - Exactly one `Statement` on the page. It is the page's only editorial-scale line between the Hero `<h1>` and body type — that uniqueness is what makes it read as conviction rather than copy.
+  - Do **not** stack a `Pull` on the same surface (DS anti-pattern: "Do NOT stack Pull with `<Statement>` on the same surface"). The page carries no `Pull`.
+  - If RR-3 had been *declined* (RR-4 fallback), this section would be absent and the conviction would stay lede-carried; RR-3 is ratified, so it ships.
+
+### Section 4 — "Why pouk.ai, specifically" (the differentiation preview) **[NEW 2026-06-15 — destination Section 4 / spec §4 §5.4]**
+
+Closes the PROOF/DIFFERENTIATION gap the whole site is weakest on (sales-content-gaps §1). A visitor who never clicks into the funnel must still get *one* concrete reason pouk.ai beats the alternatives they're silently weighing (DIY, agency, in-house). A **short preview** — two or three lines of honest trade-off framing — that routes into `/why-ai`'s full `vs-alternatives` section and never reproduces it.
+
+- **DS primitive(s)**: `<Section>` (molecule) — structural wrapper, **no visual surface by design** (this is the OQ-1 trade-off: the band is spent at the close, so this section is type-only on `--bg`). It carries the page's **first `<h2>`** (the Hero owns the only `<h1>`; this is the first heading subdivision below it — clean descending hierarchy, R-026, no skipped levels). The body is short prose with an inline link to `/why-ai`. **No `Stat` atoms** (categorical-only on this preview — the cited stats live on `/why-ai`, reproducing them here would risk the "category proof masquerading as pouk.ai proof" confusion, sales-content-gaps §3). **No `FeatureCard`/`FeatureGrid`** — a card grid here is the single fastest route to the "generic SaaS landing page" failure mode (§3); the preview stays prose, which is the brand's editorial register.
+- **Props (substantive)**:
+  ```
+  <Section
+    as="section"                 // region landmark (it has a title → aria-labelledby auto-wired)
+    size="default"               // --space-16 (64px) block padding, top + bottom
+    title="…"                    // the page's first <h2>; ~3–6 words — see budget. titleAs default "h2".
+    // eyebrow:  NOT set. An eyebrow here would add a third type register
+    //           between Statement and body and edge toward the module-stack look.
+    // lede:     NOT set as a Section prop — the differentiation argument IS the
+    //           body, not a sub-lede. Keep the header to title-only.
+  >
+    {/* body: 2–3 short sentences of honest trade-off framing, ending in an
+        inline <a href="/why-ai">…read the full comparison →</a> link.
+        Plain prose, not a DS molecule. The → is the literal &rarr; entity to
+        match the Hero lede hand-off register (see Section 2 brand notes / R12),
+        NOT a Lucide ArrowRight. */}
+  </Section>
+  ```
+- **Layout / spacing**: On `--bg`, no band. `Section size="default"` supplies `--space-16` block padding internally; the cross-section gap into Section 5 is handled by that padding plus the closing `CTASection`'s own frame (see §3 — do not add a manual spacer, and do **not** nest this `Section` inside another `Section`, DS anti-pattern). Header→body gap is DS-owned (`--space-12`). Body prose wraps at the Section header max-width register; keep it to a single short paragraph so it reads as a *preview*, not an essay.
+- **Motion**: **None.** No entrance, no scroll reveal (zero-JS contract; creative §1 — "no scroll-triggered reveals"). Link hover on the `/why-ai` anchor uses the DS `--easing-link` / `--dur-fast` internally. `prefers-reduced-motion`: trivially satisfied.
+- **Content slot**: **net-new draft, content's lane — derived from an existing approved-track draft.** The full candor framing lives in `vs-alternatives.md` (`/why-ai`-bound: the three alternatives with "X is right when / pouk.ai is right when"). This homepage section is a **compression** of that draft's through-line — its §2 closing ("pouk.ai earns its place when the integration is the hard part and the work has to keep running after handoff") — plus the link to read the full honest comparison on `/why-ai`. **Slot budget handed to content: one `<h2>` of ~3–6 words; body of 2–3 sentences, target 30–55 words total, ending in the inline `/why-ai` link.** It must **not** restate the three full `vs-alternatives` beats — that is `/why-ai`'s job (spec §10; AC: "materially shorter than `/why-ai`'s vs-alternatives section and links to it"). The verifier check is length + link presence.
+- **Brand notes**:
+  - This is the page's **first and only `<h2>`** (Section 3's `Statement` emits no heading; Section 5's closing CTA carries the second `<h2>` — see hierarchy note). Two `<h2>`s total on the page, both at the same level, no skipped levels.
+  - One inline `/why-ai` link here is an *additional, lower-weight* route into `/why-ai` alongside the locked D-11 lede hand-off (spec OQ-3: two routes into `/why-ai` on a longer page is fine; D-11 stays the primary, this is secondary). Do not duplicate the D-11 sentence verbatim — this link carries its own "read the full comparison" register.
+  - No card, no grid, no stat, no logo — the preview is prose. If a future revision is tempted toward a 3-up card grid here, that is the §3 failure mode and a spec-level conversation, not a composition tweak.
+
+### Section 5 — Closing conversion section (the destination's exit) **[NEW 2026-06-15 — destination Section 5 / spec §4 §5.5]**
+
+The destination must *end* on a conversion, not trail off. A short closing band that restates availability and offers both conversion paths, so a visitor who read the whole page converts here without scrolling back to the Hero. **This section carries the page's one `--surface-section` band** (OQ-1 call).
+
+- **DS primitive(s)**: `<CTASection surface="recessed">` (organism — the DS's purpose-built "full-width end-of-page conversion band," wraps a `CtaBlock` in a landmark `<section>`). This is the correct vehicle for the page's single recessed band: it is documented as **end-of-page only** ("Do NOT use CTASection mid-page"), which is exactly where it sits, and `surface="recessed"` applies `--surface-section` + a `--hairline` top rule in one move — the band lever from ds-capability §2 #2, deployed once, at the close.
+  - **Considered and rejected: `ContactBlock`.** The DS also ships `ContactBlock` (EmailLink + `StatusBadge` slot + actions), which is tempting for a closing contact moment. **Rejected** because (a) it has a `status` slot designed to carry a `StatusBadge`, and the page's one availability `StatusBadge` is locked in the Hero (DS rule: max 1 availability badge per page) — using `ContactBlock`'s status slot would force a second availability badge or leave the slot conspicuously empty; (b) `ContactBlock` has **no surface-band option**, so it cannot carry the OQ-1 band; (c) `CTASection` is the documented end-of-page conversion organism, `ContactBlock` is a "content-section contact moment." `CTASection` wins on all three.
+- **Props (substantive)**:
+  ```
+  <CTASection
+    surface="recessed"                 // → --surface-section band + --hairline top rule.
+                                       //   This is the page's ONE band (OQ-1). Verifier: built-CSS.
+    size="default"                     // --space-16 (64px) block padding — the close gets full air,
+                                       //   not "tight"; it is the page's terminal beat.
+    align="center"                     // DS brand-correct default for end-of-page CTA: bilateral
+                                       //   symmetry signals "this is the conclusion."
+    headingAs="h2"                     // the page's SECOND (and final) <h2>. Same level as Section 4.
+    heading="…"                        // closing line — ~4–8 words. See budget.
+    body={…}                           // optional one-line availability restate — see content note.
+    actions={
+      <>
+        <Button asChild size="md">                        {/* primary — mailto, proportional to display register, matches Hero CTA size */}
+          <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
+        </Button>
+        <Button asChild variant="secondary" size="md">    {/* secondary — booking, subordinate per contact-flow §8 */}
+          <a href="https://cal.pouk.ai/…">or grab a time →</a>
+        </Button>
+      </>
+    }                                  // exactly TWO actions (DS rule: "Do NOT use more than two actions").
+  />
+  ```
+- **Layout / spacing**: This is the only `--surface-section` band on the page. `CTASection` owns its own frame and block padding (`--space-16` at `size="default"`) — **do not wrap it in a `Section`** (DS anti-pattern: "Do NOT nest inside another Section — CTASection owns its own frame and block padding") and do not add a manual spacer between Section 4 and it. The `--hairline` top rule the recessed surface paints is the *only* divider on the page; it earns its keep precisely because it is singular — it tells the reader "this is the moment to act" without any other section having claimed a band first. The band runs full-width (the recessed surface bleeds to the viewport edge, content constrained to `--content-max` inside).
+- **Motion**: **None.** No entrance, no scroll reveal. The dual CTA is static; `Button` hover/focus uses DS `--dur-fast` / `--easing` internally. The `StatusBadge` pulse does **not** appear here (no second availability badge). `prefers-reduced-motion`: trivially satisfied — no site-added motion.
+- **Content slot**: **mechanism existing (`contact-flow.md`), copy is content's lane.** `contact-flow.md` governs the dual-CTA mechanism (`mailto:` primary + `cal.pouk.ai` secondary, the "or grab a time →" register, contact-flow §6); the CTA labels reuse the Hero's register. The closing `heading` and optional `body` are **net-new but should reuse the existing availability framing** to avoid a second scarcity signal (spec §4 Section 5 recommendation). **Slot budget handed to content: `heading` ~4–8 words (the page's second `<h2>`); optional `body` one short line, ≤12 words, restating availability without a new urgency claim; CTA labels per contact-flow.** No urgency, no scarcity, no countdown (contact-flow §5).
+- **Brand notes**:
+  - This is the **second** appearance of the dual CTA on the page (Hero + close) — deliberate and standard for a scrollable page, mirroring the existing intentional `mailto:` duplication (Hero CTA + footer, R13). It stays one-primary (`mailto:`) / one-secondary (`cal.pouk.ai`); it does **not** stack a third CTA register (spec / contact-flow FS-CF-1).
+  - `mailto:` is the primary affordance here too (visual-weight check per contact-flow §8) — booking is the subordinate secondary. Do not let the booking link out-weigh the email.
+  - This is now the **third** appearance of the email on the page (Hero CTA + this close + the SiteShell footer line). All three are deliberate and serve distinct jobs (conversion / conversion / standing reachability). A future dedup refactor must not collapse them (R13 extended).
+  - No `Stat`, no `Quote`, no scarcity badge, no scheduling embed/iframe — the booking link is a plain `<a href>` (zero-JS; spec AC). No second `StatusBadge`.
+
+### Section 6 — End / `SiteShell` footer **[Revised 2026-06-15 — was "Section 3 — End (no further sections)"]**
+
+The old single-Hero terminator ("No additional sections … adding them is a brand violation") is **retired** by `home-amendment-destination.md` RR-1/RR-2. The page now ends on the closing `CTASection` (Section 5) flowing into the `SiteShell` footer.
+
+- **DS primitive(s)**: None new. The `<SiteShell>` hairline footer (already specified in Section 1) closes the page, exactly as on every other route.
+- **Props (substantive)**: None (footer line is carried by `ShellWrapper`, per Section 1).
+- **Layout / spacing**: No manual spacer between the closing `CTASection` and the footer — the `CTASection` block padding (`--space-16` bottom) plus the footer's own internal padding handle the interval. `.site-page` `padding-block` (`--space-12`) still wraps the page content area between header and footer; the destination sections live inside it.
+- **Motion**: None.
+- **Content slot**: Existing — footer `mailto:` + `cal.pouk.ai` per contact-flow footer tier (Section 1).
+- **Brand notes**:
+  - **The minimum-set discipline is the new lock.** The page renders exactly the §5 IA regions: SiteShell → Hero → Statement → differentiation preview → closing CTA → footer. **No further sections.** Specifically still banned (carried forward from home.md §10 + destination §6): no logo bar / "trusted by" strip, no `Quote`/`TestimonialBlock`/testimonial cards, no carousel, no pricing tiers, no animated stat counter, no `Stat` band, no newsletter signup, no scheduling embed/iframe, no roles preview / role grid, no engagements/ladder preview, no FAQ on `/`, no founder/about preview, no personalization. Adding any of these is a spec-level conversation (a regression toward the §3 failure mode), not a composition revision. The minimum-set test for any future section: *does removing it cost a conversion the funnel can't recover downstream?* (spec §1). Closes R28 for the destination IA.
 
 ---
 
-## 3. Cross-section rhythm **[Revised — `.site-page` padding-block reduction]**
+### The 13–14" laptop read — what keeps the destination off the "generic SaaS landing page" line **[NEW 2026-06-15 — the §3 judged criterion]**
 
-The vertical rhythm of `/` as a whole, top to bottom:
+The spec's single most important failure mode (§3) is *"the doorway became a generic SaaS landing page."* This is a **judged criterion** — it needs a 13–14" capture (1440×900 and 1440×768) at design review, the same way the raise-the-ceiling display Hero needed one. What keeps this composition on the right side of the line, concretely:
+
+- **Five regions, not modules.** A generic SaaS landing page reads as a *stack of equal-weight modules* (hero, feature trio, logo strip, testimonial row, stat counters, CTA). This page has one loud beat (Hero), one quiet conviction (Statement), one short prose justification, and one recessed close. No two sections share a visual weight; nothing repeats a pattern.
+- **One band, at the end only.** The single `--surface-section` band sits at the close (OQ-1). Every other section is on the bare `--bg` canvas. A SaaS landing page alternates bands the whole way down to manufacture "depth"; this page earns depth from *type scale and interval*, and spends its one band as a closing signal. The restraint floor (at most one band) is the difference.
+- **No card grid, no stat counters, no logos, no testimonials.** The differentiation preview is *prose with one link*, not a 3-up `FeatureCard` grid — the card grid is the single most SaaS-coded element and it is deliberately absent. No fabricated proof of any kind (categorical-only posture, absolute).
+- **The interval is the strike.** The page's memorable moment is the *interval* between a 60px display serif Hero and a 28–44px italic Statement on a bare canvas — spare and large at once (the Apple/Linear/Stripe register, creative §0). That interval cannot be pattern-matched to a SaaS template, which never leaves that much air between a hero and its next beat.
+- **It reads more finished, not more salesy.** The referrer test (spec §3 Signal): a person who forwarded the doorway link should look at the destination and think "it got *more* finished," never "it got more salesy." The Statement + one honest trade-off line + a quiet recessed close is a *front room*, not a funnel.
+
+If the 13–14" capture reads as a module stack — if the differentiation preview grows a card grid, if a second band appears, if the Statement reads as a subtitle rather than a turn — the move was applied wrong and the band/section in question is cut before anything else changes.
+
+---
+
+## 3. Cross-section rhythm **[Revised 2026-06-15 — destination: five regions, one band, escalation into the close]**
+
+The vertical rhythm of `/` as a whole, top to bottom. The page is now five render regions inside the `SiteShell` chrome, not a single Hero. The rhythm is built from the published `--space-N` scale only; the one surface event is the recessed band at the close.
 
 1. `<SiteShell>` header — DS-owned internal padding via `--page-pad` (clamp 1.5rem–3rem horizontal), Wordmark height 56px (ADR-0008), nav inline.
-2. `.site-page` content area — **`padding-block: var(--space-12)` (48px top, 48px bottom — revised from `--space-16` / 64px)**. Single child: `<HomeHero />`.
-3. `<Hero>` internal rhythm — DS-owned: status → `--space-6` → title → `--space-8` → lede → DS-internal → CTA. **At `size="intimate"` the title clamp is smaller (32–52px), but the inter-slot gaps remain DS-default per the DS-gap proposal §6.1 design choice.**
-4. `.site-page` bottom padding — `--space-12` (48px).
-5. `<SiteShell>` hairline footer — DS-owned internal padding, single `<p>` line.
+2. `.site-page` content area — `padding-block: var(--space-12)` (48px top, 48px bottom). Now wraps **all four content regions** (Hero, Statement, preview, closing CTA), not a single `<HomeHero />`.
+3. `<Hero size="display">` internal rhythm — DS-owned: status → `--space-6` → title → `--space-8` → lede → DS-internal → CTA. **At `size="display"` the title clamp is `--fs-tagline` (36–68px)** — the carried-forward raise-the-ceiling register.
+4. **Hero → Statement gap: `--space-16` (64px).** A full breath before the conviction line so it reads as a *turn*, not a Hero subtitle.
+5. `<Statement>` on `--bg` — DS-owned internal type rhythm (`--fs-statement`, no block padding of its own; the gap tokens above/below carry it). `hairline={false}`.
+6. **Statement → differentiation preview gap: `--space-16` (64px).** Symmetric with the gap above the Statement so the conviction sits in equal air on both sides.
+7. `<Section size="default">` (differentiation preview) on `--bg` — DS-owned `--space-16` block padding (top + bottom), header→body `--space-12`. Carries the first `<h2>`.
+8. **Preview → closing CTA gap: handled by the two frames' own block padding** — the `Section`'s `--space-16` bottom + the `CTASection`'s own frame. No manual spacer. This is the **escalation into the close**: the reader leaves the bare-canvas preview and arrives at the page's one recessed surface.
+9. `<CTASection surface="recessed" size="default">` — the page's **one `--surface-section` band**, `--space-16` block padding, `--hairline` top rule. The terminal beat.
+10. `.site-page` bottom padding — `--space-12` (48px) — flows into the `<SiteShell>` hairline footer.
+11. `<SiteShell>` hairline footer — DS-owned internal padding, single `<p>` line.
 
-### Math at the two target viewports (PM amendment §4.3 targets)
+**The escalation logic.** The page opens loud (display Hero), drops to a quiet large turn (Statement, bare canvas, equal air both sides), settles into the lowest-key beat (prose preview, bare canvas), then *rises* into the one recessed band at the close — the only surface event, signalling "this is the moment to act." The dynamic is **loud → quiet → quietest → recessed-resolve**, not a flat plane and not an alternating-band staircase. The band is held in reserve for exactly one beat (OQ-1).
 
-| Viewport | Header | Top-pad | Hero (`size="intimate"`) | Bottom-pad | Footer | **Total** | Footer position vs fold |
-|---|---|---|---|---|---|---|---|
-| **1440×900** (~800px usable below header) | ~104 | 48 | ~340 *(reduced from ~420 by smaller title)* | 48 | ~70 | **~610** | Footer **above** the fold or within ~10–30px below. **Hits §4.3 ≤120px target with margin.** |
-| **1440×768** (~672px usable below header) | ~104 | 48 | ~340 | 48 | ~70 | **~610** | Footer ~60–70px below the fold. **Hits §4.3 ≤180px target with margin.** |
+### Surface rhythm — the hard restraint floor
 
-Hero height estimate ~340px assumes `size="intimate"` title clamp 32–52px renders the 8-word tagline on 2 lines at desktop widths (was 1–2 lines at `--fs-tagline` clamp 36–68px, but more often pushed to 2 lines with the larger type). Lede 3 sentences ~88px. Status badge ~32px. CTA `size="sm"` ~32px. DS gaps `--space-6 + --space-8 + --space-internal-cta` ~80px. Total ~340px ± 20px depending on actual rendered title wrap.
+- **At most ONE `--surface-section` band on the entire page** (ds-capability §2 #2; spec §6 AC). That band is the closing `CTASection surface="recessed"` (Section 5). **Every other region sits on `--bg`** (`#FBFBFD`): SiteShell chrome, Hero, Statement, differentiation preview. No `--surface`, no `--bg-elevated` is introduced anywhere. The Statement and the preview are explicitly **not** banded (OQ-1) — banding either would either spend the floor early or, if both banded, break the floor outright (a verifier failure).
+- The single band is never adjacent to another band (trivially — there is only one), honoring the DS "never stack `--surface-section` adjacent" rule.
 
-There is exactly one section break (Hero → footer), and it is handled by the page-content padding, not by any decorative rule, divider, or section element. The page reads as one continuous block, which is the intent. No alternating surfaces. No accent strips. The `--surface` / `--bg` / `--bg-elevated` rhythm is irrelevant on `/` — the entire page sits on `--bg` (`#FBFBFD`), and no recessed or elevated surfaces are introduced.
+### Heading hierarchy (R-026 — no skipped levels) **[NEW]**
 
-Token compliance: every spacing value above resolves to a DS `--space-N` token. No raw pixels. No `--space-5` / `--space-7` / `--space-10` / etc. (those gaps do not exist per the DS tokens.css). The page would fail an audit if a future change introduced one. **The chosen value `--space-12` is one stop down from the prior `--space-16` and is the only token-compliant value smaller than `--space-16` without going all the way to `--space-8` (32px) — which would compress the page below the brand's restraint floor.**
+The destination is no longer H1-only (the home.md content-draft Flag 3 "H1-only by design" is superseded by `home-amendment-destination.md` §5). Exactly one `<h1>` and two `<h2>`s, descending cleanly with no skipped levels:
+
+- **`<h1>`** — the `<Hero>` title (the only `<h1>`; one per page, DS rule).
+- *(no heading)* — the `<Statement>` emits **no heading element** (`--fs-statement` is editorial display, not a heading; DS rule "Statement emits no `<h1>`–`<h6>`"). It sits visually between h1 and h2 in scale but carries no level — so it cannot create a skip.
+- **`<h2>` #1** — the "Why pouk.ai, specifically" `Section` title (`titleAs="h2"`, default).
+- **`<h2>` #2** — the closing `CTASection` heading (`headingAs="h2"`). Same level as #1.
+
+No `<h3>` appears (no sub-subdivisions). The order is h1 → (Statement, no level) → h2 → h2. Verifier: heading-outline audit shows exactly one h1, two h2, zero skipped levels.
+
+### Mobile collapse behavior (<768px) **[NEW]**
+
+The destination is single-column everywhere; nothing on the page is a desktop multi-column layout that needs to reflow, so the mobile story is mostly "the same stack, narrower." Per section, below `--bp-md` (768px):
+
+- **Hero** — DS-owned collapse (carried forward). At `size="display"` the title clamp scales down via its `clamp()` floor; the stagger entrance still runs (CSS-only). If the optional feather colophon ships, it stays above the StatusBadge. The dual CTA stacks if needed per the DS Hero's own responsive rules. *(The deferred two-column illustration slot is not consumed in this revision, so there is no two-column → stacked reflow to manage on the Hero.)*
+- **Statement** — single line of running editorial type at all widths; `--fs-statement`'s `clamp()` floor (28px) and `text-wrap: balance` handle narrow viewports. It will wrap to more lines on mobile — that is fine; the word budget keeps it short. No layout change.
+- **Differentiation preview (`Section`)** — single-column prose at all widths; the h2 + body + inline link simply narrow. `--space-16` block padding is preserved (the DS clamps `--page-pad` horizontally). No change.
+- **Closing `CTASection`** — `align="center"` holds on mobile; the dual-CTA `actions` row stacks the two buttons vertically below the DS's button-row breakpoint (DS-owned via `CtaBlock`'s action slot). The recessed `--surface-section` band runs full-bleed on mobile too. `mailto:` stays the primary, on top.
+
+No section introduces a site-side media query beyond what the DS primitives already own; the mobile parity target is "the desktop stack, narrowed, with DS-internal reflow." Verifier: 375px and 768px captures show single-column, no horizontal scroll, the recessed band full-bleed, CTAs stacked with `mailto:` first.
+
+### Math at the two target viewports — destination (informational, NOT a fold gate)
+
+The doorway optimized for "footer at the fold" (the prior revision's §4.3 target). **The destination explicitly retires that target** (spec RR-1 accepted that the page now scrolls): a destination is *meant* to be scrolled, and the conversion is repeated at the close so the fold position of the footer no longer carries conversion weight. The table below is a rough height sketch for the HTML-weight / first-screen sanity check, not a fold gate.
+
+| Region | Approx height @ 1440 wide | Notes |
+|---|---|---|
+| SiteShell header | ~104 | DS chrome. |
+| `.site-page` top-pad | 48 | `--space-12`. |
+| Hero (`size="display"`) | ~420 | `--fs-tagline` 36–68px title; 8-word tagline 1–2 lines; lede ~88px; status ~32px; CTA pair `md` ~44px; DS internal gaps. |
+| gap → Statement | 64 | `--space-16`. |
+| Statement | ~110 | `--fs-statement` 28–44px, 1–2 balanced lines. |
+| gap → preview | 64 | `--space-16`. |
+| Differentiation preview (`Section`) | ~200 | `--space-16` pad top/bottom + h2 + ~3-sentence body. |
+| Closing `CTASection` (recessed band) | ~260 | `--space-16` pad + h2 + optional body + dual CTA row. |
+| `.site-page` bottom-pad | 48 | `--space-12`. |
+| SiteShell footer | ~70 | DS chrome. |
+| **Total** | **~1480** | A ~1.6-screen page at 1440×900. First screen still resolves the Hero + status ("alive and shipping") for the returning-visitor fast read; the rest is the rewarded scroll. |
+
+**First-screen guarantee (returning-visitor path, spec §3 Behavior):** the Hero + `StatusBadge` (~570px of content below a ~104px header) sits comfortably within the first screen at 1440×900 — the returning visitor still gets "alive and shipping in under 20s" without scrolling. The destination does not slow that path; it only rewards the one who keeps going.
+
+**HTML-weight gate (spec §6 AC):** a destination *will* add gzipped weight over the doorway. It must still clear the +25% post-cutover envelope (`meta/decisions/2026-05-17-home-illustration-and-density.md`). The added weight is three short text regions plus one `CTASection` — text and one recessed band, no images, no JS — so the delta is small. If the minimum section set ever breaches the budget, the section set is too large; cut before raising the budget (spec §6). Verifier: `gzip -c built.html | wc -c` on the preview.
+
+Token compliance: every spacing value above resolves to a published DS `--space-N` token (`--space-12`, `--space-16` are the only ones this page uses for cross-section rhythm; `--space-6`/`--space-8` are DS-internal to `Hero`/`Section`/`CTASection`). No raw pixels. **Note on `--space-10`**: the prior revision claimed `--space-10` "does not exist" — that was true of the 0.6.1 scale but is **stale**; `@poukai-inc/ui@2.17.0` publishes `--space-10` (2.5rem / 40px). This composition does not *use* `--space-10`, but the old "gap does not exist" assertion should not be relied on by a future reader. The published scale at 2.17.0 is `--space-1, 2, 3, 4, 6, 8, 10, 12, 16, 24, 32` (no `--space-5/7/9/11/...`).
 
 ---
 
-## 4. Motion choreography (page-level) **[Mostly ratified; one addition on illustration]**
+## 4. Motion choreography (page-level) **[Revised 2026-06-15 — destination: no new motion across the four added beats]**
+
+**[Destination motion summary.]** The destination adds **zero new motion.** The page's one entrance moment stays the Hero's `entrance="stagger"` (carried forward); the three sections below it — Statement, differentiation preview, closing `CTASection` — are all **static**. There are **no scroll-triggered reveals** on any of them. This is a deliberate composition decision against the zero-JS contract (R-079, masterplan §4.3; creative §1): a scroll-triggered reveal on the Statement or the preview would require an `IntersectionObserver` (= client JS = a `client:*` directive), breaking the zero-JS posture for marginal payoff, and would also dilute the Hero's signature moment by introducing competing entrances. The destination earns its sense of *arrival* from **type scale, interval, and the one recessed band**, not from motion. The added sections do not change the page's motion budget at all: it remains the Hero stagger (on initial render) + DS-internal link/button hover transitions. Every animation is gated by `prefers-reduced-motion: reduce` via the DS `:root !important` block in `tokens.css`; there is no exception and the composition adds no `@media (prefers-reduced-motion)` rule of its own.
 
 The page ships zero JavaScript and one CSS-only animation:
 
@@ -225,11 +403,13 @@ The page ships zero JavaScript and one CSS-only animation:
 - **Link hover transitions** — DS-owned, run on `:hover` / `:focus-visible`. Uses `--dur-fast` (180ms) and `--easing-link`. Applies to (a) nav links in `<SiteShell>`, (b) the lede-extension `<a href="/why-ai">`, (c) the Hero CTA's `<Button asChild><a>` underline, (d) the footer email link. All four are DS-internal styles; the site does not author transitions. Disabled under `prefers-reduced-motion: reduce`.
 - **[New 2026-05-17] Illustration motion**: **none**. The Pouākai engraving is fully static. No CSS keyframes, no SVG `<animate>` elements, no `transform` on hover, no scroll-driven transform, no opacity transition on intersection, no parallax. The CSS is positional only (Flexbox or Grid for the two-column layout, `display: none` below 720px). **`prefers-reduced-motion: reduce` is trivially satisfied** — no motion to gate. Any future urge to animate the bird (a wing-flap, a slow drift, a fade-in on load) is a separate composition revision and must clear the R-079 zero-JS contract and the DS's `:root !important` motion gate. The default for this revision is locked at **static**.
 
-**Fires on scroll**: nothing. There is no scroll-triggered reveal, no intersection observer, no parallax, no scroll-spy. The page is short enough that all content is above the fold on a typical desktop (and at the new `.site-page` padding, the footer also sits at-or-near the fold) — a scroll-triggered animation has no payoff and would force `client:visible`, breaking R-079.
+- **[New 2026-06-15] Statement / differentiation preview / closing CTASection motion**: **none.** All three added sections are fully static — no entrance animation, no scroll-triggered reveal, no hover-driven layout shift. Their only motion is the DS-internal link/button hover transition (the `/why-ai` link in the preview; the dual-CTA buttons in the close), which uses `--dur-fast` / `--easing` and is gated by reduced-motion at the DS layer. The closing section does **not** carry a `StatusBadge`, so it adds no pulse.
 
-**Fires on initial render**: the StatusBadge pulse (CSS keyframes, JS-free).
+**Fires on scroll**: nothing. There is no scroll-triggered reveal, no intersection observer, no parallax, no scroll-spy — on any of the five regions. The destination is **meant to be scrolled** (it is no longer a single-screen page; see §3 height sketch), but the scroll reward is *content and the recessed band at the close*, not motion. A scroll-triggered animation on the Statement or preview would force `client:visible` (= `IntersectionObserver` = JS), breaking R-079 for marginal payoff, and would compete with the reader.
 
-**Fires never (locked out by this composition)**: scroll-triggered reveal, parallax, scroll-spy, marquee on the status line, illustration animation of any kind, any animation tied to `IntersectionObserver`. All of these would require a `client:*` directive and would violate the spec's "zero client-side JS shipped on `/`" AC (spec §8) and masterplan §4.3.
+**Fires on initial render**: the StatusBadge pulse (CSS keyframes, JS-free) and the Hero `entrance="stagger"`. Nothing else.
+
+**Fires never (locked out by this composition)**: scroll-triggered reveal on any section, parallax, scroll-spy, marquee on the status line, illustration animation of any kind, entrance animation on the Statement / preview / closing CTA, any animation tied to `IntersectionObserver`. All of these would require a `client:*` directive and would violate the spec's "zero client-side JS shipped on `/`" AC and masterplan §4.3.
 
 **Now consumed via DS-gap §6.6 ([poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47) → [PR #48](https://github.com/poukai-inc/poukai-ui/pull/48))**: Hero staggered entrance animation runs on `/` via `<Hero entrance="stagger">` from `@poukai-inc/ui@0.8.0`. Status / title / lede / CTA reveal in top-down order, ~1.05s, CSS keyframes + `animation-delay`, gated by `prefers-reduced-motion: reduce` via the DS `:root !important` block. The pre-cutover holding page (`public/index.html`, deleted in commit `9e56cdb`) shipped this exact motion with pure CSS — zero JS, R-079 honored. The original "locked out" rationale for entrance animation was faulty (claimed it required `client:*`); corrected on 2026-05-17 after recall of the holding-page implementation. SiteShell wordmark + footer fade-in are NOT in scope for #47 — separate DS-gap if Arian wants full-page parity.
 
@@ -239,15 +419,27 @@ The page ships zero JavaScript and one CSS-only animation:
 
 ## 5. Icon picks (if applicable)
 
-**[Ratified — no delta.]**
+**[Revised 2026-06-15 — destination still uses no Lucide glyphs.]**
 
-None. The homepage uses no Lucide glyphs. The only glyph on the page is the literal `→` HTML entity inside the lede-extension hand-off, which is a typographic character (rendered by the body font), not a Lucide icon. See Section 2 brand notes for why this is the right choice. The Pouākai engraving in Section 2 is not an icon — it is an editorial illustration (DS-gap §6.2 slot), separate vocabulary.
+None. The homepage uses no Lucide glyphs anywhere, including the four destination beats. The only glyphs on the page are **literal `→` HTML entities** (`&rarr;`): one in the Hero lede-extension hand-off (D-11, carried forward), and one in the differentiation preview's "read the full comparison →" `/why-ai` link (Section 4). Both are typographic characters rendered by the body font — **not** Lucide `ArrowRight` SVGs — so they inherit prose metrics and read as part of the sentence, exactly as the D-11 ruling (R12) demands. The closing `CTASection` "or grab a time →" booking label may carry the same entity arrow per the contact-flow register; it is likewise an entity, not an icon. The Statement carries no glyph. The Pouākai engraving (deferred) is an editorial illustration, not an icon — separate vocabulary.
 
 ---
 
-## 6. DS gaps surfaced **[Revised — was None; now three gaps + one no-op]**
+## 6. DS gaps surfaced
 
-This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. Each is named and scoped here. Authoring the DS-side proposal markdown is **out of this composition's scope** per the designer agent definition — Arian decides whether to route each to `@poukai-inc/poukai-ui` maintainers.
+### 6.0 Destination revision (2026-06-15) — NEW gaps: **None.**
+
+The destination section set composes entirely from primitives that ship in `@poukai-inc/ui@2.17.0` today: `<Statement>` (Section 3), `<Section>` (Section 4), `<CTASection surface="recessed">` (Section 5), `<Button>` (closing dual CTA), plus the carried-forward `<Hero size="display" entrance="stagger">` and `<StatusBadge>`. The assessments confirm this independently (creative §"DS gaps surfaced" = None; ds-capability §2 = all pure-site). **No DS proposal is needed for the destination.**
+
+**One near-miss flagged, not invented (spec §8 anticipated this).** The spec named one candidate DS gap: "if the designer finds the closing-conversion section wants a `CTASection` surface variant the DS doesn't expose." It does not — `CTASection` already exposes `surface="recessed"` (= `--surface-section` + `--hairline` top rule), which is exactly the OQ-1 band vehicle. So the candidate gap **does not materialize**. The one real composition tension I hit was vehicle *selection*, not a missing primitive: `ContactBlock` would have been the more literal "closing contact moment" organism, but it has **no surface-band option** and a `StatusBadge` slot that would force a second availability badge (DS rule: max 1 per page). That is a reason to choose `CTASection` over `ContactBlock` (see Section 5 "considered and rejected"), **not** a DS gap — both primitives ship; neither needs changing. Per the designer agent definition I am flagging this, not authoring a DS API. **No new token is introduced by any destination section** (spec §6 AC): `--surface-section`, `--hairline`, and the `--space-N` scale are all published.
+
+The historical `<Hero>` gaps below (6.1–6.6) are **all resolved/shipped** and are retained for the record; none is re-opened by the destination revision.
+
+---
+
+### Historical `<Hero>` gaps (raise-the-ceiling / illustration era — all resolved) **[Revised — was "three gaps + one no-op"]**
+
+These three DS-gap proposals were introduced against `@poukai-inc/ui@0.6.1` by the earlier revisions. Authoring DS-side proposal markdown is **out of this composition's scope** per the designer agent definition — Arian decides routing.
 
 **Critical framing: all three gaps are universal `<Hero>` contract changes, not home-only overrides.** They land in the DS once and are composed by `/`, `/roles`, `/principles`, `/why-ai` independently. Each gap's *triggering* page is `/`; the *consuming* pages will follow once their own amendments arrive.
 
@@ -317,7 +509,30 @@ This revision introduces three DS-gap proposals against `@poukai-inc/ui@0.6.1`. 
 
 ## 7. Open questions for Arian
 
-**[Revised — carry forward unresolved items from round-1 §6; add new questions from round-2 CTA-scale and cross-page-reusability turns.]**
+### Destination revision (2026-06-15) — open items
+
+The spec's two designer-lane open questions (OQ-1 band placement, OQ-4 Statement placement) are **resolved in this composition** (I took the PM recommendations and ratified them; see below). They are recorded here as *decisions made, confirm-or-override*, not as blockers — per the designer prompt I default and flag rather than ask. Two genuine confirmations remain.
+
+- **D-OQ-1 — band placement: RESOLVED → the one band goes to the Closing CTA.** I give the page's single `--surface-section` band to the closing `CTASection surface="recessed"` (Section 5); the Statement (Section 3) and the differentiation preview (Section 4) sit on `--bg`. **Why**: the recessed band is the page's only surface event, so it should land where it does the most work — signalling "this is the moment to act" at the conversion close (escalation logic, §3). Banding the Statement would make conviction read as a *banner* (off-brand — the Statement wants a quiet bare-canvas turn); banding the preview would spend the floor on the lowest-energy beat and risk the alternating-band SaaS read (§3 failure mode). One band, at the close, is the restrained-destination choice. Confirm or override. *(This is the spec OQ-1 PM recommendation; I concur.)*
+- **D-OQ-4 — Statement placement: RESOLVED → high, immediately after the Hero.** The Statement sits as Section 3, right after the Hero (present → assert → justify → convert). **Why**: the page's voice should land *before* the argument, so the reader meets the conviction at full editorial scale while the Hero's authority is still fresh, then gets the justification, then the ask. The alternative — the `/engagements` "summit Statement" pattern (conviction as the last line before the CTA) — suits an *argument* page that earns its conviction over a long scroll; `/` does not run that argument, so the summit pattern would leave the conviction stranded next to the CTA and double the "act now" register at the close. High placement keeps the doorway's job (assert early) intact. Confirm or override. *(This is the spec OQ-4 PM recommendation; I concur.)*
+- **D-OQ-A — content dependency (BLOCKS `Built`, not `Approved`).** Three slots need `Approved` content drafts before the destination can be `Built` (spec §6 content-approval AC): (1) the promoted `/` Statement line (`statement-beats.md` §5 parked candidate → real draft); (2) the differentiation-preview compression of `vs-alternatives.md` (new or extended draft); (3) the closing-CTA `heading`/`body` per `contact-flow.md`. Content is drafting in parallel; the slot budgets in §2 and below are handed to them. **Not a blocker for `Approved` on the design side** — the recipe is complete against the budgets — but the engineer waits on `Approved` copy before `Built`. No action needed from Arian beyond awareness.
+- **D-OQ-B — closing `align`: default `center`, confirm.** The closing `CTASection` uses the DS brand-correct default `align="center"` (bilateral symmetry = "this is the conclusion"). The rest of the page is left-aligned editorial register. The one centered moment at the very end is the DS's documented end-of-page pattern and reads as a deliberate resolution, not an inconsistency. If Arian prefers the close stay left-aligned (`align="start"`) for register consistency, that is a one-prop override. (Default if no answer: `center`, per the DS end-of-page convention.)
+
+**Content slot budgets handed to content (summary — full detail in §2):**
+| Slot | Region | Budget |
+|---|---|---|
+| Conviction line | Statement (S3) | 1–2 sentences, 8–14 words total, 1–2 balanced lines at `--fs-statement`; no CTA/stat/attribution. |
+| Section heading | Differentiation preview (S4) | one `<h2>`, ~3–6 words. |
+| Preview body | Differentiation preview (S4) | 2–3 sentences, 30–55 words, ending in inline `/why-ai` link; must not restate the three `vs-alternatives` beats. |
+| Closing heading | Closing CTA (S5) | one `<h2>`, ~4–8 words. |
+| Closing body (optional) | Closing CTA (S5) | one line, ≤12 words, availability restate, no new urgency. |
+| CTA labels | Hero + Closing CTA | per `contact-flow.md` (`mailto:` primary + "or grab a time →" secondary). |
+
+---
+
+### Carried-forward illustration items (deferred — orthogonal to the destination)
+
+**[Revised — carry forward unresolved items from round-1 §6; add new questions from round-2 CTA-scale and cross-page-reusability turns.]** These all concern the deferred Pouākai engraving (D-17), which the destination revision does **not** consume — they remain open on their own track and do not block the destination.
 
 Of the round-1 proposal's six open questions, three are now resolved by Arian's direction-pick:
 
@@ -341,15 +556,24 @@ Carried forward / new for round 2:
 
 6. **Does any of this affect `/why-ai`, `/roles`, `/principles`?** (Carried forward from round-1 Q6.) The illustration is asset-level reusable — same SVG file lands on all four pages. The DS-gaps (`<Hero size>`, `<Hero illustration>`) are universal contract changes. **Sub-question**: does Arian want the same engraving on all four pages (one asset, four placements), or does he want per-page variations (different birds, different postures, different sizes per page)? **Designer-side recommendation: one asset, four placements.** Per-page variations would multiply asset-production work and dilute the "single chosen mark" brand framing. Confirm or override.
 
-Section 7 has **6 open items**. This composition reaches `Approved` once items 1–5 have Arian's calls captured (item 6 can be deferred to per-page amendments). Item 1 has no hard answer until the asset is in hand; "deferred pending curated asset" is an acceptable resolution.
+The six illustration items above (1–6) are **deferred on the illustration track** and do not gate the destination revision (the destination consumes no illustration). They reach resolution when the engraving asset work resumes; "deferred pending curated asset" remains an acceptable resolution for item 1.
+
+**For the destination revision to reach `Approved`:** the design-side recipe is complete. The destination items D-OQ-1 and D-OQ-4 are resolved (PM recommendations ratified); D-OQ-B has a sensible default. The only item that needs an explicit Arian call is **confirm-or-override on D-OQ-1, D-OQ-4, D-OQ-B** (each defaults cleanly if he is silent). D-OQ-A (content drafts) blocks `Built`, not `Approved`. So: this composition can flip to `Approved` on Arian's nod to the four destination decisions; it then waits on content for `Built`.
 
 ---
 
-## 8. Out of scope **[Revised — additions for round 2.]**
+## 8. Out of scope **[Revised 2026-06-15 — destination additions.]**
 
 This composition deliberately does not cover:
 
-- **Future homepage evolution.** If `/` ever needs a featured stat, a customer story, or a sub-page hand-off beyond `/why-ai`, that is a new spec, new content, new composition — not an amendment here.
+- **[Added 2026-06-15] Any sixth region or beyond the §5 IA.** The destination is the *minimum* section set that does the conversion job, not a maximal page. Specifically out of scope (carried from home.md §10 + destination §6/§10): no roles preview / role grid, no engagements/ladder preview, no FAQ on `/`, no founder/about preview, no stats band, no logo bar / "trusted by" strip, no `Quote`/`TestimonialBlock`/testimonial cards, no carousel, no pricing tiers, no animated stat counter, no newsletter signup, no scheduling embed/iframe, no personalization, no A/B variants. Adding any is a spec-level conversation (the §3 "generic SaaS landing page" failure mode), not a composition tweak.
+- **[Added 2026-06-15] Reproducing any downstream page's body on `/`.** The differentiation preview *compresses-and-links* `/why-ai`'s vs-alternatives; it does not reproduce the three beats. No failure-mode list (that's `/why-ai`), no role cards (`/roles`), no rung ladder (`/engagements`), no FAQ (`/engagements`/`/onboarding`). (spec §10.)
+- **[Added 2026-06-15] Self-ID on `/` (spec OQ-2).** A roles-style self-ID nudge on `/` would be a sixth section and a separate Arian decision (PM recommends no). Not composed here.
+- **[Added 2026-06-15] The final copy for any destination slot.** The Statement line, the differentiation-preview prose, and the closing-CTA heading/body are content's lane (slot budgets handed in §2/§7). This composition anchors lengths and register, not words. No `Draft:` copy is authored here — content is drafting against the budgets in parallel.
+- **[Added 2026-06-15] Re-opening the Hero, D-11, D-12, or the contact-flow CTA contract.** The display Hero (RR-1/RR-2), the lede hand-off, the status line, and the dual-CTA contract are carried forward intact; the destination builds beneath them.
+- **[Added 2026-06-15] The `/` OG card.** Governed by `og-cards.md` (fast-follow). If the Statement becomes the page's defining line, the `/` OG copy should align to it when that card is produced — flagged for the og-cards pass, not composed here (spec §8).
+- **[Added 2026-06-15] PM cascade annotations (RR-5).** The supersession notes on the raise-the-ceiling §4.2 and the home.md content-draft Flag 3, and routing the new section copy needs to content, are PM obligations (spec §7 RR-5), not this composition's.
+- **Future homepage evolution.** If `/` ever needs a featured stat, a customer story, or a proof move beyond the five regions, that is a new spec, new content, new composition — not an amendment here. *(The "adding a section is a brand violation" doorway framing is superseded; the new lock is the minimum-set discipline above.)*
 - **Dark-mode behavior.** The DS palette inverts cleanly per its "never pure edges" principle, but dark mode is not shipped. If/when it ships, the lede-extension `→` glyph's color-inversion behavior is a known trade-off (see Section 2 brand notes) that may need revisiting. **[Added 2026-05-17]** Same applies to the engraving asset: inline SVG with `currentColor` inverts cleanly; a raster fallback would need a dark-mode variant. Out of scope until dark mode is.
 - **OG image, favicon, apple-touch-icon, robots.txt, sitemap.xml.** These are launch-infrastructure surfaces owned by `BaseLayout.astro` and the site's `public/` directory. Not composition concerns. **[Added 2026-05-17]** The Pouākai engraving might one day be adapted into an OG image or favicon — those are separate surfaces and are decided in their own ratification, not here.
 - **Matomo and Bugsink script tags.** Owned by `BaseLayout.astro` and gated on env vars. They are first-party analytics/error-reporting per D-15/D-16 and are *not* page-level composition decisions — they apply uniformly to every route.

@@ -22,7 +22,8 @@ compositionReference: none yet (designer places + confirms native-<details> comp
 **Last updated**: 2026-06-15
 **Governing spec**: `meta/specs/features/faq-section.md` — §4 fixes the eight questions (PM decision); §5 fixes the answer register. This draft delivers the **answers** (content's lane).
 
-**Question count: 8 total — exactly 4 per page** (the question-set discipline; a fifth needs Arian's sign-off). The mechanism is native `<details>/<summary>`, zero-JS — that is the engineer's contract, not content's; this draft owns only the question labels (verbatim from §4) and the answers.
+**Question count: 8 total — exactly 4 per page** (the question-set discipline; a fifth needs Arian's sign-off). The mechanism is native `<details>/<summary>` — the engineer's call, not content's (client JS is now permitted per D-25, so a hydrated disclosure is allowed; native `<details>` remains the sensible default, and the answers are agnostic either way); this draft owns only the question labels (verbatim from §4) and the answers.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 The load-bearing register (§5): **declarative, categorical (no figures), operator-first, short (2–4 sentences), no CTA inside any answer.** The pricing question on `/engagements` and the "Is Discovery paid?" question on `/onboarding` are the two most likely to leak a number — both answers hold the categorical line absolutely.
 
@@ -130,7 +131,8 @@ For the designer's pass (placement + native-`<details>` confirmation, faq-sectio
 - **Flag 1 — answer length parity.** Answers run 2–4 sentences. The longest (`/onboarding` FAQ 3, "What do we own") is ~4 sentences; the shortest (`/engagements` FAQ 1) is 3. If the `<details>` open-state wants tighter parity, the trim candidates are the final reinforcing sentence in the longer answers — but each is written to read complete at its current length.
 - **Flag 2 — `<summary>` text length.** The questions are short enough to render on one line in the collapsed state at most viewports. `/onboarding` FAQ 1 ("How long does an engagement take?") and `/engagements` FAQ 3 ("What do you need from us to begin?") are the longest summaries; confirm they don't wrap awkwardly against the disclosure caret at narrow widths.
 - **Flag 3 — heading levels (R-026).** FAQ section heading is H2; `<summary>` items are not headings. The designer/engineer must not let `<summary>` introduce a skipped heading level. Confirmed clean if the section heading is the only added heading.
-- **Flag 4 — zero-JS native `<details>` (engineer contract, flagged not owned).** This draft's answers assume the browser-default expand/collapse; no answer depends on JS behavior, animation, or a "show more." If the DS FAQ register requires hydration, the spec mandates plain semantic `<details>` instead (faq-section.md §7). Content is agnostic; flagged so the answers aren't composed into a hydrated island.
+- **Flag 4 — native `<details>` register (engineer call, flagged not owned).** This draft's answers assume the browser-default expand/collapse; no answer depends on JS behavior, animation, or a "show more." A hydrated disclosure is now permitted (D-25), but native `<details>` stays the sensible default and the answers compose cleanly either way. Content is agnostic; whatever the mechanism, the disclosure must remain keyboard-operable and axe-clean (a11y is still binding).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The earlier "zero-JS / plain semantic `<details>` mandated" framing no longer gates this.)
 
 ---
 
@@ -149,7 +151,7 @@ For the designer's pass (placement + native-`<details>` confirmation, faq-sectio
 - Any figure, day-rate, percentage, or fixed-timeline commitment in an answer (categorical-only; absolute on `/engagements`). Soft categorical method windows on `/onboarding` only, per §4.2.
 - A CTA inside any answer (§5 — the end CTA is the single conversion affordance).
 - An FAQ on any other page — not `/`, `/why-ai`, `/roles`, `/principles`, or `/about` (§8).
-- A site-wide `/faq` route, a search box, filtering, or "was this helpful?" voting (zero-JS / scope — §8).
+- A site-wide `/faq` route, a search box, filtering, or "was this helpful?" voting (out on ~~zero-JS /~~ scope grounds — §8). [These stay out of scope by product decision, not by a JS prohibition — see D-25.]
 - The native-`<details>` mechanism, hydration posture, focus-ring styling, placement within the window — engineer/designer lanes (faq-section.md §6/§7).
 - `FAQPage` JSON-LD authoring — engineer's call (flagged Q4); if emitted, must match this draft verbatim.
 - Wiring answers into the page templates — the engineer applies approved copy.

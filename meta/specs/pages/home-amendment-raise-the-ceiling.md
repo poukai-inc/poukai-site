@@ -40,7 +40,8 @@ The base spec's purpose, audience, IA (single Hero, no further sections), conten
 - D-12 (status-line text byte-identical at cutover) — locked.
 - D-13 (funnel nav order) — locked.
 - IA: single Hero, no further sections — locked (this is what blocks a `Statement` section on `/`).
-- SiteShell nav, badge motion, zero-JS / hydration model (R-079) — locked.
+- SiteShell nav, badge motion — locked. (The zero-JS / hydration-model R-079 clause is no longer a lock — see annotation below.)
+> Superseded by D-25 (2026-06-16 JS revocation): the R-079 zero-JS / hydration lock is revoked; client JS permitted. a11y + reduced-motion remain binding.
 - The `entrance="stagger"` choreography already shipping on `/` — unchanged (it stays on; at display scale it simply reads with more authority).
 - Email-link duplication (Hero CTA + footer) — locked per composition R13.
 
@@ -67,9 +68,12 @@ Additive to the base spec §8 and the prior amendment §4. The designer's compos
 - [ ] `entrance="stagger"` remains on; the choreography (status → title → lede → CTA) is unchanged. Verifier: no change to the stagger config; reduced-motion still collapses it via the DS `:root !important` block (R-030).
 - [ ] **No structural change**: exactly one `<Hero>`, one `<h1>`, one `<StatusBadge>`, one Hero `mailto:` CTA, zero sections between Hero and SiteShell footer (home.md §8 negative assertion holds). Verifier: DOM inspection.
 - [ ] Display scale reads as presence, not brutalism, on a 13–14" laptop (1440×900 and 1440×768). Verifier: designer + Arian review of side-by-side captures vs. the current intimate build. This is a judged criterion; the screenshot diff is the evidence.
-- [ ] **HTML-weight + Lighthouse hold.** No regression: Lighthouse mobile stays 100/100/100/100 (R-013 caveat: Perf ≥ 95 per the JS-budget baseline); HTML-weight delta stays within the budget the prior amendment loosened (+25% post-cutover, per `meta/decisions/2026-05-17-home-illustration-and-density.md`). A pure prop flip should be byte-neutral. Verifier: lighthouse-ci + weight measurement on the preview.
+- [ ] **HTML-weight + Lighthouse advisory.** Lighthouse mobile (R-013) and HTML-weight delta are tracked for situational awareness, not as merge gates. A pure prop flip should be byte-neutral. Verifier: lighthouse-ci + weight measurement on the preview (advisory only).
+> Superseded by D-25 (2026-06-16 JS revocation): Lighthouse (R-013) + HTML-weight converted blocking → advisory; client JS permitted. a11y + reduced-motion remain binding.
 
 ### 4.2 Thesis Statement — placement ruling (no build delta on `/`)
+
+> **SUPERSEDED 2026-06-15** by [`home-amendment-destination.md`](./home-amendment-destination.md) (Approved, RR-3). Arian re-opened the IA lock; a `Statement` section now ships on `/` as the destination homepage's conviction beat. The "no Statement section on `/`" ruling below applied only under the now-reversed single-Hero IA lock and is retained for record.
 
 - [ ] **No `Statement` primitive renders as a section on `/`.** The IA lock (single Hero, no further sections) is authoritative; the thesis conviction lives in the **lede** (per D-11), not in a separate `Statement` molecule. Verifier: DOM inspection confirms no `Statement`/section between Hero and footer (this is the same negative assertion as home.md §8, restated so the cross-page `Statement` pass does not get misapplied to `/`).
 - [ ] **Conviction outcome the lede must land (content's lane, recorded here as intent).** The home lede already carries the category-problem hand-off ("Most AI projects fail to deliver. Here's why →", D-11). The raise-the-ceiling conviction outcome for `/` is: a returning visitor and a first-time visitor both leave the doorway with the single felt assertion that **pouk.ai is a technical partner that ships, not an advisor that decks** — carried by the existing tagline + lede at display scale, not by an added line. Content does **not** add a sentence; the display-scale rendering *is* how the existing conviction lands harder. If Arian later wants an explicit `Statement` on `/`, that requires re-opening the IA lock (home.md §10) — out of scope here.

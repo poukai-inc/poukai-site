@@ -14,7 +14,9 @@
  *   - footer = <Link variant="default"> per-rung mailto CTA (quiet, not Button).
  *   - icons escalate the commitment register: Search → FlaskConical → Hammer → RefreshCw.
  *
- * Rendered as static HTML at build time — no hydration directive (R-079).
+ * Rendered as static HTML at build time — static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import { FeatureCard, Link } from "@poukai-inc/ui";

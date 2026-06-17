@@ -7,7 +7,7 @@
  *   - Hero size="intimate" (LOCKED §7 Q1) — quiet list page.
  *   - Essay list = <LinkCard variant="quiet"> per non-draft essay, reverse-chron.
  *     Each entry: title (h3) + claim one-liner + muted date (<Time>).
- *   - Retention block: native zero-JS <form action> email line (Buttondown) + RSS.
+ *   - Retention block: native <form action> email line (Buttondown) + RSS — no JS needed, static by design.
  *   - Empty state = silence (LOCKED §7 Q3) — no "more coming" apology.
  *
  * Email line (writing.json.md §6 / composition A2): a NATIVE
@@ -60,7 +60,7 @@ const hasEmailLine = Boolean(buttondownEndpoint);
     <h2 class="visually-hidden">Essays</h2>
     {orderedEssays.length > 0 && <WritingList essays={orderedEssays} />}
 
-    <!-- 3. Retention block — ungated email line (zero-JS native form) + RSS -->
+    <!-- 3. Retention block — ungated email line (native <form action>, no JS) + RSS -->
     <Section size="tight" as="div" className="writing-retention">
       {hasEmailLine ? (
         <>

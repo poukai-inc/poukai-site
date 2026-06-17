@@ -88,10 +88,11 @@ The four headline stats in the opening argument (12–18%, 85%, 15%, $300B) and 
 - [ ] `<title>` and `<meta description>` reflect the deployment-gap framing and contain at least one quantified stat in the description.
 - [ ] Page is reachable from `SiteShell` top nav with the Why AI item marked current.
 - [ ] Page links to `/roles` at least once (footer-of-page next step) and to `mailto:hello@pouk.ai` at least once (end CTA).
-- [ ] Lighthouse mobile: 100/100/100/100.
-- [ ] No client-side JS shipped (sticky TOC is CSS-only via `position: sticky` — no scroll-spy hydration island in launch scope).
+- [ ] ~~Lighthouse mobile: 100/100/100/100.~~ ~~No client-side JS shipped (sticky TOC is CSS-only via `position: sticky` — no scroll-spy hydration island in launch scope).~~
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. Lighthouse is now tracked as advisory; client-side JS is permitted on this page. (The sticky TOC may still be implemented CSS-only by engineering preference, but a scroll-spy island is no longer prohibited.)
 - [ ] All content in section 5 outcomes is met by the shipped copy (Arian-verified).
-- [ ] `prefers-reduced-motion` honored — no animation on stats or entrance.
+- [ ] axe-core 0 violations (binding, unchanged).
+- [ ] `prefers-reduced-motion` honored — no animation on stats or entrance (binding, unchanged).
 
 ## 9. Open questions / dependencies
 
@@ -107,7 +108,8 @@ Remaining dependencies blocking `Built`:
 
 ## 10. Out of scope
 
-- Interactive elements (scroll-spy TOC with active-state highlighting, animated stat counters, hover-card definitions for failure-mode titles). Zero-JS contract per masterplan section 4.3.
+- Interactive elements (scroll-spy TOC with active-state highlighting, animated stat counters, hover-card definitions for failure-mode titles) at launch scope — a restraint/editorial call, not a technical prohibition. (The earlier rationale "Zero-JS contract per masterplan section 4.3" no longer applies: D-25 revoked that contract and permits client-side JS. These remain out of launch scope by design choice, not because JS is banned; any reduced-motion behavior still binds if added.)
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - A "Download the deployment-gap PDF" CTA or any lead-magnet pattern. The page itself is the asset.
 - A newsletter signup, contact form, or scheduling widget. The conversion is `mailto:` only at this stage; richer contact flows are deferred to a separate `features/contact-flow.md` spec if ever needed.
 - Case studies, customer logos, or testimonial blocks. Pouk.ai is too early for these and forcing them dilutes the page's argument.

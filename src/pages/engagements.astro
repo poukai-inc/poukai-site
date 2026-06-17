@@ -20,8 +20,9 @@
  *   - mailto:hello@pouk.ai?subject=<Rung> per-rung; bare mailto end CTA.
  *
  * Icon note: Lucide JSX requires a React context — resolved in EngagementsLadder.tsx,
- * a site-side component (not a DS primitive). Rendered as static HTML; no
- * hydration directive (R-079).
+ * a site-side component (not a DS primitive). Rendered as static HTML;
+ * static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; static is chosen default.]
  *
  * Hero eyebrow note: the DS titled <Hero> excludes an eyebrow slot
  * (HeroDefaultProps.eyebrow: never — only the no-title variant carries one),
@@ -70,7 +71,7 @@ const { meta, hero, ladderIndex, endCta, jsonLd } =
     </nav>
 
     <!-- 3. Four rung FeatureCards (via EngagementsLadder — Lucide JSX needs React context) -->
-    <!-- Rendered as static HTML at build time; no hydration directive (R-079). -->
+    <!-- Rendered as static HTML at build time; static by design. [R-079 superseded by D-25, 2026-06-16; static is chosen default.] -->
     <!-- Each FeatureCard title is an h2, descending cleanly from the Hero h1. -->
     <EngagementsLadder rungs={orderedRungs} />
 

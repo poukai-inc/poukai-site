@@ -1,9 +1,9 @@
 ---
 feature: vs-alternatives
 surface: /why-ai
-status: Draft
-version: 0.1
-lastUpdated: 2026-06-15
+status: Approved
+version: 1.0
+lastUpdated: 2026-06-16
 owner: Arian (founder)
 author: pouk-ai-content
 governingSpec: meta/specs/pages/why-ai-amendment-raise-the-ceiling.md (§4.5 — vs-alternatives section; §6 — placement resolved into /why-ai, not a route, not /engagements)
@@ -13,13 +13,17 @@ compositionReference: none yet (designer chooses the vehicle — FailureMode-sty
 
 # Content: vs-alternatives (`/why-ai`)
 
-**Surface**: `/why-ai`, new IA beat 12 — after the consulting-angle prose (item 11), before the discovery questions (item 13).
-**Status**: Draft — Arian word-level approval required.
+**Surface**: `/why-ai`, new IA beat 12 — after the `whereWorks` body + `discoveryIntro` prose, before the discovery-questions `<blockquote>` (amendment §2 item 12 / §4.5 corrected placement).
+**Status**: Approved — Arian approved all four open Qs as recommended (Q1 Sharpest heading, Q2 keep the in-house generosity line, Q3 keep the named tool stack, Q4 placement confirmed) on 2026-06-16. All four §7 questions resolved below. Cleared for designer composition + engineer build.
 **Owner**: Arian (founder) · Author: pouk-ai-content
-**Last updated**: 2026-06-15
-**Governing spec**: `meta/specs/pages/why-ai-amendment-raise-the-ceiling.md` §4.5 (honest trade-off framing) + §6 (placement resolution)
+**Last updated**: 2026-06-16
+**Governing spec**: `meta/specs/pages/why-ai-amendment-raise-the-ceiling.md` §4.5 (honest trade-off framing) + §4.5a (content-data shape) + §6 (placement resolution)
 
-The one explicit differentiation surface on the site. The load-bearing bet: it wins **by candor, not by dunking**. The register is "X is the right call when…; pouk.ai is the right call when…", categorical and generous to every alternative. The named failure mode — "vs-alternatives slides into dunking" — is worse than omitting the section. Every line below is written against that, and against the absolute no-invented-metrics guardrail.
+The one explicit differentiation surface on the site, and the payoff for the destination homepage's `See when to hire us, and when not to →` link (review F-101). The load-bearing bet: it wins **by candor, not by dunking**. The register is "X is the right call when…; pouk.ai is the right call when…", categorical and generous to every alternative. The named failure mode — "vs-alternatives slides into dunking" — is worse than omitting the section. Every line below is written against that, and against the absolute no-invented-metrics guardrail.
+
+**House style — em-dashes retained (ratified).** `/why-ai` uses em-dashes deliberately (OMC-V4; see `why-ai.astro` decisions). The zero-em-dash rule was a HOME-cycle-only constraint and does **not** apply here. This section uses em-dashes so it reads as one voice with the rest of the page.
+
+**This section is the fuller comparison the homepage compresses.** The Approved `home-destination-sections.md` §2 Section 4 differentiation preview (~44 words: build-yourself / generic-agency / in-house, each sometimes right, pouk.ai earns its place when the integration is the hard part and it must keep running after the demo) is the homepage teaser; this section is its full pay-off — three named beats, each with its own honest "right when…" condition, materially richer than the preview, and it must not read as a paraphrase of the same 44 words.
 
 ---
 
@@ -73,7 +77,7 @@ Section heading + lead-in + three trade-off beats + closing handoff. IA beat 12,
 
 - **Closing**: `The pattern underneath all three: pouk.ai earns its place when the integration is the hard part and the work has to keep running after handoff. If that's the shape of your problem, the diagnosis starts with a few questions.`
 
-*(The closing names the common condition once, then hands directly into the discovery-questions blockquote that follows in the IA. It avoids restating each beat — it abstracts them.)*
+*(The closing names the common condition once, then hands directly into the discovery-questions blockquote that follows in the IA. It avoids restating each beat — it abstracts them. This sentence is the through-line the homepage preview compresses to ~44 words; here it lands as the conclusion the three full beats earn, not as the whole argument — so the section reads as the richer pay-off the homepage teaser promised, not a paraphrase of it.)*
 
 ---
 
@@ -81,7 +85,7 @@ Section heading + lead-in + three trade-off beats + closing handoff. IA beat 12,
 
 **None.** This is a body section on `/why-ai`; it carries no `<title>`, meta, or OG of its own. The `/why-ai` page meta is unchanged by this section, and — critically — this section **adds no cited stats and therefore no new References entries** (the D-01 round-trip stays complete, per §4.5 guardrail). The `/why-ai` OG-card claim line is drafted in `meta/content/drafts/features/og-cards.md`.
 
-- **Heading hierarchy**: the section heading `When to hire pouk.ai — and when not to` is an **H2**, peer to the other `/why-ai` section headings ("Why projects fail…", "What the leaders do differently", "The consulting angle"), descending cleanly from the single page H1. The three alternative names (DIY / agency / in-house) are **not** headings — they are labels or rung titles within the section (designer's vehicle call); if the designer renders them as a heading level, they are **H3** under the section H2, never skipping a level. Flagged in §6.
+- **Heading hierarchy**: the section heading `When to hire pouk.ai — and when not to` is an **H2**, peer to the other `/why-ai` section headings ("Why projects fail — the five failure modes", "What the leaders do differently", "Where pouk.ai works — business knowledge meets AI tooling" — the real shipped `whereWorks.heading`), descending cleanly from the single page H1. The three alternative names (DIY / agency / in-house) are **not** headings — they are labels or rung titles within the section (designer's vehicle call); if the designer renders them as a heading level, they are **H3** under the section H2, never skipping a level. Flagged in §6.
 
 ---
 
@@ -124,12 +128,16 @@ For the designer's vehicle choice (§4.5: FailureMode-style register **or** shor
 
 ---
 
-## 7. Open questions for Arian
+## 7. Open questions for Arian — RESOLVED (2026-06-16)
 
-- **Q1 — section heading.** Recommended: `When to hire pouk.ai — and when not to` (Sharpest). Confirm, or elect Safest / Weirdest.
-- **Q2 — the in-house generosity line.** `a strong in-house team is the best outcome there is` tells a buyer that hiring beats hiring pouk.ai. It's the strongest candor in the section and the most against-interest. Confirm you're comfortable shipping it (recommended — it's what makes the section credible), or dial it to "a strong in-house team is a great outcome."
-- **Q3 — DIY tool naming.** The DIY beat names "Lovable, Claude, Supabase" (consistent with the `/roles` Builder card and `/about`). Confirm these stay (recommended — they ground the DIY option concretely and generously), or genericize to "the modern AI tool stack."
-- **Q4 — placement confirm.** The amendment resolved this section into `/why-ai` (not `/engagements`, not a route). No action unless you want to revisit §6 of the amendment.
+All four resolved at `Approved`. Recorded here so a future revision sees the decision and its reason.
+
+- **Q1 — section heading. RESOLVED: Sharpest.** Heading is `When to hire pouk.ai — and when not to`. This pays off the shipped homepage link `See when to hire us, and when not to →` (`home.json`) verbatim-in-spirit: a reader who clicks "and when not to" lands on a heading that delivers the two-sided "when to / when not to" promise (closes F-101 / amendment §4.5 link-reciprocity AC). The em-dash second clause is on the page's house style (OMC-V4). A bare "How pouk.ai compares" would have failed the AC.
+- **Q2 — in-house generosity line. RESOLVED: keep.** `a strong in-house team is the best outcome there is` ships as written. The against-interest candor is exactly what makes the section credible; dialing it to "a great outcome" would soften the one line that earns the reader's trust. Confirmed comfortable shipping.
+- **Q3 — DIY tool naming. RESOLVED: keep.** `Lovable, Claude, Supabase` stay, named as the capable DIY tool stack (consistent with the `/roles` Builder card and `/about`), never as competitors being beaten. They ground the DIY option concretely and generously. Not genericized.
+- **Q4 — placement. RESOLVED: confirmed.** Section stays on `/why-ai`, inserted after `whereWorks.body` + `whereWorks.discoveryIntro` and before the discovery-questions `<blockquote>` (amendment §2 item 12 / §4.5a). Not `/engagements`, not a new route. No revisit of amendment §6.
+
+**Remaining non-content dependency (not blocking content `Approved`):** the §4.5a designer adjacency flag — whether `whereWorks.discoveryIntro` still reads as a clean lead-in once this section sits between it and the questions, or whether `discoveryIntro` repositions to immediately precede the blockquote. That is a composition call for `pouk-ai-designer`; it only routes back to content if it forces a copy change.
 
 ---
 

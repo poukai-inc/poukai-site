@@ -16,7 +16,8 @@ This memo answers the seven questions Arian posed against Option F (sketchbook-r
 **Assumptions**:
 
 - The pouk.ai brand register is the one that ships today on `/`, `/why-ai`, `/roles`, `/principles`: typography-led, Instrument Serif italic accents, off-white canvas (`--bg` `#FBFBFD`), hairlines, no decorative imagery on any of the four shipped routes. The only illustration anywhere in the system is the engraving Pouākai — currently *deferred* on `/` per the home composition's 2026-05-17 deferral clause (rev-4 Gemini A/B did not converge; DS-gap [poukai-ui#40](https://github.com/poukai-inc/ui/issues/40) for the `<Hero illustration>` slot remains open but unconsumed).
-- The masterplan §2A ratifies illustrations as the visual direction *for the SaaS stage*; real photography is reserved for future Customer Story pages, founder-approved per case. The masterplan §7.3 / §4.3 carry the ≤75 KB-gz-per-page JS budget and the zero-JS-unless-justified posture (only Matomo + Bugsink hydrate; nothing else without an inline justification comment).
+- The masterplan §2A ratifies illustrations as the visual direction *for the SaaS stage*; real photography is reserved for future Customer Story pages, founder-approved per case. ~~The masterplan §7.3 / §4.3 carry the ≤75 KB-gz-per-page JS budget and the zero-JS-unless-justified posture (only Matomo + Bugsink hydrate; nothing else without an inline justification comment).~~
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted anywhere — no ≤75 KB budget, no whitelist, no `// hydration:` justification; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - The kavyasart reference (loose ink-and-watercolor figurative urban-sketch, observational figure drawing, handwritten margin annotations on cream notebook paper, contemplative tone) reads as the *aspiration*. The question is whether a generated/commissioned asset can land in that register at the brand bar.
 - Option F is being evaluated **against** Option C (PM-recommended workspace photo with AI work-product visible) and Option E (process diagram in Arian's hand). The verdict in §7 picks one.
 
@@ -55,7 +56,8 @@ If Option F ships, **the sketch is a mid-page figure inside the prose column at 
 
 ## 3. Motion budget
 
-**Recommendation: ship the sketch fully static.** No CSS-only loop, no SVG `<animate>`, no breath, no steam. The 8KB SVG overlay is technically achievable inside the masterplan §2A budget, but it is the wrong call against the *brand* budget.
+**Recommendation: ship the sketch fully static.** No CSS-only loop, no SVG `<animate>`, no breath, no steam. The 8KB SVG overlay is technically achievable, but it is the wrong call against the *brand* budget. (Performance/JS budgets are now advisory — the recommendation rests on brand register, not a byte gate.)
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 Reasoning:
 

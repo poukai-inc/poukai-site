@@ -273,6 +273,18 @@ header a[href="/"] svg {
   color: var(--fg);
 }
 
+/* ---------- Home Hero CTA pair ----------
+   The DS Hero `cta` slot wrapper is inline-flex with no gap (designed for one
+   CTA). The mailto + booking button-beside-button pair (booking-affordance §2
+   Context A) needs its own gapped container so the two buttons don't abut.
+   flex-wrap stacks them on narrow viewports rather than overflowing. */
+
+.home-hero-cta-pair {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 /* ---------- Universal end CTA ---------- */
 
 .end-cta {
@@ -374,7 +386,7 @@ header a[href="/"] svg {
 }
 
 /* ---------- Writing index — retention block ----------
-   Ungated email line (native zero-JS form) + RSS, once, low on the page. */
+   Ungated email line (native <form action>, no JS needed) + RSS, once, low on the page. */
 
 .writing-retention {
   margin-block-start: var(--space-16);

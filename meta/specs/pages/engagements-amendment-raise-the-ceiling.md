@@ -19,7 +19,7 @@
 1. **Hero stagger (E-A).** Add `entrance="stagger"` to the (already `display`-default) Hero — reversing the §7 Q4 static recommendation. On an evaluation page about a relationship that builds in stages, the stagger reads as the page *composing itself*. (Creative E-A.)
 2. **Summit `Statement` (E-A).** Insert one `Statement` beat between the Retainer rung and the end CTA — restating the load-bearing "four shapes of one relationship, not four products on a shelf" thesis at editorial scale, *after* the reader has climbed all four rungs, so the abstraction lands as a felt conclusion. Once per page, on `--bg` (no band). (ds-capability #4 / creative E-A signature moment.)
 3. **Outcome-language pass (sales-gap #3).** A copy-direction shift on the rung `delivers`/`deRisks` fields: from process terms ("a working result on one scoped workflow") to felt-outcome terms ("the workflow that was eating a day a week, running itself") — categorical, **no invented metrics**. (sales-gap §4 #3; shared direction with `/roles` — see `features/outcome-language-pass.md`.)
-4. **FAQSection (ds-capability #6).** A small zero-JS `<details>` objection-handling block answering the implicit buyer questions a scanning operator has (timeline, what pouk.ai needs from them, how a rung starts). Spec'd centrally in `features/faq-section.md`; this amendment places it and names the `/engagements` question set.
+4. **FAQSection (ds-capability #6).** A small native `<details>` objection-handling block answering the implicit buyer questions a scanning operator has (timeline, what pouk.ai needs from them, how a rung starts). Native `<details>` remains the recommended default (no hydration needed), but per D-25 client JS is permitted if a richer accordion is later wanted. Spec'd centrally in `features/faq-section.md`; this amendment places it and names the `/engagements` question set.
 
 Everything else stands: the four rungs in fixed order, anchors (`#discovery`/`#pilot`/`#build`/`#retainer`), the ladder index, per-rung `mailto:?subject=<Rung>` CTAs (§7(b)), the categorical-only contract (§7(a)), the dual-mechanism end CTA.
 
@@ -48,10 +48,11 @@ Base framing (incl. the four named failure modes) carries over. Added:
 
 ## 4. New / revised acceptance criteria
 
-Additive to base §8. All base ACs (route, IA 1–9, four rungs fixed order, anchors, per-rung CTAs, categorical-pricing ACs, dual end CTA, Lighthouse, zero-JS) still apply.
+Additive to base §8. All base ACs (route, IA 1–9, four rungs fixed order, anchors, per-rung CTAs, categorical-pricing ACs, dual end CTA) still apply.
+> Superseded by D-25 (2026-06-16 JS revocation): the base "Lighthouse" + "zero-JS" ACs are now advisory / permitted respectively — client JS permitted, Lighthouse advisory. a11y + reduced-motion remain binding.
 
 ### 4.1 Hero stagger (reverses §7 Q4)
-- [ ] The Hero renders with `entrance="stagger"` (DS-default `display` size retained). CSS-only; collapses under `prefers-reduced-motion` via the DS block (R-030). Verifier: props inspection + reduced-motion toggle; zero JS added.
+- [ ] The Hero renders with `entrance="stagger"` (DS-default `display` size retained). Collapses under `prefers-reduced-motion` via the DS block (R-030). Verifier: props inspection + reduced-motion toggle. (Per D-25, "zero JS added" is no longer a gate — the stagger may remain CSS-only by choice; JS is permitted.)
 - [ ] No rung-level or scroll-triggered motion is introduced (engagements.md §4 holds). Verifier: only the Hero carries `entrance`.
 
 ### 4.2 Summit Statement
@@ -65,11 +66,13 @@ Additive to base §8. All base ACs (route, IA 1–9, four rungs fixed order, anc
 
 ### 4.4 FAQSection (placement; spec'd in features/faq-section.md)
 - [ ] A `FAQSection` renders on `/engagements`, after the four rungs and the summit Statement, before (or folded near) the end CTA — exact placement is the designer's call within that window. Verifier: DOM shows a `FAQSection`/native `<details>` block in the specified window.
-- [ ] The FAQ is **zero-JS native `<details>/<summary>`** — no hydration, no accordion island. Verifier: built-HTML grep shows `<details>` elements and no new `<script>`/`client:` directive (R-009/R-078).
+- [ ] The FAQ uses **native `<details>/<summary>`** as the recommended default (no hydration required). Verifier: built-HTML shows `<details>` elements. Per D-25 the prior "no `<script>`/`client:` directive" prohibition (cited R-009/R-078) no longer gates this — client JS is permitted; native `<details>` is a sensible baseline by choice, not by mandate.
+> Superseded by D-25 (2026-06-16 JS revocation): zero-JS prohibition (R-009/R-078) lifted; client JS permitted. a11y (axe-core 0 violations, `:focus-visible`) + reduced-motion remain binding.
 - [ ] The `/engagements` question set matches `features/faq-section.md` §4 (the four questions named there for this page); answers satisfy the outcome direction in that spec (declarative, categorical, no figures, no sales push). Verifier (Arian): the shipped Q&A pairs match the named set and the answer register.
 
 ### 4.5 Quality (re-asserted)
-- [ ] Lighthouse mobile holds 100/100/100/100 (Perf ≥ 95 per R-013). Verifier: lighthouse-ci.
+> Superseded by D-25 (2026-06-16 JS revocation): Lighthouse advisory (R-013), not blocking. a11y + reduced-motion remain binding.
+- [ ] Lighthouse mobile tracked as advisory (R-013 framing); not a merge gate. Verifier: lighthouse-ci (situational awareness only).
 - [ ] axe-core 0 violations; the `<details>` FAQ elements have visible `:focus-visible` rings on `<summary>` (R-028) and meet heading-order (R-026). Verifier: axe + keyboard tab-through.
 
 ---

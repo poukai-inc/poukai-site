@@ -135,10 +135,12 @@ This is the page's load-bearing composition. Every other unit serves it.
   - **Below the band**: Unit 3 (story) starts immediately after the band ends — no `--space-24` gap (the band's own bottom padding handles the breathing room).
 
 - **Motion**:
-  - **Static at first paint by default.** Lighthouse 100 + zero-JS contract preserved.
+  - **Static at first paint by default.** Static rendering remains the chosen default (a11y + reduced-motion remain binding).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
   - **Optional**: consume `<Hero entrance="stagger">` (DS 0.8.0, already shipped) for a single 600ms staggered reveal: portrait fades + rises 12px (300ms delay), statement fades + rises 8px (450ms delay), supporting line fades (600ms delay). CSS-only, gated by `prefers-reduced-motion: reduce` via the DS's `:root !important` block.
   - **Designer recommendation**: SHIP THE STAGGER. The display-scale statement benefits from an arrival animation in a way body prose doesn't; the portrait's reveal alongside the statement makes the band feel *composed* rather than *displayed*. At `prefers-reduced-motion: reduce` the page paints fully formed in one beat — both states feel finished.
-  - **No scroll-triggered, no parallax, no IntersectionObserver, no hover effects on portrait, no animated SVG inside portrait.** All would force `client:*` and break R-079.
+  - **No scroll-triggered, no parallax, no IntersectionObserver, no hover effects on portrait, no animated SVG inside portrait.** Omitted by composition choice (these are register decisions, not a JS prohibition — R-079).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 - **Content slot**:
   - Display statement copy: hardcoded in `AboutBand.tsx` (or `about.astro` direct) per the home composition's "homepage prose hardcoded in template" precedent. The composition recipe assumes the statement is short enough that JSON-collection extraction is not earned.
@@ -270,7 +272,8 @@ This is **two surfaces, one alternation, one moment**. Not Direction B's multi-b
   - Footer email link: DS-owned link hover. Unchanged.
   - **Portrait does not hover**: no scale, no tint, no overlay. The portrait is figural imagery, not an interactive element. Hovering a person's portrait to make it scale would be uncanny.
 
-- **Fires never (locked out)**: all scroll-triggered, parallax, scroll-spy, marquee, animated SVG inside portrait, IntersectionObserver-driven, JS-driven micro-interactions. All would force `client:*` and violate R-079 + spec §8 zero-JS AC.
+- **Fires never (locked out by this composition)**: all scroll-triggered, parallax, scroll-spy, marquee, animated SVG inside portrait, IntersectionObserver-driven, JS-driven micro-interactions. Left out as register decisions (~~R-079 + spec §8 zero-JS AC~~).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. These lock-outs are now composition choices, not enforced by a zero-JS contract.
 
 **`prefers-reduced-motion` behavior**: every motion the page consumes (the Hero stagger only) is gated by the DS's `:root !important` block. No exception. No site-side override.
 
@@ -319,7 +322,8 @@ Six DS-gap proposals are now relevant to `/about` v2. Three were filed 2026-05-1
 - **Re-proposal trigger**: if a future page (`/manifesto`, `/values`, customer-story, or any editorial-register surface) wants display type larger than `--fs-display` (88px), the site-side clamp on `/about`'s `.about-band__statement` becomes **the second confirmed surface**, and `--fs-display-lg` re-files against `@poukai-inc/poukai-ui` maintainers with a stronger case: two surfaces is no longer "one page reaching for it," it's "the brand has a pattern." The re-proposal would name the second surface, document `/about`'s clamp value as the working precedent, and ask the DS to absorb the clamp into a bounded token (likely with a tighter ceiling than the original 192px — 128px would be the negotiation anchor). Until the second surface arrives, the clamp stays site-side.
 - **Status**: ✅ shipped (with caveat). `--fs-display` consumable; `--fs-display-lg` retired; site-side clamp is the composition's authoritative recipe for the display statement scale.
 - **Engineer-facing change vs. prior v2 recipe**: the display statement's `font-size` is no longer `var(--fs-display-lg)` — it is the site-side clamp expression authored in `site.css` (or `AboutBand.tsx`'s scoped style, engineer's call). The clamp is one CSS rule, ~1 line. No JS impact. No bundle impact (a single CSS clamp adds <100 bytes pre-compression).
-- **Lighthouse / a11y / motion impact**: zero. The clamp is CSS-only; it doesn't change paint, layout, motion, or accessibility surface. axe-clean. Lighthouse 100/100/100/100 contract preserved.
+- **Lighthouse / a11y / motion impact**: zero. The clamp is CSS-only; it doesn't change paint, layout, motion, or accessibility surface. axe-clean (a11y remains binding); performance metrics are advisory.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 ### 6.4 `--bg-warm-accent` color token family — **NEW**, filed concurrently with this composition
 
@@ -430,4 +434,5 @@ This composition deliberately does not cover:
 - **Dark-mode behavior.** Out until dark mode ships. The DS-gap §6.4 proposal notes the warm tokens will need dark-mode-equivalent values; that's part of the DS team's dark-mode work, not this composition's.
 - **OG card / share image generation from the portrait.** Flagged for future-availability; v2 ships with the existing `public/og.png` per v1 spec §6 (preserved verbatim in v2 spec assumed).
 - **Engineer-side responsive `srcset` width tuning.** Composition recommends 480w/768w/1200w/1800w; engineer fine-tunes at build time against Lighthouse measurements.
-- **Performance / Lighthouse re-baseline.** v2's HTML payload is comparable to v1 (similar token count, slightly more compositional CSS for the band, plus the portrait `<picture>` element with `srcset`). Lighthouse 100/100/100/100 contract holds; LCP target <2.0s mobile per the asset budget in §6.7.
+- **Performance / Lighthouse re-baseline.** v2's HTML payload is comparable to v1 (similar token count, slightly more compositional CSS for the band, plus the portrait `<picture>` element with `srcset`). Lighthouse is now advisory (tracked, not gating); LCP target <2.0s mobile per the asset budget in §6.7 is an advisory aim.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.

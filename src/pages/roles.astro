@@ -9,8 +9,10 @@
  * Universal end CTA per D-08: single mailto: at page bottom, no per-card CTA.
  *
  * Icon note: Lucide JSX requires a React context — resolved in RolesGrid.tsx,
- * a site-side component (not a DS primitive). Rendered as static HTML; no
- * hydration directive (R-079).
+ * a site-side component (not a DS primitive). Rendered as static HTML;
+ * static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -54,7 +56,7 @@ const { meta, hero, endCta, jsonLd } = rolesPageSchema.parse(rolesPageRaw);
     </nav>
 
     <!-- 3. Four RoleCard molecules (via RolesGrid — Lucide JSX requires React context) -->
-    <!-- Rendered as static HTML at build time; no hydration directive (R-079). -->
+    <!-- Rendered as static HTML at build time; static by design. [R-079 superseded by D-25, 2026-06-16; static is chosen default.] -->
     <!-- sr-only h2 bridges h1 → h3 (RoleCard) to satisfy axe heading-order (R-026). -->
     <h2 class="visually-hidden">Role archetypes</h2>
     <RolesGrid roles={orderedRoles} />

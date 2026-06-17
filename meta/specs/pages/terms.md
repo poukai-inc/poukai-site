@@ -90,8 +90,9 @@ The page reads `src/content/terms.json`. Schema (per R-074) validates:
 - [ ] `SiteShell` renders with **no funnel-nav item marked current**.
 - [ ] `<title>` and `<meta description>` are factual (app terms), not marketing copy.
 - [ ] Content lives in `src/content/terms.json` validated by a Zod schema (R-074/R-076).
-- [ ] Lighthouse mobile: Perf ≥ 95, A11y = 100, BP = 100, SEO = 100.
-- [ ] No client-side JS beyond the sitewide `BaseLayout` posture; axe-core 0 violations (route in CI coverage per CR-3).
+- [ ] Lighthouse mobile (advisory, not a merge gate per D-25): tracked for situational awareness; not blocking.
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
+- [ ] axe-core 0 violations (route in CI coverage per CR-3) and `prefers-reduced-motion` honored — both binding. Client-side JS is permitted on this route (the prior "no client-side JS beyond `BaseLayout`" clause is revoked by D-25).
 - [ ] **Scope discipline verified** (Arian-verified): the terms do not over-reach into engagement-contract territory.
 
 ## 9. Open questions / dependencies

@@ -132,7 +132,7 @@ Authored against the wave-1 assessments (`meta/assessments/ds-capability-vs-usag
 
 21. **`features/faq-section.md`** — **PROPOSAL / In review** · **P2**
     - Zero-JS native `<details>` objection-handling on `/engagements` + `/onboarding`. Question sets DECIDED (4 per page — see spec §4). Answers = content's lane (declarative, categorical, short, no CTA).
-    - Ready for: content (answers) + designer (placement). Engineer confirms DS FAQ register is zero-JS native `<details>` (else plain semantic `<details>`).
+    - Ready for: content (answers) + designer (placement). Engineer picks the FAQ register — native `<details>` is the sensible default; a hydrated disclosure is permitted (D-25, 2026-06-16 JS revocation) provided it stays keyboard-operable and axe-clean (a11y + reduced-motion remain binding). [Earlier "zero-JS native `<details>` (else plain semantic)" mandate superseded by D-25; Lighthouse/HTML-weight advisory.]
 
 22. **`features/og-cards.md`** — **PROPOSAL / In review** · **P2**
     - Per-page + per-essay typographic OG cards (sales-gap #4 / writing.md §6.1). Priority: `/writing/[slug]` (claim + real sourced stat) > `/why-ai` > `/engagements` (figure-free) > `/writing` index > remaining routes (fallback OK). Typographic-only, no illustration except optional feather corner. Zero page-weight.

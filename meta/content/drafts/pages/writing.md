@@ -55,7 +55,7 @@ revisionHistory:
 - **Voice anchor**: agent §4.2 (operator-first — the reader is a peer, write to them as one), §4.4 (no marketing-speak — "newsletter", "subscribe to my newsletter", "join", "community", "thought leadership" are all the wrong register here), §4.6 (show, don't claim — the corpus proves the thinking; the index doesn't advertise it). Mirrors the `/principles` intro register ("The work is what proves them.") and the `/why-ai` restraint.
 - **Assumptions** (flagged for Arian):
   - **A1 — `/writing` is NOT in the primary nav** (resolved, `writing.md` §9 — footer link + essay cross-links only). This draft writes no nav-label copy beyond confirming the footer label is `Writing`.
-  - **A2 — the email line SHIPS** (v0.2 — Buttondown approved by Arian). The §2 retention block is the live copy. RSS-alone remains the documented engineering fallback (`writing.json.md` §6) if the zero-JS embed ever proves unworkable, but it is no longer the default path — demoted to a one-line note in §2. See §2.
+  - **A2 — the email line SHIPS** (v0.2 — Buttondown approved by Arian). The §2 retention block is the live copy. RSS-alone remains the documented engineering fallback (`writing.json.md` §6) if the hosted embed ever proves unworkable, but it is no longer the default path — demoted to a one-line note in §2. See §2. [Note: the embed no longer needs to clear a zero-JS bar — superseded by D-25 (2026-06-16 JS revocation); the ungated/no-gate product intent still holds. a11y + reduced-motion remain binding.]
   - **A3 — the index has a section heading above the essay list.** The spec IA (§4a) lists hero → essay list → retention block. I default the essay list to render under the H1 without a separate H2 (the list *is* the page body), and the retention block as a quiet H2. If the designer wants the list under its own H2, copy is in §2. See §6.
   - **A4 — the sample seed essay in §5 is illustrative, not a ship.** It demonstrates the §5.2 bar is clearable in this voice. Arian approves it (or not) as a *separate* decision from approving this chrome draft.
 
@@ -87,13 +87,13 @@ No "read more", no excerpt, no tag chips, no author byline (attribution is Organ
 
 ### Block: Retention — email line (spec §4a item 4, §7(d) — ungated, one line)
 
-**Ships** (v0.2 — Buttondown approved). Plain `<form action="…" method="post">` posting to Buttondown, zero-JS, no popup, no modal, no gate.
+**Ships** (v0.2 — Buttondown approved). Plain `<form action="…" method="post">` posting to Buttondown — ungated: no popup, no modal, no gate. [The "zero-JS" requirement is superseded by D-25 (2026-06-16 JS revocation): client JS is permitted; the plain hosted-form, no-gate product intent still stands as the design choice.]
 
 - **Line**: `New essays, by email when they land. No list, no pitch — just the notes.`
 - **Field placeholder**: `you@company.com`
 - **Submit button label**: `Subscribe`
 
-*(Fallback note: if the Buttondown zero-JS embed ever proves unworkable, RSS ships alone and this line is deferred — `writing.json.md` §6. That's an engineering fallback, not the planned path; the email line is the default now.)*
+*(Fallback note: if the Buttondown embed ever proves unworkable, RSS ships alone and this line is deferred — `writing.json.md` §6. That's an engineering fallback, not the planned path; the email line is the default now. The "zero-JS embed" qualifier is dropped per D-25 — client JS is permitted.)*
 
 *(The line is the "operator's notes" framing the spec demands — "New essays, by email" is the offer; "No list, no pitch — just the notes" is the disavowal of newsletter-funnel energy. Button reads `Subscribe` because that's the plain, honest verb for what the action does; the *line above it* carries the anti-funnel register so the button doesn't have to. Alternative button label in §5 if `Subscribe` reads too newsletter-y for Arian.)*
 
@@ -206,7 +206,8 @@ For launch, when the corpus is small (the §7(e) accepted risk: shipping under-f
 For the designer's pass (`meta/compositions/pages/writing.md`).
 
 - **Flag 1 — essay-list entries are not headings.** Each list entry renders title (as `<a>`), claim (one line), date (muted). Confirm entries are *not* `<h2>`/`<h3>` — one heading per essay would bloat the outline and there'd be no single section structure. The index H1 is the hero title; the list is body. (§3 heading-hierarchy note.)
-- **Flag 2 — email line is one line, zero-JS.** The copy is one line + a placeholder + a button. It must compose as a plain `<form action>` (no hydrated island, no popup/modal). If the designer's layout wants the email line and RSS clustered into a single "retention" footer-of-page block, the copy supports that (line + `Subscribe` + `RSS` sit together). Placement is the designer's call; PM default is once, low on the page (`writing.md` §4a item 4).
+- **Flag 2 — email line is one line, ungated.** The copy is one line + a placeholder + a button. It composes as a plain `<form action>` with no popup/modal/gate; a hydrated island is now permitted (D-25) but unnecessary here. If the designer's layout wants the email line and RSS clustered into a single "retention" footer-of-page block, the copy supports that (line + `Subscribe` + `RSS` sit together). Placement is the designer's call; PM default is once, low on the page (`writing.md` §4a item 4).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The earlier "zero-JS" framing on this flag no longer gates the form.)
 - **Flag 3 — no empty-state filler.** I recommend NO "more coming" copy (§2, §4). If the designer feels the index looks bare at launch with few essays, the fix is layout density (tighter list, the retention block doing visual work), not apology copy. Flagged so the absence is a conscious composition decision.
 - **Flag 4 — RSS placement.** RSS label may live in the retention block, the footer, or both (`writing.md` §4a/§5). Copy is the bare `RSS` either way; no placement-specific wording needed.
 

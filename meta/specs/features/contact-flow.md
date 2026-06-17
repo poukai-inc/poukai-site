@@ -5,7 +5,8 @@
 **Owner**: Arian (founder) · Author: pouk-ai-pm
 **Last updated**: 2026-06-14 (Approved; §9 decisions flipped OPEN → RESOLVED)
 **Decisions log**: FS-CF-1 (booking sits BESIDE `mailto:` as a secondary affordance; `mailto:` stays primary/low-friction; never replace, never force a calendar), FS-CF-2 (booking-context routing deferred to v2), FS-CF-3 (the `mailto:`-only standing decision is narrowed to a dual mechanism) — all resolved via Arian's approval of `meta/specs/final-state-strategy.md` on 2026-06-14.
-**Masterplan reference**: Sections 2A (decision authority — nav/CTA contents are site-owned; shape/substance), 4.3 (client-JS posture — the booking link is a plain `<a>`, zero-JS). **Masterplan delta**: narrows the standing `mailto:`-only contact posture to a dual mechanism — a deliberate, flagged divergence requiring Arian's sign-off (`final-state-strategy.md` §7.2).
+**Masterplan reference**: Sections 2A (decision authority — nav/CTA contents are site-owned; shape/substance), 4.3 (client-JS posture — REVOKED per D-25; the booking link is a plain `<a>` by design choice, not contract). **Masterplan delta**: narrows the standing `mailto:`-only contact posture to a dual mechanism — a deliberate, flagged divergence requiring Arian's sign-off (`final-state-strategy.md` §7.2).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The §4.3 zero-JS implication on the booking link no longer binds; the plain-link treatment stands as a design choice.)
 **Strategy reference**: `meta/specs/final-state-strategy.md` §1.2 (conversion goal), §3.2 (feature rationale), §6.1 (the unused booking path — highest-leverage underperformance).
 **Coupled spec**: `meta/specs/pages/scheduling.md` (the `/scheduling` explainer; `contact-flow` owns the booking *action in the funnel*, `/scheduling` owns the explainer/OAuth job).
 
@@ -53,7 +54,7 @@ The problem this solves: the site spent effort building and verifying a live, ow
 
 - **One primary, one secondary.** `mailto:` is the primary affordance at every governed point (the proven, low-friction default). `cal.pouk.ai` booking is a quiet secondary — present, clearly subordinate, never a peer-weight or louder call-to-arms. Never more than these two at a conversion point.
 - **No urgency, no scarcity.** No "limited slots," no "book now," no exclamation, no countdown. Operator-first restraint, the same register the rest of the site holds. The booking CTA reads as "or grab a time →," not "Book your call today!"
-- **Zero-JS.** The booking affordance is a plain `<a href="https://cal.pouk.ai">` (or a specific event-type URL — §9). **No embedded `cal.com` widget, no island, no modal** — that would violate R-009/R-010 (client-JS budget) and R-078 (hydration discipline). Booking happens on `cal.pouk.ai`; the site only links to it.
+- **Plain link, by design.** The booking affordance is a plain `<a href="https://cal.pouk.ai">` (or a specific event-type URL — §9). **No embedded `cal.com` widget, no island, no modal** — kept lean as a brand-restraint/design choice; booking happens on `cal.pouk.ai` and the site only links to it. (The former R-009/R-010 client-JS-budget and R-078 hydration-discipline constraints cited here are superseded by D-25 — client JS is now permitted; an embed is allowed if Arian ever wants one, but the plain link remains the chosen treatment. a11y + reduced-motion remain binding.)
 - **Reuses existing DS.** PM expects the booking affordance to reuse the existing `<Button>` shape (a secondary/quiet variant) beside the primary CTA. If a new variant is genuinely needed, that's a DS proposal Arian files — PM does not author the DS API (masterplan §2A).
 - **Trust-loop exclusion is a hard rule**, not a style preference (§4, §10).
 
@@ -76,12 +77,13 @@ CTA copy variants (the "or grab a time →" line per surface) are authored by `p
 - [ ] **No booking affordance renders on `/principles` or `/about`** (trust-loop exclusion) — those pages keep their existing `mailto:`-only end CTA.
 - [ ] **No booking affordance renders on `/privacy` or `/terms`.** `/scheduling`'s hero CTA links to `cal.pouk.ai` as the app explainer (governed by `pages/scheduling.md`), not as a funnel booking CTA.
 - [ ] `/engagements` **per-rung** CTAs remain `mailto:hello@pouk.ai?subject=<Rung>` only — **no per-rung booking link** (booking appears only at the `/engagements` end CTA). D-08's "no per-card CTA" on `/roles` is not loosened (no booking link on individual `RoleCard`s).
-- [ ] The booking affordance is a plain `<a href>` to the canonical `cal.pouk.ai` URL — **no embedded scheduling widget, no hydrated island, no modal** (R-009/R-010/R-078).
+- [ ] The booking affordance is a plain `<a href>` to the canonical `cal.pouk.ai` URL — **no embedded scheduling widget, no hydrated island, no modal** (a design/restraint choice). [The R-009/R-010/R-078 client-JS basis is superseded by D-25 — client JS is permitted; this AC stands as a product-restraint check, not a JS-budget gate. If an embed is ever added it must be keyboard-accessible and axe-clean.]
 - [ ] The booking URL resolves (no 404; points at the live `cal.pouk.ai` or a valid event-type path).
 - [ ] No booking CTA carries urgency, scarcity, exclamation, or stacked multiple buttons (§5 voice discipline).
 - [ ] The `SiteShell` footer exposes both a `mailto:` and a `cal.pouk.ai` link in the utility tier.
 - [ ] The canonical booking URL is defined once (shared constant/field), not duplicated as a literal across pages (R-076 spirit).
-- [ ] Every affected route still passes Lighthouse (Perf ≥ 95, A11y/BP/SEO = 100), ships zero added client-JS, and passes axe-core 0 violations.
+- [ ] Every affected route passes axe-core 0 violations (WCAG AA) and honors `prefers-reduced-motion` — **binding**. Lighthouse (Perf/BP/SEO) is tracked as **advisory**, not a gate; there is no zero-added-client-JS requirement.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The "zero added client-JS" and Lighthouse-as-gate parts of this AC are revoked; a11y + axe-core 0 violations are retained.)
 - [ ] CTA copy variants source from content (not JSX literals) and meet §5's voice discipline (Arian-verified).
 
 ## 9. Decisions (RESOLVED) + dependencies
@@ -105,7 +107,7 @@ CTA copy variants (the "or grab a time →" line per surface) are authored by `p
 
 - **A booking affordance on `/principles` or `/about`.** Trust-loop pages stay `mailto:`-only — hard rule, not a style call.
 - **A booking affordance on the legal trio** (`/privacy`, `/terms`, `/scheduling` as funnel CTAs). Off-funnel.
-- **An embedded `cal.com` scheduling widget / iframe / island** anywhere on the marketing site. Zero-JS; booking happens on `cal.pouk.ai`, linked to.
+- **An embedded `cal.com` scheduling widget / iframe / island** anywhere on the marketing site. Kept out as a design/restraint choice; booking happens on `cal.pouk.ai`, linked to. [The earlier "Zero-JS" rationale is superseded by D-25 — client JS is permitted; an embed is allowed if Arian later wants one, but the plain link is the chosen treatment.]
 - **Replacing `mailto:`.** The email path stays; this augments, it does not remove (FS-CF-1, locked beside-not-replace). Booking is never primary and never forced.
 - **Per-rung booking links on `/engagements`** (CTA-stacking) and **per-card booking links on `/roles`** (D-08).
 - **Booking-context routing (archetype/rung in the booking URL)** at v1 — deferred to a fast-follow.

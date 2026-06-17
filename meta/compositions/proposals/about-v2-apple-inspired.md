@@ -143,7 +143,8 @@ Apple example: `apple.com/values/environment` interleaves serif-italic pull-quot
 
 ## 3. Proposed v2 composition recipe
 
-A type-only, moment-shaped, brand-tone `/about` that satisfies the founder's three asks. **Six moments** in vertical order, all sitting on `--bg`, all capped at `--content-max`, separated by hairline rules and generous whitespace. **Zero motion, zero client JS, zero hydration.** A11y contract: exactly one `<h1>` per page, no level-skip.
+A type-only, moment-shaped, brand-tone `/about` that satisfies the founder's three asks. **Six moments** in vertical order, all sitting on `--bg`, all capped at `--content-max`, separated by hairline rules and generous whitespace. **Static by design (zero motion).** A11y contract: exactly one `<h1>` per page, no level-skip (a11y + reduced-motion remain binding).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. The "zero client JS / zero hydration" framing is now a design default, not a contract.
 
 ### Moment 1 — Page label (top of page, quiet)
 
@@ -342,7 +343,8 @@ Apple does a lot of its company-page work with full-bleed photography. **pouk.ai
 - **Apple's headshots / team grids** on `/leadership`. → **v2 has none of these**. pouk.ai is one operator (the spec's Moment 4 substantive fact); there are no team headshots to place. The page's "who-is-behind-this" job is done by the brand-voice statements in Moments 2 and 4, not by a face.
 - **Apple's pull-quote attributions ("— Tim Cook")**. → **v2 has no attribution lines**. Brand-voice declarative throughout means there is no "speaker" to attribute to. The page is pouk.ai speaking as pouk.ai.
 
-The whole recipe is type-and-token. **Zero image weight.** Total HTML payload should be ~similar to v1 (it's the same JSON-LD, same `<SiteShell>`, similar prose length compressed into fewer paragraphs, plus four hairlines and three additional clamp-styled type runs). Lighthouse contract preserved.
+The whole recipe is type-and-token. **Zero image weight.** Total HTML payload should be ~similar to v1 (it's the same JSON-LD, same `<SiteShell>`, similar prose length compressed into fewer paragraphs, plus four hairlines and three additional clamp-styled type runs). Lighthouse is now advisory; a11y remains binding.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 **The signal the absence sends**: the brand is confident enough that it lands the page on type and rhythm alone. Apple's company pages are *louder* because Apple has resources to spend on imagery. pouk.ai's company page is *quieter* because the restraint is the credential. The two pages share a compositional grammar; they don't share a volume budget.
 
@@ -382,7 +384,8 @@ The recipe in §3 is opinionated but every choice is reversible. Questions, in o
 - **Reopening A3 (illustration).** §6 holds illustration parked.
 - **Reopening A4 (four-item nav order).** Unchanged. Nav order `Why AI → Roles → Principles → About` carries forward verbatim.
 - **Reopening A14 (`<title>`, meta description) or A15 (JSON-LD Person, no `worksFor`, no `sameAs`).** Metadata layer is unchanged by this recalibration — moment-shaped page content does not affect the SERP / structured-data surface.
-- **Performance / Lighthouse re-baseline.** v2's HTML payload is comparable to v1 (similar token count, slightly fewer words, slightly more elements). The Lighthouse 100/100/100/100 contract holds unchanged.
+- **Performance / Lighthouse re-baseline.** v2's HTML payload is comparable to v1 (similar token count, slightly fewer words, slightly more elements). Lighthouse is now advisory (tracked, not gating).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **Composition v1's `Approved` status.** v1 stays `Approved` and shipped until a v2 revision lands. This memo does not flip v1.
 
 ---
