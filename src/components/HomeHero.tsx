@@ -24,6 +24,7 @@
 
 import { Hero, StatusBadge, Button } from "@poukai-inc/ui";
 import { BOOKING_URL } from "../lib/booking";
+import { HomeHeroIllustration } from "./HomeHeroIllustration";
 
 interface HomeHeroProps {
   status: string;
@@ -54,9 +55,16 @@ export function HomeHero({
   bookingLabel,
 }: HomeHeroProps) {
   return (
-    <Hero
-      size="display"
-      entrance="stagger"
+    /* Asymmetric split: hero text left, "The Signal" illustration right.
+       Owned here (.home-hero-split in site.css) rather than via the DS Hero
+       `illustration` slot — that slot's two-column rule is gated on
+       @media(--bp-md), an unresolved PostCSS custom-media the DS ships, which
+       browsers ignore (it stacks). Single-column below 768px; illustration
+       hidden there. */
+    <div className="home-hero-split">
+      <Hero
+        size="display"
+        entrance="stagger"
       status={
         <StatusBadge status="available">{status}</StatusBadge>
       }
@@ -92,6 +100,10 @@ export function HomeHero({
           </Button>
         </span>
       }
-    />
+      />
+      <div className="home-hero-split__aside">
+        <HomeHeroIllustration />
+      </div>
+    </div>
   );
 }
