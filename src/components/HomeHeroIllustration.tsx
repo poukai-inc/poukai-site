@@ -61,36 +61,11 @@ const TRACE_PATH = `
 const GRID_VX = [80, 200, 320, 400, 480, 600, 720];
 const GRID_HY = [120, 220, 320, 420];
 
-const STYLES = `
-  .wb { font-family: var(--font-mono); }
-  .wb .grid { stroke: var(--hairline); }
-  .wb .axis { stroke: var(--hairline); }
-  .wb .node-ring { fill: var(--bg); stroke: currentColor; }
-  .wb .node-ring--accent { stroke: var(--accent); }
-  .wb .node-dot { fill: currentColor; }
-  .wb .node-dot--accent { fill: var(--accent); }
-  .wb .trace { fill: none; stroke: var(--fg-muted); }
-  .wb .leader { stroke: var(--fg-muted); opacity: 0.55; }
-  @media (prefers-reduced-motion: no-preference) {
-    .wb .pulse-halo {
-      transform-origin: center; transform-box: fill-box;
-      animation: wb-pulse 2.8s ease-in-out infinite;
-    }
-    @keyframes wb-pulse {
-      0% { transform: scale(1); opacity: 0.55; }
-      100% { transform: scale(2.6); opacity: 0; }
-    }
-    .wb .signal-pulse {
-      stroke-dasharray: 6 200;
-      stroke-dashoffset: 206;
-      animation: wb-signal 4.2s linear infinite;
-    }
-    @keyframes wb-signal {
-      from { stroke-dashoffset: 206; }
-      to { stroke-dashoffset: -200; }
-    }
-  }
-`;
+// The `.wb` styles + keyframes live in src/styles/site.css, NOT inline here.
+// An inline <style> inside the SVG is blocked by the production CSP
+// (style-src 'self'; see csp-compat-check.mjs / CR-4) — it would fail the gate
+// AND strip the animation in production. Keeping them in the first-party
+// stylesheet keeps the diagram styled and animated under 'self'.
 
 function labelPos(n: SystemNode) {
   const lx = n.side === 0 ? AX : n.x + n.side * 60;
@@ -109,9 +84,6 @@ export function HomeHeroIllustration() {
     // is y176..420, so this tight viewBox makes the diagram a dense band with
     // no internal dead space.
     <svg viewBox="40 176 720 250" className="wb" aria-hidden="true" focusable="false">
-      <defs>
-        <style>{STYLES}</style>
-      </defs>
 
       {/* hairline draftsman grid */}
       <g className="grid" strokeWidth="0.6">

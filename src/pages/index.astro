@@ -87,17 +87,6 @@ const { meta, hero, statement, differentiation, closingCta, jsonLd } = home;
     />
   </div>
 </BaseLayout>
-
-<style>
-  /*
-   * --space-16 (64px) gap above and below the Statement.
-   * The Section 4 <Section size="default"> supplies its own --space-16 block
-   * padding top; the gap between Statement and Section 4 is covered by
-   * statement-gap's padding-bottom + Section's own padding-top.
-   * The CTASection owns its own frame — no manual spacer between Section 4
-   * and Section 5 (DS anti-pattern: do NOT add margin between them).
-   */
-  .home-statement-gap {
-    padding-block: var(--space-16);
-  }
-</style>
+{/* .home-statement-gap lives in src/styles/site.css, not a scoped <style> here:
+    Astro inlines small scoped styles into the page <style>, which the
+    production CSP (style-src 'self') blocks — it failed csp-compat (CR-4). */}
