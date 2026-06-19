@@ -44,9 +44,6 @@ concurrency:
 
 permissions:
   contents: read
-  # Lets the built-in GITHUB_TOKEN read GitHub Packages (the private
-  # @poukai-inc/ui dep) at install time, instead of a hand-rotated PAT.
-  packages: read
 
 jobs:
   build:
@@ -70,14 +67,12 @@ jobs:
       - name: Install dependencies (frozen lockfile)
         env:
           # .npmrc reads ${NPM_TOKEN} as the npm.pkg.github.com auth token for
-          # the private @poukai-inc/ui dep. Use github.token (the built-in
-          # GITHUB_TOKEN via the github context, permissions: packages: read
-          # above) — NOT secrets.*, which this org withholds from pull_request
-          # runs (that withholding is why the old PAT only ever worked via a
-          # warm pnpm cache and 401'd on a cache miss). No PAT to rotate.
-          # Requires (one-time): the @poukai-inc/ui package must grant this repo
-          # Actions-read access (Package settings → Manage Actions access).
-          NPM_TOKEN: ${{ github.token }}
+          # the @poukai-inc/ui dep. Must be a classic PAT with read:packages
+          # (secrets.NPM_TOKEN) — GitHub's npm registry does NOT accept the
+          # built-in GITHUB_TOKEN as an npm credential (it 401s). The package
+          # is public, so any valid read:packages token works; no per-package
+          # access grant is needed.
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build (astro check && astro build)
@@ -109,7 +104,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build
@@ -150,7 +145,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build
@@ -184,7 +179,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build
@@ -242,7 +237,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Lint (ESLint)
@@ -271,7 +266,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: pnpm audit --prod --audit-level=high
@@ -326,7 +321,7 @@ jobs:
 
       - name: Install dependencies (prod only)
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile --prod
 
       - name: License allow-list
@@ -367,7 +362,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build (lhci serves dist/ via `pnpm preview`)
@@ -412,7 +407,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Build
@@ -508,7 +503,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Run tests with coverage
@@ -557,7 +552,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NPM_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm install --frozen-lockfile
 
       - name: Cache Playwright browsers
