@@ -30,6 +30,7 @@
     ]
   },
   "pivot": "This is the gap pouk.ai works in.",
+  "statement": "Diagnosis before the build — the order pouk.ai works in.",
   "failureModesIntro": {
     "heading": "Why projects fail — the five failure modes",
     "paragraph": "Most AI initiatives don't fail because the model isn't good enough. They fail before the model is ever really tested. Here's the pattern:"
@@ -60,7 +61,29 @@
       "\"Who inside the organization will champion this after deployment?\"",
       "\"What does success look like in 90 days, and how will we measure it?\""
     ],
-    "closing": "The diagnosis comes before the build. That is the order pouk.ai works in."
+    "closing": "Those four answers decide what — if anything — gets built."
+  },
+  "vsAlternatives": {
+    "heading": "When to hire pouk.ai — and when not to",
+    "leadIn": "pouk.ai isn't the right answer for every AI problem. Most teams weigh three other options first — doing it themselves, hiring a generic AI agency, or building an in-house team. Here's the honest read on when each of those is the better call, and when it isn't.",
+    "alternatives": [
+      {
+        "name": "Doing it yourself",
+        "rightWhen": "Doing it yourself is the right call when the workflow is simple, the stakes of getting it wrong are low, and you have the time and the appetite to learn the tools. The modern stack — Lovable, Claude, Supabase — genuinely collapses what used to take a dev team months into days. If you can describe the thing precisely and it lives in one system, build it yourself. You'll learn more, and you won't need anyone.",
+        "poukaiWhen": "pouk.ai is the right call when the hard part isn't building the thing — it's wiring it into the systems you already run, getting the data where it needs to be, and keeping it working after the demo. That's the seam where DIY pilots stall: not the model, the integration. When shipping it and supporting it matters more than standing it up, that's the work pouk.ai does."
+      },
+      {
+        "name": "A generic AI agency",
+        "rightWhen": "A generic AI agency is the right call when you need volume, breadth, or a known commodity delivered to spec — a batch of content, a standard chatbot, a horizontal AI layer rolled out wide. If the work is well-understood and the value is in throughput, an agency built for throughput will serve you well.",
+        "poukaiWhen": "pouk.ai is the right call when the work is specific to your business and the diagnosis matters more than the deliverable — when you need someone to figure out which failure mode you're actually in before anyone builds, then engineer the fix at the intersection of your domain and the tooling. The depth is the point, not the breadth."
+      },
+      {
+        "name": "Hiring in-house",
+        "rightWhen": "Hiring in-house is the right call when AI is core to your product, the work is permanent, and you can attract and keep the talent. If you'll be building and running AI systems for years, owning that capability beats renting it — and a strong in-house team is the best outcome there is.",
+        "poukaiWhen": "pouk.ai is the right call when you need the work done well before that team exists — or when the job is to build the system and hand it over so your team can run it without being on the hook to have hired for it first. Good engagements end with your people owning the result, not depending on pouk.ai."
+      }
+    ],
+    "closing": "The pattern underneath all three: pouk.ai earns its place when the integration is the hard part and the work has to keep running after handoff. If that's the shape of your problem, the diagnosis starts with a few questions."
   },
   "endCta": {
     "primary": {

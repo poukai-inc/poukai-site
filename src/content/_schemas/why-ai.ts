@@ -48,11 +48,34 @@ export const whyAiSchema = z.object({
     outro: z.string(),
     stats: z.array(statSchema).length(3),
   }),
+  /** Promoted conviction line — renders as <Statement> at the failure-modes→leaders pivot. (R-076) */
+  statement: z.string(),
   whereWorks: z.object({
     heading: z.string(),
     body: z.string(),
     discoveryIntro: z.string(),
     questions: z.array(z.string()).length(4),
+    /** Non-conviction handoff line — the promoted Statement sentence has moved to `statement`. */
+    closing: z.string(),
+  }),
+  /**
+   * vs-alternatives differentiation beat — renders as <PrincipleList> in the whereWorks block.
+   * Categorical only: no stat/citation fields (D-01 round-trip stays complete). (R-076)
+   * Shape per amendment §4.5a.
+   */
+  vsAlternatives: z.object({
+    heading: z.string(),
+    leadIn: z.string(),
+    /** Exactly 3 alternatives: DIY / generic AI agency / in-house, in that order. */
+    alternatives: z
+      .array(
+        z.object({
+          name: z.string(),
+          rightWhen: z.string(),
+          poukaiWhen: z.string(),
+        })
+      )
+      .length(3),
     closing: z.string(),
   }),
   endCta: z.object({

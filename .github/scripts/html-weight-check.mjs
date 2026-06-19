@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 /**
- * html-weight-check.mjs — R-015 gate
+ * html-weight-check.mjs — R-015 report (ADVISORY since D-25, 2026-06-16)
  *
- * Verifies that the gzipped HTML weight of each route does not exceed 110% of
- * the committed baseline in .github/baselines/html-weight.json.
+ * Reports the gzipped HTML weight of each route against the committed baseline
+ * in .github/baselines/html-weight.json.
  *
- * R-015 (HARD): HTML weight on any route after gzip is ≤ 110% of the baseline
- * committed to the repo. A regression > 10% blocks merge. The masterplan
- * section 6.1 ("HTML weight `/` ≤ current page +10%") is the upstream source.
+ * R-015 (ADVISORY since D-25, meta/decisions/2026-06-16-revoke-zero-js.md):
+ * the ≤110%-of-baseline HTML-weight ceiling is converted from a HARD gate to
+ * advisory — tracked for situational awareness, not merge-blocking. The CI job
+ * carries continue-on-error, so a > 10% regression surfaces (red but
+ * non-blocking) without gating PRs. The masterplan section 6.1 ("HTML weight
+ * `/` ≤ current page +10%") is the upstream source.
  *
  * BASELINE UPDATE PROTOCOL
  * ─────────────────────────

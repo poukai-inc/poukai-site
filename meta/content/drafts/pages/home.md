@@ -258,4 +258,4 @@ Future revision triggers (recorded so a future Content pass knows when to reopen
 - JSON-LD field values — owned by the engineer per the spec; copy here only confirms the public-facing strings.
 - Choice of email host, social-link destinations, sitemap entries — engineering and infrastructure decisions, not content.
 - Any treatment of `banner.png` / `og.png` artwork — visual design, not copy.
-- Per-visit personalization, A/B variants, dynamic stat insertion — out of scope per spec §10 (zero-JS contract).
+- Per-visit personalization, A/B variants, dynamic stat insertion — out of scope per spec §10 (product/restraint decision). [The earlier "zero-JS contract" rationale is superseded by D-25 (2026-06-16 JS revocation): client JS is permitted; these stay out of scope by product decision, not a JS prohibition. a11y + reduced-motion remain binding.]

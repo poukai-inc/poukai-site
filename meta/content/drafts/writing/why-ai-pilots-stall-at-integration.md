@@ -139,7 +139,7 @@ That means treating integration as the thing being tested, not the thing assumed
 ## 6. Composition-fit flags (for the designer)
 
 - **Flag 1 — the stat block is the screenshot unit.** The `statsRow` (95% / caption / MIT NANDA source) must reproduce the `/why-ai` `statsRow` molecule so it survives a zero-context screenshot. It's placed early (after the second paragraph) so a skimming sharer hits it fast. Don't bury it below the fold.
-- **Flag 2 — one funnel link, at the foot, from frontmatter.** The `funnelExit` ("Why AI →" → `/why-ai`) renders once, at the end, muted. No mid-essay CTA, no banner. If the designer's essay template repeats the email line at the foot (optional per `writing.md` §4b item 6), that's the zero-JS hosted form — separate from the funnel link.
+- **Flag 2 — one funnel link, at the foot, from frontmatter.** The `funnelExit` ("Why AI →" → `/why-ai`) renders once, at the end, muted. No mid-essay CTA, no banner. If the designer's essay template repeats the email line at the foot (optional per `writing.md` §4b item 6), that's the hosted form — separate from the funnel link. (The "zero-JS" qualifier is dropped per D-25, 2026-06-16 JS revocation: client JS is permitted; a11y + reduced-motion remain binding.)
 - **Flag 3 — body length is ~480 words.** Real length for the designer to compose density against (per `writing.md` §9, real essay lengths drive composition). If it reads short next to a future longer essay, that's fine — a tight, sourced essay is on-brand; padding it would break the §5.2 bar.
 - **Flag 4 — references block.** One reference (MIT NANDA). Renders per the `/why-ai` references pattern with the `referencesNote` constant. The `[1]` citation marker in the stat caption/source ties to the references entry.
 

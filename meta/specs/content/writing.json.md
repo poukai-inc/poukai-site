@@ -7,7 +7,7 @@
 **Last updated**: 2026-05-31
 **Masterplan reference**: Section 4.1 (site layout), 4.4 (long-form content as data), 2A (shape/substance — long-form copy storage is site-owned)
 **Proposal reference**: `meta/proposals/conversion-pivot-and-writing-engine.md` — §6.0 (`/why-ai` reference implementation), §6.1 (shareability mechanics), §6.4 (ship/reject editorial bar), §7(d) (ungated email line), §7(e) (launch-earlier override)
-**Decisions consumed (Arian-ratified 2026-05-31)**: §7(d) single ungated, hosted, zero-JS email line + RSS; §7(e) launch earlier (the `draft` flag is the banking mechanism); Buttondown is the recommended default email provider, RSS-alone the documented fallback.
+**Decisions consumed (Arian-ratified 2026-05-31)**: §7(d) single ungated, hosted email line + RSS (the original "zero-JS" qualifier is superseded by D-25, 2026-06-16 JS revocation — client JS is permitted; the ungated/hosted product intent stands); §7(e) launch earlier (the `draft` flag is the banking mechanism); Buttondown is the recommended default email provider, RSS-alone the documented fallback.
 
 ---
 
@@ -110,7 +110,8 @@ Every essay clears this gate before its `draft` flag flips to `false`. Folded in
 ## 6. RSS + email-line constraints
 
 - **RSS feed** is generated from this collection (`@astrojs/rss` or equivalent), reachable (e.g. `/writing/rss.xml` — exact path engineer's call), validates, and includes **only non-draft** essays. Zero-PII, zero-maintenance. Ships day one with the index.
-- **The ungated email line (§7(d))** is a single optional line ("get new essays by email") rendered via a plain `<form action="…" method="post">` that POSTs directly to a hosted provider — **no JS, no hydrated island, no popup/modal/gate**. **Recommended default provider: Buttondown**, which exposes a zero-JS `<form action>` POST embed that satisfies the zero-JS constraint. Buttondown is a recommended default, **not a hard dependency** — any provider that accepts a plain zero-JS `<form action>` POST and renders an acceptable hosted confirmation qualifies. **RSS-alone is the documented fallback**: if no provider meets the zero-JS bar (or Arian doesn't provision an account), the email line is deferred and RSS ships alone. Provider provisioning is Arian's/engineer's call.
+- **The ungated email line (§7(d))** is a single optional line ("get new essays by email") rendered via a plain `<form action="…" method="post">` that POSTs directly to a hosted provider — **no popup/modal/gate** (the binding product constraint). **Recommended default provider: Buttondown**, which exposes a plain `<form action>` POST embed. Buttondown is a recommended default, **not a hard dependency** — any provider that accepts a plain `<form action>` POST and renders an acceptable hosted confirmation qualifies. **RSS-alone is the documented fallback**: if no suitable provider is available (or Arian doesn't provision an account), the email line is deferred and RSS ships alone. Provider provisioning is Arian's/engineer's call.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (The earlier "no JS / hydrated island" and "zero-JS bar" framing on this line no longer gates the form; the ungated/no-gate intent stands.)
 
 ## 7. Acceptance criteria
 
@@ -125,7 +126,7 @@ Every essay clears this gate before its `draft` flag flips to `false`. Folded in
 - [ ] `ogClaim` (≤100 chars) drives the OG card line when present; falls back to `claim`. `ogImage` drives the per-essay OG card when present; falls back to `public/og.png`.
 - [ ] No disallowed frontmatter fields are present (no per-essay `author` byline, no `tags`/`category` taxonomy, no stateful counters).
 - [ ] The RSS feed reads from this collection, validates, and includes only non-draft essays.
-- [ ] The ungated email line, if shipped, is a plain zero-JS `<form action>` POST (Buttondown-default or equivalent) — no popup/modal/gate, no hydrated island; else the RSS-alone fallback ships and the email line is deferred.
+- [ ] The ungated email line, if shipped, is a plain `<form action>` POST (Buttondown-default or equivalent) — no popup/modal/gate (the binding constraint); else the RSS-alone fallback ships and the email line is deferred. [The earlier "zero-JS / no hydrated island" requirement is superseded by D-25 — client JS is permitted; if any JS is added it must keep the form keyboard-accessible and axe-clean (a11y binding).]
 - [ ] Each shipped (non-draft) essay clears the §5.2 ship/reject table and the governing test (Arian-verified).
 
 ## 8. Open questions / dependencies
@@ -133,16 +134,16 @@ Every essay clears this gate before its `draft` flag flips to `false`. Folded in
 The email-provider default (Buttondown), the ungated-line constraint, and the launch-earlier/banking mechanism are **locked** (Arian-ratified 2026-05-31). Remaining dependencies:
 
 - **Stack pick — engineer's final call (§1 / `writing.md` §6, §9).** Astro content collections (PM recommendation) vs. MDX vs. JSON; Markdown-vs-MDX sub-choice driven by inline `statsRow` embedding. The engineer records the decision before build. The frontmatter field contract above is store-agnostic.
-- **Buttondown account provisioning.** Buttondown is the recommended default; if Arian doesn't provision an account (or the zero-JS `<form action>` embed proves unworkable), RSS-alone ships as the documented fallback and the email line is deferred. Provisioning is Arian's call.
+- **Buttondown account provisioning.** Buttondown is the recommended default; if Arian doesn't provision an account (or the `<form action>` embed proves unworkable), RSS-alone ships as the documented fallback and the email line is deferred. Provisioning is Arian's call. (The "zero-JS" qualifier on the embed is dropped per D-25 — client JS is permitted.)
 - **Per-essay OG cards.** PM recommends per-essay OG cards (the shareability unit). If automated per-essay card generation isn't ready at v1, the `ogImage` → `public/og.png` fallback ships, with automated cards as a fast-follow (`writing.md` §9). Confirm v1 scope with Arian/engineer.
 - **DS reuse.** The essay template is expected to reuse the existing `/why-ai` stat/reference primitives (`writing.md` §4 DS note); confirm those primitives are reusable for arbitrary essays. If not, a `meta/proposals/ds-side/` request is Arian's call — PM does not author the DS API (masterplan §2A).
 - **`referencesNote` placement.** Whether `referencesNote` is a per-essay frontmatter string or a composition constant is the engineer's call (§4).
 
 ## 9. Out of scope
 
-- **Gating, popups, modals, interstitials, or any JS-driven email capture.** §7(d) approves exactly one ungated, hosted, zero-JS line. Everything more aggressive stays rejected.
+- **Gating, popups, modals, interstitials, or any aggressive email capture.** §7(d) approves exactly one ungated, hosted line. Everything more aggressive stays rejected — on product/restraint grounds, not a JS prohibition (D-25 permits client JS; the bar here is "ungated and unobtrusive," not "no JS").
 - **Drip sequences, list segmentation, marketing automation, a content-calendar surface.** RSS + one optional email line + disciplined `funnelExit` links is the whole retention surface.
-- **Comments, reactions, social-share-button widgets, view counters, or any stateful/JS field on essays.** Zero-JS contract; sharing is manual (screenshot, copy-link) by design.
+- **Comments, reactions, social-share-button widgets, view counters, or any stateful field on essays.** Out of scope by product/restraint decision; sharing is manual (screenshot, copy-link) by design. [The earlier "zero-JS contract" rationale is superseded by D-25 — client JS is permitted; these stay out by product call, not a JS ban.]
 - **Per-essay author bylines** beyond Organization-level (pouk.ai) JSON-LD. No `author` frontmatter field; revisit only if a guest-author model is introduced.
 - **A `tags`/`category` taxonomy or a tag-archive surface.** Reverse-chronological index only at v1.
 - **A pricing/figure field of any kind.** Essays may discuss the offering only via the quiet `funnelExit` link; no commercial figures in frontmatter.

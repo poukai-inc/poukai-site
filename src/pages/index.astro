@@ -3,29 +3,42 @@
  * / — Homepage. All copy sourced from src/content/home.json (R-076 HARD) and
  * validated at build time via src/content/_schemas/home.ts (R-074 HARD).
  *
- * Page structure:
- *   - SiteShell (via BaseLayout + ShellWrapper)
- *   - HomeHero (status + title + lede + primary CTA + secondary booking Button)
+ * Page structure (destination IA — home-amendment-destination.md §5):
+ *   1. SiteShell chrome (via BaseLayout + ShellWrapper)
+ *   2. Hero (display doorway — size="display" entrance="stagger", RR-1/RR-2)
+ *   3. Statement (conviction beat — Section 3, on --bg, no band)
+ *   4. "Why pouk.ai, specifically" differentiation preview (Section 4, on --bg)
+ *   5. Closing CTASection (Section 5, surface="recessed" — the page's ONE band)
+ *   6. SiteShell footer
  *
- * The Hero's display posture is editorial-doorway (entrance="stagger" per
- * meta/decisions/2026-05-19-hero-stagger-scope.md). No body sections beyond
- * the Hero — spec §4 forbids additional sections ("adding sections is a
- * brand violation").
+ * Heading hierarchy (R-026, no skipped levels):
+ *   <h1> Hero title | <h2> "Why pouk.ai, specifically" | <h2> closing heading
+ *   Statement emits NO heading element (DS rule).
  *
- * Contact-flow wiring (FS-CF-1, booking-affordance §2 Context A):
- *   - Primary CTA = <Button asChild size="compact"> → mailto:hello@pouk.ai
- *   - Secondary CTA = <Button asChild size="compact" variant="secondary"> → cal.pouk.ai
- *   This is the ONLY page where booking is a <Button>. All other end CTAs use
- *   a muted link (Context B, booking-affordance §2).
+ * All four components render as static HTML at build time — static by design.
+ * No client:* directive needed. Booking is a plain <a href>.
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
+ *
+ * At most ONE --surface-section band on the page (OQ-1): the closing CTASection.
+ * Statement + differentiation preview sit on --bg.
+ *
+ * Contact-flow wiring (FS-CF-1, booking-affordance §2):
+ *   Hero: mailto: primary Button + booking secondary Button (Context A).
+ *   Close: mailto: primary Button + booking secondary Button (Context A).
+ *   Both: mailto: stays primary; booking is the subordinate secondary.
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { HomeHero } from "../components/HomeHero";
+import { HomeStatement } from "../components/HomeStatement";
+import { HomeDifferentiation } from "../components/HomeDifferentiation";
+import { HomeClosingCta } from "../components/HomeClosingCta";
 import homeRaw from "../content/home.json";
 import { homeSchema } from "../content/_schemas/home";
 
 const home = homeSchema.parse(homeRaw);
-const { meta, hero, jsonLd } = home;
+const { meta, hero, statement, differentiation, closingCta, jsonLd } = home;
 ---
 
 <BaseLayout
@@ -36,6 +49,7 @@ const { meta, hero, jsonLd } = home;
   currentRoute="/"
 >
   <div class="site-page">
+    {/* Section 2 — Hero (display doorway, unchanged) */}
     <HomeHero
       status={hero.status}
       titleBefore={hero.title.before}
@@ -49,5 +63,30 @@ const { meta, hero, jsonLd } = home;
       ctaHref={hero.cta.href}
       bookingLabel={hero.bookingLabel}
     />
+
+    {/* Section 3 — Statement (conviction beat, --bg, no band, --space-16 gap above/below) */}
+    <div class="home-statement-gap">
+      <HomeStatement text={statement.text} />
+    </div>
+
+    {/* Section 4 — "Why pouk.ai, specifically" (first <h2>, --bg, no band) */}
+    <HomeDifferentiation
+      heading={differentiation.heading}
+      body={differentiation.body}
+      linkText={differentiation.link.text}
+      linkHref={differentiation.link.href}
+    />
+
+    {/* Section 5 — Closing CTASection (second <h2>, --surface-section band — page's ONE band) */}
+    <HomeClosingCta
+      heading={closingCta.heading}
+      body={closingCta.body}
+      ctaLabel={closingCta.ctaLabel}
+      ctaHref={closingCta.ctaHref}
+      bookingLabel={closingCta.bookingLabel}
+    />
   </div>
 </BaseLayout>
+{/* .home-statement-gap lives in src/styles/site.css, not a scoped <style> here:
+    Astro inlines small scoped styles into the page <style>, which the
+    production CSP (style-src 'self') blocks — it failed csp-compat (CR-4). */}

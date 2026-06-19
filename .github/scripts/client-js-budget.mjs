@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 /**
- * client-js-budget.mjs — R-010 gate
+ * client-js-budget.mjs — R-010 report (ADVISORY since D-25, 2026-06-16)
  *
- * Verifies that the total third-party JS payload on every page is ≤ 75 kB
- * gzipped after a `pnpm build`.
+ * D-25 (meta/decisions/2026-06-16-revoke-zero-js.md) STRUCK R-010: client JS
+ * is now permitted anywhere with no per-page budget and no script whitelist.
+ * This script is retained only to REPORT third-party JS size for situational
+ * awareness; its CI job carries continue-on-error, so a non-zero exit no
+ * longer blocks merge. The ≤75 kB figures below are historical context, not a
+ * binding limit.
+ *
+ * Reports the total third-party JS payload on every page (gzipped) after a
+ * `pnpm build`.
  *
  * What counts as third-party JS:
  *   - Any <script src="..."> tag whose path does NOT start with "/_astro/"
@@ -17,7 +24,7 @@
  *     no third-party script tags → budget check passes trivially. CI and
  *     production builds with those vars set will have ~66.5 kB baseline.
  *
- * Budget: 75 kB gzipped per page (R-010 HARD).
+ * Budget: 75 kB gzipped per page (R-010 — ADVISORY since D-25; tracked, not gating).
  *
  * Usage:
  *   node .github/scripts/client-js-budget.mjs

@@ -27,7 +27,8 @@ The following are **locked** and out of bounds for the designer's proposal, the 
 - D-12 (status-line text byte-identical) — locked.
 - D-13 (funnel nav order) — locked.
 - IA: single Hero, no further sections — locked.
-- SiteShell nav, badge motion behavior, hydration model (R-079 zero-JS) — locked.
+- SiteShell nav, badge motion behavior — locked. (The hydration model / R-079 zero-JS clause is no longer a lock — see annotation below.)
+> Superseded by D-25 (2026-06-16 JS revocation): the R-079 zero-JS hydration lock is revoked; client JS permitted. a11y + reduced-motion remain binding.
 - Email-link duplication (Hero CTA + footer) — locked per composition R13.
 
 If the designer's proposal touches any of the above, it fails this amendment before the rest of the criteria are evaluated.
@@ -53,11 +54,13 @@ These are additive to the base spec's §8. The designer's proposal `meta/proposa
 ### 4.1 Illustration presence
 
 - [ ] At least one Pouākai-derived visual element is present on `/` above the fold at 1440×900 desktop. **Verifier**: visual inspection of `/` at 1440×900 in Chrome with DevTools device toolbar set to "Responsive 1440×900"; element must be visible without scroll.
-- [ ] Visual element renders as static SVG or static raster — **zero hydration** (R-079). **Verifier**: `grep -E "client:(load|idle|visible|only)" src/pages/index.astro src/components/HomeHero.tsx` returns no new hits; built `dist/_astro/*.js` weight delta on `/` is `0` bytes vs the pre-amendment build.
+- [ ] Visual element may render as static SVG/raster (recommended default) **or** as a hydrated island — client JS is permitted per D-25. The earlier "zero hydration (R-079)" requirement and the `0`-bytes JS-delta verifier are no longer gates; if a static asset is chosen, that is a design choice, not a JS mandate.
+> Superseded by D-25 (2026-06-16 JS revocation): R-079 zero-hydration requirement lifted; client JS permitted; the JS-weight-delta verifier is advisory. a11y + reduced-motion remain binding.
 - [ ] Visual element respects `prefers-reduced-motion: reduce`. **Verifier**: if the element has no animation, this is trivially passed. If it has CSS-only animation, toggling `prefers-reduced-motion: reduce` in Chrome DevTools' Rendering panel disables the animation; element remains visible and static.
 - [ ] Visual element does not introduce a second `<Hero>` and does not duplicate the StatusBadge or the email CTA. **Verifier**: DOM inspection — exactly one `<Hero>` descendant, exactly one `<StatusBadge>` descendant, exactly one `<a href="mailto:hello@pouk.ai">` *inside the Hero block* (the SiteShell footer's mailto link is the second per composition R13 and is unaffected).
 - [ ] Visual element passes accessibility. **Verifier**: if decorative, the element carries `aria-hidden="true"` and is omitted from the accessibility tree (verify in Chrome DevTools' Accessibility panel). If informative, it carries a `<title>` element (for inline SVG) or `alt` text (for `<img>`). If the element conveys state (e.g., color-coded availability), it meets WCAG 1.4.11 non-text contrast (≥3:1 against adjacent surface).
-- [ ] HTML weight delta vs the current shipped `/` (`src/pages/index.astro` rendered output, gzip + brotli) stays within **+25%**. **Verifier**: build the site pre- and post-amendment; compare `dist/index.html` brotli-compressed weight. **Arian accepted +25% on 2026-05-17** (logged in `meta/decisions/2026-05-17-home-illustration-and-density.md`); the masterplan §6.1 +10% gate is scoped to cutover parity (pre-cutover hand-tuned `index.html` vs post-cutover Astro build) and is superseded for this amendment cycle only by the +25% post-cutover-evolution budget.
+- [ ] HTML weight delta vs the current shipped `/` is tracked as advisory (situational awareness), not a merge gate. The prior +25% budget and the masterplan §6.1 +10% cutover-parity gate are advisory as of D-25. **Verifier**: optional weight comparison of `dist/index.html` for awareness only.
+> Superseded by D-25 (2026-06-16 JS revocation): HTML-weight ceiling converted blocking → advisory. The +25% budget (Arian 2026-05-17) and masterplan §6.1 +10% gate no longer block. a11y + reduced-motion remain binding.
 
 ### 4.2 Title density
 
@@ -119,7 +122,8 @@ This amendment cannot move from `Approved` to `Built` until the following are re
 
 - **Base composition re-ratification**: [`meta/compositions/pages/home.md`](../../compositions/pages/home.md) status moves to `Pending revision` the moment this amendment reaches `Approved`. The designer publishes a revised recipe (new revision, same path) after Arian picks the direction; that revised composition is what `pouk-ai-engineer` builds against. The base composition's §3 cross-section rhythm, §4 motion choreography, and §6 DS-gaps surfaced sections will each take edits.
 
-- **Masterplan §6.1 weight gate** (PM-side, Arian-decided): confirm the +25% loosening proposed in §4.1 above, or hold the gate at +10%. This decision constrains the designer's asset budget and is best resolved before the proposal goes deep on a heavy-weight illustration direction.
+- **Masterplan §6.1 weight gate**: resolved by D-25 — the HTML-weight ceiling is now advisory, not a merge gate. The earlier +25%-vs-+10% decision is moot; asset weight is tracked for awareness only.
+> Superseded by D-25 (2026-06-16 JS revocation): HTML-weight gate converted blocking → advisory. a11y + reduced-motion remain binding.
 
 ---
 
@@ -130,7 +134,7 @@ The base spec's §10 carries over verbatim. This amendment adds:
 - **Dark mode.** Still out. Any illustration delivered must work on the current single-palette site; dark-mode color-inversion behavior of the illustration is not a launch concern.
 - **A second illustration anywhere else on the page.** One mark, one place. No supporting illustration in the footer, no inline glyph, no watermark.
 - **Replacing the StatusBadge pulse with the illustration as the "alive" signal.** The badge stays. The pulse is what tells a returning visitor the site is live; the illustration is what makes a first-time visitor feel the page is finished. Different jobs.
-- **Any scroll-triggered behavior on the illustration.** No parallax, no fade-in on intersection, no transform-on-scroll. R-079 (zero-JS) still binds. If the illustration animates at all, it is CSS-keyframes-only and respects `prefers-reduced-motion`.
+- **Any scroll-triggered behavior on the illustration.** No parallax, no fade-in on intersection, no transform-on-scroll — out of scope as a brand-restraint choice. (Per D-25, R-079/zero-JS no longer prohibits this technically; it stays out by design, not by JS mandate.) If the illustration animates at all, it respects `prefers-reduced-motion`.
 - **Illustration variants per audience / per referrer / per time-of-day.** Single static asset. Zero conditional rendering. Zero personalization.
 - **A new section on the page to house the illustration** (e.g., a "About the name" block under the Hero). IA lock — single Hero, no further sections — supersedes any composition urge to give the illustration its own block.
 

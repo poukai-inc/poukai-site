@@ -6,7 +6,7 @@
 **Last updated**: 2026-05-31
 **Masterplan reference**: Sections 2A (decision authority — routes, nav contents, long-form copy, SEO/JSON-LD are site-owned; shape/substance rule), 4.1 (site layout), 4.4 (long-form content as data)
 **Proposal reference**: `meta/proposals/conversion-pivot-and-writing-engine.md` — §3 (sitemap, `/writing` now-promoted), §5 (alignment), §6 (the content strategy: shareability / virality / retention), §6.0 (`/why-ai` as the reference implementation), §6.4 (the ship/reject editorial line), §7(d) (ungated email line), §7(e) (launch-earlier override).
-**Locked decisions consumed**: §7(d) — single ungated, hosted, zero-JS email line + RSS; §7(e) — launch earlier, do not gate on the 3-drafts/cadence trigger (a deliberate founder override of the PM/strategy recommendation e1).
+**Locked decisions consumed**: §7(d) — single ungated, hosted email line + RSS (the original "zero-JS" qualifier on this line is superseded by D-25, 2026-06-16, which permits client-side JS; the *ungated/no-gate* restraint survives); §7(e) — launch earlier, do not gate on the 3-drafts/cadence trigger (a deliberate founder override of the PM/strategy recommendation e1).
 **Amends (flagged, deferred to the flow-spec pass)**: `meta/specs/flows/visitor-to-conversation.md` §10 (email-capture moves from "out of scope" to "ungated only", per §7(d)); the flow's surface list + entry-source table (add `/writing` as a top-of-funnel / retention surface). See §9.
 
 ---
@@ -36,7 +36,8 @@ The reference implementation already exists: **`/why-ai` is the most shareable a
   - **Clickbait drift.** An essay leads with the offering instead of the reader's problem, promises a payoff it doesn't deliver, stacks CTAs, or manufactures controversy — breaking the operator-first voice that *is* pouk.ai's differentiation and corroding the `/principles` Integrity stance. Mitigated by §5's editorial bar (the §6.4 ship/reject table).
   - **Unshareable essay.** No canonical claim, no sourced/screenshot-able stat block, no quotable line, no OG card / Article JSON-LD, a `/writing/post-7`-style slug. The essay loads but earns no pass-along. Mitigated by §5's shareability mechanics.
   - **Dead-end essay.** An essay with no internal link into the funnel — a wide top-of-funnel with no drain. Mitigated by the internal-link-spine requirement (§5).
-  - **Email line becomes a gate.** The approved ungated line mutates into a popup/modal/interstitial, or ships as a hydrated JS island — violating §7(d) and the zero-JS contract. Mitigated by §6's hosted-form-action requirement and §8's zero-JS ACs.
+  - **Email line becomes a gate.** The approved ungated line mutates into a popup/modal/interstitial — violating §7(d). Mitigated by §6's hosted-form-action default and §8's no-gate AC. (The original failure also named "ships as a hydrated JS island — violating the zero-JS contract"; that half is no longer a failure mode — D-25 permits client-side JS. The surviving failure is the *gate*, not the JS.)
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 
 ## 4. Information architecture
 
@@ -47,7 +48,7 @@ Two surfaces: an **index** (`/writing`) and a **per-essay template** (`/writing/
 1. `SiteShell` — top nav (Writing marked current) + hairline footer. Nav placement in §9.
 2. `Hero` — eyebrow ("Writing"), title, lede framing the corpus as the operator thinking in public (not a newsletter funnel, not "thought leadership" performed). Operator-first register.
 3. **Essay list** — reverse-chronological list of essays, each entry: title (links to `/writing/[slug]`), a one-line claim/hook, and a date. Purely typographic; no marketing cards, no excerpt walls. The list reads as an index, not a content-marketing grid.
-4. **Retention block** — the **ungated email line** (§7(d)) + a link to the **RSS feed**. A single optional line ("get new essays by email" + the feed icon/link), framed as the operator's notes. No popup, no modal, no gate. Hosted form action (Buttondown-style), zero-JS. Placement is the designer's call; PM default is once, low on the page, never an interstitial.
+4. **Retention block** — the **ungated email line** (§7(d)) + a link to the **RSS feed**. A single optional line ("get new essays by email" + the feed icon/link), framed as the operator's notes. No popup, no modal, no gate (binding restraint). Hosted form action (Buttondown-style); a plain `<form action>` remains the default, but per D-25 a JS-driven submission is now permitted if preferred. Placement is the designer's call; PM default is once, low on the page, never an interstitial.
 5. `SiteShell` footer — global chrome. The RSS feed link may also live in the footer (designer/engineer call).
 
 ### 4b. Essay — `/writing/[slug]`
@@ -59,7 +60,7 @@ Inherits the `/why-ai` shareability template (§6.0). The exact composition is t
 3. **Body** — the argument. Within it, **screenshot-able stat blocks** reproducing the `/why-ai` `statsRow` pattern (value + caption + attributed source), self-contained enough to survive a screenshot into a slide deck with zero context. **Sourced, citable data** with sources cleaned to canonical (the `referencesNote` discipline). At least one **quotable line** engineered to be lifted verbatim, in the `/principles` register.
 4. **References** — sourced citations with canonical URLs (the `/why-ai` references + `referencesNote` pattern). Non-negotiable for any essay carrying stats.
 5. **Internal-link spine (foot of essay)** — every essay ends with a contextual link into the funnel: `/why-ai` or the relevant `/roles#anchor` (and, once live, optionally `/engagements`). This is the highest-ROI retention + conversion mechanic and is **required**, not optional. The quiet, earned, single funnel link of §6.4 — not a banner, not stacked CTAs.
-6. **Retention line (optional, per essay)** — the ungated email line may repeat at essay foot (designer call); same zero-JS hosted-form constraint. The RSS link is global (footer).
+6. **Retention line (optional, per essay)** — the ungated email line may repeat at essay foot (designer call); same ungated/no-gate hosted-form constraint (the prior "zero-JS" qualifier is dropped per D-25 — client JS is now permitted). The RSS link is global (footer).
 7. `SiteShell` footer.
 
 **DS note (site-side only).** The essay template most likely composes inside existing `/why-ai` primitives — the `statsRow` / `Stat` block, body prose, references block, end-CTA line. No new DS primitive is anticipated. If the essay template surfaces a need the `/why-ai` primitives don't cover, it is a site-side need filed at `meta/proposals/ds-side/` by Arian's decision; PM does not author the DS API (masterplan §2A). `<NEEDS: confirm /why-ai stat/reference primitives are reusable for arbitrary essays>`.
@@ -137,7 +138,8 @@ Every essay must clear this bar before it ships. This table is the editorial gat
 
 **RSS feed.** Generated from the collection (`@astrojs/rss` or equivalent), at `/writing/rss.xml` (or `/rss.xml` — engineer call). Zero-PII, zero-maintenance (§6.3). Ships day one alongside the index.
 
-**The ungated email line (§7(d)).** A single optional line pointing at a **hosted form (Buttondown-style) via a plain `<form action="…" method="post">`** — the form posts directly to the hosted provider, no JS, no hydrated island, no popup/modal/gate. The page stays zero-JS. This is the one approved deviation from `visitor-to-conversation.md` §10's "no email-capture" rule, scoped to ungated-only. RSS-alone is the fallback if the hosted form can't meet the zero-JS bar.
+**The ungated email line (§7(d)).** A single optional line pointing at a **hosted form (Buttondown-style), default via a plain `<form action="…" method="post">`** that posts directly to the hosted provider — **no popup/modal/gate** (binding restraint). This is the one approved deviation from `visitor-to-conversation.md` §10's "no email-capture" rule, scoped to ungated-only. RSS-alone remains an available fallback by choice.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. The prior "no JS, no hydrated island, the page stays zero-JS" / "if the hosted form can't meet the zero-JS bar" framing is revoked — a JS-driven submission is permitted. What survives is the ungated/no-gate restraint and the a11y obligation on any interactive form.
 
 ## 7. User flow
 
@@ -165,8 +167,9 @@ Structural ACs — essay template:
 Retention-mechanics ACs:
 
 - [ ] An RSS feed is generated from the writing collection and is reachable (e.g., `/writing/rss.xml`), validates, and includes all non-draft essays.
-- [ ] The ungated email line is a plain `<form action="…">` posting to a hosted provider — **no popup, no modal, no interstitial, no gate** (§7(d)).
-- [ ] The email line ships **zero client-side JS** — no hydrated island, no JS-driven submission. (If the hosted form cannot meet zero-JS, the RSS-alone fallback ships and the email line is deferred — §9.)
+- [ ] The ungated email line is a plain `<form action="…">` posting to a hosted provider — **no popup, no modal, no interstitial, no gate** (§7(d)). (This ungated/no-gate restraint is a brand/funnel call and remains binding.)
+- [ ] ~~The email line ships **zero client-side JS** — no hydrated island, no JS-driven submission. (If the hosted form cannot meet zero-JS, the RSS-alone fallback ships and the email line is deferred — §9.)~~
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. The email line is no longer required to ship zero-JS — a hydrated/JS-driven submission is permitted. The ungated/no-popup/no-modal/no-gate restraint above survives (it is a brand call, not a JS posture), and the RSS-alone fallback remains available by choice. Any added interactive submission must still be keyboard-accessible and axe-clean.
 - [ ] Internal-link-spine clicks route into the existing funnel (`/why-ai`, `/roles#anchor`); the links resolve and the anchors land above the fold post-scroll.
 
 Shareability / SEO ACs (per essay):
@@ -190,9 +193,9 @@ Nav / cross-surface ACs:
 
 Quality ACs:
 
-- [ ] Lighthouse mobile: 100/100/100/100 on the index and on essay pages.
-- [ ] **Zero client-side JS on essay pages** — including the email line (hosted `<form action>`, not a hydrated island). Motion, if any, is CSS-only.
-- [ ] `prefers-reduced-motion` honored on any composition motion.
+- [ ] ~~Lighthouse mobile: 100/100/100/100 on the index and on essay pages.~~ ~~**Zero client-side JS on essay pages** — including the email line (hosted `<form action>`, not a hydrated island).~~
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. Lighthouse is now tracked as advisory; client-side JS is permitted on the index and essay pages (including a JS-driven email line). Motion, if any, must still honor reduced-motion (next AC).
+- [ ] `prefers-reduced-motion` honored on any composition motion (binding, unchanged).
 - [ ] axe-core passes with 0 violations on the index and essay pages.
 - [ ] Color contrast on stat blocks, references, the email line, and the funnel-spine link meets WCAG AA.
 
@@ -215,14 +218,15 @@ Spec is `Approved` (2026-05-31). The decisions that gated approval are resolved 
 **RESOLVED (Arian-ratified 2026-05-31):**
 
 - **RESOLVED — Nav placement.** `/writing` does **NOT** enter the primary nav. It is reached via a **footer link + essay cross-links** (the internal-link spine and `/why-ai`-adjacent references). Rationale: `/writing` is a mid-funnel / top-of-funnel + retention surface reached predominantly by deep link (essays are the front door, §7 user flow); it is not on the direct conversion path (proposal §5), so it does not earn a primary-nav slot, and keeping it out avoids crowding the bar — which now carries `/engagements` at five items (`Why AI · Roles · Engagements · Principles · About`). The RSS feed link lives in the footer alongside. Engineer touch-points for the footer link (and to confirm `/writing` is absent from the primary nav array): `src/layouts/BaseLayout.astro:101-106` and `src/components/ShellWrapper.tsx:39-42` (cited, not edited — code is the engineer's lane).
-- **RESOLVED — Email provider + zero-JS line (§7(d)).** Default provider is **Buttondown**, which exposes a zero-JS `<form action>` POST embed that satisfies the zero-JS constraint. Buttondown is the recommended default, **not a hard dependency** — any provider accepting a plain zero-JS `<form action>` POST qualifies. **RSS-alone is the documented fallback**: if Arian doesn't provision an account (or the embed proves unworkable), the email line is deferred and RSS ships alone. The binding constraint (single ungated line, hosted `<form action>`, no JS/popup/modal/gate) and the Buttondown default are formalized in `meta/specs/content/writing.json.md` §6. Account provisioning is Arian's call (see still-open below).
+- **RESOLVED — Email provider + ungated line (§7(d)).** Default provider is **Buttondown**, which exposes a plain `<form action>` POST embed. Buttondown is the recommended default, **not a hard dependency** — any provider accepting a plain `<form action>` POST qualifies. **RSS-alone is the documented fallback**: if Arian doesn't provision an account (or the embed proves unworkable), the email line is deferred and RSS ships alone. The binding constraint is now (single **ungated** line, hosted `<form action>`, **no popup/modal/gate**) — the prior "no JS" qualifier is dropped per D-25, which permits client-side JS. The Buttondown default is formalized in `meta/specs/content/writing.json.md` §6. Account provisioning is Arian's call (see still-open below).
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **RESOLVED — `content/writing.md` content-data spec.** Authored and `Approved` at **`meta/specs/content/writing.json.md`** (2026-05-31). It formalizes the per-essay frontmatter shape (`title`, `slug`, `claim`, `description`, `datePublished`/`dateModified`, `draft` banking flag, `funnelExit`, `references[]`, `ogClaim`/`ogImage`), the `references[]` `{ index, title, source, url }` shape mirroring `why-ai.json`, the §6.4 ship/reject editorial bar as validation rules, the RSS-source rule, and the claim-shaped-slug constraint.
 
 **STILL OPEN (engineer/designer/Arian handoff):**
 
 - **§7(e) launch-earlier override — recorded as a deliberate founder decision against the PM/strategy recommendation.** The proposal (§6.2) and next-pages §2.4 recommended **not** launching until three drafts are banked and a confirmed ≥1/month cadence exists (option e1), because an under-fed writing surface destroys its own shareability ("decay theatre"). Arian overrode this (e2): **launch when built.** This spec honors the override and bakes in the mitigation the proposal §7(e) cascade specified: **(1)** launch with the *largest possible banked-essay count* Arian can reach (the `draft` frontmatter flag exists precisely to bank-then-release); **(2)** treat cadence as a **tracked post-launch obligation**, not a hope — a real commitment Arian owns, surfaced in the backlog as a recurring obligation, not an aspiration. The decay risk is knowingly accepted; this is the record of that acceptance.
 - **Open stack decision — engineer's call (§6), STILL OPEN.** Astro content collections (PM recommendation) vs. MDX vs. JSON. The engineer records the decision before build. Markdown-vs-MDX sub-choice deferred to the engineer (driven by whether stat blocks embed inline). PM recommendation stands but does not bind (masterplan §2A — long-form storage is site-owned). The `content/writing.json.md` field contract is store-agnostic and carries over whichever store is chosen.
-- **Buttondown account provisioning — Arian's call.** Buttondown is the locked recommended default (resolved above). Whether Arian provisions an account is still open; if he doesn't (or the zero-JS embed proves unworkable), the documented RSS-alone fallback ships and the email line is deferred.
+- **Buttondown account provisioning — Arian's call.** Buttondown is the locked recommended default (resolved above). Whether Arian provisions an account is still open; if he doesn't (or the embed proves unworkable), the documented RSS-alone fallback ships and the email line is deferred. (Per D-25 the embed is no longer constrained to be zero-JS; the only embed requirement that remains is ungated/no-gate plus a11y.)
 - **`visitor-to-conversation.md` amendment (flagged, deferred to the flow-spec pass).** Two edits owed: (1) §10's out-of-scope list moves "email-capture forms" from rejected to **"ungated only"** per §7(d) — the single hosted line is now permitted, popups/modals/gates remain rejected; (2) the flow's surface list + entry-source table admit `/writing` as a top-of-funnel + retention surface (essays as the dominant deep-link entry; the internal-link spine as the down-funnel hand-off). PM does not edit the flow spec inside this page spec — that is the flow-spec pass. Dependency on a clean cross-spec record at deploy.
 - **Per-essay OG cards.** PM recommends per-essay OG cards (the shareability unit, §6.1). If per-essay card generation isn't automated at v1, the `ogImage` fallback to `public/og.png` is acceptable for launch, with automated per-essay cards as a fast-follow. Confirm the v1 scope with Arian/engineer.
 - **Designer composition.** With this spec `Approved`, `pouk-ai-designer` composes the index list treatment and the essay template (stat-block rhythm, references treatment, the foot-of-essay spine, the email-line placement) in `meta/compositions/pages/writing.md` once the first banked essay drafts land. Real essay lengths drive density. PM defers composition specifics to it.
@@ -231,13 +235,15 @@ Spec is `Approved` (2026-05-31). The decisions that gated approval are resolved 
 
 ## 10. Out of scope
 
-- **Gating, popups, modals, interstitials, or any JS-driven email capture.** §7(d) approves exactly one ungated, hosted, zero-JS line. Everything more aggressive stays rejected (the surviving spirit of `visitor-to-conversation.md` §10).
+- **Gating, popups, modals, interstitials.** §7(d) approves exactly one ungated, hosted line. Everything more aggressive (a gate of any kind) stays rejected (the surviving spirit of `visitor-to-conversation.md` §10). (The earlier wording also rejected "any JS-driven email capture" and required a "zero-JS line"; that JS prohibition is revoked per D-25 — a JS-driven *ungated* submission is now permitted. What stays out of scope is the *gating*, not the JS.)
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **Drip sequences, list segmentation, marketing automation, a content calendar surface.** §6.3: RSS + one optional email line + disciplined internal links is the whole retention surface. No automation.
-- **Comments, reactions, social-share-button widgets, view counters, or any stateful/JS feature on essays.** Zero-JS contract. Sharing is manual (screenshot, copy-link, paste) by design — the share infrastructure is the OG card + clean slug, not a button.
+- **Comments, reactions, social-share-button widgets, view counters on essays.** Out of scope as a brand/restraint call — sharing is manual (screenshot, copy-link, paste) by design, and the share infrastructure is the OG card + clean slug, not a button. (The earlier "Zero-JS contract … or any stateful/JS feature" rationale is revoked per D-25 — client-side JS is now permitted; these stay out of scope by editorial choice, not because JS is banned.)
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **Clickbait / engagement-bait registers** — "you won't believe," listicle padding, manufactured controversy, payoff headlines the essay doesn't deliver. The §5.2 line rejects these; they corrode the differentiation.
 - **A `/case-studies`-style proof surface inside `/writing`.** `/case-studies` stays parked behind a customer-permission gate (proposal §3); `/writing` is essays, not customer stories.
 - **Waiting for the 3-draft / cadence gate before launch.** §7(e) waived it. Launch early with max banked essays; cadence is a post-launch obligation (§9), not a launch gate.
 - **Per-essay author bylines beyond the Organization-level JSON-LD.** The corpus is pouk.ai's; author attribution is the Organization, consistent with `/why-ai`. (Revisit only if a guest-author model is ever introduced — out of scope now.)
 - **Editing `visitor-to-conversation.md` inside this spec.** That is the flow-spec pass (§9). This spec flags the amendment; it does not execute it.
-- **Recommending a specific email/RSS vendor unprompted.** Provider selection is Arian's/engineer's call (agent §9); PM specifies the zero-JS constraint, not the tool.
+- **Recommending a specific email/RSS vendor unprompted.** Provider selection is Arian's/engineer's call (agent §9); PM specifies the ungated/no-gate constraint, not the tool. (The prior "PM specifies the zero-JS constraint" wording is superseded by D-25 — there is no longer a zero-JS constraint to specify.)
 - **Final copy and visual composition.** `pouk-ai-content` and `pouk-ai-designer` lanes respectively.

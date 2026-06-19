@@ -77,8 +77,9 @@ The Roman numeral is **stored, not computed** — the source-of-truth roman stri
 - [ ] The ten `Principle` molecules render in **sans** (per D-10), distinct from the bookend serif italic.
 - [ ] End CTA renders an `<a href="mailto:hello@pouk.ai">` with a single muted line of copy.
 - [ ] Top nav `SiteShell` highlights Principles as current.
-- [ ] Lighthouse mobile: 100/100/100/100.
-- [ ] No client-side JS shipped.
+- [ ] ~~Lighthouse mobile: 100/100/100/100.~~ ~~No client-side JS shipped.~~
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. Lighthouse is now tracked as advisory; client-side JS is permitted on this page.
+- [ ] axe-core 0 violations and `prefers-reduced-motion` honored (binding, unchanged).
 - [ ] `<title>` and `<meta description>` reflect the operating-principles framing.
 - [ ] Deep-link anchor URLs (`/principles#ownership`, etc.) scroll to the corresponding principle.
 - [ ] Spec section 5 outcomes are met by the shipped copy (Arian-verified).

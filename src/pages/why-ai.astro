@@ -15,11 +15,29 @@
  *   D-05 — opening + quartile stats render via DS <Stat> molecule
  *   OMC-V1/V4/V5/V6/V7 — prospect-audience rewrite, em-dash titles, "AI systems"
  *     canonical noun, canonical H1 phrasing (ratified 2026-05-19).
+ *
+ * Depth pass (raise-the-ceiling — 2026-06-16, all 5 deltas):
+ *   §4.1 — Hero entrance="stagger"
+ *   §4.2 — StatsSection fill dividers (opening stats band — the page's ONE fill band)
+ *   §4.3 — FailureModeList wrapping five FailureMode molecules
+ *   §4.4 — Statement pivot between failure modes and leaders
+ *   §4.5 — PrincipleList vs-alternatives section in the whereWorks block
+ *   §4.5a — discoveryIntro repositioned immediately before the blockquote (A6)
+ *   Composition: meta/compositions/pages/why-ai.md (In review 2026-06-16)
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { Hero, FailureMode, Stat } from "@poukai-inc/ui";
+import {
+  Hero,
+  FailureMode,
+  FailureModeList,
+  Stat,
+  StatsSection,
+  Statement,
+  PrincipleList,
+  Principle,
+} from "@poukai-inc/ui";
 import { BOOKING_URL } from "../lib/booking";
 import whyAiRaw from "../content/why-ai.json";
 import { whyAiSchema } from "../content/_schemas/why-ai";
@@ -36,9 +54,11 @@ const {
   hero,
   openingArgument,
   pivot,
+  statement,
   failureModesIntro,
   leaders,
   whereWorks,
+  vsAlternatives,
   endCta,
   references,
   referencesNote,
@@ -65,12 +85,13 @@ const toSuperscript = (n: number) =>
   currentRoute="/why-ai"
 >
   <div class="site-page">
-    <Hero title={hero.title} lede={hero.lede} />
+    <!-- Section 2: Hero — entrance="stagger" per §4.1. DS-default size="display" retained. -->
+    <Hero title={hero.title} lede={hero.lede} entrance="stagger" />
 
     <div class="why-ai-layout">
       <div class="why-ai-main">
 
-        <!-- 2. Opening argument with headline stats -->
+        <!-- Section 3: Opening argument with inline cited stats -->
         <section aria-label="The deployment gap">
           <p>
             {openingArgument.intro}
@@ -82,23 +103,29 @@ const toSuperscript = (n: number) =>
             ))}
           </p>
 
-          <div class="stats-row" role="list" aria-label="Headline statistics">
-            {openingArgument.statsRow.map((stat) => (
-              <div role="listitem">
-                <Stat value={stat.value} caption={stat.caption} source={stat.source} size="lg" />
-              </div>
-            ))}
-          </div>
-
           <p>{pivot}</p>
         </section>
 
-        <!-- 3. Section heading — five failure modes -->
-        <h2>{failureModesIntro.heading}</h2>
-        <p>{failureModesIntro.paragraph}</p>
+        <!-- Section 4: Headline stats band — StatsSection fill dividers per §4.2.
+             The page's ONE --surface-section fill band (W-A floor).
+             heading omitted: adjacent prose names the moment; omitting avoids a stray
+             <h2> ahead of the first real section heading. -->
+        <StatsSection fill dividers>
+          {openingArgument.statsRow.map((stat) => (
+            <Stat value={stat.value} caption={stat.caption} source={stat.source} size="lg" />
+          ))}
+        </StatsSection>
 
-        <!-- 4. Five FailureMode molecules (data from collection) -->
-        <div class="failure-modes-section">
+        <!-- Section 5: FailureModeList per §4.3.
+             heading + lede move INTO the organism; no standalone <h2> remains.
+             Per-mode <section id aria-label> wrappers retained for deep-link anchors
+             (#data-readiness … #change-management) and sticky TOC (D-02).
+             Per-mode stats stay as the current .stats-row (NOT a nested StatsSection —
+             would paint extra bands; breaks the one-band budget). -->
+        <FailureModeList
+          heading={failureModesIntro.heading}
+          lede={failureModesIntro.paragraph}
+        >
           {sortedModes.map((mode) => (
             <section id={mode.anchor} aria-label={mode.title}>
               <FailureMode index={mode.index} title={mode.title}>
@@ -115,9 +142,15 @@ const toSuperscript = (n: number) =>
               </FailureMode>
             </section>
           ))}
-        </div>
+        </FailureModeList>
 
-        <!-- 5. What the leaders do differently -->
+        <!-- Section 6: Statement thesis pivot per §4.4.
+             On --bg (no band). hairline={false} default — editorial, not a section divider.
+             Sits between FailureModeList and the "What the leaders do differently" heading. -->
+        <Statement statement={statement} />
+
+        <!-- Section 7: What the leaders do differently.
+             Quartile stats as StatsSection WITHOUT fill — stays on --bg (no second band, W-A). -->
         <h2>{leaders.heading}</h2>
         <p>{leaders.intro}</p>
         <ul class="leaders-list">
@@ -128,20 +161,47 @@ const toSuperscript = (n: number) =>
 
         <p>{leaders.outro}</p>
 
-        <div class="quartile-stats" role="list" aria-label="Top-quartile AI deployment statistics">
+        <StatsSection dividers>
           {leaders.stats.map((stat) => (
-            <div role="listitem">
-              <Stat value={stat.value} caption={stat.caption} size="lg" />
-            </div>
+            <Stat value={stat.value} caption={stat.caption} size="lg" />
           ))}
-        </div>
+        </StatsSection>
 
-        <!-- 6. Where pouk.ai works (prospect-aimed per OMC-V1) -->
+        <!-- Section 8: Where pouk.ai works — heading + body (unchanged) -->
         <h2>{whereWorks.heading}</h2>
         <p>{whereWorks.body}</p>
+
+        <!-- Section 9: vs-alternatives — PrincipleList per §4.5/§4.5a.
+             On --bg, no band, no figures, no Stat atoms (categorical-only, D-01 untouched).
+             Inserted after whereWorks.body and before the repositioned discoveryIntro (A6).
+             F-101 payoff: heading "When to hire pouk.ai — and when not to" answers the
+             homepage link "See when to hire us, and when not to →". -->
+        <PrincipleList
+          heading={vsAlternatives.heading}
+          lede={vsAlternatives.leadIn}
+        >
+          <Principle numeral="i" title={vsAlternatives.alternatives[0].name}>
+            <p>{vsAlternatives.alternatives[0].rightWhen}</p>
+            <p>{vsAlternatives.alternatives[0].poukaiWhen}</p>
+          </Principle>
+          <Principle numeral="ii" title={vsAlternatives.alternatives[1].name}>
+            <p>{vsAlternatives.alternatives[1].rightWhen}</p>
+            <p>{vsAlternatives.alternatives[1].poukaiWhen}</p>
+          </Principle>
+          <Principle numeral="iii" title={vsAlternatives.alternatives[2].name}>
+            <p>{vsAlternatives.alternatives[2].rightWhen}</p>
+            <p>{vsAlternatives.alternatives[2].poukaiWhen}</p>
+          </Principle>
+        </PrincipleList>
+
+        <p>{vsAlternatives.closing}</p>
+
+        <!-- Section 10: discoveryIntro repositioned immediately before the blockquote (A6).
+             Composition §4.5a resolution: moves past vsAlternatives so "Four questions…"
+             reads as the direct lead-in to the discovery <blockquote>, not to vs-alternatives. -->
         <p>{whereWorks.discoveryIntro}</p>
 
-        <!-- 7. Discovery questions — inline italic blockquote per D-04 -->
+        <!-- Section 11: Discovery questions — inline italic blockquote per D-04 -->
         <blockquote class="discovery-questions" cite="https://pouk.ai/why-ai">
           <ol>
             {whereWorks.questions.map((q) => (
@@ -150,9 +210,11 @@ const toSuperscript = (n: number) =>
           </ol>
         </blockquote>
 
+        <!-- Section 12: whereWorks.closing — non-conviction handoff line.
+             The promoted Statement sentence has moved to the pivot; this is the new handoff. -->
         <p>{whereWorks.closing}</p>
 
-        <!-- 8. End CTA — dual contact mechanism (FS-CF-1, booking-affordance §2 Context B).
+        <!-- Section 13: End CTA — dual contact mechanism (FS-CF-1, booking-affordance §2 Context B).
              Conversion pair: mailto: primary + booking secondary (muted link).
              Navigational hand-off: Roles → stays as a separate read-on line below.
              Three affordances read as: conversion pair | navigation hand-off (§6 Flag 1 resolved). -->
@@ -169,7 +231,9 @@ const toSuperscript = (n: number) =>
           </p>
         </div>
 
-        <!-- 9. References — per D-01, footnote-style round-trip -->
+        <!-- Section 14: References — per D-01, footnote-style round-trip.
+             vs-alternatives adds no cited stats → no new References entries (D-01 stays complete,
+             references.length(4) untouched). -->
         <section class="references" aria-label="References">
           <h2>References</h2>
           <ol>
@@ -183,7 +247,7 @@ const toSuperscript = (n: number) =>
           <p><em>{referencesNote}</em></p>
         </section>
 
-        <!-- 10. Last reviewed footer per D-03 -->
+        <!-- Last reviewed footer per D-03 -->
         <p class="last-reviewed">
           Last reviewed: {lastReviewed.date}. {lastReviewed.lead}{" "}
           <a href={lastReviewed.href}>{lastReviewed.email}</a> {lastReviewed.suffix}
@@ -191,7 +255,8 @@ const toSuperscript = (n: number) =>
 
       </div>
 
-      <!-- Sticky right-rail TOC — desktop only, CSS-only, no JS per D-02 -->
+      <!-- Sticky right-rail TOC — desktop only, CSS-only, no JS per D-02.
+           Scoped to failure-mode anchors only (composition §8 — no vs-alternatives entry). -->
       <nav class="why-ai-toc" aria-label="Page sections">
         <p class="why-ai-toc-label">Failure modes</p>
         <ol>

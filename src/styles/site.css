@@ -273,6 +273,158 @@ header a[href="/"] svg {
   color: var(--fg);
 }
 
+/* ---------- Home Hero CTA pair ----------
+   The DS Hero `cta` slot wrapper is inline-flex with no gap (designed for one
+   CTA). The mailto + booking button-beside-button pair (booking-affordance §2
+   Context A) needs its own gapped container so the two buttons don't abut.
+   flex-wrap stacks them on narrow viewports rather than overflowing. */
+
+.home-hero-cta-pair {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ---------- Home Hero split (text left, "The Signal" illustration right) ----------
+   The DS Hero `illustration` slot would do this, but its two-column rule is
+   gated on @media(--bp-md) — an unresolved PostCSS custom-media the DS ships in
+   its dist CSS, which browsers cannot parse and silently drop (the illustration
+   stacks below the text on every consumer, /about included). We own the split
+   here instead: scoped to the home hero, no dependency on the DS's dead rule.
+   Single-column below 768px with the illustration hidden (decorative, not
+   load-bearing); two-column at/above 768px, vertically centred against the
+   display-scale text block. The illustration's own motion is CSS-only and
+   already collapses under prefers-reduced-motion. */
+.home-hero-split {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.home-hero-split__aside {
+  display: none;
+}
+
+/* Two-column only once the viewport is wide enough. Below 1024px the fixed
+   text column would squeeze the illustration to a sliver, so we stay
+   single-column (illustration hidden — it is decorative, not load-bearing).
+
+   At/above 1024px the hero is a CONTAINED, centred pair: it stays inside the
+   normal content column (no full-bleed), so neither side hangs off the edge
+   and the page margins are symmetric — this is what removes the left-lean. The
+   text column is capped at 34rem (the narrowest width that keeps the display
+   title to two lines); the illustration takes the rest of the column. The pair
+   fills the centred content column, so the whole hero reads centred and aligns
+   with the sections below it. */
+@media (min-width: 1024px) {
+  .home-hero-split {
+    /* Centre the pair at a capped width: full-bleed out of the narrow content
+       column, then pad so the content caps at 68rem and centres, never
+       narrower than the page gutter. Symmetric margins remove the lean, while
+       the 68rem cap keeps the illustration a real size (not squeezed into the
+       narrow body column). */
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: max(var(--page-pad), calc((100vw - 68rem) / 2));
+    /* MAIN and .site-page each add --space-12 top padding, stacking to ~96px
+       above the hero and making it float. Pull back one step. */
+    margin-block-start: calc(-1 * var(--space-8));
+    grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
+    /* Tight gap: the mark's viewBox is cropped to its content
+       (HomeHeroIllustration), so this is the only space between the columns. */
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .home-hero-split__aside {
+    display: block;
+  }
+
+  /* Fill the illustration column. */
+  .home-hero-split__aside > svg {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ---------- Home Statement gap ----------
+   --space-16 (64px) above and below the Statement. Moved out of index.astro's
+   scoped <style> — Astro inlines small scoped styles, and an inline <style> is
+   blocked by the production CSP (style-src 'self'; csp-compat / CR-4). */
+.home-statement-gap {
+  padding-block: var(--space-16);
+}
+
+/* ---------- "The Signal" hero illustration (HomeHeroIllustration) ----------
+   These were inline in the SVG's <defs><style>, but the production CSP
+   (style-src 'self') blocks inline <style> — it failed the csp-compat gate
+   (CR-4) and would have stripped the animation in production. Served from the
+   first-party stylesheet, they pass under 'self'. The motion is gated on
+   prefers-reduced-motion (binding under D-25). */
+.wb {
+  font-family: var(--font-mono);
+}
+.wb .grid {
+  stroke: var(--hairline);
+}
+.wb .axis {
+  stroke: var(--hairline);
+}
+.wb .node-ring {
+  fill: var(--bg);
+  stroke: currentColor;
+}
+.wb .node-ring--accent {
+  stroke: var(--accent);
+}
+.wb .node-dot {
+  fill: currentColor;
+}
+.wb .node-dot--accent {
+  fill: var(--accent);
+}
+.wb .trace {
+  fill: none;
+  stroke: var(--fg-muted);
+}
+.wb .leader {
+  stroke: var(--fg-muted);
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wb .pulse-halo {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: wb-pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes wb-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .wb .signal-pulse {
+    stroke-dasharray: 6 200;
+    stroke-dashoffset: 206;
+    animation: wb-signal 4.2s linear infinite;
+  }
+
+  @keyframes wb-signal {
+    from {
+      stroke-dashoffset: 206;
+    }
+    to {
+      stroke-dashoffset: -200;
+    }
+  }
+}
+
 /* ---------- Universal end CTA ---------- */
 
 .end-cta {
@@ -374,7 +526,7 @@ header a[href="/"] svg {
 }
 
 /* ---------- Writing index — retention block ----------
-   Ungated email line (native zero-JS form) + RSS, once, low on the page. */
+   Ungated email line (native <form action>, no JS needed) + RSS, once, low on the page. */
 
 .writing-retention {
   margin-block-start: var(--space-16);

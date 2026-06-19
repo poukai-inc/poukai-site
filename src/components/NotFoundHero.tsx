@@ -16,7 +16,9 @@
  * is the only valid path. Composition §2 (open Q on eyebrow) recommended drop
  * unless it earns its place; DS constraint forces the call.
  *
- * Rendered as static HTML at build time — no hydration directive (R-079).
+ * Rendered as static HTML at build time — static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import { Hero, Button } from "@poukai-inc/ui";

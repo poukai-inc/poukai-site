@@ -1,14 +1,28 @@
 # Composition: Engagements
 
 **Route**: `/engagements`
-**Status**: Approved (2026-05-31)
+**Status**: Approved (2026-05-31) · **E-A revision PROPOSAL (2026-06-14)** — "the climb arrives": hero stagger + summit Statement. Awaiting Arian approval (Open Questions Q4 reversal, Q5 Statement). Every Approved clause not delta'd above carries forward unchanged.
 **Owner**: Arian (founder) · Author: pouk-ai-designer
 **Last updated**: 2026-05-31
 **Resolutions (Arian, 2026-05-31)**: Per-rung CTA = `<Link variant="default">` (LOCKED, §7 Q1) · rung `eyebrow` = the DESCRIPTIVE stage-marker set "The entry point" / "The proof" / "The build" / "The partnership" (Option B, LOCKED, §7 Q1b — differentiated from the title, which keeps the rung name; flags a `engagements.json.md` §4 schema amendment, §6). Q2 (deRisks weight), Q3 (StatusBadge), Q4 (Hero entrance) remain open.
 **Governing spec**: `meta/specs/pages/engagements.md` (Approved 2026-05-31) — §4 IA
 **Content draft**: `meta/content/drafts/pages/engagements.md` (v0.1, 2026-05-31) — working copy
 **Content-data spec**: `meta/specs/content/engagements.json.md` (Approved 2026-05-31) — binding field contract
-**DS version targeted**: `@poukai-inc/ui@2.0.0` (installed; `node_modules/@poukai-inc/ui/dist/llms-full.txt` is the binding reference)
+**DS version targeted**: `@poukai-inc/ui@2.0.0` (Approved baseline) → **`@poukai-inc/ui@2.17.0` for the E-A revision** (`meta/ds-snapshot/llms-full.txt` is the binding reference; `Statement` and `Hero entrance="stagger"` both ship)
+
+---
+
+> **[PROPOSAL 2026-06-14 — "raise the ceiling" revision E-A "The climb arrives".]** Two surgical additions on top of the Approved 2026-05-31 composition, per `meta/assessments/creative-exploration.md` §3 (Direction E-A). They respect every existing decision — the single-column stack, the gap escalation, the escalating icons, the descriptive eyebrows, the `<Link>`-not-`<Button>` CTAs, and the **no-band / no-figures discipline** all carry forward unchanged. DS targeted: `@poukai-inc/ui@2.17.0`.
+>
+> **Delta 1 — Hero gains `entrance="stagger"` (reverses §7 Q4's static recommendation).** The original objection (§2 / §7 Q4) was "the stagger reads as a doorway flourish on an evaluation page." The brief's counter is that "motion off" is exactly what defaulted the whole site to drab. At `size="display"` on a page about a relationship that *builds in stages*, the stagger reads as the page **composing itself** — which suits the subject, not just the doorway. Low risk: CSS-only, zero JS, reduced-motion-gated via the DS `:root !important` block. Easy to revert. **Updates §2 Section 2 Motion and §7 Q4.**
+>
+> **Delta 2 — A summit `<Statement>` between the Retainer rung and the End CTA (NEW beat — the signature moment).** After the reader has climbed Discovery → Pilot → Build → Retainer, the page hits one italic-serif line at `--fs-statement` that names the whole climb as one deepening relationship. `Draft: "Four shapes of one relationship — it starts small, and it deepens."` This restates the load-bearing "not four products on a shelf" thesis at editorial scale, *after* the climb, so the abstraction lands as a felt conclusion rather than a hero promise. **It sits on `--bg` with NO band** — typographic depth, not surface depth — preserving the page's deliberate no-`--surface-section` discipline (the band would invite the comparison-table read this whole page defends against). Inserts one beat into §2 (new Section 7.5) and §3 (rhythm).
+>
+> **Signature moment (as composed): the summit Statement.** The layout has *taught* the reader the climb (single column, escalating gap, escalating icons, descriptive stage markers); the Statement *names* what they just felt. It is the "felt ceiling" the sales audit said the page was missing — delivered with no number and no sales push. The page now *concludes* instead of trailing off into a quiet email line.
+>
+> **Restraint guardrail this still obeys:** single column not a grid; no figures, no currency, no price row, no comparison table, no tier highlight (categorical-only, spec §7(a) — load-bearing); `<Link>` not `<Button>` per rung; **one `<Statement>`, on `--bg`, no band**; the climb mechanic untouched. The only behavioral change is the zero-JS hero stagger. E-B (any stat moment) stays **rejected** — see §6 / the killed-option note below.
+>
+> **Pure-site confirmation:** both deltas are 100% pure-site. `entrance="stagger"` and `<Statement>` ship in `@poukai-inc/ui@2.17.0` today. **No DS gap.** Needs Arian's sign-off to reverse §7 Q4 (hero static) and to insert the summit Statement beat (+ Statement copy, Open Question Q5 below).
 
 ---
 
@@ -66,6 +80,7 @@ The spec §4 IA lists nine units (chrome, hero, ladder index, four rungs, end CT
   ```
   <Hero
     size="display"                                 // landing-class register; the climb wants display weight at the top
+    entrance="stagger"                             // [E-A DELTA 1] reverses §7 Q4 static recommendation — the page composes itself
     eyebrow="Engagements"                          // content draft §2 Hero
     title="How the work starts, and how it grows"  // draft §2 — the verb framing encodes the climb (spec §5 outcome a)
     lede={
@@ -84,7 +99,7 @@ The spec §4 IA lists nine units (chrome, hero, ladder index, four rungs, end CT
   />
   ```
 - **Layout / spacing**: Hero text column capped at `--hero-max` (38rem) by the DS. Internal rhythm (eyebrow→title `--space-2`-adjacent, title→lede) is DS-owned; not re-tuned. The Hero is the page `<h1>` (`titleAs` default) — confirms the content draft §3 heading-outline requirement (H1 = hero title).
-- **Motion**: `entrance="stagger"` is **available** (DS 2.0.0, consumed on `/`) but **not recommended here** — the stagger reads as a doorway flourish on a single-Hero landing page; on an evaluation page whose job is legibility, a quiet static entrance serves better. Default = no entrance animation. If Arian wants parity with `/`, `entrance="stagger"` is a one-prop add (see §7 Q4). Either way: zero JS, CSS-only, gated by `prefers-reduced-motion` via the DS `:root !important` block.
+- **Motion**: **[E-A DELTA 1 — reverses the prior static recommendation.]** `entrance="stagger"` is now **recommended on** (DS 2.17.0; shipped, consumed on `/` and `/why-ai`). The prior note read the stagger as "a doorway flourish on an evaluation page"; the raise-the-ceiling brief reverses that — at `size="display"` on a page about a relationship that *builds in stages*, the staggered reveal of title/lede reads as the page **composing itself**, which suits a staged climb. Zero JS, CSS-only, ~1.05s, gated by `prefers-reduced-motion` via the DS `:root !important` block. Easy to revert if Arian disagrees (§7 Q4). No scroll reveals on the rungs (still locked out — §4).
 - **Content slot**: `engagements-page.json[meta]` + hardcoded hero prose, or hero prose in the page template (engineer call). The lede is final-copy-pending Arian per content draft §7 Q4.
 - **Brand notes**: The negation "**not four products on a shelf**" is the single most load-bearing phrase on the page (content draft §4) — it does the anti-menu work in the reader's first five seconds. Preserve it verbatim in whatever final copy lands. No `<StatusBadge>` — the one-per-page budget and the no-sales-push discipline both argue against it here.
 
@@ -171,6 +186,26 @@ The spec §4 IA lists nine units (chrome, hero, ladder index, four rungs, end CT
 - **Content slot**: `engagements.json[3]`.
 - **Brand notes**: `RefreshCw` reads "ongoing operation and iteration / keep it running" — the compounding relationship. The CTA verb shifts again to "Talk about" (content draft §4 / §7 Q2) — a retainer is a conversation, not a checkout. This is the one CTA that breaks the "Start" parallel; the composition endorses the break (it reinforces sequence-not-shelf — the fourth rung is qualitatively different).
 
+### Section 7.5 — Summit `Statement` (the climb, named) **[E-A DELTA 2 — NEW beat — signature moment]**
+
+- **DS primitive(s)**: `<Statement>` (molecule). Sits between the Retainer rung (Section 7) and the End CTA (Section 8) — the top of the ascent, before the catch-all.
+- **Props (substantive)**:
+  ```
+  <Statement
+    statement={summitStatement}     // Draft: "Four shapes of one relationship — it starts small, and it deepens."
+    // as="p" (default) — a <div> wrapping a <p>; NOT a heading. The page <h1> stays in the Hero.
+    // hairline={false} (default) — RECOMMENDED off here. The page's largest existing gap (--space-16,
+    //   the Retainer→close gap from §3) already sets the Statement apart; a hairline would read as a
+    //   section rule on a page that deliberately uses NO surface bands. Typographic break, not a drawn one.
+    // NO as="blockquote" — the brand's own thesis, not an attributed external quote.
+    // NO supporting — the line stands alone; the climb above is its support.
+  />
+  ```
+- **Layout / spacing**: On `--bg` — **no `--surface-section` band** (load-bearing: this page reserves bands to avoid the comparison-table read — §3). `--fs-statement` (28–44px) italic-serif, `text-wrap: balance`. The gap above it is the page's existing largest gap (`--space-16` / 64px, the same Retainer→close interval from §3); the gap below to the End CTA is the End CTA Section's own block padding. Caps at the Statement's balanced measure, anchored to the same content axis as the rungs.
+- **Motion**: **None.** The Statement is static — no entrance, no reveal. Its depth is the *scale interval* between the rung body text and the 28–44px italic assertion, not motion. `prefers-reduced-motion` trivially satisfied.
+- **Content slot**: A single string. Draft promotes the load-bearing "not four products on a shelf" thesis (content draft §4) to editorial scale; final wording is Arian's (§7 Q5). Stored in `engagements-page.json[summitStatement]` or hardcoded — engineer's call, consistent with the Hero prose.
+- **Brand notes**: **This is the page's signature moment.** DS rule: "Use sparingly — once per page; the page `<h1>` still lives in `<Hero>`." Honored: exactly one `<Statement>` on the page, not a heading, does not replace the hero. The layout has *taught* the climb (single column, escalating gap, escalating icons, descriptive eyebrows); the Statement *names* what the reader just felt — one deepening relationship, not four products on a shelf. It is the "felt ceiling" the sales audit said the page lacked, delivered with no number and no sales push. The page now concludes instead of trailing off. Restraint held: no band, no figure, no urgency — a quiet assertion at scale.
+
 ### Section 8 — End CTA (catch the undecided-but-ready reader)
 
 - **DS primitive(s)**: A muted closing line + `<EmailLink>`. **`<EmailLink variant="default" email="hello@pouk.ai" />`** is the exact-fit primitive — it is the canonical `mailto:` "reach out" affordance, distinct register from the per-rung `<Link>` CTAs (which carry rung-specific subjects) and from a Button. The lead line is plain prose (`<p>`).
@@ -213,8 +248,10 @@ The vertical rhythm of `/engagements`, top to bottom, and how it encodes the *cl
    - Discovery → Pilot gap: `--space-12` (48px)
    - Pilot → Build gap: `--space-12` (48px)
    - Build → Retainer gap: `--space-16` (64px) — the one widened gap, marking the crossing from "entry/proof" rungs into the "committed/compounding" rungs. This is the single clearest *ascent* signal in the layout: the reader feels the relationship deepen as the gap opens before Build→Retainer.
-7. Last rung (Retainer) → End CTA gap — `--space-16` (64px) — separates the climb from the catch-all.
-8. End CTA (`Section size="tight"`) — `--space-12` block padding.
+7. Last rung (Retainer) → **summit `<Statement>`** gap — `--space-16` (64px) — the page's largest gap, now landing the summit assertion rather than running straight into the close. **[E-A DELTA 2]**
+7a. **Summit `<Statement>`** on `--bg`, no band — the climb named at editorial scale.
+8. Summit Statement → End CTA gap — the End CTA Section's own block padding (`--space-12`, `Section size="tight"`).
+8b. End CTA (`Section size="tight"`) — `--space-12` block padding.
 9. `.site-page` bottom padding — `--space-12`.
 10. `<SiteShell>` footer — DS-owned.
 
@@ -223,7 +260,7 @@ The vertical rhythm of `/engagements`, top to bottom, and how it encodes the *cl
 - **Categorical-only layout (spec §7(a), load-bearing).** No layout affordance implies a figure: no price row, no "from" slot, no comparison table, no tier-highlight ("most popular"), no per-rung badge. The `body` slot carries `delivers` + `deRisks` and nothing else. A future engineer must not add a price/figure cell — that is a brand break, not a layout improvement.
 - **Escalating icon register** (§5) — the four glyphs ascend from light diagnosis (`Search`) to compounding operation (`RefreshCw`), reinforcing the climb at the glyph level.
 - **Descriptive stage-marker eyebrows** (RESOLVED 2026-05-31, §7 Q1b — Option B) — the rung `eyebrow` is the descriptive progression **"The entry point" → "The proof" → "The build" → "The partnership"**, differentiated from the `title` (which keeps the rung name). This is the fourth climb cue, alongside the single-column stack, the gap escalation, and the icon escalation. The descriptive set carries the climb *semantically* (a relationship that begins, gets proven, gets built, then compounds) rather than by ordinal — which reads even more clearly as one deepening relationship and even less like parallel tiers than the numeric set would have. It holds firmly on the right side of the sequence-not-shelf line.
-- **No alternating surface bands.** Unlike an editorial page, `/engagements` keeps every rung on the same bordered-card treatment (`--surface` fill); the rhythm comes from the gap escalation, not from `--surface-section` band alternation. (Reserving `--surface-section` avoids the "comparison table" read that bands would invite.)
+- **No alternating surface bands** — including under the summit Statement. Unlike an editorial page, `/engagements` keeps every rung on the same bordered-card treatment (`--surface` fill); the rhythm comes from the gap escalation, not from `--surface-section` band alternation. (Reserving `--surface-section` avoids the "comparison table" read that bands would invite.) **The E-A summit `<Statement>` (Section 7.5) sits on `--bg` with no band** — it is typographic depth, the one page where the band lever is correctly left holstered. This is the deliberate contrast with `/why-ai`, where one recessed `StatsSection fill` band *clarifies the argument*; here a band would *muddy* the sequence-not-shelf read. Same Statement primitive, opposite band decision — each lever used only where it earns.
 
 Token compliance: every gap above resolves to a published `--space-N` token (`--space-8`, `--space-12`, `--space-16`). No `--space-5/7/9/11`. No raw px. The escalating gap uses only the two stops the DS publishes between 32px and 64px (`--space-12`, `--space-16`) — there is no token between them, so the "ascent" is a two-step escalation, not a continuous ramp. That is a DS-imposed constraint, honored, not worked around.
 
@@ -231,12 +268,13 @@ Token compliance: every gap above resolves to a published `--space-N` token (`--
 
 The page ships **zero JavaScript** and (by default) **zero composition-level animation**:
 
-- **Fires on initial render**: nothing, by default. (`<Hero entrance="stagger">` is available and would fire a CSS-only staggered reveal if Arian opts in — see §2 / §7 Q4. It is *not* recommended for this evaluation page.)
-- **Fires on scroll**: nothing. No intersection-triggered reveal, no parallax, no scroll-spy. An intersection reveal on the rungs would (a) require `IntersectionObserver` = JS, breaking the zero-JS AC (spec §8), and (b) animate the climb in a way that competes with the reader's own pace. The climb is expressed through static layout weight (§3), not motion. **The reveal does not earn its hydration cost** — explicit per the template requirement.
+- **Fires on initial render**: **[E-A DELTA 1]** the `<Hero entrance="stagger">` reveal — title/lede staggering in, CSS keyframes + `animation-delay` + `animation-fill-mode: both`, ~1.05s, zero JS. This reverses the prior "static recommended" call (§7 Q4). It is the only motion on the page. The summit `<Statement>` (Section 7.5) is **static** — it does not animate.
+- **Fires on scroll**: nothing. No intersection-triggered reveal, no parallax, no scroll-spy. An intersection reveal on the rungs is omitted because (a) ~~it would require `IntersectionObserver` = JS, breaking the zero-JS AC (spec §8)~~, and (b) it would animate the climb in a way that competes with the reader's own pace. The climb is expressed through static layout weight (§3), not motion. **The reveal does not earn its place** — a composition judgement, explicit per the template requirement.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. Omitting the scroll reveal is now a design call, not a zero-JS gate.
 - **Fires never (locked out)**: scroll-triggered reveal, parallax, any `IntersectionObserver`-driven motion, any animation on the FeatureCards, any CSS animation on the per-rung CTAs.
 - **Hover micro-interactions** (DS-internal, CSS-only): the ladder-index `Link variant="quiet"` underline grow, the per-rung footer `Link variant="default"` underline grow, the `EmailLink` underline grow, nav/footer link hover. All use `--dur-mid` / `--easing-link` and are gated by `prefers-reduced-motion: reduce` via the DS `:root !important` block.
 
-**`prefers-reduced-motion: reduce` behavior**: every animation on the page (the optional Hero stagger, all link-hover transitions) is disabled by the DS's `:root !important` block in `tokens.css`. No exception. The composition adds no `@media (prefers-reduced-motion)` rule of its own — the DS handles it at the token layer. There is no StatusBadge on this page, so the badge-pulse gate is not in play here.
+**`prefers-reduced-motion: reduce` behavior**: every animation on the page (the E-A Hero stagger and all link-hover transitions) is disabled by the DS's `:root !important` block in `tokens.css`. No exception. The summit `<Statement>` is static, so there is nothing to gate there. The composition adds no `@media (prefers-reduced-motion)` rule of its own — the DS handles it at the token layer. There is no StatusBadge on this page, so the badge-pulse gate is not in play here.
 
 ## 5. Icon picks
 
@@ -251,7 +289,7 @@ Per-rung Lucide glyph for the `FeatureCard.icon` slot, chosen to *escalate the c
 
 ## 6. DS gaps surfaced
 
-**None.** The composition assembles entirely from existing `@poukai-inc/ui@2.0.0` primitives. The spec §4 / §9 open question — `<NEEDS: confirm RoleCard CTA-slot + dual-prose tolerance>` — is **resolved by composing the rung in `<FeatureCard variant="bordered">` instead of `<RoleCard>`**, not by extending the DS.
+**None.** The composition assembles entirely from existing `@poukai-inc/ui` primitives. The spec §4 / §9 open question — `<NEEDS: confirm RoleCard CTA-slot + dual-prose tolerance>` — is **resolved by composing the rung in `<FeatureCard variant="bordered">` instead of `<RoleCard>`**, not by extending the DS. **The E-A revision adds no gap**: `<Hero entrance="stagger">` and `<Statement>` both ship in `@poukai-inc/ui@2.17.0` today.
 
 Recorded reasoning so this is a conscious decision, not an oversight:
 
@@ -269,7 +307,9 @@ Recorded reasoning so this is a conscious decision, not an oversight:
 - **Q1b — Rung `eyebrow` semantic: descriptive STAGE MARKER, not the rung name. — RESOLVED 2026-05-31 (Arian): the DESCRIPTIVE set (Option B), LOCKED.** Arian killed the eyebrow-equals-title name-repeat and chose the **descriptive** marker set over the numeric one. The `eyebrow` slot now carries the relationship-stage progression — `"The entry point"` (Discovery) → `"The proof"` (Pilot) → `"The build"` (Build) → `"The partnership"` (Retainer); the **`title` keeps the bare rung name** (`Discovery` / `Pilot` / `Build` / `Retainer`). **Composition impact: none structural** — the `<FeatureCard>` `eyebrow` slot already exists and is content-agnostic; only the *substance that fills it* changes. Downstream consequences reconciled in this revision: (a) §2 Sections 4–7 eyebrow-slot notes + props updated to the descriptive set; (b) the §5 fourth-climb-cue note reframed — the descriptive set carries the climb semantically (a relationship that begins, gets proven, gets built, then compounds), a stronger sequence-not-shelf read than ordinals; (c) the Build rung's `"The build"` eyebrow / `"Build"` title near-repeat is handled by the DS register difference (muted Eyebrow vs. title scale — §2 Section 6 brand note); (d) this diverges from the content-data spec `engagements.json.md` §4 (which locks `eyebrow` = bare rung name) — **flag for PM**: amend the `eyebrow` constraint + validation to the locked descriptive set {`"The entry point"`,`"The proof"`,`"The build"`,`"The partnership"`}, pairing 1:1 with `id` (schema-field change, routes back to `engagements.json.md`, not authored here). See §6 note.
 - **Q2 — `deRisks` line muted (recommended) vs. full-weight.** The composition renders `deRisks` in `--fg-muted` to subordinate the removed-fear line beneath the `delivers` claim (one site-side class, existing token). Alternative: both registers at full `--fg`. Recommend muted — it reads as a clarifying second beat, not a competing claim. Your call.
 - **Q3 — No `<StatusBadge>` on this page (recommended).** I left the availability badge off `/engagements` (it lives on `/` and `/why-ai`; the one-per-page budget and the no-sales-push discipline both argue against it on an evaluation page). If you'd rather signal availability here too, a single `<StatusBadge status="available">` could sit in the Hero `status` slot — but it tips the page toward "book now." Recommend leaving it off. Your call.
-- **Q4 — Hero entrance: static (recommended) vs. `entrance="stagger"` for parity with `/`.** Recommend static — the stagger is a doorway flourish that suits the homepage, not an evaluation page whose job is calm legibility. One-prop add if you want parity. Your call. (Either way: zero JS, reduced-motion-gated.)
+- **Q4 — Hero entrance — REVERSED by E-A: now `entrance="stagger"` (recommended on).** The Approved composition recommended static; the raise-the-ceiling revision reverses it. At `size="display"` on a staged-relationship page, the stagger reads as the page composing itself, not as a doorway flourish. Zero JS, reduced-motion-gated, trivially revertible. Confirm the reversal, or hold static. (Recommendation: stagger on.)
+- **Q5 — Summit `<Statement>` copy + insertion (E-A Delta 2).** The new Section 7.5 inserts a once-per-page italic-serif assertion between the Retainer rung and the End CTA: `Draft: "Four shapes of one relationship — it starts small, and it deepens."` This is the page's signature moment — the climb named at editorial scale, on `--bg` with no band. Confirm the beat and the wording (or supply a replacement). (Recommendation: insert it — the page currently trails off into a quiet email line; the Statement gives the climb a summit.)
+- **E-B — REJECTED, on the record.** A `StatsSection` or any stat/figure moment on this page is killed: `/engagements` is categorical-only with no figures anywhere (spec §7(a), schema-enforced). Any numeric ceiling would break the page's defining constraint. The ceiling here is *verbal* (the Q5 Statement), never numeric. Recorded as considered-and-killed; do not build.
 
 ## 8. Out of scope
 

@@ -110,7 +110,8 @@ Per founder decision, the portrait is produced by Arian (either the existing ins
 - **Aspect ratio**: **1:1 (square)**. Source asset is `public/about-portrait.jpg` at 1024×1024 — head-and-shoulders single subject framed square. **Amendment 2026-05-18 evening (v2.1)**: revised from v2.0's **3:4** default. Asset-authority beats composition default — the shipped JPEG is square, the spec follows. Future asset reshoots may revert to 3:4 (editorial-portrait standard); when they do, this clause + `src/content/about.json` `band.portrait.aspect` + `src/content/_schemas/about.ts` enum + `AboutBand.tsx` consumption all flip together.
 - **Source resolution**: 1024px on each axis (square asset). **Amendment 2026-05-18 evening (v2.1)**: revised from v2.0's "≥ 1600px on the long axis". Astro's image pipeline + DS `<Portrait>` molecule downsample for served variants from this 1024 source. If a future reshoot lands a 1600+ asset, this clause re-tightens.
 - **Served sizes**: three widths via `srcset` — **480w** (mobile / column), **720w** (desktop column at 1×), **1440w** (desktop column at 2× / Retina). Plus designer's chosen breakpoints if the composition calls for full-bleed treatment.
-- **Per-variant weight budget**: ≤ 80 KB for the largest AVIF variant (1440w). ≤ 50 KB for the 720w AVIF. ≤ 25 KB for the 480w AVIF. WebP and JPEG fallbacks ≤ 1.5× the AVIF weight per variant. **Tunable down** by engineer compression pass; **not tunable up** — the page's Lighthouse 100 budget is the contract.
+- **Per-variant weight budget**: ≤ 80 KB for the largest AVIF variant (1440w). ≤ 50 KB for the 720w AVIF. ≤ 25 KB for the 480w AVIF. WebP and JPEG fallbacks ≤ 1.5× the AVIF weight per variant. **Tunable down** by engineer compression pass. These weight targets are advisory image-hygiene guidance, not a merge gate.
+> Superseded by D-25 (2026-06-16 JS revocation): the "Lighthouse 100 budget is the contract" framing is advisory, not blocking. a11y + reduced-motion remain binding.
 - **Preload strategy**: depends on whether the portrait sits above the fold or below it (designer composition revision decides placement). If above-the-fold: `<link rel="preload" as="image">` for the appropriate served variant matching the viewport. If below-the-fold: `loading="lazy"` on the `<img>`, no preload. Engineer default: lazy + no preload; flip to preload only if the designer locks an above-the-fold placement.
 - **LCP impact**: the page's LCP element is the display statement (`<h1>`), not the portrait. The portrait must not regress LCP. If above-the-fold placement forces the portrait to become LCP, the engineer either (a) preloads to keep LCP under 2.5s on mobile, or (b) escalates the placement decision back to designer + PM.
 - **CLS impact**: the `<img>` must declare explicit `width` and `height` attributes so the browser reserves space before load. Non-negotiable.
@@ -187,12 +188,14 @@ Meta / SEO ACs (revised from v1):
 
 Quality ACs (hold from v1):
 
-- [ ] Lighthouse mobile: 100/100/100/100 (Performance ≥ 95 per D-14 is the operating floor; A11y / BP / SEO = 100 is non-negotiable).
-- [ ] No new client-side JS shipped on `/about`. Motion, if any, is CSS-only.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory, not blocking. a11y (axe-core 0 violations) + reduced-motion remain binding.
+
+- [ ] Lighthouse mobile tracked as advisory (target A11y / BP / SEO = 100; Performance for situational awareness). Advisory, not a merge gate.
+- [ ] Client-side JS is permitted on `/about` per D-25; motion may be CSS or JS-driven. (Static-first remains a sensible default by choice, not by mandate.)
 - [ ] `prefers-reduced-motion` honored on any composition motion (display-statement entrance reveals, portrait fade-ins, etc. — designer composition decides motion).
 - [ ] axe-core passes with 0 violations on `/about`.
 - [ ] Color contrast on the portrait caption, end CTA, and any `--fg-muted` text meets WCAG AA against the surrounding surface (`--bg`).
-- [ ] The Lighthouse Performance budget absorbs the new portrait asset without dropping below 95.
+- [ ] Portrait asset weight tracked as advisory image-hygiene guidance (the earlier "Performance budget absorbs the portrait without dropping below 95" framing is no longer a gate).
 
 Atomic-ship ACs (coupled with v2 deploy):
 
@@ -296,7 +299,7 @@ The v1 A1–A18 decisions are inventoried here so future agents reading v2 under
 - The saturated orange extending onto the page surface as a backdrop band in v2 (PM default contains it inside the asset bounding box; designer override is possible but PM countersigns).
 - LinkedIn / X / GitHub URLs in the body, footer, structured data, or alt text. Contact mediation stays through `hello@pouk.ai`.
 - A contact form, scheduling widget, intro questionnaire, or any non-`mailto:` conversion path. `mailto:` only.
-- Per-visit personalization, A/B copy variants, dynamic stat insertion. Zero-JS contract.
+- Per-visit personalization, A/B copy variants, dynamic stat insertion. Out of scope as a product/brand-restraint choice (the prior "Zero-JS contract" rationale is superseded by D-25 — JS is now permitted; these stay out by design, not by JS prohibition).
 - A reading-time indicator. None of the other long-form pages have one; consistency holds.
 - A "back to home" affordance. `SiteShell` wordmark covers that.
 - Author byline ("by Arian Zargaran"). The page *is* the byline; the operator line names him once.

@@ -15,7 +15,8 @@
 
 - **A1 — The booking affordance is a *link*, not a `<Button variant="secondary">`, at the prose/`EmailLink`-register conversion points; it is a `<Button variant="secondary">` only where the primary `mailto:` is already a `<Button>` (i.e. the `/` Hero).** This is the load-bearing call and the one place I diverge from the PM's stated *expectation* (contact-flow §5: "PM expects the booking affordance to reuse the existing `<Button>` shape, a secondary/quiet variant"). My reasoning is in §2 and §6 — short version: the DS register contract says a `mailto:` "opens a mail client, it does not commit to an outcome" and should be a link, not a button (`llms-full.txt` §EmailLink); the same logic applies to a `cal.pouk.ai` link that opens a booking page. **Matching the primary's register** (button beside button on `/`; link beside link everywhere else) is what keeps the secondary subordinate without inventing a second button shape on pages that today carry zero buttons. The PM's "reuse the existing `<Button>` secondary variant" expectation is honored literally on `/` (where the primary *is* a Button) and honored *in spirit* elsewhere. If Arian wants a literal `<Button variant="secondary">` on every conversion point, that is a one-line override per point — see §7 Q1.
 - **A2 — The canonical booking URL is `https://cal.pouk.ai`** (contact-flow §9 FS-CF-2: single canonical URL at v1; event-type routing deferred). Defined once as a shared constant/content field (contact-flow §8 AC; R-076 spirit) — engineer's storage mechanism. This note references it as `BOOKING_URL` throughout.
-- **A3 — The booking affordance is a plain `<a href>` in every case** — zero JS, no widget, no island, no modal (contact-flow §5, §8; R-009/R-010/R-078). A `<Button asChild><a>` is still a plain anchor under the hood; the DS `asChild` pattern emits an `<a>`, not a hydrated control.
+- **A3 — The booking affordance is a plain `<a href>` in every case** — no widget, no island, no modal (contact-flow §5, §8; R-009/R-010/R-078). A `<Button asChild><a>` is still a plain anchor under the hood; the DS `asChild` pattern emits an `<a>`, not a hydrated control. (The plain-anchor choice here is a *composition* preference for the simplest affordance, not a JS prohibition.)
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **A4 — Final CTA copy is content's lane.** Every label below marked `Draft:` is a placeholder to anchor the affordance visually. `pouk-ai-content` authors the real "or grab a time →" variants per surface against contact-flow §5/§6 voice discipline; Arian approves.
 
 ---
@@ -86,9 +87,10 @@ The `/` Hero already carries the primary `mailto:` as a `<Button asChild size="s
 | **Urgency** | None. No "now", no scarcity, no exclamation, no countdown. | copy discipline (content lane) |
 | **Count** | Exactly two affordances per conversion point. Never a third. | composition rule |
 
-## 4. Motion / reduced-motion / zero-JS posture
+## 4. Motion / reduced-motion / posture
 
-- **Zero JS.** Every booking affordance is a plain `<a href>` (or `<Button asChild><a>` which emits a plain anchor). No `cal.com` widget, no iframe, no island, no modal, no `client:*` directive (contact-flow §5/§8; R-009/R-010/R-078). Booking happens on `cal.pouk.ai`; the site only links.
+- **Plain-anchor by composition choice.** Every booking affordance is a plain `<a href>` (or `<Button asChild><a>` which emits a plain anchor). No `cal.com` widget, no iframe, no island, no modal — booking happens on `cal.pouk.ai`; the site only links. This is the simplest affordance for the job (contact-flow §5/§8; R-009/R-010/R-078), not a prohibition on client JS.
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding.
 - **Motion**: none intrinsic. The only motion is the **DS-internal link/Button hover** — the two-layer underline grow (`--dur-mid`, `--easing-link`) on link-register affordances, and the Button hover/`:active translateY` on the `/` Hero buttons. All DS-owned; no site-side animation.
 - **`prefers-reduced-motion: reduce`**: every hover transition is gated by the DS `:root !important` block in `tokens.css`. No exception, no site-side `@media` rule needed. There is no entrance animation, no pulse, no scroll trigger on any booking affordance.
 
@@ -128,7 +130,8 @@ This is a recommendation, not a DS gap. If Arian prefers a literal secondary But
 
 - **Final CTA copy** (the per-surface "or grab a time →" variants). Content lane; Arian-approved.
 - **Booking-context routing** (archetype/rung in the `cal.pouk.ai` URL). Deferred to v2 per contact-flow §9 FS-CF-2; v1 ships the single canonical `BOOKING_URL`.
-- **Any embedded scheduling widget / iframe / island / modal.** Permanently out (zero-JS).
+- **Any embedded scheduling widget / iframe / island / modal.** Out by composition choice — the booking action links out to `cal.pouk.ai` rather than embedding a hydrated widget. ~~(zero-JS)~~
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. (Embedding remains out by composition preference, not by JS contract.)
 - **A booking affordance on `/principles`, `/about`** (trust-loop) or **`/privacy`, `/terms`, `/scheduling`** (off-funnel). Hard exclusion (contact-flow §4/§10).
 - **Per-rung booking on `/engagements`** and **per-card booking on `/roles`**. Out (contact-flow §8; D-08).
 - **The per-page end-CTA recipes themselves** beyond the booking affordance. Each consuming page's composition owns its end CTA; this note owns only the booking-beside-`mailto:` treatment. The home/why-ai/roles/engagements composition revisions to consume this note are flagged in §5, not authored here. `/onboarding` is the exception — its end CTA is composed in full in `onboarding.md`, consuming this note.

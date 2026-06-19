@@ -152,9 +152,11 @@ Meta / SEO ACs:
 
 Quality ACs:
 
-- [ ] Lighthouse mobile: 100/100/100/100.
-- [ ] **No client-side JS shipped on `/engagements`.** The per-rung CTAs are plain `<a href="mailto:">` — no hydrated island, no JS-driven subject construction.
-- [ ] `prefers-reduced-motion` honored on any composition motion (CSS-only).
+> Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory, not blocking. a11y (axe-core 0 violations) + reduced-motion remain binding.
+
+- [ ] Lighthouse mobile tracked as advisory (not a merge gate).
+- [ ] Client-side JS is permitted on `/engagements` per D-25. The per-rung CTAs may remain plain `<a href="mailto:">` by choice (no island required), but no JS prohibition applies.
+- [ ] `prefers-reduced-motion` honored on any composition motion (CSS or JS-driven).
 - [ ] axe-core passes with 0 violations.
 - [ ] Color contrast on rung cards, per-rung CTAs, and end CTA meets WCAG AA.
 

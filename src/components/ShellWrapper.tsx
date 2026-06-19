@@ -17,7 +17,9 @@
  * §2 footer utility tier). /onboarding and /writing surface here as footer-only
  * destinations (not in primary nav per FS-OB-2 / writing.md §9).
  *
- * Rendered as static HTML at build time — no hydration directive (R-079).
+ * Rendered as static HTML at build time — static by design (no hydration needed here).
+ * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
+ * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
  */
 
 import type { ReactNode } from "react";

@@ -1,8 +1,8 @@
 {
-  "_comment": "Gzipped HTML byte counts per route. Generated 2026-05-19 against main (worktree funny-chebyshev-beebd7). Update this file in a dedicated PR when intentional HTML growth lands — never auto-update in the same PR as a content or feature change. See .github/scripts/html-weight-check.mjs for the update protocol.",
+  "_comment": "Gzipped HTML byte counts per route. Baseline refreshed 2026-06-18 on explore/raise-the-ceiling: '/' grew with the home destination IA + 'The Signal' hero illustration; '/why-ai' grew with the raise-the-ceiling depth pass. Intentional growth. R-015 is advisory since D-25 (2026-06-16). See .github/scripts/html-weight-check.mjs for the update protocol.",
   "routes": {
-    "/": 4846,
-    "/why-ai": 8461,
+    "/": 6412,
+    "/why-ai": 10103,
     "/roles": 6320,
     "/principles": 7160,
     "/about": 5672,

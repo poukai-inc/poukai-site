@@ -3,32 +3,32 @@
     "id": "builder",
     "eyebrow": "The Builder",
     "title": "Builder",
-    "body": "Builds custom solutions when off-the-shelf tools fall short — dashboards, internal tools, client-facing products. Modern tools (Lovable, Claude, Supabase) collapsed what used to take a dev team six months into days or weeks.",
-    "hiredBy": "Founders needing prototypes, product leads testing ideas fast, teams unlocking budget with a proof-of-concept.",
+    "body": "Ships custom solutions when off-the-shelf tools fall short — dashboards, internal tools, client-facing products. Modern tooling (Lovable, Claude, Supabase) collapses what used to take a dev team six months into days or weeks. You get a working product, not a roadmap.",
+    "hiredBy": "Founders who need a prototype that closes the next round, product leads who need to test an idea before committing budget, and teams who need a working proof-of-concept rather than a pitch deck.",
     "icon": "hammer"
   },
   {
     "id": "automator",
     "eyebrow": "The Automator",
     "title": "Automator",
-    "body": "Redesigns how work gets done by wiring together the right tools and turning scattered tasks into self-running systems — connecting an LLM, like GPT, to Salesforce, eliminating manual data entry, building 24/7 outreach sequences. Their edge is systems thinking, not technical complexity.",
-    "hiredBy": "Ops leaders cutting manual work, sales teams drowning in admin, small businesses scaling without headcount.",
+    "body": "Turns scattered manual tasks into self-running systems — connecting an LLM to Salesforce, eliminating data-entry bottlenecks, building outreach sequences that run without a person behind them. The result is hours recovered per week and a team that scales without adding headcount.",
+    "hiredBy": "Ops leaders who need manual work cut, sales teams drowning in admin, and businesses that are growing faster than they can hire.",
     "icon": "workflow"
   },
   {
     "id": "educator",
     "eyebrow": "The Educator",
     "title": "Educator",
-    "body": "Focuses on adoption — helping teams actually use AI, not just talk about it. The blocker is rarely tech; it's behavior. Educators deliver AI audits, hands-on training with real workflows, and prompt libraries teams can use immediately.",
-    "hiredBy": "HR/L&D teams rolling out AI org-wide, leadership closing the gap between \"we bought the tools\" and \"people use them.\"",
+    "body": "Gets teams from \"we have the tools\" to actually using them — through AI audits of real workflows, hands-on training grounded in day-to-day work, and prompt libraries that teams can pick up and run with the same day. The blocker is almost never the technology.",
+    "hiredBy": "HR and L&D leaders rolling out AI org-wide, and leadership teams closing the gap between tool adoption and measurable behavior change.",
     "icon": "graduation-cap"
   },
   {
     "id": "creator",
     "eyebrow": "The Creator",
     "title": "Creator",
-    "body": "Streamlines creative workflows that are time and cost intensive. Creators don't run full-service agencies. They identify where concept iteration, motion graphics, post-production, and other parts of the creative process get faster and cheaper with the right tools.",
-    "hiredBy": "Chief Marketing / Chief Creative Officers who are feeling their budgets constrain and their timelines accelerate.",
+    "body": "Cuts time and cost out of creative workflows — concept iteration, motion graphics, post-production — without replacing the creative direction. Teams keep the quality and reclaim the budget and timeline that used to disappear into production.",
+    "hiredBy": "Chief Marketing and Chief Creative Officers whose budgets are tightening and whose timelines are accelerating.",
     "icon": "clapperboard"
   }
 ]

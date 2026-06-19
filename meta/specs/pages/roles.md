@@ -85,8 +85,9 @@ The icon field in JSON is a **Lucide glyph name string** (e.g., `"Hammer"`, `"Wo
 - [ ] Top nav `SiteShell` highlights Roles as current.
 - [ ] Page links to `/why-ai` and `/principles` via the global nav, and exposes `mailto:hello@pouk.ai` exactly once in the universal end CTA.
 - [ ] Deep-link anchor URLs (`/roles#builder`, etc.) scroll to the corresponding `RoleCard` and the card is visible above the fold post-scroll.
-- [ ] Lighthouse mobile: 100/100/100/100.
-- [ ] No client-side JS shipped.
+- [ ] ~~Lighthouse mobile: 100/100/100/100.~~ ~~No client-side JS shipped.~~
+  > Superseded by D-25 (2026-06-16 JS revocation): client JS permitted; Lighthouse/HTML-weight advisory. a11y + reduced-motion remain binding. Lighthouse is now tracked as advisory; client-side JS is permitted on this page.
+- [ ] axe-core 0 violations and `prefers-reduced-motion` honored (binding, unchanged).
 - [ ] `<title>` and `<meta description>` reflect the four-archetypes framing.
 - [ ] Spec section 5 outcomes are met by the shipped copy (Arian-verified).
 
