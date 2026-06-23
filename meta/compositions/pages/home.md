@@ -1,586 +1,876 @@
 # Composition: Home
 
 **Route**: `/`
-**Status**: PROPOSAL — revision 2026-06-15 "destination" (doorway → destination homepage). Awaiting Arian approval. Carries the 2026-06-14 "raise the ceiling" display-doorway Hero forward intact; adds three sections below it (Statement → differentiation preview → closing CTA) per the Approved `home-amendment-destination.md` (RR-1/RR-2/RR-3 ratified 2026-06-15). Supersedes the 2026-06-14 revision's §2 "zero added sections" / §3 "single section break" / §4 "fires never" framing only; every other clause carries forward.
+**Status**: APPROVED (Arian, 2026-06-21) — A3 6-beat / artifact-anchor revision; OQ-A1–A6 accepted as specified (CodeBlock vehicle, `language` label kept, automations asymmetry, 95% at `--fs-stat-large` + thin bar retained, close at `--fs-tagline-intimate`, two bands + merge-guard). Engineering proceeds. Artifact code string ships as Candidate A PLACEHOLDER for preview only; production `Built` gated on Arian's confirmed real fragment (AA-1 / spec §7). Supersedes the A2 5-beat recipe retained below.
 **Owner**: Arian (founder) · Author: pouk-ai-designer
-**Last updated**: 2026-06-15
-**Governing spec**: `meta/specs/pages/home-amendment-destination.md` (Approved — §4 section list, §5 IA render contract, §6 ACs, §9 OQ-1..OQ-4) — authoritative for everything not composed here. Builds on `meta/specs/pages/home-amendment-raise-the-ceiling.md` (RR-1/RR-2 display Hero, carried forward) and `meta/specs/pages/home.md` (Approved base, §4 IA lock now reversed by the destination amendment).
-**DS version targeted (original)**: `@poukai-inc/ui@0.6.1` (with three pending DS-gap proposals — see §6).
-**DS version shipped (current, 2026-05-19)**: `@poukai-inc/ui@0.15.0`. The three §6 proposals shipped between 0.7.0 and 0.9.0: `<Hero size="intimate">` (0.7.0), `<Button size="compact">` (0.9.0), `<Hero entrance="stagger">` (0.8.0; consumed on `/` per D-17 + this composition's §2). The illustration-slot proposal stays open via [poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40); deferral note above remains in force.
-**Ratifies**: shipped implementation in `src/pages/index.astro`, `src/components/HomeHero.tsx`, `src/components/ShellWrapper.tsx`, `src/layouts/BaseLayout.astro` as of 2026-05-16, **plus** the four deltas introduced by Arian's 2026-05-17 direction-pick (engraving Pouākai in-flight, `<Hero size="intimate">`, `<Button size="sm">` on the Hero CTA, `.site-page` padding-block reduced to `--space-12`).
-**Supersedes**: the ratified 2026-05-16 revision of this file. Every ratified clause that is not delta'd below remains binding.
+**Last updated**: 2026-06-22 — added §A3-4.2 (THE SIGNATURE) + §A3-4.3 (supporting set S2/S3/S4), raising the motion/presence ceiling ~6 → ~7.5 per `meta/direction/home-motion-ceiling.md`. The signature: "The Signal" glyph self-constructs on first paint (draughtsman draw of the pipeline, ~1.5s, once, composed with the hero text stagger as one arrival), then the existing ambient pulse takes over at the byte-identical resting end-state. Supporting set: S2 band-entrance upgrade (rise-and-settle, ~20px/`--easing`/`--dur-slow`), S3 keep T1 deficit draw, S4 one quiet artifact hairline-border warm. New OQs: OQ-A8 (SPA-nav replay suppression), OQ-A9 (S4 cut condition). §A3-4.2 GOVERNS over §A3-4/§A3-4.1 where they disagree on the glyph entrance. *(Prior 2026-06-22 entry: added §A3-4.1, the "raise the floor" micro-interaction layer — T1 deficit draw, T2 press, T3 arrow nudge, T4 disciplines stagger, T5–T8 stillness; MOTION ~5 → ~6.)*
+**Governing spec**: `meta/specs/pages/home-amendment-artifact-anchor.md` (APPROVED 2026-06-21, the A3 6-beat / artifact-anchor delta) — §4.1 IA (6-beat arc), §4.2 artifact placement/surface/realness, §4.3–4.6 the four recasts, §6 data shape, §7 dependencies, §190 composition charter. The A3 spec layers on the A2 base spec (`meta/specs/pages/home.md`) — authoritative for everything A3 does not delta.
+**Upstream direction**: `meta/direction/home-direction.md` §§23–30 — Amendment A3 (APPROVED by Arian 2026-06-20, §24 = option (a), the real artifact exhibit). A3 §§24–30 govern the deltas; A2 §§14–18 carry forward where A3 does not touch them.
+**Approved content draft**: `meta/content/drafts/pages/home-a3-artifact-anchor.md` (v1.0, In review — the A3 copy delta: the four artifact candidates + Candidate A recommended, the re-confirmed MIT NANDA figure, the 2-axis honest cut, the lead-discipline pick, the designed-close options). Layers on `meta/content/drafts/pages/home.md` v3.0 (the A2 base copy this recipe still composes to for the Hero/Statement/disciplines/comparison lengths).
+**Asset vocabulary**: `meta/asset-production/illustration-and-motion-brief.md` §B.1 — the deficit-bar vocabulary (filled-vs-empty `currentColor` bar, the empty space IS the argument; static-first, optional CSS-only render-time fill, no count-up, no axes/legend). The artifact exhibit shares the glyph's hairline/mono draftsman hand at a new scale.
+**Binding decision**: [D-25](../../decisions/2026-06-16-revoke-zero-js.md) — client JS / hydration / scroll-motion permitted; Lighthouse + HTML weight advisory; **WCAG AA + axe-0-violations + `prefers-reduced-motion` are HARD, merge-blocking.**
+**DS version targeted**: `@poukai-inc/ui@2.17.0` (binding reference: `meta/ds-snapshot/llms-full.txt` — and the INSTALLED package at `node_modules/@poukai-inc/ui`, which this revision read directly).
 
-> **Superseded by the 2026-06-16 JS revocation (D-25, `meta/decisions/2026-06-16-revoke-zero-js.md`).** Every clause in this composition that asserts "zero hydration / static HTML only / no `client:*`" or invokes the R-079 zero-JS contract (the §2 hydration-model lock, the per-section "Motion: None / zero-JS" notes, the §"Fires never" lock-out tying motion to a `client:*` prohibition, the Lighthouse-100 framing) is no longer binding as a *contract*. Client JS, islands, and scroll-triggered motion are now permitted. The DS-owned `prefers-reduced-motion` collapse and axe accessibility remain binding. Static rendering may still be the designer's chosen default — but it is no longer mandated. Clauses left in place pending revision.
-
----
-
-> **Cross-page note.** This revision introduces three DS-gaps to `<Hero>` (illustration slot, size prop, and — see §6.3 — a no-op for `<Button>` which already supports `size`). These are **universal contract changes to `<Hero>`**, not home-only overrides. `/roles`, `/principles`, `/why-ai` will compose the same DS gaps once their own spec amendments land. PM-side amendments for those three pages are out of scope here, but the gap proposals filed against `@poukai-inc/ui` must be authored as universal Hero contract changes, not home-specific surfaces. The illustration asset itself is also designed to be reusable — pose direction (right-facing recommended), single SVG/raster file shared across pages, with per-page placement decisions deferred to each page's successor composition.
-
-> **[Deferred 2026-05-17] Illustration consumption deferred to future iteration.** Arian deferred Pouākai SVG production after the rev-4 Gemini A/B did not converge on the brand register. The illustration-slot DS-gap ([poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40)) stays open; maintainers may accept on their own timeline. The asset-production prompt pack at [`meta/asset-production/pouakai-engraving-prompt.md`](../../asset-production/pouakai-engraving-prompt.md) is preserved as the reference state for a future iteration. **For this iteration's bundle ship**: skip the `illustration` prop on `<Hero>` (or pass `undefined`). All other deltas — `size="intimate"`, `<Button size="compact">`, `.site-page` padding `--space-12` — proceed as specified. The §2 illustration content, §6.2 DS-gap entry, and D-17 in the decisions log remain the canonical spec for the future iteration that picks the work back up.
+> **READ THE A3 SECTION FIRST.** This file now carries **two** recipes. The authoritative one is the **A3 6-beat / artifact-anchor recipe immediately below** (§§A3-0 … A3-8). It supersedes the A2 5-beat recipe, which is retained underneath (from "## 1. Intent" onward) as the carried-forward base — authoritative only for the beats A3 does not delta (the Hero copy, the Statement, the dual-CTA contract, the heading/band discipline, the mobile/a11y grammar). Where the A3 section and the A2 base disagree, **A3 governs** — exactly the layering the A3 spec and direction use over A2. Engineer: build to the A3 section; consult the A2 base only for an unchanged beat's detail.
 
 ---
 
-> **[PROPOSAL 2026-06-14 — "raise the ceiling" revision H-A + feather colophon.]** This block lays the creative-exploration §1 (Direction H-A) and imagery-direction §2 (home colophon) deltas on top of the Approved 2026-05-17 revision. It reverses exactly two ratified clauses; nothing else changes. Reads on `meta/assessments/creative-exploration.md` §1, `meta/assessments/imagery-illustration-direction.md` §2 / Tier 1, `meta/compositions/components/feather-mark.md` (this pass). DS targeted: `@poukai-inc/ui@2.17.0`.
->
-> **[Partially superseded 2026-06-15 by the destination block above.]** This block's Hero deltas (Delta 1 display, Delta 2 proportional CTA, Delta 3 feather) **all carry forward unchanged** — the destination builds beneath them. Only this block's "**zero added sections** (spec §10 unbroken)" guardrail (in Delta 1 and the Restraint-guardrail line below) is **overtaken**: `home-amendment-destination.md` RR-1/RR-2 re-opened the IA, and `/` now renders three sections below the Hero. Read "the page stays a doorway / zero added sections" here as the *then-true* record; the live IA is the destination's five-region render contract (§2/§3/§5).
->
-> **Delta 1 — Hero flips `size="intimate"` → `size="display"` (the display doorway).** This is the single highest-leverage strike on the site (creative §1 signature moment): the 8-word tagline lands at `--fs-tagline` (36–68px) instead of `--fs-tagline-intimate` (32–52px), so the italic Instrument-Serif `<em>AI</em>` becomes a genuine typographic event. `size="display"` is *the DS default for marketing pages* — this is choosing the canonical register, not escalating. No copy changes (same 8 words). The page stays a doorway (spec §10 honored — zero added sections); the door is rendered at full height. **Reverses the 2026-05-17 §2 `size="intimate"` decision** (which was made to fit the footer at the fold; see §3 fold math and Open Question H1 below).
->
-> **Delta 2 — Hero CTA steps `size="sm"` → `size="md"` (proportional revert).** At `size="intimate"` the title's reduced weight justified a `sm` (32px) CTA. At `display` scale that rationale inverts: a 32px button now reads underweight beneath a 60px serif title. Step the primary `<Button>` back to `size="md"` (44px, the DS page-default rung) so the CTA stays proportional to the larger title — and, as a bonus, `md` is the only rung that clears WCAG 2.5.5 AAA at threshold. Booking secondary stays at `compact` (40px) or `md` to match. **Reverses the 2026-05-17 §2 `size="sm"` CTA decision.** No DS gap — `size` is in the public API.
->
-> **Delta 3 (optional, additive) — feather colophon mark.** Per the imagery direction's Tier-1 ruling (the feather is the canonical Pouākai motif, the eagle deferred), an interim figurative beat is available: a single small `currentColor` feather sigil above the `<StatusBadge>`, recipe in `meta/compositions/components/feather-mark.md`. This is the "felt finish" the deferred eagle was meant to deliver, at near-zero byte cost and zero brand risk. It is **additive and opt-in** — Delta 1+2 ship with or without it. If consumed, it is the page's *one deliberate feather moment* (max one per page beyond the Wordmark) and it occupies the top of the stagger sequence visually (see feather-mark §Motion). **Recommendation: ship Delta 1+2 now; ship Delta 3 if Arian wants the colophon (Open Question H2).** This does NOT consume the `Hero illustration` slot — that stays deferred for the eagle (existing §6.2 / D-17). The colophon feather is a small inline sigil above the status line, not the right-column illustration.
->
-> **Signature moment (as composed):** *the first 60px of serif.* A first-time visitor from a LinkedIn post lands on the tagline at full display scale, the italic `AI` reading as a real typographic event, then watches the lede and CTA stagger in beneath it (`entrance="stagger"`, already shipped/consumed). The whole strike is the *interval* between a 60px serif title and an 18px lede — spare and large at once. Cost: one prop flip plus a proportional CTA revert. If Delta 3 ships, a single quiet feather sits above it all as the brand's chosen mark.
->
-> **Restraint guardrail this bolder move still obeys:** one Hero, one `<h1>`, one `<StatusBadge>`, **zero added sections** (spec §10 unbroken), one Button at `variant="default"`, at most one feather beyond the Wordmark, no color, no new token, no new copy. The strike comes entirely from *scale* (the lever creative §0 names), not from volume.
->
-> **Pure-site confirmation:** Delta 1, 2, and 3 are 100% pure-site. `size="display"`, `entrance="stagger"`, and `<Button size="md">` all ship in `@poukai-inc/ui@2.17.0` today; the feather is a site-side inline SVG (not a DS primitive — see feather-mark §6). **No DS gap.** The only dependency is Arian's sign-off on reversing the two 2026-05-17 clauses (and, for Delta 3, the colophon go-ahead).
+> **This A2 base (everything from "## 1. Intent" down) supersedes** the Approved 6-beat recipe of this same file. **Delta, not rewrite** — the diff against what shipped (`src/components/Home*.tsx`, `src/pages/index.astro`, `src/styles/site.css`):
+> 1. **Beat 3 "How we work" / `HomeMethod` is REMOVED** (A2 §14). The Hero "The Signal" glyph is the page's sole pipeline statement. The component, its `howWeWork` content block, schema block, and `index.astro` wiring all come out (engineer's lane). The `<h2>` count drops 4 → **3**.
+> 2. **Surface rhythm goes from ONE band (Convert only) to TWO recessed bands** — Why us (new, band #1) + Convert (carried, band #2) — with a merge-guard (§3, §4).
+> 3. **The Why-us beat gains a cited deficit mark at its head** (A2 §17): one monochrome filled-vs-empty `currentColor` SVG in the B.1 vocabulary + a visible mono citation caption, composed with the existing comparison table as ONE exhibit (Beat 4 below).
+> 4. **The Disciplines-weight lever** is now LIVE (not held): Statement→Disciplines are two rests in a row (Method gone). I spend the lever — Beat 3 gets more typographic presence (mono-numeral hairline structure, larger discipline names). Composition-only; no new illustration vocabulary, no band, no icons.
+> **Carried forward LOCKED**: Hero (copy + "The Signal" glyph + `entrance="stagger"`), Statement, the contact-flow dual-CTA contract, D-11/D-12/D-13/D-17, the anti-slop floor, the one quiet scroll-reveal grammar. **No feather colophon** (removed at Arian's request — A2 §12.A2; the prior recipe's Beat-1 feather instruction is RETIRED — see Beat 1). **No eagle** (D-17 closed).
+
+---
+---
+
+# A3 — Home composition: the 6-beat / artifact-anchor recipe (AUTHORITATIVE)
+
+> **This is the live recipe.** It revises the A2 5-beat recipe (retained below from "## 1. Intent") to the A3 6-beat / artifact-anchor IA, the same way the A3 spec layered onto the A2 spec: a delta that *supersedes in place*. Section numbers below carry the `A3-` prefix to keep them distinct from the A2 base's `§1…§8`. The order of beats in §A3-2 IS the render order. Empty subsections are written `None.`
 
 ---
 
-> **[PROPOSAL 2026-06-15 — "destination" revision. Doorway → destination homepage.]** This block lays the `home-amendment-destination.md` (Approved; RR-1/RR-2/RR-3 ratified 2026-06-15) section set on top of the carried-forward display-doorway Hero. It **reverses the single-Hero IA** that every prior revision of this file held: `/` now renders **three sections below the Hero** — a conviction `Statement`, a "Why pouk.ai, specifically" differentiation preview, and a closing conversion section — then the footer. Reads on `home-amendment-destination.md` §4/§5/§6/§9, `creative-exploration.md` §1 (display doorway, surface-band lever), `ds-capability-vs-usage.md` §2 #2 (surface-band rhythm) + #4 (`Statement` beat). DS targeted: `@poukai-inc/ui@2.17.0`.
->
-> **What carries forward unchanged**: the entire Hero composition from the 2026-06-14 revision — `<Hero size="display" entrance="stagger">`, the dual CTA (`mailto:` primary + `cal.pouk.ai` secondary), D-11 lede hand-off, D-12 status line, the optional feather colophon. The destination *builds beneath* the Hero; it does not re-open Hero scale, Hero copy, or the contact-flow CTA contract.
->
-> **What this revision reverses on this file**: (a) the 2026-06-14 §2 Section 3 "End — no further sections / zero added sections" lock; (b) the §3 "exactly one section break (Hero → footer)" rhythm; (c) the §4 "fires never: scroll-triggered reveal … any animation" framing is *retained* (no new motion ships) but re-scoped to a 5-section page. The IA-lock ratifications those clauses encoded are superseded by `home-amendment-destination.md` RR-1/RR-2.
->
-> **The two judgement calls this revision makes (the spec left them to the designer):**
-> - **OQ-1 — the page's one `--surface-section` band goes to the Closing CTA section** (`CTASection surface="recessed"`). Statement and differentiation preview both sit on `--bg`. Justification in §2 Section 5 and §3. This is the spec's PM recommendation; I concur and ratify it.
-> - **OQ-4 — the `Statement` sits high, immediately after the Hero** (present → assert → justify → convert). Not the `/engagements` summit pattern. Justification in §2 Section 3. This is the spec's PM recommendation; I concur and ratify it.
->
-> **Restraint guardrail this destination still obeys (the §3 named failure mode — "the doorway became a generic SaaS landing page"):** five regions total, not a feature grid; **at most one `--surface-section` band on the entire page** (the hard restraint floor — ds-capability §2 #2); one `<h1>` (Hero) with clean descending `<h2>`s; one `Statement` (DS rule: once per page); one availability `StatusBadge` (DS rule: max 1 — it stays in the Hero, the closing section does **not** get a second); the dual CTA appears exactly twice (Hero + close), one-primary/one-secondary each, no third CTA register, no urgency, no scarcity; zero added JS, zero scroll-triggered reveals, zero new tokens, zero fabricated proof (no `Quote`/`TestimonialBlock`/`Stat`/logo bar). The strike comes from *scale, one stated conviction, and a single recessed band at the close* — not from quantity of sections. See §2 Section "the 13–14\" laptop read" note and §3.
->
-> **Pure-site confirmation:** every primitive named below ships in `@poukai-inc/ui@2.17.0` today — `Hero size="display"`, `entrance="stagger"`, `Statement`, `Section`, `CTASection surface="recessed"`, `Button`, `StatusBadge`. **No DS gap** (see §6: one near-miss flagged, not invented). The only dependencies are Arian's sign-off and the parallel content drafts (the promoted Statement line, the differentiation-preview compression, the closing-CTA copy) — slot budgets handed to content in §2 and §7.
+## A3-0. Assumptions (flagged for Arian — accept or override at review)
+
+Label everything provisional up front; the recipe stands on these.
+
+- **AA-1 — The artifact code string is a NON-FINAL PLACEHOLDER; its PRESENTATION is real.** Per Arian's locked decision, the artifact beat composes against content **Candidate A** (the retry-with-backoff TypeScript wrapper, content draft Deliverable 1, verbatim) as a clearly-marked PLACEHOLDER, so Arian can see the beat rendered before committing real content. The **exhibit's presentation** (surface, type, scale, framing, motion, a11y) is fully composed and real regardless of the final string. The **code string itself is provisional** pending Arian's confirmation of a genuinely real, publishable fragment (binding-realness gate, spec §4.2 — no fake ships to production; the placeholder is for preview/evaluation only). **No artifact beat reaches `Built`-to-production on an unconfirmed fragment** (spec §7); a preview/staging render of Candidate A to evaluate the composition is the explicit, bounded exception this assumption authorizes.
+- **AA-2 — MAJOR DS FINDING that revises the spec's premise: `@poukai-inc/ui@2.17.0` SHIPS a real `CodeBlock` molecule.** The A3 spec (§7/§30), the direction (§30), and the content draft all premise on "no DS code/artifact primitive exists → ship site-side `<pre><code>`." **Reading the INSTALLED package contradicts this.** `dist/index.d.ts:101` exports `{ CodeBlock, type CodeBlockProps }`; `dist/molecules/CodeBlock/CodeBlock.d.ts` and `dist/CodeBlock-*.js` ship the runtime; `llms-full.txt §CodeBlock` (l.3143) and `llms.txt` (l.120) both document it. It is a **semantic `<figure>` root + optional header bar (language label + copy button) + scrollable `<pre><code>` pane + optional `<figcaption>`, with NO syntax highlighting shipped** (consumer injects markup) — i.e. monochrome by default, exactly the engraved-code target. **This is the correct vehicle for the artifact beat and it changes the recipe** (see §A3-2 Beat 4 and the §A3-6 reconciliation). I am NOT authoring a DS API or a proposal — the primitive already exists; I am composing with what ships. The spec/direction/content "no primitive" language is **stale** and flagged for Arian to ratify (§A3-7 OQ-A1).
+- **AA-3 — `CodeBlock` is rendered DECORATIVE for this beat: `hideCopy` + `aria-hidden` host with a real `<figcaption>` accessible label.** The artifact is an *exhibit* (a felt object that says "they ship this"), not a utility the reader copies. So: pass `hideCopy` (suppress the copy button → no interactive control, keeps the "engraved object, not dev-tool" read), and supply the accessible context via the content `label` (spec §6 `artifact.label`) rendered as / wired to the figure's accessible name. The code text remains **real selectable `<pre><code>`**, not an image (spec §8). See §A3-2 Beat 4 for the exact a11y wiring.
+- **AA-4 — Compose to the A3 content draft + the A2 base lengths.** Unchanged Hero/Statement copy from `home.md` v3.0; the A3 deltas (Candidate A artifact, MIT NANDA 95% at display scale, the 2-axis cut, `disciplines.lead`, the designed close) from `home-a3-artifact-anchor.md` v1.0. No `Draft:` copy authored here except the explicitly-labelled placeholder note on the artifact string (which is content's Candidate A, not mine).
+- **AA-5 — Lead discipline = `automations` (Arian's override of content's `builds` rec).** `disciplines.lead = "automations"`. automations carries the most weight/span/position; builds + advisory subordinate. The composition is layout-agnostic to *which* id leads (it reads `disciplines.lead`), so this is a one-value change with no structural cost; §A3-2 Beat 5 composes the asymmetry around `automations`.
+- **AA-6 — Convert close = "The demo was never the hard part."** (content Deliverable 5 "Weirdest" option, Arian's pick). Display-adjacent serif, authored editorial moment; dual-CTA beneath unchanged; availability sub-line "Taking on a few engagements this quarter." kept (default keep).
+- **AA-7 — Reuse the shipped `ScrollReveal` island.** The reveal grammar now applies to **four** below-hero beats (Statement, Artifact, What-we-do, Why-us); Convert stays static (terminus). One island, four usages; its CSS gate + reduced-motion no-op are already correct.
+- **AA-8 — The two-band floor is unchanged (Why-us + Convert).** The artifact is an **inset object on `--bg`, NOT a third band** — and the DS token system makes this clean (see §A3-2 Beat 4 / §A3-6): `--surface` is the *recessed inline* tier (the DS literally names "code blocks" as its use), `--surface-section` is the *band* tier. The artifact on `--surface` reads as a recessed object; the two bands stay on `--surface-section`. Different elevation tiers = the artifact cannot read or count as a third band.
 
 ---
 
-## 0. Preamble — why this composition exists after-the-fact
+## A3-1. Intent
 
-**[Ratified — original 2026-05-16 clause carries forward.]**
+`/` still reads like a senior engineer's commit message (direction §0) — but A3 fixes the structural flaw the audit named: the A2 page is *one medium (editorial type on near-white) repeated, with no real visual object below the Hero except a thin deficit bar.* The reader should now meet the page as **one authored object with two real visual moments bracketing three composed exhibits**: the leaned-in Hero glyph at the top, the **artifact exhibit** as the mid-page engage peak, then the asymmetric disciplines, the number-led Why-us exhibit, and the designed close. The felt arc is **announce → assert → artifact → what we do → why us → convert** (six beats). The single most important change from A2 is that **the soft middle is filled by a real object, not more type**: scrolling past the Statement, the reader meets a small, beautifully-set, monochrome fragment of genuine engineering work and thinks *"oh — they actually ship this."* The artifact is the highest-craft object on the page; it must read as **engraved code in the page's own hand (the same hairline/mono draftsman register as the glyph), never as an IDE screenshot, a dev-tool landing embed, or rainbow-syntax sample.** Density stays deliberately low — the strike is the `--space-16` interval, the two recessed bands, and now the one real artifact, never the quantity of sections or louder chrome (spec §3 "restraint reversed into volume"). The line the page must not cross gains a new live instance alongside the fabricated-metric floor: **a fabricated artifact** — worse than no artifact (spec §3). The code string is a labelled placeholder until Arian confirms a real fragment; the presentation is real either way.
 
-`/` was built directly from `meta/specs/pages/home.md` and the D-11 / D-12 launch-readiness decisions without passing through the Designer stage. The `/review-page home` audit on 2026-05-15 flagged the missing recipe (backlog R03, R04) and a cluster of related ratification gaps (R12, R13, R15, R21, R28, R29, R30). This document is the canonical recipe; it does not propose a redesign. Every choice below ratifies what currently ships, and is the gate any future change to the homepage Hero's internal rhythm, status-line wording, lede-extension treatment, or motion behavior must land against.
+---
 
-**[Added 2026-05-17.]** This revision supersedes the prior version. It carries forward every ratified clause and lays four deltas on top, all sequenced into a single PR per Arian's direction:
+## A3-2. Section-by-section composition
 
-1. The Hero gains a Pouākai illustration in the engraving register, in-flight, sourced by Arian via AI-image-generation + curation (PM amendment §6 asset-production owner = Arian via AI tooling).
-2. The Hero title slot is reduced via DS-gap **A** (`<Hero size="intimate">`), not via a content-layer rewrite. Title text is **unchanged** (D-12-adjacent: copy stays, only scale changes).
-3. The Hero CTA `<Button>` is reduced from default `size="md"` (44px min) to `size="sm"` (32px min). This is a **composition-level** change — no DS-gap needed; `size` is in the public API at `@poukai-inc/ui@0.6.1`.
-4. `.site-page` `padding-block` is reduced from `--space-16` (64px) to `--space-12` (48px), bringing the SiteShell hairline footer within the PM amendment §4.3 fold-position targets.
+Render order: `SiteShell` chrome → **Hero (ANNOUNCE, glyph leaned in)** → **Statement (ASSERT)** → **Artifact exhibit (THE ANCHOR · NEW)** → **What we do (DISCIPLINES, asymmetric)** → **Why us (number-led EXHIBIT)** → **Convert (designed CLOSE)** → `SiteShell` footer. **This order IS the render order.**
 
-**Assumptions** (carried over from the shipped implementation and the closed decisions, with revision-specific additions):
+### Beat 0 — `SiteShell` (page chrome) — UNCHANGED
 
-- The page is a doorway, not a destination. Restraint is the credential.
-- D-11 and D-12 (closed 2026-05-13) are binding. The status-line text and the integrated lede-extension hand-off shape are not up for re-negotiation here; only their composition-layer expression is.
-- The `<Hero>` molecule from `@poukai-inc/ui@0.6.1` owns the internal vertical rhythm between its `status`, `title`, `lede`, and `cta` slots. The site does not re-tune that rhythm; if a future audit shows a problem, it is a DS proposal, not a site-side override.
-- The page ships with zero hydration directives — static HTML only (R-079, masterplan §4.3). Matomo and Bugsink are first-party deferred scripts owned by `BaseLayout.astro`, not by this page composition.
-- **[New 2026-05-17]** The Pouākai illustration is sourced by Arian via AI tooling and curated to the brand bar. It is **decorative** (`aria-hidden="true"`) and **static** (no motion of any kind). It does not carry informational weight that would require alt text or `<title>`.
-- **[New 2026-05-17]** The `<Hero size="intimate">` and `<Hero illustration>` DS-gaps are filed against `@poukai-inc/ui` and accepted by `@poukai-inc/poukai-ui` maintainers **before** this revision moves to `Built`. The composition is `Approved` on the design side; the engineer waits on DS until both proposals land.
+- **DS primitive(s)**: `<SiteShell>` via `BaseLayout.astro` (`currentRoute="/"`). Nav (funnel order, D-13) + hairline footer.
+- **Props (substantive)**: `currentRoute="/"`; nav `[Why AI, Roles, Principles]`; footer `© <year> pouk.ai · hello@pouk.ai` (the address a `mailto:`). Unchanged from live.
+- **Layout / spacing**: shell owns `--page-pad` + Wordmark. Content wrapper `.site-page` (`max-width: --content-max`; `padding-block: --space-12`). No token overridden.
+- **Motion**: none at shell level (nav/footer hover uses DS `--easing-link`/`--dur-mid`).
+- **Content slot**: nav route list + footer line (authorized site substance).
+- **Brand notes**: nav wordmark is **always** `SiteShell`'s `<Wordmark>`, never a string. Footer `mailto:` is one of three deliberate email appearances (Hero CTA, Convert, footer) — a dedup refactor must not collapse them.
+
+### Beat 1 — Hero — ANNOUNCE — glyph LEANED IN (craft/scale only; content LOCKED; NO feather)
+
+The strongest asset, now *leaned into* per A3 §28 / spec §4.3. Content is byte-identical (OBSERVE→SHIP labels, `pipeline · 5 stages` caption, signal-pulse — A2 §14). The lean-in is **craft and scale only, no content change, no new motion.**
+
+- **DS primitive(s)**: `<Hero size="display" entrance="stagger">` carrying `<StatusBadge status="available">` (status slot), two `<Button asChild size="md">` wrapping `<a>` (mailto primary + booking secondary), the inline `<a href="/why-ai">` D-11 lede hand-off, and the site-side "The Signal" SVG (`aria-hidden`) in the right column. Wrapped site-side by `HomeHero.tsx` + `HomeHeroIllustration.tsx`. **All copy + glyph content byte-identical to live; reproduced nowhere here.**
+- **Props (substantive)**: `size="display"`, `entrance="stagger"`; `status` = the D-12 byte-identical badge (≤10 words, no feather sibling); `title` = the single `<h1>` with italic `AI`; `lede` = sentences 1–2 + `Here's why →` hand-off; `cta` = mailto primary + booking secondary (`Or grab a time →`).
+- **The lean-in (the A3 craft delta) — three composition moves, all scale/craft, zero content or motion change:**
+  1. **More presence in the right column.** Today (`site.css §home-hero-split`) the desktop split is `minmax(0, 34rem)` text + `minmax(0, 1fr)` illustration at ≥1024px, capped to 68rem, with `gap: --space-8`. **Lean-in: give the glyph more column.** Recommend shifting the desktop split toward the glyph — e.g. text `minmax(0, 32rem)` + illustration `minmax(0, 1fr)` so the glyph renders larger within the same capped pair — and/or tightening the gap to `--space-6` so the glyph sits closer and reads as paired-with, not appended-to, the title. The glyph's own `viewBox` (`40 176 720 250`, cropped to the pipeline band) is unchanged; it simply occupies more rendered width. (Exact column values are the engineer's tuning within these tokens; the direction is *more glyph*.)
+  2. **Finer hairline detail at the larger scale.** At more width, the existing `strokeWidth` values (grid `0.6`, trace `1.6`, leader `0.6`) read finer/more deliberate — no value change needed; the scale increase IS the "finer hairline" the direction asks for. Do **not** thicken strokes (that coarsens, not refines).
+  3. **It is the SAME HAND as the artifact** (Beat 4): hairline + mono + monochrome. Leaning into the glyph and introducing the artifact in the same register is what makes the page read as one authored object with two real visual moments. Compose them to rhyme (both `--font-mono`, both `currentColor`, both on the page's quiet ground).
+- **Layout / spacing**: internal Hero rhythm DS-owned. Gap into Beat 2 (Statement): **`--space-16`** via `.home-statement-gap` (shipped).
+- **Motion**: `entrance="stagger"` (the one entrance event, CSS-only, reduced-motion-gated). `StatusBadge status="available"` triggers the DS pulse automatically — **do not add CSS on top** (DS rule). Glyph keeps its existing CSS signal-pulse (the one ambient heartbeat). **Lean-in adds NO motion** — it is scale/craft only (spec §4.3: "no new motion, no draw-on").
+- **Content slot**: `home.json` `hero` block + the two SVG assets. Unchanged.
+- **Brand notes**: the glyph is the page's SOLE pipeline statement (A2 §14). No feather, no eagle (D-17 closed). One `<Hero>`, one `<h1>`, one `<StatusBadge>`. `Button` labels sentence-case; two actions only; mailto address is the label.
+
+### Beat 2 — Statement — ASSERT — UNCHANGED
+
+The one raised-voice beat, carried verbatim. It now sits **directly before the Artifact** — the Statement asserts "few can ship it and keep it running," and the artifact immediately *shows* it. A tighter, more earned hinge than A2's Statement→Disciplines.
+
+- **DS primitive(s)**: `<Statement hairline={false}>` via `HomeStatement.tsx` (live). The only `Statement` on the page. Emits no heading (`--fs-statement` 28–44px, italic Instrument Serif, `text-wrap: balance`).
+- **Props (substantive)**: `statement={<>{statement.text}</>}`, `hairline={false}`, `as="p"`. No `supporting`. Unchanged.
+- **Layout / spacing**: on `--bg`, no band. `.home-statement-gap` (`padding-block: --space-16`). Gap into the Artifact below: **`--space-16`** (cross-beat turn).
+- **Motion**: scroll-reveal (fade + 8–12px rise, once, `--dur-slow`, `--easing`, whole unit) via `<ScrollReveal client:visible>`. Reveal #1 of four below-hero. Collapses under reduced-motion.
+- **Content slot**: `home.json` `statement.text` (~10 words).
+- **Brand notes**: do **not** stack a `Pull` on the same surface (DS anti-pattern). The Statement is the page's only editorial-scale line between the `<h1>` and body type — that uniqueness is what makes it read as conviction. The new adjacency (Statement → real artifact) is the A3 payoff: assertion immediately followed by proof.
+
+### Beat 3 — Artifact exhibit — THE ANCHOR · NEW — the mid-page engage peak (NO `<h2>`)
+
+**The central A3 move and the highest-craft object on the page.** One genuine, minimal engineering artifact rendered as **real selectable `<pre><code>` text on a recessed inset object surface**, monochrome, mono, in the page's existing hairline hand — the same hand as the glyph at a new scale. It reads as an *exhibit framed within the `--bg` flow*, **not** a third full-bleed band, **not** an IDE/editor embed, **not** a screenshot. Static (no typing, cursor, or scroll-draw). It carries **no document heading** (it is an exhibit, not a titled section).
+
+- **DS primitive(s)**: `<CodeBlock>` (molecule — **confirmed shipping in 2.17.0**, AA-2). This is the recipe's biggest change from the spec's site-side-`<pre><code>` instruction: the DS ships exactly the right primitive (semantic `<figure>` + scrollable `<pre><code>` + optional `<figcaption>`, **no syntax highlighting** → monochrome by default), so we compose with it instead of hand-rolling a `<pre>`. Wrapped site-side by a new thin `HomeArtifact.tsx` (engineer's lane) that owns the inset-surface wrapper + the reveal + the placeholder note.
+- **Props (substantive)** — the PLACEHOLDER render (content Candidate A, AA-1; the `code` string is provisional, the rest is real):
+  ```
+  {/* Beat 3 — Artifact exhibit. Inset OBJECT surface on --bg (NOT a band). */}
+  {/* PLACEHOLDER CODE STRING (content Candidate A, retry-with-backoff wrapper) — */}
+  {/* provisional pending Arian's confirmed real fragment (spec §4.2 realness gate). */}
+  {/* Presentation below is REAL regardless of the final string. */}
+  <div class="home-artifact">          {/* inset object: --surface, hairline, radius, max-width capped */}
+    <CodeBlock
+      language="typescript"            {/* artifact.language — header-bar label + a11y context, NOT a syntax theme */}
+      hideCopy                         {/* AA-3: decorative exhibit, not a copy utility → no interactive control */}
+      caption="integration.ts — keeping it running, not just standing it up"  {/* artifact.caption — mono <figcaption>; NOT an <h2> */}
+      aria-label="Example fragment: a retry wrapper around a flaky upstream integration"  {/* artifact.label — accessible name on the <figure> */}
+    >
+  {`// keep it running after the demo:
+  // retry the transient, surface the rest
+  async function call(input: Input) {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await upstream(input)
+      } catch (err) {
+        if (!isTransient(err) || attempt === 3) throw err
+        await sleep(250 * 2 ** attempt)
+      }
+    }
+  }`}
+    </CodeBlock>
+  </div>
+  ```
+  - **Why `CodeBlock` over a hand-rolled `<pre>`:** it is the DS-blessed semantic `<figure>`/`<pre><code>`/`<figcaption>` composition, it ships **no syntax highlighter** (the spec's hard "monochrome, no rainbow syntax" requirement is the primitive's *default*, not something we must police), and it consumes the right tokens (`--surface`, `--hairline`, `--radius-3`, `--font-mono`, `--fs-meta/--fs-micro`, `--fg/--fg-muted`). Using it is *more* on-contract than hand-rolling.
+  - **`hideCopy` is load-bearing (AA-3):** the header bar then renders only the `language` label (DS rule: "header bar only renders when `language` is set or copy is visible"). A language label + no copy button reads as a *quiet exhibit caption*, not a code widget. If even the language label pushes the "dev-tool" read at visual review, drop `language` too (the header bar then disappears entirely, leaving a pure framed `<pre>` + `<figcaption>`) — see §A3-7 OQ-A2.
+  - **The `caption` (`artifact.caption`)** renders as the DS `<figcaption>` in `--fs-micro`/`--font-mono`/`--fg-muted` — mono reference register, the same hand as the glyph caption and the deficit caption. **It is NOT an `<h2>` and emits no heading** (spec §4.1 hierarchy; content Flag 4). The page keeps exactly three `<h2>`s.
+  - **The `aria-label` (`artifact.label`)** gives the `<figure>` its accessible name so a screen-reader user gets "Example fragment: a retry wrapper…" context; the code text is real and selectable beneath it. (Engineer's structural call whether to wire the label via `aria-label` on the `CodeBlock` `<figure>` root, which spreads `...rest`, or a visually-hidden element — both satisfy a11y; the requirement is a real accessible name + real `<pre><code>` text.)
+- **Layout / spacing — the inset OBJECT, NOT a band (the §A3-6 reconciliation made concrete):**
+  - **Surface tier = `--surface` (recessed INLINE), NOT `--surface-section` (band).** The DS elevation rhythm is explicit (`llms-full.txt` l.17/44): `--surface` is for *recessed inline elements — the DS literally names "code blocks"*; `--surface-section` is *only* for full-width alternating section bands. **`CodeBlock` ships on `--surface` by its own token contract.** This is the clean, DS-sanctioned answer to the inset-object-vs-third-band question: the artifact lives one elevation tier *below the page* on `--surface`, while the two bands live on `--surface-section`. Different tiers ⇒ the artifact **cannot read as, or count as, a third band.**
+  - **It does NOT go full-bleed.** Unlike `.home-whyus-band` (which breaks out to `100vw`), the artifact wrapper stays **inside `.site-page`** and is **capped narrower than the content column** (recommend `max-width: ~44rem`, `margin-inline: auto`) so it reads as a *framed object centered in the canvas*, with `--bg` visible on both sides — the visual signature of "object," not "band."
+  - **Inset framing**: the `.home-artifact` wrapper (or `CodeBlock`'s own root) carries `--surface` bg, `1px solid --hairline`, `--radius-3` (8px) — the DS recessed-inline treatment. `CodeBlock` already applies this via its token contract; the wrapper's job is the width cap + the centering + the cross-beat margins.
+  - **Cross-beat spacing**: Statement → Artifact `--space-16`; Artifact → What-we-do `--space-16`. The artifact is a full beat, so it gets full cross-beat turns on both sides (unlike the *intra-exhibit* `--space-8` inside Why-us).
+  - **Width / mobile**: the longest line of Candidate A is 44 chars (content Flag 1). At `--fs-meta` mono on a ~44rem cap this does not force horizontal scroll at desktop; at 375px the `CodeBlock` pane is `overflow-x: auto` by the DS (scrollable `<pre>`), but the chosen fragment is narrow enough (≤44 chars) to render without scroll at mobile body width. **Hard requirement on the FINAL fragment (spec §192): longest line stays narrow enough to read at 375px without horizontal scroll, or it wraps legibly.** Candidate A satisfies this; a wider real fragment must be trimmed/wrapped (content + designer pick one that fits).
+- **Motion**: scroll-reveal (the standard fade + 8–12px rise, once, `--dur-slow`, `--easing`, the whole `CodeBlock` as ONE unit) via the shipped island. Reveal #2 of four. **Static otherwise — NO typing animation, NO cursor blink, NO scroll-draw, NO line-by-line reveal** (spec §8 / direction §30). It is real code presented, not performed. Collapses to fully static under reduced-motion.
+- **Content slot**: `home.json` `artifact` block (`language` + `code` + `caption` + `label`) — the new optional all-or-nothing block (spec §6). **The whole beat renders only if `artifact` is present and complete**; if omitted (no real fragment confirmed), the beat does not ship and the page falls back per the no-fake fallback (§A3-2 Beat 5 carries the mid-page weight; see §A3-6). For preview/evaluation, `artifact` is populated with Candidate A as the labelled placeholder (AA-1).
+- **Brand notes**:
+  - **Must NOT read as a dev-tool/IDE embed or a code-editor screenshot** (spec §3 new failure mode). Mitigations baked in: `hideCopy` (no widget chrome), monochrome (`CodeBlock` ships no highlighting), `--surface` recessed-inline tier (engraved, not floating-card — no drop shadow, no elevated chrome), narrow centered object (not full-bleed), one small fragment (not a wall). If at review it still reads as a tool embed, the levers are: drop the `language` label (kill the header bar entirely), then reduce to fewer lines.
+  - **Monochrome, accent never at rest** (anti-slop floor). Candidate A has no color dependency. If Arian ever swaps to the diff candidate (content D), add/remove render via **weight/opacity/glyph, NEVER red/green color** (content Flag 3) — but Candidate A is the recommended monochrome-safe pick and carries no diff-color problem.
+  - **Same hand as the glyph** — hairline + mono + `currentColor`. The two real visual moments (glyph, artifact) rhyme; the page reads as one authored object.
+  - **NOT the returned Method beat** (spec §2): no prose pipeline, no five-stage `<ol>`. The artifact depicts *real work*, not the method.
+
+### Beat 4 — What we do — THE DISCIPLINES (`<h2>` #1) — RECAST ASYMMETRIC (automations leads)
+
+Recast from the A2 3-equal `FeatureGrid` to an **asymmetric lead-plus-two** (spec §4.4 / direction §26(i)): one discipline carries more scale/span/position, the other two subordinate. **Lead = `automations`** (AA-5, Arian's override of content's `builds` rec). Still transparent, icon-less, honest one-sentence bodies — *designed, not gridded.* The A2 "Disciplines-weight lever" (mono ordinals + hairline) is **superseded** by this real asymmetric composition — the lever was the in-medium half-measure A3 replaces.
+
+- **DS primitive(s)**: a `<Section title="What we do">` (carries `<h2>` #1) wrapping a site-side asymmetric layout of three `<FeatureCard variant="default" titleAs="h3">` (transparent, no icon), via a recast `HomeDisciplines.tsx`. **Not `FeatureGrid columns={3}`** — a 3-equal grid is the symmetry A3 explicitly drops (direction §26(i): "the 3-equal-cards layout is itself a mild SaaS tell"). The asymmetry is a site-side CSS grid on published tokens (no DS override of `FeatureCard` internals).
+  - *Why `Section`+`FeatureCard` over `FeatureGrid`:* `FeatureGrid` hard-codes equal `minmax` columns; an asymmetric lead+two needs a custom grid template, so we drop the grid organism and lay out the three `FeatureCard`s ourselves inside a `Section`. `FeatureCard` stays the card vehicle (transparent default variant, `titleAs="h3"`).
+- **Props (substantive)** — asymmetry driven by `disciplines.lead`:
+  ```
+  <Section as="section" size="default" title="What we do">   {/* <h2> #1 */}
+    <div class="home-disciplines home-disciplines--lead-automations">
+      {/* LEAD — automations: larger title rung, spans the full width / top row */}
+      <div class="home-discipline home-discipline--lead">
+        <FeatureCard variant="default" titleAs="h3"
+          title="Automations"
+          body="We turn the manual, repeated work between your systems into something that runs without a person in the loop." />
+      </div>
+      {/* SUBORDINATE — builds + advisory: smaller rung, side-by-side beneath the lead */}
+      <div class="home-discipline">
+        <FeatureCard variant="default" titleAs="h3"
+          title="Custom AI builds"
+          body="We build the AI system your problem actually needs, wired into the tools and data you already run on." />
+      </div>
+      <div class="home-discipline">
+        <FeatureCard variant="default" titleAs="h3"
+          title="Advisory"
+          body="We help you decide what to build, what to skip, and where AI is the wrong tool, before you spend on it." />
+      </div>
+    </div>
+  </Section>
+  ```
+  - **The asymmetric weights (site-side CSS, published tokens only):**
+    - **Position/span**: a CSS grid where the **lead (automations) occupies the full top row** and **builds + advisory share the row beneath** (a 1-up over 2-up). At <768px all three stack single-column with the lead still first.
+    - **Scale**: the lead's `<h3>` title sized up one editorial rung relative to the subordinates — recommend the lead at `--fs-card-title` register (the DS card-title rung, 24–32px, `--font-serif`) and the two subordinates at a step down (still `<h3>` semantically; the visual size is the site className's job, within `FeatureCard`'s allowance). DOM order remains automations → builds → advisory so the `<h3>` reading order matches the visual hierarchy.
+    - **Air**: the lead gets more block padding around it (`--space-8`) than the subordinate pair gap (`--space-6`), so the eye lands on automations first.
+  - **No mono-ordinal lever** — the A2 `01 · / 02 · / 03 ·` ordinals are dropped (they were the in-medium soft-middle patch; the asymmetric composition is the real A3 fix, and the mid-page artifact now carries the engage peak the ordinals were compensating for). One fewer decorative element = more restraint.
+- **Layout / spacing**: on `--bg`, **no band**. `Section size="default"` block padding `--space-16`. Gap into Why-us: `--space-16`.
+- **Motion**: scroll-reveal — fade + 8–12px rise, once, `--dur-slow`, `--easing`, **the whole disciplines block as ONE unit** (no per-card stagger — spec §8 AC). Reveal #3 of four.
+- **Content slot**: `home.json` `disciplines` — `heading` + `lead` (= `"automations"`, the new optional marker, spec §6) + `items[3]` (each `name` + one-sentence `description`; `link` optional, absent on all three).
+- **Brand notes**:
+  - **Anti-slop guardrail (binding):** transparent variant, **no icons**, no three-word headlines, no gradient/bordered cards, no equal-weight filler (spec §4.4). The asymmetry is *composition* (scale/span/position), not decoration. Do not mix `default`/`bordered` (DS rule).
+  - **The lead is `automations`** — automations' line ("runs without a person in the loop") is the one the operator should map their problem to first (Arian's call). builds + advisory are real and subordinate.
+  - **Fallback if the asymmetry reads as imbalance/SaaS at review**: dial the scale delta down (lead at +0 rung, keep only the span/position asymmetry), then — last resort — `Section` + an editorial stacked `MetaList`. Flag at review, do not pre-build (§A3-7 OQ-A3).
+  - **No-fake-artifact fallback hook**: if the artifact beat is dropped (no real fragment), this beat **absorbs the mid-page weight** per spec §4.2(i) — the lead discipline scales up further to carry the engage peak. Composes cleanly because the asymmetry already establishes a focal point (§A3-6).
+
+### Beat 5 — Why us — THE NUMBER-LED EXHIBIT (`<h2>` #2) — RECAST table → exhibit · recessed band #1
+
+Recast from the A2 4-column hairline-per-row table to a **number-led exhibit** (spec §4.5 / direction §25): the **MIT NANDA 95% at true display scale** as the section's eye-first hero ABOVE the cut, then the **2-axis honest cut** (four label+line pairs, fewer words/bigger type) with **sparse structural dividers + negative space** instead of a hairline on every row. **Recessed band #1 of 2.** No featured-pouk.ai-column tilt (there is no column — guard it).
+
+- **The display number — the section's eye-first hero (the page's one big number):**
+  - **Scale = the DS `--fs-stat-large` ramp (56–96px)** or `--fs-stat` (44–72px) — the genuine display-number tier (`llms-full.txt` l.110–111). The spec says "true display scale, the biggest single number on the page" → recommend **`--fs-stat-large`** (one per section at most, which this is). This is bigger than A2's `--fs-h2` treatment — A3 makes "loud" literal.
+  - **Vehicle**: the DS `<Stat>` atom is the on-contract way to render a cited numeral ("Requires a caption … `source` should be citation only", `llms-full.txt §Stat`). Compose the number as `<Stat value="95%" caption=… size="lg">` with the source line carrying the mono citation — OR keep the shipped site-side `<figure>` (value + label + `<figcaption>`) sized up to `--fs-stat-large`. **Recommend `<Stat size="lg">`** since it is the DS's purpose-built cited-numeral atom and renders the source in the mono register natively; the engineer chooses, the requirement is display-scale + visible mono citation. The number is a figure, **NOT an `<h2>`/`<h3>`** (hierarchy AC).
+  - **The deficit bar (B.1 mark) becomes secondary, not the hero.** In A2 the bar was the visual; in A3 the **number** is the visual and the bar is optional supporting texture. Recommend **keep one thin `currentColor` filled-vs-empty bar** beneath/beside the number as quiet reinforcement (the shipped `.home-deficit__bar`), OR drop it entirely so the number stands alone at display scale (cleaner; the number is now loud enough to not need the bar). **Default: number at `--fs-stat-large` + the thin bar retained small; drop the bar if it competes with the number at review** (§A3-7 OQ-A4). No count-up — renders final on first paint.
+  - **The visible mono citation** (`MIT NANDA, The GenAI Divide, 2025`) renders in `--font-mono`/`--fs-micro`/`--fg-muted` directly beneath the number — never a tooltip/footnote (spec §4.5 binding). The credibility IS the visible caption.
+  - **Conditional render**: the whole number block renders only if `comparison.metric` is present + complete; omitted → the exhibit is the 2-axis cut alone (spec §4.5, no third state).
+- **The 2-axis honest cut — four label+line pairs, NOT a 4-column grid (content Deliverable 3, ship as drafted):**
+  - **Structure**: a vertical stack of **four rows**, each = an alternative label (`Build it yourself` / `Hire an agency` / `Hire in-house` / `pouk.ai`) + its one honest line ("the right call when…"). pouk.ai is **last and self-conceding** (content Deliverable 3). Above the four rows sits the one-line stance lead-in (`Four honest options. pouk.ai is only one of them.`). Below: the inline `/why-ai` link (`See when to hire us, and when not to →`).
+  - **Vehicle**: a site-side semantic structure — recommend a `<dl>` (label = `<dt>`, line = `<dd>`) per pair, or four `<div>` rows. **NOT a `<table>`** (the A2 table is what A3 drops) and **NOT the DS `ComparisonTable`** (pricing-matrix shape, wrong register — stays rejected). The recast `HomeComparison.tsx` swaps its `<table>` for this four-pair stack.
+  - **Sparse dividers + negative space, NOT a hairline per row**: at most one or two `--hairline` structural rules (e.g. a single rule under the lead-in, and/or above the pouk.ai row to mark "and here's us"), with rhythm carried by **`--space-6`/`--space-8` between pairs** rather than a border on each. This is the spec's "rhythm from whitespace, not a doc table" (§4.5). The per-row hairline that made A2 read as a spec-sheet is **removed**.
+  - **Fewer words, bigger type**: the four lines render at `--fs-body` (not shrunk to table-cell density); the alternative labels at a slightly larger/heavier rung (`--fs-meta` bold or `--fs-body` semibold) so each pair reads as a stance, not a cell. The cut reads top-to-bottom as one argument.
+  - **No featured-pouk.ai-column tilt — guard it** (spec §4.5 honesty guardrail): there is no column to feature, but the *pouk.ai row* must not get heavier visual weight than the other three (no accent, no bold-only-on-us, no box). It is last and equal-weight; its self-conceding line ("more than you need for work you could ship yourself") is the candor. pouk.ai wins no row outright.
+- **DS primitive(s)**:
+  - The recessed band: a **site-side full-bleed wrapper** `.home-whyus-band` applying `--surface-section` (shipped; `Section` has no `surface` prop, A2). Inside it:
+  - `<Section as="section" size="default" title="Why pouk.ai">` (`<h2>` #2) wrapping, in order: the display-number block (`<Stat size="lg">` or the sized-up `<figure>`, conditional), the stance lead-in (`<Text>`), the four-pair 2-axis cut, the inline `/why-ai` `<a>`.
+- **Layout / spacing**:
+  - **The band**: full-bleed `--surface-section`; content inset to `--content-max`. `Section size="default"` supplies `--space-16` block padding (the air the band needs to read as a framed event).
+  - **Intra-exhibit rhythm**: `<h2>` → number `--space-12` (DS Section header gap); number (citation) → lead-in `--space-8`; lead-in → first pair `--space-6`; between pairs `--space-6`; cut → link `--space-6`. The number→cut binding interval (`--space-8`) is deliberately **tighter** than the `--space-16` cross-beat turns so the number + cut read as ONE exhibit.
+  - **375px**: the number scales via its `clamp()`; the four pairs **stack cleanly with no wide grid to break** — this resolves the A2 mobile-degradation `<NEEDS:>` flag outright (content Flag 5: there is no longer a 4-column table to reflow). No horizontal scroll.
+- **Motion**: scroll-reveal — fade + 8–12px rise, once, `--dur-slow`, `--easing`, **the whole exhibit (number + cut) as ONE unit** (reveal #4 of four). No per-row reveal, no count-up of `95%` (final on first paint). If the thin bar is retained, NO scroll-driven fill (static; an optional CSS-only render-time fill is permitted but **default static**, B.1 — §A3-7 OQ-A4). Collapses under reduced-motion to the fully static exhibit.
+- **Content slot**: `home.json` `comparison` — `heading` + optional `metric` (value/label/source/year) + the 2-axis rows + `link`. (Schema shape note for the engineer: the 2-axis cut is four label+line pairs, not a 4×3 `columns`/`rows` matrix — the `comparison` block's row form changes from the A2 table to the four-pair stance; the `metric` sub-block is unchanged in shape, only rendered at display scale. Exact mapping is the engineer's lane against spec §6; the honesty audit + citation audit are Arian-verified.)
+- **Brand notes**:
+  - **The number is the hero, the cut is the stance** (spec §4.5). Display-scale number + visible mono citation + four honest pairs + pouk.ai last and self-conceding.
+  - **Honesty is load-bearing** — pouk.ai does not win every axis; no featured tilt (guarded above).
+  - **Second `/why-ai` route** (first is the Hero D-11 hand-off); distinct anchor text; a *compression* of `/why-ai`'s vs-alternatives, not a reproduction.
+
+### Beat 6 — Convert — THE DESIGNED CLOSE (`<h2>` #3) — RECAST · recessed band #2
+
+Recast from a plain CTA band to an **authored typographic close** (spec §4.6 / direction §27): the closing line is the page's **last serif beat at display-adjacent scale**, the Statement's louder sibling, deliberately composed — not a heading + two buttons on a tint. **Close = "The demo was never the hard part."** (AA-6). Dual-CTA beneath unchanged. **Recessed band #2 of 2.**
+
+- **DS primitive(s)**: `<CTASection surface="recessed">` (the DS end-of-page conversion band; `surface="recessed"` applies `--surface-section` + a `--hairline` top rule in one move — confirmed). Via a recast `HomeClosingCta.tsx`. (`ContactBlock` stays rejected — it has a `StatusBadge` slot that would force a second availability badge, locked to the Hero.)
+- **The designed close — the A3 craft delta:**
+  - **Scale**: the heading renders at **display-adjacent serif** — the Statement's louder sibling. The Statement is `--fs-statement` (28–44px); the close should read as its *louder* sibling, so recommend **`--fs-tagline-intimate` (32–52px), `--font-serif`, italic** — one rung above the Statement, below the Hero `--fs-tagline`. This is a site-side className on the `CTASection` heading (published token; the DS does not ship a serif-display heading on `CTASection` by default, so the scale/serif treatment is a site CSS application of an existing token, not a new token). It remains the `<h2>` element styled large — **not** a second heading (content Flag 6).
+  - **Register**: "The demo was never the hard part." is a *diagnosis/conviction*, not a CTA verb — it leans on the artifact ("keep it running after the demo") and the MIT NANDA cause, and lands as the page's final belief. Serif italic at display-adjacent scale, centered (`align="center"`, the end-of-page default), with the dual CTA beneath as the quiet ask.
+- **Props (substantive)**:
+  ```
+  <CTASection
+    surface="recessed"           {/* --surface-section band #2 + --hairline top rule */}
+    size="default"               {/* --space-16 block padding */}
+    align="center"               {/* end-of-page default */}
+    headingAs="h2"               {/* the page's THIRD and final <h2> */}
+    heading="The demo was never the hard part."   {/* AA-6; rendered display-adjacent serif italic via .home-convert-close className */}
+    body={<>Taking on a few engagements this quarter.</>}   {/* availability sub-line, kept (AA-6); quiet, no new urgency */}
+    actions={/* mailto primary + booking secondary, both <Button asChild size="md"> */}
+  />
+  ```
+  - The display-adjacent serif treatment is applied via a site className on the heading (e.g. `.home-convert-close`) using `--fs-tagline-intimate`/`--font-serif`/italic — the same site-clamp precedent the codebase already uses for one-shot editorial scale (`.about-poukai__heading`, `.principles-bookend`). No DS override, no new token.
+- **Layout / spacing**: the **second** `--surface-section` band. `CTASection` owns its frame + `--space-16` block padding — **do not wrap in a `Section`** (DS anti-pattern). See §A3-3 merge-guard for the Why-us→Convert adjacency. Full-bleed band; content constrained to `--content-max`. Below into `.site-page` bottom-pad → footer.
+- **Motion**: **scroll-reveal NONE** (it is the terminus the reader scrolls *to*). Static on arrival. `Button` hover/focus uses DS `--dur-fast`/`--easing`. No `StatusBadge`. Collapses trivially under reduced-motion.
+- **Content slot**: `home.json` `closingCta` — `heading` (= the close) + optional `body` (= the availability sub-line) + CTA labels/hrefs per `contact-flow.md`.
+- **Brand notes**: second dual-CTA appearance (Hero + close), mailto primary / booking secondary, no third register, no urgency/scarcity (FS-CF-1). The band stays; the *moment* gets crafted. `mailto:` is the primary affordance; booking must not out-weigh it. No `Stat`, `Quote`, scarcity badge, or scheduling embed.
+
+---
+
+## A3-3. Cross-section rhythm
+
+Top to bottom — six beats inside the `SiteShell` chrome, built from the published `--space-N` scale only (no `--space-5/7/9/11`; they don't exist), with **two** `--surface-section` bands and **one** `--surface` inset object.
+
+1. `<SiteShell>` header — DS chrome.
+2. `.site-page` — `padding-block: --space-12`, wrapping all six beats.
+3. **Hero** (display, glyph leaned in) → **`--space-16`** → **Statement** (`--bg`, `hairline={false}`) → **`--space-16`** → **[INSET OBJECT on `--surface`] Artifact** (`CodeBlock`, capped ~44rem, centered, NOT full-bleed, no `<h2>`) → **`--space-16`** → **What we do** (asymmetric, automations leads, `--bg`, `<h2>` #1) → **`--space-16`** → **[BAND #1 on `--surface-section`] Why us** (number-led exhibit, `<h2>` #2) → **`--space-16` return-to-`--bg` + band boundary** → **[BAND #2 on `--surface-section`] Convert** (designed close, `<h2>` #3).
+4. `.site-page` bottom-pad (`--space-12`) → footer.
+
+**The `--space-16` interval discipline (the strike).** Every cross-beat turn is `--space-16` (64px). Exceptions are *intra-exhibit* only: inside Why-us the number→cut binding is `--space-8`. No raw px; `--space-16`/`--space-12` cross-beat, `--space-6`/`--space-8` intra-section.
+
+**The escalation logic (6-beat).** Loud (display Hero + leaned-in glyph) → quiet turn (Statement) → **the eye meets a real object (Artifact — the mid-page engage peak)** → composed substance (asymmetric disciplines, `--bg`) → **first band: the number-led Why-us exhibit** → **second band: the designed close.** The variety is now **distributed**, not front/back-loaded (direction §29) — the soft middle is gone because a real object lives in it.
+
+### Surface rhythm — three elevation tiers, two bands, one inset object (the band-count answer)
+
+- **Three distinct tiers, by the DS elevation rhythm:** `--bg` (Hero, Statement, What-we-do — the page canvas) · `--surface` (the Artifact inset object — recessed *inline*, one tier below `--bg`) · `--surface-section` (Why-us band #1, Convert band #2 — the *only* tier permitted as a section divider). **The artifact on `--surface` is categorically not a band** — the DS forbids `--surface` as a section divider (`llms-full.txt` l.18/44) and reserves `--surface-section` for bands. This is the clean resolution of spec §4.2's inset-object-vs-third-band question: the token system itself distinguishes them. **No escalation to Arian needed** — the artifact frames legibly as an object on `--surface` without any third full band. (The escalation clause in spec §4.2/§190 only fires if the only legible framing were a full band; it is not — see §A3-6.)
+- **Exactly TWO `--surface-section` bands** (spec §4.1 AC; A2 §16): Why us (#1, site-side wrapper) + Convert (#2, `CTASection surface="recessed"`). **No third band, ever.** Hero/Statement/What-we-do on `--bg`; Artifact on `--surface`.
+- **The two bands are adjacent (Why us → Convert) and must read as two distinct surface events, not one slab.** Primary treatment (carried from A2, shipped): (1) full `--space-16` return-to-`--bg` between them (the `.home-convert-gap` div, shipped — the band wrapper closes, `--bg` shows for a 64px turn, then `CTASection` opens its band); (2) the Convert band's own `--hairline` top rule; (3) distinct registers (Why-us = number-led exhibit, left-register; Convert = centered designed close).
+- **Merge-guard / Why-us-only fallback (binding, spec §4.6 / A2 §16):** if at visual review (13–14" + 375px) the two recessed bands still read as one slab, the fallback is **Why us KEEPS the band; Convert DROPS to `--bg`** (total then exactly one band, at Why us; the designed-close composition survives whichever surface — its serif scale + `--hairline` top rule carry the close on `--bg` too). Never the reverse. **Specify two bands as primary; record which shipped at review.**
+
+### Heading hierarchy (R-026 — no skipped levels)
+
+- **`<h1>`** — the `<Hero>` title (only `<h1>`).
+- *(no heading)* — the `<Statement>` emits none.
+- *(no heading)* — **the Artifact beat emits NO `<h2>`** (spec §4.1; content Flag 4). Its `caption` is the DS `<figcaption>` (mono, non-heading); its `label` is the figure's accessible name. Neither is a document heading.
+- **`<h2>` #1** — What we do (`Section` title). The three discipline titles are `<h3>` (`FeatureCard titleAs="h3"`) beneath it.
+- **`<h2>` #2** — Why us (`Section` title). The display number is a `<Stat>`/`<figure>` figure, **not** a heading. The 2-axis labels are `<dt>`/text, **not** headings.
+- **`<h2>` #3** — Convert (`CTASection headingAs="h2"`, styled display-adjacent serif — the heading styled large, NOT a second heading).
+
+**Exactly one `<h1>` + three `<h2>`s** (What we do, Why us, Convert), `<h3>`s only beneath `<h2>` #1, no skips. **Identical count to A2 — the artifact adds a beat but no heading.** Verifier: heading-order audit (1×h1 + 3×h2).
+
+### Mobile collapse (<`--bp-md` 768px; hard-checked at 375px)
+
+- **Hero** — DS collapse; glyph hidden <1024px (decorative, per `.home-hero-split__aside`). The lean-in only affects ≥1024px column sizing; mobile is unchanged.
+- **Statement** — single line at all widths.
+- **Artifact** — the `CodeBlock` `<pre>` is the load-bearing mobile case: it is `overflow-x: auto` (DS), but Candidate A's longest line (44 chars) at `--fs-meta` mono renders **without horizontal scroll** at 375px. The inset wrapper's `~44rem` cap is `width: 100%` below that, with `--bg` padding either side. **Hard on the final fragment: narrow enough to read at 375px or it wraps legibly** (spec §192).
+- **What we do** — the asymmetric grid **stacks single-column** at <768px (lead automations first, then builds, then advisory), DOM order preserved.
+- **Why us** — the display number scales via `clamp()`; the **four 2-axis pairs stack cleanly** (no wide grid to break — resolves the A2 `<NEEDS:>`). No horizontal scroll.
+- **Convert** — `align="center"`; dual-CTA stacks (DS), `mailto:` first; band full-bleed.
+
+No section introduces a media query beyond the asymmetric-grid stack and the (unchanged) band full-bleeds. Verifier: 375px + 13–14" captures show single-column, **no horizontal scroll on any beat**, the artifact legible as a centered object (not a band), both bands full-bleed (or Why-us-only if the fallback shipped), the display number dominant, CTAs stacked with `mailto:` first.
+
+---
+
+## A3-4. Motion choreography (page-level)
+
+D-25 permits client JS / hydration / scroll motion. The page carries one quiet scroll-reveal grammar (now **four** below-hero beats, up from three) + the carried Hero motion. Every animation gates on `prefers-reduced-motion: reduce` via the DS `:root !important` block AND the site reveal gate (HARD, D-25); **no exception.** **The "raise the floor" micro-interaction layer (§A3-4.1, added 2026-06-21) adds exactly two new motions on top of this baseline — the deficit-bar scroll-draw (T1) and the link-arrow nudge (T3) — plus a DS-native press confirm (T2) and the already-shipped Disciplines stagger (T4). Read §A3-4.1 for the full per-touch spec; the baseline below is unchanged.**
+
+**Fires on initial render:**
+- **Hero `entrance="stagger"`** — status/title/lede/cta top-down, CSS keyframes (DS). The one entrance event. (The lean-in adds NO motion — scale/craft only.)
+- **"The Signal" glyph CSS signal-pulse** — the one ambient heartbeat. No CSS on top of the `StatusBadge` pulse (DS rule).
+
+**Fires on scroll (the one grammar):**
+- **A single consistent quiet reveal on exactly FOUR beats — Statement, Artifact, What we do, Why us.** Each reveals **once**, fade + 8–12px rise, `--dur-slow` (600ms), `--easing`, via the shipped `[data-reveal]` IO grammar. Three of the four reveal as **one unit**: the **Statement**, the **Artifact** (the whole `CodeBlock` — never line-by-line, never typing), and the **Why-us exhibit** (number + cut together). **The What-we-do (Disciplines) beat is the ONE exception**: it reveals with a per-card stagger (`[data-reveal-stagger]`, 60ms step, ≤120ms total — Arian's 2026-06-21 override; §A3-4.1 T4) so the lead discipline arrives before the subordinates, reinforcing the asymmetry. **Convert does NOT reveal** (terminus). **The Why-us deficit bar draws its 0→95% fill on the same scroll-into-view event** (§A3-4.1 T1 — the page's one storytelling motion). No parallax, count-ups (incl. the `95%`), horizontal-scroll, hover-move beyond DS-native affordances + the T3 arrow nudge, glyph draw-on.
+
+**Mechanism.** Unchanged from shipped: `ScrollReveal` toggles `data-revealed`; the fade+rise is CSS reading `--dur-slow`/`--easing`; pre-reveal is a no-op under reduced-motion (content visible, not hidden-awaiting-JS).
+
+**`prefers-reduced-motion: reduce` (HARD).** Every motion collapses to the **fully static, fully legible page**: Hero stagger off, glyph pulse off, the four reveals present-on-load, the display number at final value, the artifact fully rendered and static, both bands present, nothing animating. **No exception.**
+
+**Fires never (locked out):** parallax, scroll-jacking, scroll-spy, marquee, count-ups (incl. the `95%`), any reveal on the Hero beyond its stagger, **any artifact motion (typing, cursor blink, scroll-draw, line-reveal)**, draw-on/flap/drift of the glyph, horizontal-scroll sections, hover-move beyond DS-native affordances. (Note: per-child stagger is permitted on exactly ONE beat — the Disciplines, Arian's 2026-06-21 override — and nowhere else. See §A3-4.1.)
+
+---
+
+## A3-4.1. The "raise the floor" micro-interaction + motion layer (REVISION — 2026-06-21)
+
+> **Why this section exists.** Arian found the approved page "a little too flat" — the editorial restraint reads as *correct* but not yet *crafted*. This layer adds the smallest set of **motivated** touches that removes the flatness without tipping the page into "generic animated SaaS landing." Dial target: **MOTION ~6** (from ~5), variance/density unchanged. Every touch below is (a) motivated by hierarchy / storytelling / feedback / state, (b) reduced-motion-safe (collapses to the static end-state), (c) restraint-guarded (a one-line reason it stays editorial). The audit floor is respected: the site-wide `[data-reveal]` grammar, the Hero `entrance="stagger"`, the glyph signal-pulse, and the `StatusBadge` pulse all **already ship** — this layer does **not** duplicate them. It builds on them.
+>
+> **The governing principle for this layer: motion as the page's draughtsman finishing a drawing — confident, quiet, once.** Nothing loops (except the one ambient glyph heartbeat that already ships). Nothing bounces. Nothing fades in twice. The accent (`#0071e3`) never appears at rest — only on link-hover underline and focus, exactly as today.
+
+### The set, ranked by leverage (highest "removes flat" / lowest risk first)
+
+**T1 — Deficit-bar scroll-draw (Why-us, Beat 5) — the one storytelling motion. [HIGHEST LEVERAGE]**
+- **What it is**: the thin `currentColor` deficit bar (`.home-deficit__bar`, currently static at 95% fill) draws its inked segment open from 0 → 95% width as the Why-us exhibit enters view. The empty-track outline is present from the start; only the *inked* segment grows. The `95%` numeral does **not** count up — it is final on first paint (locked out, anti-slop). One draw, once, then static forever.
+- **Communicates**: *the gap opens exactly as the reader arrives at it* — the page's one quantitative claim ("95% of GenAI pilots fail to ship") made felt instead of merely stated. This is the B.1 brief's single genuinely-motivated JS motion, now unblocked (D-25).
+- **Trigger**: scroll-into-view. Reuse the existing `[data-reveal]` IntersectionObserver — the bar fill keys off the **same `.is-visible` class** the Why-us band wrapper already receives (`.home-whyus-band[data-reveal].is-visible .home-deficit__bar`). No second observer, no new island.
+- **Tokens**: the inked-segment width transition runs at **`--dur-slow` (600ms)** + **`--easing`** (expo-out — the same entrance hand as the reveal). The bar fill should begin *after* the band's own fade+rise settles — add a `transition-delay` of roughly `--dur-mid` (240ms) so the band arrives, then the gap draws. (Engineer tunes the delay; the intent is "band lands, then the bar inks open," not simultaneous.)
+- **Reduced-motion fallback**: the bar renders at full 95% fill immediately (no draw). Already guaranteed twice — the `[data-reveal]` reduced-motion block forces the wrapper visible, and the bar's own width must default to its final value with the transition only applying under `.reveal-on`. **The inked segment's resting CSS must be the final width** (so no-JS / reduced-motion shows the complete bar); the draw is a `.reveal-on … :not(.is-visible)` start-state of `width/transform: 0` → final on `.is-visible`. Mirror the exact safety contract of `[data-reveal]` (no blank/zero state without `.reveal-on`).
+- **Restraint guardrail**: monochrome, hairline, one idea (the gap), one draw, tied to the page's core claim — editorial, not dashboard. It animates the *argument*, not a numeral. This is the one place the page earns a storytelling motion; spending it here is what keeps the rest of the page quiet.
+- **OQ-A4 interaction**: this only ships if the bar is retained (OQ-A4 default = keep the bar). If Arian drops the bar at review (number-alone), T1 is dropped with it — the number does not count up.
+
+**T2 — CTA tactile press + confirm the DS press reaches the link buttons (Hero + Convert). [HIGH LEVERAGE, ~zero cost]**
+- **What it is**: the four CTA buttons (Hero mailto + booking, Convert mailto + booking) get a tactile `:active` press — `transform: translateY(1px)` at `--dur-press` (80ms). **This is DS-native** (`Button` `:active` ships `translateY(1px)` at `--dur-press` per the button ladder / LinkCard parity). The "touch" here is mostly a **verification task**: confirm the press actually renders on `<Button asChild><a></a></Button>` (the `asChild` Slot must forward `:active` to the rendered `<a>` — if the press is being swallowed because the styled element is the anchor, that is the flat-feeling gap). If DS-native press already reaches the anchors, T2 is "verify only, ship nothing."
+- **Communicates**: *the button acknowledges the click* — basic tactile feedback. A CTA that doesn't depress feels dead; this is the cheapest credibility win.
+- **Trigger**: `:active` (press).
+- **Tokens**: `--dur-press` (80ms), no custom easing (DS-native). Do not add hover lift, shadow, or color fill — hover stays the DS default (no transform; the buttons are already solid primary/secondary).
+- **Reduced-motion fallback**: `:active` transforms are gated by the DS `:root !important` reduced-motion block — collapses to no transform. No exception.
+- **Restraint guardrail**: 1px, 80ms, press-only. No hover animation on the buttons at all (a CTA that springs on hover reads SaaS). The press is felt under the finger, not seen across the page.
+
+**T3 — Link-arrow nudge on the inline editorial links (Hero lede hand-off, Why-us "see when to hire us →"). [MEDIUM LEVERAGE, low cost]**
+- **What it is**: the trailing `→` glyph in the two inline editorial links nudges right by ~2–3px on hover/focus. The link text and its DS two-layer underline are untouched (the hairline→accent underline grow already ships and stays). **Only the arrow glyph translates**, via a site-side `<span aria-hidden="true">→</span>` wrapper inside the anchor that gets `transform: translateX(2px)` on `a:hover/:focus-visible`.
+- **Communicates**: *forward motion — "this leads somewhere"* — the arrow leans toward its destination, an affordance that says the link is a hand-off, not a footnote.
+- **Trigger**: hover + focus-visible (keyboard parity is required — same nudge on `:focus-visible`).
+- **Tokens**: `transform` transition at **`--dur-fast` (180ms)** + **`--easing-link`** (matches the underline-grow hand so the arrow and underline move as one gesture).
+- **Reduced-motion fallback**: collapses to no transform (arrow static; underline still grows — the underline grow is the DS's own reduced-motion-safe affordance). Gate the arrow transform under `prefers-reduced-motion: no-preference`.
+- **Restraint guardrail**: 2–3px, one axis, mirrors the underline's existing motion language. The arrow already exists in the copy; we are animating the punctuation, not adding chrome. Apply to the **two inline editorial links only** — NOT to the CTA buttons (their arrows are inside solid buttons; nudging them would fight the press) and NOT to the booking links (kept quiet/subordinate).
+- **Scope note**: the Hero lede `Here's why →` and the Why-us `See when to hire us, and when not to →` are the two links that earn this. The Convert booking `Or grab a time →` is a CTA-adjacent secondary and stays without nudge.
+
+**T4 — Disciplines per-card stagger (Beat 4) — CONFIRM the already-approved override. [LOW NEW WORK]**
+- **What it is**: the three discipline cards reveal in sequence (lead, then the two subordinates) rather than as one block — `[data-reveal-stagger]`, 60ms step. **This already ships** (index.astro passes `stagger`; Arian overrode the whole-unit default 2026-06-21). It is the page's one permitted per-child stagger.
+- **Communicates**: *hierarchy — the lead discipline (automations) arrives first, the subordinates follow* — the stagger reinforces the asymmetric lead+two composition. The sequence IS the hierarchy.
+- **Trigger**: scroll-into-view (existing `[data-reveal-stagger]` path).
+- **Tokens**: 60ms step (`calc(var(--reveal-i) * 60ms)` delay), each child fades+rises on the `[data-reveal]` 0.5s/`--easing` transition. Max 3 children = ≤120ms total stagger — well inside restraint.
+- **Reduced-motion fallback**: all cards present-on-load, no stagger (the `[data-reveal]` reduced-motion block + `transition-delay: 0`). Already guaranteed.
+- **Restraint guardrail**: capped at the lead + two, ≤120ms total, once. This is the ONLY beat with per-child stagger; every other reveal stays whole-unit. Keeping it singular is what stops the page reading as "everything animates in sequence." No change needed — this entry exists to record it as the deliberate, bounded exception.
+
+**T5 — Disciplines row hover affordance (Beat 4) — EVALUATED, RECOMMEND LEAVE STATIC (reject). [low value, real risk]**
+- **What it is (the candidate)**: a hover affordance on the three discipline rows — a left hairline-accent slide, a faint `--surface` tint, or a 1px lift.
+- **Recommendation: REJECT — leave the rows static.** Reasoning: the discipline rows are **non-interactive** (no `link` on any item today — `FeatureCard` with no footer/href, "no states, no hover, no interactivity" is the DS contract). A hover affordance on a non-clickable element is **un-motivated** — it signals "clickable" where nothing is clickable, which is worse than flat: it is a false affordance (and a mild a11y/expectation miss). The DS explicitly ships `FeatureCard` stateless for this reason; the interactive sibling is `LinkCard`. If/when a discipline gains a real sub-page link, revisit with a `LinkCard` (which ships its own DS hover: border-color→accent, `:active` press) — but that is a content/IA change, not a motion touch. Until then, the stagger (T4) gives the disciplines their life; hover would be decoration. **This is the "less is more" call: the row that doesn't go anywhere shouldn't light up.**
+
+**T6 — Statement (Beat 2) — CONFIRM LEAVE STATIC (beyond its existing reveal). [no work]**
+- **Recommendation: LEAVE STATIC.** The Statement is the page's one raised-voice conviction beat; stillness IS its register. It already gets the quiet `[data-reveal]` fade+rise (reveal #1) as its single entrance — that is exactly enough. Any additional motion (emphasis pulse, word-by-word reveal, hover) would undercut the conviction. The lightest-possible touch is the one it already has. No change.
+
+**T7 — Code artifact (Beat 3) — CONFIRM LEAVE STATIC (beyond its existing reveal). [no work]**
+- **Recommendation: LEAVE STATIC.** The artifact's entire thesis is "this is real engineering work, presented — not performed." It already reveals as one unit via `[data-reveal]` (reveal #2). The spec hard-locks out typing, cursor blink, scroll-draw, and line-by-line reveal (§8 / §A3-4 "fires never"). A one-time reveal of the "keep it running" lines was considered and **rejected**: line-by-line reveal performs the code (the exact failure mode — IDE/dev-tool theatre) and contradicts the engraved-object intent. The whole-unit fade+rise it has is the correct and only motion. No change.
+
+**T8 — Why-us band entrance depth touch — EVALUATED, RECOMMEND LEAVE AS-IS (reject the extra). [low value]**
+- **What it is (the candidate)**: a subtle depth cue on the recessed `--surface-section` band as it enters — e.g. the band surface fading in slightly behind the content, or a brief shadow/inset.
+- **Recommendation: REJECT the extra depth motion.** The band already arrives via the `[data-reveal]` fade+rise (reveal #4), and T1 (the deficit-bar draw) is the band's authored motion moment. Adding a surface-depth animation on top would be two motions competing in one beat and risks a shadow/elevation read the recessed-inline contract forbids (recessed = engraved, no drop shadow). The band's recess is a static surface fact (`--surface-section`); it should not animate its own elevation. The reveal + the bar-draw are sufficient. No change.
+
+### Net change this layer ships
+
+Only **two** genuinely new motions reach the engineer: **T1** (deficit-bar scroll-draw) and **T3** (link-arrow nudge). **T2** is a verify-and-confirm of DS-native press (likely zero code). **T4** is already shipped (recorded as the bounded exception). **T5–T8** are explicit "leave static" decisions. That is the smallest set that lifts MOTION to ~6: one storytelling motion, one affordance nudge, one tactile confirm — and disciplined stillness everywhere else. The page still reads as a senior engineer's commit message; it now also reads as *finished*.
+
+### Real-browser (Playwright) verification required
+
+The Astro/DS preview tool renders static HTML and **cannot execute IntersectionObserver, scroll, or `:active`/`:hover` states** — so the following MUST be verified in a real browser (Playwright), not the preview:
+- **T1** — the deficit bar must (i) draw 0→95% on scroll-into-view, (ii) render full at 95% immediately under `prefers-reduced-motion: reduce` and with JS disabled, (iii) not re-draw on scroll-back. **IO-dependent — preview cannot show this.**
+- **T2** — the `:active` press must actually depress the rendered `<a>` inside each `Button asChild` (all four CTAs), and must flatten under reduced-motion. **State-dependent — preview cannot show this.**
+- **T3** — the arrow nudge must fire on both `:hover` AND `:focus-visible` (keyboard), on the two inline editorial links only, and must not move under reduced-motion. **State-dependent — preview cannot show this.**
+- **T4** — confirm the three cards stagger (≤120ms total) on scroll-into-view and arrive together under reduced-motion. **IO-dependent.**
+- **Axe / heading-order** unaffected (no DOM/heading change); a quick axe pass after T1/T3 land confirms the arrow `<span aria-hidden>` and the bar `aria-hidden` add no violations.
+
+### Implementation-detail flags for the engineer (not new motion — accuracy notes)
+
+- The shared reveal transition in `site.css` is currently a **literal `0.5s cubic-bezier(0.16, 1, 0.3, 1)`**, i.e. the values of `--dur-slow`-adjacent (it is 500ms, not the 600ms `--dur-slow` token) and `--easing` inlined rather than referenced. T1 should reference the **tokens by name** (`--dur-slow`, `--easing`) for the bar draw so the new motion is on-contract even though the existing reveal predates that discipline. (Flagging the literal so the engineer doesn't copy 0.5s; use `--dur-slow`.)
+- T1's bar-draw keys off the **existing** `.home-whyus-band[data-reveal].is-visible` class — no new JS, no second observer, no new island. It is a CSS descendant rule on the class the IO already toggles.
+- T3's arrow wrapper is a site-side `<span aria-hidden="true">→</span>` inside the existing anchors in `HomeHero.tsx` (lede) and `HomeComparison.tsx` (why-ai link); the visible link text is unchanged, the `→` simply moves into a span so it can transform independently of the text + underline.
+
+---
+
+## A3-4.2. THE SIGNATURE — "The Signal" self-constructs on first paint (REVISION — 2026-06-22, raises the ceiling to ~7.5)
+
+> **Why this section exists.** The creative director raised the home motion/presence ceiling from ~6 to ~7.5 (`meta/direction/home-motion-ceiling.md`). The diagnosis: §A3-4.1 fixed *liveness*, not *presence* — the budget is spread thin and even, with no peak. The fix is **one signature moment plus a disciplined supporting set**: the Hero "The Signal" glyph **self-constructs on first paint** — a draughtsman draw of the whole pipeline, composed with the existing Hero text stagger as *one arrival* (~1.2–1.6s, **once**), then the existing ambient `wb-signal`/`wb-pulse` loops take over and the glyph holds forever at the **byte-identical resting end-state it ships today.**
+>
+> **This subsection GOVERNS over §A3-4 / §A3-4.1 where they disagree on the Hero glyph's entrance.** §A3-4 says "the lean-in adds NO motion"; §A3-4.2 supersedes that for the glyph's *construction* (the lean-in's scale/craft is unchanged; the entrance is now a draw). Everything else in §A3-4 / §A3-4.1 stands: T1 deficit draw, T2 press, T3 arrow nudge, T4 disciplines stagger, T5–T8 stillness. The supporting-set deltas this raise introduces (S2 band-entrance upgrade, S4 artifact hover) are specified in §A3-4.3 below.
+>
+> **The contract, one sentence:** a visitor lands and *watches the instrument build itself* — one confident line and five points, drawn, not animated — and that single moment is what they remember; everything else on the page is quiet **on purpose** so the signature carries the weight.
+>
+> **The single sharpest test (the director's bar):** a senior engineer watching it must think *"someone drew that, exactly,"* never *"nice animation."* If it ever reads as decoration, pull it back toward fewer, slower, more deliberate strokes. No glow, no sparkle, no shimmer, no gradient-sweep, no accent-trail, no flourish — the construction draws in `currentColor` ink, not light.
+
+### 1. The real elements being animated (read against `HomeHeroIllustration.tsx`)
+
+The construction sequences the glyph's **actual** SVG layers, in their existing paint order, with their existing token bindings (`src/styles/site.css §"The Signal"`). Nothing about the resting markup, geometry, viewBox (`40 176 720 250`), or token bindings changes — the draw animates the *assembly* of an object that already ships:
+
+| Layer | Real elements (`HomeHeroIllustration.tsx`) | Resting paint (`site.css`) | Construction role |
+|---|---|---|---|
+| **Grid** | `<g class="grid">` — 7 vertical + 4 horizontal hairlines, `strokeDasharray="1 6"`, `strokeWidth 0.6` | `stroke: --hairline` | The drawing surface resolves first (fade). |
+| **Axis** | central `<line class="axis">`, `strokeDasharray="1 4"` | `stroke: --hairline` | Resolves with the grid (same fade group). |
+| **Trace** | `<path class="trace">` through all 5 nodes (`TRACE_PATH`, one smooth C-curve), `strokeWidth 1.6` | `stroke: --fg-muted`, `fill: none` | **The one confident line** — draws stroke-on OBSERVE→SHIP. |
+| **Nodes** | 5 × `<g>`: `node-ring` (r 5.6, fill `--bg`, stroke currentColor) + `node-dot` (r 2.6, fill currentColor); SHIP adds `node-ring--accent` (stroke `--accent`) + `node-dot--accent` (fill `--accent`) | per-node | **The five points** — set down in sequence as the trace reaches each. |
+| **Leaders** | 5 × `<line class="leader">`, `strokeDasharray="2 3"`, opacity 0.55 | `stroke: --fg-muted` | Register with each node's label (fade, paired to node). |
+| **Labels** | 5 × `<g>`: mono `num` (`01`–`05`) + mono `label` (`OBSERVE`…`SHIP`); SHIP fill `--accent` | `--font-mono` | Register beside each node just after it lands (fade). |
+| **Caption** | `pipeline · 5 stages`, mono, `--fg-muted` | static | Resolves last, with/just after the SHIP label. |
+| **Ambient (already shipping)** | `signal-pulse` (`wb-signal` 4.2s linear, dash `6 200`) + `pulse-halo` (`wb-pulse` 2.8s) | both inside `@media (prefers-reduced-motion: no-preference)` | The resting heartbeat — **suppressed during the build, released after.** |
+
+### 2. The draw mechanism (named, concrete)
+
+- **The trace draws via the `stroke-dasharray` / `stroke-dashoffset` "line-draw" technique** (the canonical draughtsman draw): set `stroke-dasharray` to the path's own total length `L` and animate `stroke-dashoffset` from `L` → `0`, so the single 1.6px `--fg-muted` line inks itself along the curve OBSERVE→SHIP. `L` is the rendered length of `TRACE_PATH` (measured once via `getTotalLength()` and written to a CSS var `--trace-len`, OR hard-set to a constant slightly above the path length — the path is fixed geometry, ~520–560 user units; either is fine, the engineer measures). **This must not collide with the ambient `signal-pulse`**, which is a *separate* `<path>` already using `stroke-dasharray: 6 200` — the construction draws the **`.trace` path only**; the `signal-pulse` path stays `opacity: 0` (or its animation `paused`) until the build completes, then its existing `wb-signal` loop begins. Two different paths, two different dash treatments, never on the same element.
+- **Grid, axis, leaders, labels, caption, nodes draw via opacity** (fade-in, not stroke-draw): hairline dashed grid lines do not read as "drawn" with a stroke-on (they are dashes, not a continuous stroke), so they **resolve by opacity** `0 → 1`. The nodes "set down" by opacity `0 → 1` with a *micro* scale settle (`scale(0.6) → scale(1)`, transform-box `fill-box`, transform-origin center — same technique the existing `pulse-halo` uses) so each point *lands* rather than blinks. Confident ease-out, **no overshoot** (no `scale(1.1)` bounce — the director bans springs outright).
+- **All of it lives inside the existing `@media (prefers-reduced-motion: no-preference)` block in `site.css`** — the same block that already gates `wb-pulse` and `wb-signal`. This is the load-bearing reduced-motion guarantee (§4 below): outside that media query, the resting CSS is the finished diagram with zero construction styles, so reduced-motion and no-JS render the final state with no extra work.
+
+### 3. The timeline (concrete ms offsets; total ≈ 1.5s, inside the ~1.2–1.6s budget)
+
+`t=0` is first paint of the Hero (the same instant the DS stagger begins). The construction is **its own CSS timeline keyed by `animation-delay`**, *not* re-driven by JS per-frame — it runs as CSS keyframe animations on the glyph's sub-elements, started on mount (see §5 for the trigger). The DS Hero text stagger runs its own internal ladder in parallel (status idx0 → title idx1 → lede idx2 → cta idx3 → illustration idx4 @ 600ms); the construction is timed to **interlock** with it (§ choreography below).
+
+| t (ms) | Event | Token / value | Notes |
+|---|---|---|---|
+| **0–200** | **Grid + axis resolve** (opacity 0→1). The drawing surface appears. | `--dur-mid` (240ms), `--easing` | Starts on mount; the surface is the first thing down, as a draughtsman tapes the paper before drawing. |
+| **160** | **Trace begins drawing** (stroke-dashoffset L→0). | starts at +160ms | Overlaps the tail of the grid fade so the line begins on a settling surface, not an empty box. |
+| **160 → ~1040** | **Trace draws** along the full curve. | `--dur-slow` ×1.4 ≈ **880ms** of draw, `--easing` (confident expo-out; reads "drawn," settles, no bounce) | The single longest gesture — the "one confident line." The expo-out means it moves with intent and eases into SHIP, never linear-mechanical, never springy. |
+| **per-node, keyed to trace progress** | **Nodes set down in sequence** as the trace reaches each. | per-node `animation-delay`, each node `--dur-mid` (240ms) opacity+micro-scale | **Delay formula:** node *i* (i = 0..4) lands at `traceStart + (i+1)/5 × traceDuration` ≈ `160 + (i+1) × 176ms` → **OBSERVE ≈ 336ms, MODEL ≈ 512ms, PLAN ≈ 688ms, ACT ≈ 864ms, SHIP ≈ 1040ms.** Each node lands as the inking line arrives at its coordinate. |
+| **node-land + ~80ms** | **Leader + mono labels register** beside each node, just after it lands. | each `--dur-fast` (180ms) opacity fade, `--easing` | Label/leader for node *i* delayed `node_i + 80ms` (`--dur-press` worth of beat) so the point sets, *then* its name registers — the draughtsman labels after placing. |
+| **~1040** | **SHIP node lands LAST and lights its accent.** | node ring `--accent` + dot `--accent` + label `--accent`, all already in the resting markup — they simply fade up with the SHIP node | The climax. The one accent on the page arrives **here, once**, as the terminus — not introduced by motion at rest (it is the node's own resting fill, revealed by the build). |
+| **~1120** | **SHIP label `05 / SHIP` + caption `pipeline · 5 stages` register.** | `--dur-fast`, `--easing` | The diagram is now complete. |
+| **~1200** | **Ambient handoff:** `signal-pulse` (`wb-signal`) + `pulse-halo` (`wb-pulse`) begin as the resting heartbeat. | existing loops, `animation-delay: ~1200ms` so they start *after* the build, not during | The construction ends; the diagram holds at the byte-identical resting state forever, but-for the one ambient pulse. |
+| **end ≈ 1200–1500** | Total construction complete well inside the **1.6s** ceiling. | — | If tuning runs long, shorten the trace-draw multiplier (1.4→1.2) before touching node spacing; the line is the hero, keep it readable. |
+
+**Delay formula (clean form), for the engineer:**
+```
+TRACE_START   = 160ms
+TRACE_DUR     = 880ms                 (= --dur-slow × ~1.45; the one long gesture)
+node_land(i)  = TRACE_START + (i+1)/5 × TRACE_DUR     // i = 0..4 → 336,512,688,864,1040ms
+label_in(i)   = node_land(i) + 80ms                  // --dur-press beat after the point sets
+AMBIENT_START = node_land(4) + 160ms ≈ 1200ms        // signal-pulse + halo begin here
+```
+All durations reference DS tokens (`--dur-mid`, `--dur-fast`, `--dur-slow`, `--dur-press`); the only computed values are the per-node delays (a multiple of the trace duration). No raw easing — every curve is `--easing` (expo-out). No `--space-N` involved (this is time, not layout).
+
+### 4. Choreography with the Hero text stagger (S1) — the decision
+
+**Decision: the glyph build is its OWN CSS timeline, started on mount, timed by `animation-delay` to interlock with the DS stagger — NOT keyed frame-by-frame to the DS stagger.** Rationale: the DS owns the text stagger internally (status/title/lede/cta/illustration at fixed 0/150/300/450/600ms) and exposes no per-slot hook to drive a custom sub-timeline; trying to chain off it is fragile. Instead we run the construction as an independent, mount-triggered timeline whose **offsets are chosen so the two read as one gesture.** The interlock:
+
+- The DS fades the **title** in around its index-1 slot (~150–300ms) and settles it by ~750ms (150ms delay + 600ms `--dur-slow` entrance). The construction's **trace is mid-draw** through this window (160→1040ms) and the **SHIP climax lands at ~1040ms — as / just after the title settles.** That is the contract from the direction (§3.S1): *the glyph reaches its SHIP-node climax as the title settles.*
+- The DS's own index-4 illustration slot (the 600ms whole-glyph fade) is **superseded by the construction** for this asset: instead of the glyph fading in as one block at 600ms, the *surface* is already resolving by 200ms and the *line is drawing through* the 600ms mark. The engineer must ensure the DS's illustration-slot fade does not double up with the construction — either let the construction own the glyph's opacity (the glyph wrapper starts visible; the *sub-elements* animate), or set the illustration slot to no-op for this asset. (Engineer's structural call; the requirement is **one** arrival, not a fade-then-draw.)
+- **The felt result:** words and diagram compose *together* — status/title arrive as the surface tapes down and the line starts; the lede/CTA settle as the line completes and the points set; SHIP lights as the title lands. One gesture, not "text staggered, then a separate glyph animation."
+
+### 5. Once-only + trigger + SPA-nav decision (HARD)
+
+- **The construction plays exactly ONCE, on mount/first paint. It never replays on re-scroll, never loops.** It is *not* wired to the `[data-reveal]` IntersectionObserver (that grammar is for below-hero beats and can re-fire on scroll-back into view) — the Hero is above the fold and the build is a paint event, not a scroll event.
+- **Trigger:** the construction runs as CSS keyframe animations that play on element mount (the default — a keyframe animation with `animation-fill-mode: both` runs once when the element renders, then holds its end-state). The glyph is server-rendered static HTML; the animation is the additive CSS layer that runs at paint. **No JS is required to *start* it** (CSS animations auto-run on paint) — the only optional JS is measuring `getTotalLength()` for `--trace-len` if a constant isn't hard-coded. This keeps the signature inside the zero-JS-preferred posture: it is CSS-first, paint-triggered, no island, no observer.
+- **`animation-fill-mode: both` (or `forwards`) on every construction keyframe is load-bearing:** it makes each sub-element hold its drawn end-state after the single play, so nothing snaps back. Combined with the resting CSS *already* being the final state, the glyph is correct whether the animation runs, is mid-run, or never runs.
+- **SPA / `astro:page-load` decision: DO NOT re-run the construction on client-side nav back to `/`.** The signature is a *first-impression* moment; replaying it on every return to home would make it read as a loop/gimmick (the director's "no second loop" line). If the site uses Astro view transitions / client routing, the construction must be gated to **first document load only** (e.g. a one-shot guard, or simply relying on full-page nav for `/`). If the engineer cannot cheaply suppress replay on `astro:page-load`, the acceptable fallback is to let it replay **only** on a genuine full page load and treat SPA-return as showing the finished diagram immediately (no build). **Default: build once on first load; finished diagram on every subsequent SPA return.** Flag to Arian as OQ-A8 if the routing makes one-shot suppression non-trivial.
+
+### 6. Reduced-motion + no-JS fallback (HARD, merge-blocking — the exact resting end-state)
+
+**This is the hardest line and it is already structurally guaranteed by where the construction CSS lives.** The construction styles live **entirely inside `@media (prefers-reduced-motion: no-preference)`** (the same block that today gates `wb-pulse` + `wb-signal`). Therefore:
+
+- **Under `prefers-reduced-motion: reduce`:** none of the construction keyframes apply. The glyph renders in its **finished static state immediately** — grid + axis (`--hairline`), full trace (`--fg-muted`, 1.6px, complete), all five nodes set (rings `--bg`/currentColor, dots currentColor, SHIP accent), all five leaders (opacity 0.55) + mono labels, the caption — **and the `signal-pulse` / `pulse-halo` ambient loops are also off** (they live in the same `no-preference` block, already gated today). The page resolves to the byte-identical static diagram with no motion. No draw, no fade, no stagger.
+- **No-JS / pre-hydration:** the glyph is server-rendered static HTML (it already is — `HomeHeroIllustration` renders to static markup at build time, no hydration). The finished diagram is the **default rendered state**; the construction is a pure CSS progressive enhancement that *adds* the draw when motion is allowed and JS-measurement (if used) is present. If `getTotalLength()` measurement is used for `--trace-len` and JS is off, the trace must default to **fully drawn** (`stroke-dashoffset: 0`, i.e. the resting state) — the dash-draw start-state (`offset: L`) must ONLY be applied inside the motion-allowed path, never as a base style, exactly mirroring the §A3-4.1 T1 deficit-bar safety contract (*"no blank/zero state without the motion gate"*). **A no-JS visitor must never see an undrawn or invisible trace.**
+- **The exact resting end-state (byte-identical to today):** it is precisely what `HomeHeroIllustration.tsx` + `site.css §"The Signal"` render right now — this composition changes **zero** resting markup, geometry, or token bindings. The construction is additive-only. **Verifier contract: the reduced-motion render and the no-JS render must be pixel-identical to the current shipped glyph** (the construction adds nothing at rest; it only animates the *arrival* at that exact state).
+- The glyph stays **`aria-hidden="true"`** (unchanged) — the OBSERVE→SHIP labels restate the pipeline the hero copy already carries, so the construction adds presence, not information; a screen-reader user loses nothing.
+- **CLS zero:** the construction draws *within* the glyph's already-reserved, aspect-stable column (fixed viewBox, fixed Hero illustration slot) — it is paint-only inside a fixed box. No layout shift, no reflow. (The §A3-4 lean-in's column-sizing is unchanged and orthogonal.)
+
+### 7. The restraint anchors on the signature itself (the director's hard stops)
+
+- **One confident line + five points. Nothing else.** No glow trail on the drawing line, no sparkle as nodes land, no shimmer, no gradient-sweep, no light. Ink (`currentColor`/`--fg-muted`), not light.
+- **No bounce / spring / overshoot.** Every curve is `--easing` (expo-out) — confident, settles, exact. A spring on the node set-down would read instantly as toy-SaaS; nodes scale `0.6→1`, never past 1.
+- **The accent arrives once, at SHIP, as the terminus** — it is the node's own resting fill revealed by the build, not a motion-introduced color. No accent anywhere else in the construction; the construction draws monochrome and the SHIP accent is the single point of arrival (consistent with "no motion introduces accent at rest").
+- **One arrival, not two.** The text and the glyph compose as a single gesture; the engineer must prevent a DS-illustration-slot fade *plus* a construction (the double-fade tell).
+- **After ~1.2–1.5s it is finished and still** — only the one ambient `signal-pulse`/`pulse-halo` heartbeat continues (the page's sole loop). The construction never repeats.
+
+---
+
+## A3-4.3. The supporting set (subordinate to the signature) — S2 / S3 / S4
+
+The supporting moves exist to make the page feel *composed around* the signature, never to add competing peaks. **S1 is folded into §A3-4.2 §4 (the choreography).** S2/S3/S4 below are deltas to the §A3-4 / §A3-4.1 baseline.
+
+### S2 — Band ENTRANCE upgrade: "rise-and-settle," not a flat fade (the four below-hero reveals)
+
+Replace the uniform fade + 8–12px rise on the below-hero beats (Statement, Artifact, What-we-do, Why-us) with a more **authored** arrival: a longer travel that *lands with intent* via a single non-bouncy ease-out. **This is a timing/distance/easing change to the EXISTING `[data-reveal]` reveal — NOT a new mechanism, NOT a new island, NOT a new observer.** It reuses the shipped IO and the `.reveal-on [data-reveal]` → `.is-visible` CSS path (`site.css §[data-reveal]`).
+
+- **Distance:** rise travel goes from the current **8–12px → ~20px** (`translateY(20px)` start-state → `translateY(0)`). Longer travel reads as "landing," not "un-hiding." Keep it a single Y-axis translate; no scale, no fade-from-side.
+- **Easing:** **`--easing`** (expo-out, `cubic-bezier(0.16,1,0.3,1)`) — a confident ease-out that *arrives and settles*, never bounces. (Flag for the engineer: the shipped reveal currently inlines a literal `cubic-bezier(0.16,1,0.3,1)` at `0.5s`; S2 should reference the **token `--easing`** by name and the **`--dur-slow` token**, not the inlined literals — same on-contract correction §A3-4.1's implementation-flags note already calls for.)
+- **Duration:** **`--dur-slow` (600ms)** (up from the inlined 500ms). The extra 100ms + the longer travel is what turns a "reveal" into an "arrival." Opacity fades `0→1` across the same 600ms.
+- **Still once, still whole-unit.** Each beat reveals once; no re-fire on scroll-back. Three of four reveal as one unit (Statement, Artifact, Why-us). **The ONE permitted exception is unchanged: the Disciplines per-card stagger (T4, §A3-4.1) stays** — 60ms step, ≤120ms total, the lead arrives first. S2 changes that beat's *distance/easing/duration* too (20px / `--easing` / `--dur-slow`), but keeps its stagger.
+- **Reduced-motion:** unchanged and already guaranteed — the `[data-reveal]` reduced-motion block forces all beats present-on-load (no travel, no fade). S2 adds no new motion path, so it inherits the existing gate. No-JS: content visible (the safety contract holds; the 20px start-state applies only under `.reveal-on` + motion-allowed).
+- **What S2 is NOT:** not parallax, not scroll-scrub, not a per-element stagger beyond T4, not a depth/shadow cue (T8 stays rejected). It is the same fade+rise, tuned to land harder. Subtle — the difference between a reveal and an arrival.
+
+### S3 — Keep the deficit-bar draw (T1) as the page's deliberate SECOND storytelling beat — NO CHANGE
+
+**Confirmed: T1 stays exactly as specified in §A3-4.1.** The deficit bar draws its inked segment 0→95% on scroll-into-view (`--dur-slow` + `--easing`, delayed `--dur-mid` so the band settles first), `95%` numeral never counts up, once, then static. With the signature now anchoring the top, T1 reads as the page's deliberate **second beat** (top: the system builds itself; mid: the gap opens). It remains the only place besides the signature where motion *tells the argument*. **Do not add a third storytelling motion — two is the composition.** No change; subject to OQ-A4 (ships only if the bar is retained).
+
+### S4 — ONE quiet Artifact hover: a hairline-border warm on the code exhibit ONLY
+
+The Artifact `CodeBlock` (Beat 3) is a framed object a curious reader mouses toward to read the code — so acknowledging the cursor is *motivated* (unlike the non-interactive discipline rows, which correctly stay dead, T5). **One** very quiet hover affordance:
+
+- **Treatment:** the artifact frame's **hairline border warms** `--hairline → --fg-muted` (a quiet darkening of the 1px frame stroke, NOT a color, NOT the accent), on `:hover` / `:focus-within` of the `.home-artifact` wrapper. Border-color transition only — **no transform, no lift, no shadow, no scale.**
+- **Token:** `border-color` transition at **`--dur-fast` (180ms)** + **`--easing`**. (Mirrors the DS `LinkCard`/`FeatureCard` border-warm hand — `border-color var(--dur-fast) var(--easing)` — but lands on `--fg-muted`, not `--accent`, because the exhibit is decorative, not a link.)
+- **Alternative if even the warm reads "clickable":** a 1px inset settle is the fallback the director named, but the border-warm is the cleaner pick (less motion, no geometry change). **Either way: NEVER a card lift, NEVER the accent.**
+- **CUT CONDITION (binding):** if at visual review the hover makes the artifact read as a **clickable widget**, cut it entirely — the static exhibit is the safe default. The artifact must never imply it is a button/link (it has `hideCopy`, no href; a hover that suggests interaction is a false affordance). Flag at review (OQ-A9).
+- **Reduced-motion:** the `border-color` transition collapses to instant via the DS `:root` reduced-motion clamp (the warm still applies on hover, just without the 180ms tween — acceptable; it is a color shift, not a motion). No-JS: pure CSS `:hover`, works without JS.
+- **The CODE itself never performs** (T7 holds): S4 is the **frame only**, not the code. No typing, no cursor, no line-reveal, no scroll-draw. The hover touches the wrapper's border; the `<pre><code>` is inert.
+
+### Stillness anchors (re-stated so the engineer does not over-reach)
+
+These do NOT move (carried from §A3-4 / §A3-4.1 / the direction §4, re-stated as the signature's load-bearing counterweight):
+
+- **Statement still** beyond its one S2 reveal (no mask-reveal, no word-by-word, no emphasis pulse — T6).
+- **Artifact CODE never performs** — S4 is the frame's border only; the code is presented, not performed (T7).
+- **The `95%` numeral never counts up** — final on first paint; the *bar* draws (S3/T1), the *numeral* does not tick.
+- **Discipline rows dead on hover** — non-interactive, no hover affordance (T5). (The disciplines' only motion is the T4 stagger on entrance.)
+- **Convert static on arrival** — the terminus reveals nothing (no S2 reveal on Convert; it is where the reader lands).
+- **No motion introduces accent at rest** — the SHIP accent arrives once via the build and then holds as a static fill; nothing else animates color. The accent (`#0071e3`) appears only at SHIP, on link-hover underline, and on focus — never as ambient motion.
+- **The `--space-16` cross-beat interval is unchanged** — the signature is *time*, not *layout*; it adds zero spacing change. The strike (the 64px interval + two bands + one inset object) is untouched.
+
+### Verify-ability note for the engineer (HARD — the preview tool cannot show this)
+
+The Astro/DS preview renders static HTML and **cannot execute first-paint animation, IntersectionObserver, scroll, `:active`, or `:hover`.** The signature and supporting set MUST be verified in a real browser via **Playwright**, not the preview:
+
+- **Signature (the build):** capture the glyph **mid-construction** vs **final** (two screenshots at e.g. t≈500ms and t≈1600ms) and assert they differ; **assert the `.trace` path's `stroke-dashoffset` animates from full (`L`/`--trace-len`) → `0`** over the draw window; assert nodes gain opacity in OBSERVE→SHIP order; assert the SHIP accent appears last.
+- **Reduced-motion:** under `prefers-reduced-motion: reduce`, assert the glyph renders its **final state immediately** (trace `stroke-dashoffset: 0`, all nodes opacity 1, ambient loops off) — and assert this render is **pixel-identical to the current shipped glyph** (byte-identical end-state contract).
+- **Once-only:** assert the construction plays **once** on mount and does **not** re-run on scroll-away-and-back; if SPA nav is in play, assert it does not replay on `astro:page-load` return to `/` (or shows the finished diagram immediately).
+- **No-JS:** with JS disabled, assert the trace renders fully drawn (no invisible/undrawn line) — the finished diagram is the default.
+- **S2:** assert the four below-hero reveals travel ~20px and use `--easing`/`--dur-slow` (not the old 8–12px/500ms literals); assert Disciplines still stagger (T4) and Convert does not reveal.
+- **S4:** assert the artifact frame's `border-color` warms on `:hover` AND `:focus-within`, with no transform/lift; assert it flattens (or is absent) under the cut condition / reduced-motion clamp.
+- **CLS:** assert the construction induces **zero layout shift** (paint-only inside the fixed glyph box).
+
+A `scripts/verify-motion.mjs` Playwright harness already exists in the repo root (untracked) — the engineer wires these assertions there or in the Playwright suite.
+
+---
+
+## A3-5. Icon picks (if applicable)
+
+**None.** The homepage uses no Lucide glyphs. `FeatureCard` `icon` slots stay omitted (anti-slop guardrail, Beat 4). The only glyphs are literal `→` HTML entities in the body font (Hero lede hand-off, Hero + Convert booking, the Why-us `See when to hire us, and when not to →`). "The Signal" glyph and the (optional) Why-us deficit bar are editorial `currentColor` SVG marks — the page's one illustrative hand, now joined at a new scale by the artifact's mono `<pre><code>` (same hand: hairline + mono + monochrome). The artifact is **not** an icon and the `CodeBlock` copy button is suppressed (`hideCopy`) so no affordance icon ships.
+
+---
+
+## A3-6. DS gaps surfaced (and the corrected DS premise)
+
+**No DS gap blocks this composition — and the spec's central DS premise is OUTDATED.**
+
+- **CORRECTED PREMISE — `CodeBlock` ships in 2.17.0 (AA-2).** The spec (§7/§30), direction (§30), and content draft instruct shipping the artifact as a **site-side `<pre><code>`** because "no DS code/artifact primitive exists." **This is false against the installed package.** `@poukai-inc/ui@2.17.0` exports a real `CodeBlock` molecule (semantic `<figure>` + scrollable `<pre><code>` + optional `<figcaption>` + optional header bar, **no syntax highlighting** → monochrome by default, on the `--surface` recessed-inline tier). It is *more* on-contract than a hand-rolled `<pre>` and is the vehicle this recipe specifies. **This is not a DS gap and not a proposal** — the primitive exists; I compose with it. The "no primitive / ship site-side" language in the spec/direction/content is **stale and flagged for Arian to ratify** (§A3-7 OQ-A1). (Per the awareness-only flag the spec carried: a recurring code exhibit would justify a DS primitive — it turns out the DS maintainers already shipped one. No escalation owed.)
+- **The inset-object-vs-third-band question is RESOLVED by the token system, not escalated.** Spec §4.2/§190 says: if the artifact can *only* be framed legibly as a full band, escalate to Arian. It cannot-only — the DS elevation rhythm gives a recessed *inline* tier (`--surface`, whose documented use is literally "code blocks") that is categorically distinct from the band tier (`--surface-section`). `CodeBlock` on `--surface`, capped narrow and centered, reads as a framed object within the `--bg` flow, with `--bg` visible on both sides. **No third band; no escalation.** (Recorded here per the charter's "flag it rather than assume" instruction: I did not need the escalation, because the legible framing exists at the correct tier.)
+- **No-fake fallback (binding, spec §4.2):** if Arian confirms no real fragment can be published, the `artifact` block is omitted, the beat does not render, and the **asymmetric What-we-do (Beat 4) absorbs the mid-page weight** (lead discipline scales up further) — no fabricated stand-in, no eagle (D-17 closed), no second illustration vocabulary. The placeholder (Candidate A) is for preview/evaluation only and never reaches production unconfirmed (AA-1).
+- **`ComparisonTable` (carried awareness-only):** still not a gap to escalate — the 2-axis cut is a four-pair editorial stance, not a pricing matrix; the site-side `<dl>`/stack is correct.
+
+Per the designer lane, the above are flags, not authored DS APIs. Arian decides any routing (notably the stale-premise ratification, OQ-A1).
+
+---
+
+## A3-7. Open questions for Arian
+
+Tight list; defaults proposed so each closes on a nod.
+
+- **OQ-A1 (the one that matters) — ratify the corrected DS premise: compose the artifact with the shipping `CodeBlock` molecule, NOT a hand-rolled site-side `<pre><code>`.** The spec/direction/content all premise on "no DS code primitive"; the installed `@poukai-inc/ui@2.17.0` ships `CodeBlock` (AA-2/§A3-6). It is the on-contract, monochrome-by-default, recessed-inline vehicle. **Default: use `CodeBlock`** (`hideCopy`, `language` label, mono `caption`, `aria-label`). The stale "no primitive / ship site-side" language in the upstream docs is flagged for you to ratify through the normal path (PM/direction own their edits; I do not edit them). If you'd rather hold to a hand-rolled `<pre>` for any reason, say so and I'll respec Beat 3 site-side — but `CodeBlock` is strictly better here.
+- **OQ-A2 — artifact header bar: keep the `language` label, or drop it for a pure framed `<pre>` + caption?** `hideCopy` is fixed (decorative exhibit, no copy widget). With `language="typescript"` the DS renders a small language label in the header bar — quiet, but it is one notch toward "code widget." **Default: keep the `language` label** (it reads as a tasteful filetype tag and aids a11y context); drop it if the header bar reads as dev-tool chrome at visual review (then the block is a pure framed `<pre>` + mono `<figcaption>`).
+- **OQ-A3 — asymmetric disciplines weight: confirm the 1-up (automations) over 2-up (builds, advisory) with the lead at `--fs-card-title` scale.** Composition-only, automations leads (your override). **Default: ship as specified.** Fallback if it reads imbalanced/SaaS: dial the scale delta to 0 (keep span/position asymmetry only), then last-resort an editorial `MetaList` stack.
+- **OQ-A4 — Why-us number: display scale = `--fs-stat-large` (56–96px), and keep or drop the thin deficit bar?** The number is now the hero (not the bar). **Default: `--fs-stat-large` number + the thin `currentColor` bar retained small beneath it; drop the bar if it competes with the number at review** (the number alone at display scale is cleaner). No count-up either way; if a bar fill is ever added it is CSS-only, render-time, reduced-motion-safe — default static (B.1).
+- **OQ-A5 — Convert close scale: `--fs-tagline-intimate` (32–52px) serif italic, the Statement's louder sibling.** "The demo was never the hard part." rendered one rung above the Statement. **Default: `--fs-tagline-intimate` serif italic, centered, the `<h2>` styled large (not a second heading).** Dial to `--fs-statement` if it crowds the Hero's `--fs-tagline` at desktop.
+- **OQ-A6 — two-band approach + merge-guard (carried from A2):** TWO bands (Why us + Convert) separated by `--space-16` return-to-`--bg` + the Convert `--hairline` top rule + distinct registers. **Default: ship two bands; drop Convert to `--bg` only if the captures show a merged slab.**
+
+- **OQ-A7 — ratify the SIGNATURE: the Hero glyph self-constructs on first paint (§A3-4.2).** The creative director raised the ceiling to ~7.5 and named this as the one signature move; the director's handoff (§7) asks you the single decision: *do you want the glyph to build itself on first paint as the page's signature presence?* **Default: YES — build it** (the thesis made kinetic, the asset you already own, one memorable moment, zero new asset, byte-identical resting end-state, reduced-motion/no-JS safe). If you'd rather hold the page quieter, say so and the ambition caps at S1–S2 (richer arrival, no construction). The mechanism (stroke-dashoffset draw + sequenced node opacity, ~1.5s, once) is specified and build-ready in §A3-4.2.
+- **OQ-A8 — SPA-nav replay (§A3-4.2 §5): suppress the construction on `astro:page-load` return to `/`?** **Default: build once on first full load; show the finished diagram immediately on every subsequent SPA return** (the signature is a first-impression moment, not a per-visit loop — the director's "no second loop"). If the routing makes one-shot suppression non-trivial, the engineer flags it; the acceptable fallback is full-load-only build, SPA-return = finished diagram.
+- **OQ-A9 — S4 artifact hover (§A3-4.3): ship the hairline-border warm, or leave the exhibit fully static?** **Default: ship the quiet `--hairline → --fg-muted` border-warm on `:hover`/`:focus-within` (180ms, no transform).** Hard cut condition: if at visual review it makes the artifact read as a clickable widget, cut it — static exhibit is the safe default. The code itself never performs either way (T7 holds).
+
+**Blocking dependencies (block `Built`-to-production, not `Approved`):**
+- **The real artifact fragment (spec §7, content Q1).** The artifact beat ships to production only on Arian's confirmed real + publishable fragment. Until then it renders Candidate A as a labelled placeholder for preview/evaluation only (AA-1). No production `Built` on an unconfirmed fragment.
+- **The A3 content draft (`home-a3-artifact-anchor.md` v1.0) is In review** — its MIT NANDA re-confirmation, the 2-axis honesty audit, the lead-discipline call (you overrode to automations), and the close line route to you. The engineer builds each beat only on Approved copy (PM DoD).
+
+This composition flips to `Approved` on your nod to OQ-A1–OQ-A9 (each defaults cleanly if silent — including OQ-A7, the signature, default YES); the artifact's production realness remains a separate `Built` gate.
+
+---
+
+## A3-8. References (real-world tasteful code/artifact exhibits)
+
+Per Arian's ask — a concrete visual reference set for the restrained-monochrome-engraved-code target, *before* committing real content. Each: what to borrow, what to avoid. (Cited from how these sites present code on marketing/editorial surfaces; treat as taste anchors, not layouts to copy — the brand thesis is anti-pattern-matching.)
+
+- **Stripe — docs/marketing code panels (stripe.com, docs.stripe.com).** *Borrow:* small, real, runnable-looking fragments treated as first-class objects with generous margin; the code is *the* hero of the panel, not decoration. *Avoid:* Stripe's signature multi-language tabbed panel and its colored syntax — our target is monochrome and single-fragment; no tabs, no rainbow tokens, no live-editable feel.
+- **Vercel — `vercel.com` snippet blocks.** *Borrow:* the dark, ultra-restrained mono panel with a single quiet filetype/label and a copy affordance that recedes; the "engraved" calm. *Avoid:* the elevated/floating card with shadow and the occasional gradient frame — ours is recessed (`--surface`, no shadow), and we suppress the copy button (`hideCopy`) so no widget chrome reads.
+- **Resend — `resend.com` hero code sample.** *Borrow:* one tiny, real send-an-email fragment as the literal proof of "this is what using us looks like" — exactly our "they actually ship this" intent, achieved with a handful of lines. *Avoid:* the bright accent-on-keyword syntax coloring — we keep accent never-at-rest and emphasis via weight/opacity only.
+- **Fly.io — `fly.io` config/CLI fragments in editorial flow.** *Borrow:* config and command fragments set as plain monospaced objects inside prose, reading as an engineer's notebook rather than a product screenshot; high realness, low chrome. *Avoid:* terminal-window chrome (traffic-light dots, title bars) dressing the code as a screenshot — the spec bans decorative terminal/browser chrome outright; ours is a clean recessed `<figure>`, no faux-window.
+
+**The shared anti-pattern all four guard against (and our hard floor):** the **IDE-screenshot / dev-tool-landing-page read** — colored syntax, a faux editor or terminal window, a wall of code, a blinking cursor, line numbers as decoration. Our artifact is the opposite: one small real fragment, monochrome, on a recessed inline surface, in the page's own hairline/mono hand, copy suppressed, static — engraved code, not a code editor.
+
+---
+
+**Assumptions** (A2 base recipe — superseded by §A3-0 above; retained for the unchanged beats' provenance):
+
+- **A1 — Compose to the Approved content draft (v3.0), not placeholders.** Its copy and lengths drive density: the 3 disciplines at ~18–20 words; the deficit mark = `95%` + a ~16-word label + the mono caption `MIT NANDA, The GenAI Divide, 2025`; the 4×3 comparison with sentence cells; the Convert heading + one-line restate. No `Draft:` copy is authored here. (Content draft is In review, not yet Approved — this composition can reach `Approved` independently; the engineer does not `Build` any beat on unapproved copy, per PM DoD.)
+- **A2 — The Why-us recessed surface is a SITE-SIDE `--surface-section` wrapper, not a DS `Section surface` prop.** Confirmed against the DS: `Section` has **no `surface` prop**; only `CTASection`, `StatsSection` (`fill`), `NewsletterSection` (`surface`), and `Pull`'s host `Section` (`tone="section"`) expose `--surface-section`. The Why-us beat is a `Section` (not a CTA), so its band is a thin site-side full-bleed wrapper applying `--surface-section`. This is fine for one page (A2 §21). Awareness-only DS flag in §6.
+- **A3 — The deficit figure is MIT NANDA 95% (content draft §A2/§6 audit, recommended).** The mark + caption render only if `comparison.metric` is present and complete (binding citation, spec §5/§8). If Arian picks the Gartner-85% parity fallback (content §5), the composition is byte-identical — only the value/label/caption strings change. If `metric` is omitted entirely, the mark does not render and the exhibit is the table alone (the recipe degrades cleanly — §4 Beat 4).
+- **A4 — Reuse the shipped `ScrollReveal` island as-is.** The four-beat reveal grammar drops to **three** below-hero beats (Statement, Disciplines, Why us); Convert stays static (terminus). The island, its CSS gate, and its reduced-motion no-op are already built and correct (`ScrollReveal.tsx` + `site.css` §scroll-reveal) — no change beyond removing the Method usage.
+- **A5 — NO feather colophon.** The prior recipe shipped a `sigil` feather above the StatusBadge. A2 §12.A2 removed it at Arian's request. This revision specifies the Hero right column is "The Signal" glyph ONLY; the feather instruction is retired. (If the live `HomeHero.tsx` still renders a feather, removing it is the engineer's lane — flagged §7 OQ-3.)
+- **A6 — The shipped mobile comparison degradation (dimension-first, self-labelled cells) is the contract, not the prior "four blocks by alternative" wording.** See §4 Beat 4 / §3 mobile — the shipped layout is axe-clean with no horizontal scroll, which is the binding AC; the "by alternative" phrasing in the old recipe is superseded by what actually degrades cleanly in pure CSS.
 
 ---
 
 ## 1. Intent
 
-**[Revised — see additions below.]**
-
-`/` should feel like opening a well-set table before the meal. The reader's eye lands on one tagline rendered in Instrument Serif at the page's display scale, registers the available-status dot pulsing quietly above it, scans a three-sentence lede whose last clause is a hand-off, and either follows the hand-off or starts a conversation — both paths converge on `pouk.ai` being a present, available operator. Density is deliberately low: a single Hero block, generous breathing room above and below, a hairline footer line. The brand earns trust by *not* doing more. If the visitor scrolls past the Hero, they hit the SiteShell footer — that's the page's full length. Any urge to add a section is a brand violation, not a feature.
-
-**[Added 2026-05-17.]** The page now carries a Pouākai engraving — wings spread, mid-flight — as a quiet figurative companion to the Hero text. The title sits at an *intimate* density (smaller than the DS display scale, still primary in the visual hierarchy), and the page-vertical padding is reduced so the SiteShell footer settles within 120px of the fold at 1440×900. Restraint is still the credential; the bird is present, not performing. The reader registers the bird as "this brand chose to draw this" — a single editorial moment per page — rather than as imagery. A returning visitor who saw the wireframe-feeling launch version should now read the page as finished. A first-time visitor who clicks through from a LinkedIn post should not pattern-match the page to "another Astro starter with good typography."
-
-**[Revised 2026-06-15 — destination.]** The doorway framing above (one Hero, footer at the fold, "any urge to add a section is a brand violation") is **superseded for the destination** by `home-amendment-destination.md`. The page is now a place a visitor can read top-to-bottom and leave converted — not only a hand-off to `/why-ai`. The *felt* arc is **present → assert → justify → convert**, in four beats with deliberate air between them: the display Hero announces (unchanged); a single italic-serif `Statement`, set on the bare canvas just below the Hero, says the one thing the brand most wants believed; a short "Why pouk.ai, specifically" preview gives the still-undecided reader one honest reason before any ask; then the page *lands* on a recessed closing band — the one moment of surface depth on the entire page — that restates availability and offers both conversion paths. The reader should feel the page get *more finished*, never more salesy. Density stays deliberately low: the strike is the *interval* between a 60px serif Hero and a 28–44px italic Statement, then the one recessed band at the close — not a stack of marketing modules. The returning-visitor fast read is preserved (Hero + status answer "alive and shipping" in the first screen, exactly as the doorway did); the scroll is a reward, not a tax. The line this composition must not cross is the §3 failure mode — "the doorway became a generic SaaS landing page." Restraint is still the credential; the destination is the brand's confident *front room*, not a feature grid with a logo wall.
+`/` should still read like a senior engineer's commit message: spare, exact, every line load-bearing (direction §0). The reader lands on the display-scale serif tagline beside "The Signal" glyph, registers "alive, reachable, ships," and is rewarded for scrolling with a short confident argument that is now **shorter and sharper** than the 6-beat version: *here is the conviction, here is the substance, here is the honest evidence* — landing on a calm conversion. The felt arc is **announce → assert → what we do → why us → convert** — five beats. The biggest composition change from the 6-beat page is the **gravitational center has moved**: with the Method beat gone, the page's two strongest visual moments are the Hero glyph (top) and the **Why-us exhibit** (lower third) — the one number, the one deficit mark, the framed comparison, recessed onto its own band. That exhibit is where I spend the most weight; it must land as a *framed quantitative exhibit*, not as another text block on a slightly different background (A2 §15). The honest tension A2 names is the soft middle — Statement and Disciplines are now two rests in a row — so I **spend the Disciplines-weight lever**: Beat 3 carries mono-numeral hairline structure and larger discipline names to read as a *composed* beat, not a plain 3-up, bridging the gap the Method left. Density stays deliberately low; the strike is the `--space-16` (64px) interval between beats and the two recessed bands breaking the all-`--bg` monotony, never the quantity of sections. The line this page must not cross is unchanged — spec §3 "it became a generic SaaS landing page," and the new live instance of the anti-slop floor: a fabricated number. The deficit figure is real and cited or the mark does not ship.
 
 ---
 
 ## 2. Section-by-section composition
 
-**[Revised 2026-06-15 — destination.]** The governing spec's §5 IA (the locked render contract) lists six regions in order: `SiteShell` chrome → `Hero` (display doorway) → `Statement` (conviction) → "Why pouk.ai" differentiation preview → Closing conversion section → `SiteShell` footer. **The order in this document IS the render order.** Sections 1 and 2 (SiteShell + Hero) carry forward from the prior revisions unchanged; Sections 3, 4, 5 are new; the old "Section 3 — End (no further sections)" terminator is retired and replaced by the destination's closing section + footer.
+The governing spec's §4 IA lists, in render order: `SiteShell` chrome → **Hero (ANNOUNCE)** → **Statement (ASSERT)** → **What we do (DISCIPLINES)** → **Why us (DEFICIT MARK + COMPARISON)** → **Convert (EXIT)** → `SiteShell` footer. **The order in this document IS the render order.**
 
-### Section 1 — `SiteShell` (page chrome)
+### Section 0 — `SiteShell` (page chrome) — UNCHANGED
 
-**[Ratified — no delta. Carries forward verbatim from 2026-05-16.]**
+- **DS primitive(s)**: `<SiteShell>` (organism) via `BaseLayout.astro` (the live wiring; `currentRoute="/"` is passed through). Provides nav (funnel order, D-13) + hairline footer.
+- **Props (substantive)**: `currentRoute="/"`; routes `[Why AI, Roles, Principles]` in funnel order; footer line `© <year> pouk.ai · hello@pouk.ai` (the `hello@pouk.ai` substring a `mailto:`). Unchanged from the live build.
+- **Layout / spacing**: `<SiteShell>` owns its chrome (`--page-pad`, Wordmark per ADR-0008). The content wrapper is `.site-page` (`max-width: --content-max` 64rem; `padding-block: --space-12` 48px). No DS token overridden.
+- **Motion**: None at shell level. Nav/footer link hover uses DS `--easing-link` / `--dur-mid` internally.
+- **Content slot**: Nav route list + footer line (site substance, authorized).
+- **Brand notes**: Nav wordmark is **always** `SiteShell`'s own `<Wordmark>`, never a string and never a second instance. Footer `mailto:` is the standing-reachability appearance (one of three deliberate email appearances — Hero CTA, Convert, footer; a dedup refactor must not collapse them).
 
-- **DS primitive(s)**: `<SiteShell>` (organism) from `@poukai-inc/ui`. Wrapped in the site repo by `ShellWrapper.tsx` *only* because passing JSX as a prop from an `.astro` file across the React boundary breaks esbuild's TypeScript parse of the `.astro` template (see `ShellWrapper.tsx` header comment). `ShellWrapper.tsx` adds zero visual structure — it is a substance carrier, not a composition layer. The DS contract still flows directly: `currentRoute`, `routes[]`, `footer` slot.
-- **Props (substantive)**:
-  ```
-  <SiteShell
-    currentRoute="/"
-    routes={[
-      { href: "/why-ai",     label: "Why AI" },
-      { href: "/roles",      label: "Roles" },
-      { href: "/principles", label: "Principles" },
-    ]}                                        // funnel order per D-13
-    footer={<p>© <year> pouk.ai · <a href="mailto:hello@pouk.ai">hello@pouk.ai</a></p>}
-  >
-    {/* Hero block — Section 2 below */}
-  </SiteShell>
-  ```
-- **Layout / spacing**: `<SiteShell>` owns its own header/footer chrome internally. The DS handles `--page-pad` on the outer edge, the wordmark height (`56` per ADR-0008), and the nav gap (`--space-6` per DS internal). The site repo does not override any `<SiteShell>` token. The page-content wrapper between header and footer is `.site-page` in `site.css`, which applies `max-width: var(--content-max)` (64rem) and `padding-block: var(--space-12)` (48px top and bottom — **revised — see §3**).
-- **Motion**: None at the SiteShell level. Wordmark and nav links are static. Link hover uses the DS's `--easing-link` internally; no site-side override.
-- **Content slot**: Nav route list is hardcoded in `BaseLayout.astro` (`navRoutes` const). The footer line is hardcoded in `ShellWrapper.tsx`. Neither is JSON-driven; both are site substance that the spec authorizes.
+### Beat 1 — Hero — ANNOUNCE — UNCHANGED (glyph stays; NO feather)
+
+The strongest asset on the site, carried forward intact. **No recomposition.** The one change vs. the prior recipe is a removal: the `sigil` feather colophon is gone (A2 §12.A2). The right column is "The Signal" glyph only.
+
+- **DS primitive(s)**: `<Hero size="display" entrance="stagger">` (molecule) carrying: `<StatusBadge status="available">` in the `status` slot; two `<Button asChild size="md">` wrapping `<a>` (mailto primary + booking secondary); an inline `<a href="/why-ai">` as the D-11 lede hand-off; the site-side "The Signal" SVG glyph (`aria-hidden`, with its OBSERVE→…→SHIP labels, `pipeline · 5 stages` caption, and CSS signal-pulse). Wrapped site-side by `HomeHero.tsx`. **All copy + the glyph are byte-identical to the live build — reproduced nowhere here; the binding source is `home.json` + `HomeHero.tsx` + `HomeHeroIllustration.tsx`.**
+- **Props (substantive)**: `size="display"`, `entrance="stagger"`; status = `<StatusBadge status="available">Currently taking conversations for Q3.</StatusBadge>` (D-12, byte-identical, ≤10 words — **no feather sibling node**); title = the single `<h1>` with italic `AI`; lede = sentences 1–2 + the `Here's why →` `/why-ai` hand-off (D-11); cta = mailto primary + booking secondary (`Or grab a time →`). The Hero illustration/right-column slot carries "The Signal" glyph, unchanged.
+- **Layout / spacing**: Internal Hero rhythm (status → title → lede → cta) is **DS-owned**. Gap from the Hero block into Beat 2 (Statement): **`--space-16` (64px)** via `.home-statement-gap` (already shipped) — a full breath so the Statement reads as a turn, not a Hero subtitle.
+- **Motion**: `entrance="stagger"` (the page's one entrance event, CSS-only, DS-gated by reduced-motion). `StatusBadge status="available"` triggers the DS pulse automatically — **do not add CSS animation on top** (DS rule). "The Signal" glyph keeps its existing CSS signal-pulse (the one ambient "heartbeat"). No site-side motion override anywhere in the Hero.
+- **Content slot**: `home.json` `hero` block + the two site-side SVG assets. Unchanged.
 - **Brand notes**:
-  - The wordmark in the nav is **always rendered by `<SiteShell>` via `<Wordmark>`**, never a string literal. The site does not author or import a replica `<Wordmark>` anywhere. Closes R29.
-  - The footer carries the email link verbatim (`mailto:hello@pouk.ai`). This is the **second** appearance of the email on the page (the first is the Hero CTA — see Section 2). This duplication is deliberate. See §3 for the rationale. Closes R13.
-  - `<SiteShell>` is rendered as static HTML at build time. No `client:*` directive. Closes R30 (partial — see Section 2).
+  - **The glyph is the page's SOLE pipeline statement** (A2 §14). The prior recipe's "glyph rhymes with the Method section" continuity obligation is **retired** — there is no Method section to rhyme with. The glyph simply states the pipeline; that is enough.
+  - **No feather colophon, no eagle anywhere on the page** (A2 §12.A2; D-17). The Hero right column is "The Signal" glyph only. If the live Hero still renders the feather, its removal is the engineer's lane (§7 OQ-3).
+  - One `<Hero>`, one `<h1>`, one `<StatusBadge>`. `Button` labels sentence-case. Two actions only. The mailto address is the CTA label.
 
-### Section 2 — `Hero` (the doorway) **[Revised — most of the work]**
+### Beat 2 — Statement — ASSERT — UNCHANGED
 
-- **DS primitive(s)**: `<Hero>` (molecule), with three DS atoms and one decorative SVG slotted into it:
-  - `<StatusBadge>` in the `status` slot.
-  - A `<Button asChild size="sm"><a>…</a></Button>` (DS atom `<Button>` with the **`size="sm"` prop revised in**) in the `cta` slot.
-  - An inline `<a>` (not a DS primitive — plain HTML anchor) embedded in the `lede` prose as the D-11 hand-off. See "Brand notes" for why this is correct.
-  - **[New 2026-05-17]** An inline decorative `<svg aria-hidden="true">` (or `<img aria-hidden="true">` if raster) in the new DS-gap **`illustration`** slot. The asset is the Pouākai engraving — see "Illustration asset" below.
-  - **[New 2026-05-17]** `<Hero>` is invoked with `size="intimate"` (DS-gap prop — see §6.1). This swaps the title clamp from `--fs-tagline` (36–68px) to the new `--fs-tagline-intimate` token (DS-defined; recommended range `clamp(2rem, 1.25rem + 2.5vw, 3.25rem)` — 32–52px). Site does not author the token; DS owns it.
-  Wrapped in the site repo by `HomeHero.tsx` for the same React-boundary reason as `ShellWrapper.tsx`. `HomeHero.tsx` adds zero shape — it assembles substance into DS slots.
+The page's one raised-voice beat: the single conviction at editorial scale, said once. Carried forward verbatim. It now sits **directly before What we do** (no Method between) — a tighter hinge.
+
+- **DS primitive(s)**: `<Statement hairline={false}>` (molecule) via `HomeStatement.tsx` (live). The **only** `Statement` on the page (DS rule). Emits **no heading element** (`--fs-statement` 28–44px, italic Instrument Serif, `text-wrap: balance`) — does not disturb the h1→h2 hierarchy.
+- **Props (substantive)**: `statement={<>{statement.text}</>}`, `hairline={false}` (no top rule; the bare-canvas turn is editorial, not a divider), `as="p"` default (the brand's own assertion, not an attributed quote). No `supporting` (single conviction line). Unchanged.
+- **Layout / spacing**: On `--bg`, **no band**. Wrapped in `.home-statement-gap` (`padding-block: --space-16`, 64px — shipped) so the conviction sits in symmetric breathing room on both sides. `hairline={false}` deliberately: a top rule would start building the "module stack" the §3 failure mode warns against.
+- **Motion**: **Scroll-reveal — single fade + 8–12px rise, once, `--dur-slow` (600ms), `--easing`**, whole unit (no per-child stagger). Via the shipped `<ScrollReveal client:visible>` island. Collapses fully under `prefers-reduced-motion`. (This is the first of the **three** below-hero reveals — was four; the Method usage is removed.)
+- **Content slot**: `home.json` `statement.text`. ~10 words, 1–2 balanced lines.
+- **Brand notes**: Do **not** stack a `Pull` on the same surface (DS anti-pattern: "Do NOT stack Pull with Statement on the same surface"). The page carries no `Pull` (unless the Beat 4 fallback is taken — and that `Pull` sits on the recessed Why-us band, not adjacent to the Statement, so the anti-pattern is not tripped). The Statement is the page's only editorial-scale line between the Hero `<h1>` and body type — that uniqueness is what makes it read as conviction.
+
+### Beat 3 — What we do — THE DISCIPLINES (`<h2>` #1) — LEVER SPENT
+
+The three deliverables made concrete and scannable: builds / automations / advisory. **Composed as the disciplined transparent 3-up `FeatureGrid` — carried from the shipped `HomeDisciplines.tsx`, with the Disciplines-weight lever now SPENT** (A2 §15 / spec §4 note). This is the soft-middle decision: I am spending it.
+
+**Decision + rationale.** With Method gone, Statement→Disciplines are two rests in a row — a genuine sag risk (A2 §22). The lever (composition-only, no new vocabulary): give Disciplines **more typographic presence** so it reads as a *composed* beat rather than a plain 3-up. I keep the transparent, icon-less `FeatureGrid columns={3}` (the anti-slop guardrail and the shipped vehicle are both right) and add **hairline + mono-numeral structure**: a mono ordinal prefix per discipline (`01 / 02 / 03`) in the `--font-mono` reference register, and the discipline name at a larger editorial size, optionally separated by a `--hairline` rule per column. This echoes the Hero glyph's mono caption register (the brand's "reference / label / system" tissue, direction §6) **without** introducing any new illustration — it is type and a hairline, nothing more. The mono numeral is a typographic character, not an icon (the icon slot stays omitted). This is the same lever the spec authorizes and the same register the (now-removed) Method beat used — so the visual idea isn't lost, it migrates up into Disciplines.
+
+- **DS primitive(s)**: `<FeatureGrid columns={3}>` (organism — wraps `Section`, carries the first `<h2>`) + three `<FeatureCard variant="default">` (transparent, no icon), via `HomeDisciplines.tsx`. The mono ordinal + the larger name treatment + the optional column hairline are **site-side CSS** on the rendered card (a className), using published tokens only (`--font-mono`, `--fs-*`, `--hairline`) — no new token, no DS override of `FeatureCard`'s internals.
 - **Props (substantive)**:
   ```
-  <Hero
-    size="intimate"                            // DS-gap §6.1 — new prop, default "display"
-    illustration={<PouakaiEngraving />}        // DS-gap §6.2 — new slot, ReactNode, decorative
-    status={
-      <StatusBadge status="available">
-        Currently taking conversations for Q3.
-      </StatusBadge>
-    }
-    title={<>Technical consulting for teams shipping with <em>AI</em>.</>}
-    lede={
-      <>
-        pouk.ai builds custom AI systems, automations, and advisory
-        engagements for operators who'd rather ship than speculate.
-        Named for Pouākai — the largest eagle that ever flew, hunting
-        by stooping from height. Most AI projects fail to deliver.{" "}
-        <a href="/why-ai">Here's why →</a>
-      </>
-    }
-    cta={
-      <Button asChild size="sm">                {/* revised — was default size="md" */}
-        <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
-      </Button>
-    }
-    // align prop: NOT set — DS default. Spec §4 implies a centered-doorway
-    // posture, but the shipped page leaves alignment to the DS default and
-    // visual-parity passed against pre-cutover index.html. Do not add align="center"
-    // unless re-validating against the parity matrix.
-  />
+  <FeatureGrid columns={3} heading="What we do" size="default">
+    <FeatureCard variant="default" titleAs="h3"
+      title="Custom AI builds"
+      body="We build the AI system your problem actually needs, wired into the tools and data you already run on." />
+    <FeatureCard variant="default" titleAs="h3"
+      title="Automations"
+      body="We turn the manual, repeated work between your systems into something that runs without a person in the loop." />
+    <FeatureCard variant="default" titleAs="h3"
+      title="Advisory"
+      body="We help you decide what to build, what to skip, and where AI is the wrong tool, before you spend on it." />
+  </FeatureGrid>
   ```
+  - **The lever (site-side CSS, no DS change):** a mono ordinal (`01 · / 02 · / 03 ·`) rendered above or inline-leading each `title`, `--font-mono` `--fs-meta`/`--fs-micro`, `--fg-muted` — the same register as the shipped `.home-method-stage__label`. The `title` itself is sized up one editorial rung within `FeatureCard`'s allowance (a site className on the card; the DS `FeatureCard` title is the consumer's content). An optional `--hairline` left/top rule per column adds the "hairline structure" the lever calls for. **Constraint:** the ordinal must be `aria-hidden` (decorative) or composed so it doesn't pollute the `<h3>` accessible name — recommend a decorative `<span aria-hidden>` sibling, not inside the `<h3>` text. (Engineer's structural call; both satisfy a11y.)
+- **Layout / spacing**: On `--bg`, **no band**. `FeatureGrid columns={3}` = `minmax(16rem, 1fr)` columns, **collapses to one column on mobile via `auto-fit`** (DS-owned, no site media query). `size="default"` block padding `--space-16`. The three bodies run ~18 / ~19 / ~20 words — structurally parallel single sentences; the ~1-line variance at card width is acceptable, hold all three (content §6 Flag 1; I concur).
+- **Motion**: **Scroll-reveal — same fade + 8–12px rise, once, `--dur-slow`, `--easing`, whole grid as one unit** (no per-card stagger — spec §8 AC). Via the shipped island. Collapses under reduced-motion. The mono ordinals and hairlines are static (type + rule, no motion).
+- **Content slot**: `home.json` `disciplines` — `heading` + `items[3]` (each `name` + one-sentence `description`; `link` optional, absent on all three today).
+- **Brand notes**:
+  - **Anti-slop guardrail (binding):** transparent variant, **no icons**, no three-word headlines, no gradient/bordered cards. The lever is type and hairline ONLY — adding a mono numeral and bumping the name size does not breach the floor (it is not decoration, it is the brand's mono reference register). Do **not** mix `default` and `bordered` (DS rule).
+  - **The lever is composition-only.** No new illustration vocabulary, no band on this beat, no icons (A2 §15). If review shows the lever pushed Disciplines toward "loud," dial back to the mono numeral alone (drop the column hairline) before anything else.
+  - Fallback if the grid still reads generic even with the lever: `Section` + `MetaList` (a `<dl>` of name→sentence) **or** three `Principle` blocks in an editorial stack. One-section swap; flag at review, do not pre-build (§7 OQ-2).
 
-- **Illustration asset (new 2026-05-17)**:
-  - **Subject**: Pouākai (Haast's eagle), single bird, **in-flight**. Wings spread — soaring or stooping, designer-side recommendation **soaring** (wings extended horizontally rather than drawn back into a stoop) on the home page. Rationale: the lede already says *"hunting by stooping from height"* — so the text describes the stoop. Having the illustration also stoop is doubly-stating. A soaring posture lets the prose carry the kinetic story while the illustration carries the *presence*. The bird looks across the page, not down at the reader. *(If Arian prefers stooping, a single-asset swap; no other clause changes.)*
-  - **Register**: **Engraving / woodcut.** Old-World ornithological-plate adjacent — Audubon, Haeckel, Te Papa Pouākai reconstructions. Single color, black-line on transparent, fine cross-hatching for shading, no decorative flourishes, no ground/sky scenery. The bird and nothing else.
-  - **Posture / facing direction**: **Right-facing** by default — head and beak point right, wings extended into the page's right-hand whitespace. **Reasoning for cross-page reusability**: a right-facing bird sits cleanly to the right of left-aligned Hero text and reads as "the bird looking *into* the page's content flow," which works on `/`, `/roles`, `/principles`, and `/why-ai`. A future per-page composition may flip the asset (`transform: scaleX(-1)` is a site-side prerogative; no DS work) if a particular page's layout calls for left-facing.
-  - **File format**: **Static SVG, single file**. Justification: (a) inline SVG inherits `currentColor` from `--fg` and inverts cleanly when/if dark mode ships; (b) compresses small (target ≤8KB gzip, ≤6KB brotli) — comfortably within PM amendment §4.1's "+25% HTML weight" envelope; (c) re-usable verbatim across `/roles`, `/principles`, `/why-ai` without per-page raster variants; (d) raster (PNG/WebP) would render engraving line-work more *visually faithfully* but blocks `currentColor` inheritance and is harder to optimize cross-page. **Trade-off acknowledged**: AI-generated engraving output is most natively raster (image-gen models produce pixels). The curation step Arian owns includes vectorizing the curated raster (autotrace or hand-vectorize) into clean SVG. If vectorization quality is poor (engraving lines lose their character), fall back to raster — PNG 2x for retina, AVIF/WebP for delivery. **Recommendation: ship SVG.** Re-open as an open question (§7) if vectorization fights the engraving register.
-  - **Color**: Single color, resolves to `--fg` (`#1D1D1F`) via inline `currentColor`. **Never** `--accent`. Never multi-color. The engraving is monochrome by register, not by a styling choice.
-  - **Size**: Long-axis target **~280–360px** on desktop. Vertically centered with the Hero text column. On viewports below `--hero-max` (608px), the illustration **hides** (`display: none` via a CSS media query in site CSS, not via JS). Mobile fallback is the text-only Hero that ships today.
-  - **Placement**: **Right-side companion to the Hero text** (two-column split inside the Hero container). Hero text occupies the left column (~60% of available width, capped at `--hero-max`); the illustration occupies the right column (~40%). This is exactly what the DS-gap §6.2 `illustration` slot is being proposed to deliver. **Alternative considered and rejected**: a background watermark (Option B from the round-1 proposal) would have lower DS dependency, but a watermark cannot carry an engraving register — the register requires the line-work to be legible at near-full opacity, which a watermark by definition isn't. **A second alternative considered and rejected**: tucking a small sigil above the status badge (Option C from round-1) would have shipped without a layout-level DS-gap, but it does not satisfy PM amendment §5's "felt finish" criterion — too small to register as "this brand has imagery now."
-  - **Aria**: `aria-hidden="true"`. The illustration is decorative — it duplicates information the prose already carries (the name Pouākai, the kinetic story). It does not convey state. No `<title>`, no `alt`. Closes PM amendment §4.1 accessibility checkbox.
-  - **Motion**: **Static.** No CSS animation, no SVG `<animate>` element, no hover state, no scroll trigger. The bird does not flap. The bird does not fade in. The `prefers-reduced-motion: reduce` gate is trivially satisfied (no animation to disable). R-079 zero-JS contract is preserved.
-  - **Asset production owner**: Arian, via AI image-generation + manual curation (PM amendment §6 amended owner). The composition does not specify the prompt, the model, the curation passes, or the vectorization tooling — those are Arian's call. The composition does specify the *output shape*: single SVG, right-facing, soaring, engraving register, monochrome `--fg`, ≤8KB gzip.
-  - **Cross-page reusability**: The same SVG file lands at `/roles`, `/principles`, `/why-ai` when those pages' amendments arrive. Each page's successor composition decides placement and whether to flip via CSS `transform`. No per-page raster variants. One asset, one source of truth, ratified here.
+### Beat 4 — Why us — THE CITED DEFICIT MARK + THE HONEST COMPARISON (`<h2>` #2) — THE BIG NEW WORK · recessed band #1
 
+The page's richest below-Hero object and its one quantitative moment. **Recessed onto a `--surface-section` band (band #1 of 2).** Composed as **ONE framed exhibit**: the cited deficit mark at its head, then the honest comparison below it, reading as a single composed object — not two stacked blocks. This is the biggest new composition work in the 5-beat revision.
+
+**The exhibit-as-one-object principle (the core of this beat).** The mark and the table must read as *one exhibit under one `<h2>`*, not as "a stat, then separately a table." Three composition moves enforce that unity:
+1. **Shared frame, shared inset.** The recessed band is the frame. Inside it, the mark and the table share one content column (`--content-max` inner) with a single left edge, so the eye reads top-to-bottom as one exhibit. The mark sits in the band's head region; the table directly below it in the same column.
+2. **One vertical rhythm, tighter than a cross-beat turn.** The mark→table interval is an *intra-exhibit* gap (`--space-8`, 32px), deliberately **smaller** than the `--space-16` cross-beat turns — so the mark and table read as bound, not as two beats. The `<h2>` "Why pouk.ai" → mark gap is the DS Section header gap (`--space-12`); mark → lead-in/table is `--space-8`; table → `/why-ai` link is `--space-6` (the shipped value).
+3. **Argument hand-off.** The mark states the *why* (the deployment gap is real; the gap is integration, not the model); the table answers *what to do about it* (when each option is right). The copy already pays this off (the DIY "The risk" cell restates the mark's cause). The composition reinforces it by keeping them in one frame so the reader experiences number-then-table as a single argument.
+
+**The deficit mark — composition (B.1 vocabulary, single monochrome filled-vs-empty form).** A **site-side inline `<svg currentColor aria-hidden>`** in the established `/why-ai` B.1 vocabulary (`asset-production` §B.1): **one** filled-vs-empty bar where the empty space IS the argument. NOT a chart (no axes, no legend, no gridlines), NOT a dashboard, NOT multiple bars, NOT a count-up. Concretely:
+- **Form**: a single horizontal 100%-track. The inked segment = `currentColor` solid (or dense hatching, B.1's option) representing the *failure* proportion (`95%`); the remainder is hairline outline only (the ~5% that succeeds). The vast inked field against the thin empty sliver is the visceral statement of the gap. (Orientation: the inked majority IS the deficit — 95% fail; compose so the ink reads as "the gap," consistent with B.1 where "the empty space is the argument." If Arian reads the polarity as confusing — ink = bad — the alternate is inking the 5% success sliver against a 95% empty track; recommend ink = the 95% failure, since the figure's headline is the failure. §7 OQ-4.)
+- **The figure**: `95%` rendered as visible text adjacent to / overlaid on the mark, at editorial scale (this is the one number on the page; it renders at its **final value on first paint** — NO count-up, spec §8 AC). The figure is **not** a heading (it is a figure inside the section, not an `<h2>`/`<h3>` — hierarchy AC).
+- **The label**: one line, ~16 words — `of enterprise AI pilots deliver no measurable business impact. The gap is integration, not the model.` (`comparison.metric.label`). Body register.
+- **The micro-caption (the binding citation, VISIBLE)**: `MIT NANDA, The GenAI Divide, 2025` in the **mono register** (`--font-mono`, `--fs-micro`, `--fg-muted`) — visible text directly beneath the mark/figure. **Never a tooltip, never a footnote** (A2 §17; spec §8 AC). The credibility IS the visible caption. This is the same mono "reference" register as the shipped method label and the glyph caption.
+- **Semantics**: the mark + figure + label + caption compose as a `<figure>` with the caption in a `<figcaption>` (recommended) — clean a11y, the figure is decorative-supported-by-real-text. The `95%` and label are real text (screen-reader-read); the SVG bar is `aria-hidden` (the text carries the meaning).
+- **Conditional render (binding):** the entire mark+figure+label+caption block renders **only if `comparison.metric` is present and complete** in `home.json` (value/label/source/year all non-empty). If `metric` is omitted, **nothing renders at the head** and the exhibit is the comparison table alone (spec §5/§8 — "no number, no mark," there is no third state). The recipe degrades to exactly the shipped 6-beat Why-us composition in that case.
+
+**The comparison — carried from the shipped `HomeComparison.tsx`.** The honest four-way comparison (DIY / Agency / In-house / pouk.ai), 3 rows, where pouk.ai does not win every row, as a **site-side semantic `<table>`** with `<th scope="col">` on the alternatives, `<th scope="row">` on the dimensions, and a visually-hidden `<caption>` for axe (`td-headers-attr`, `th-has-data-cells`, `scope-attr-valid`). Ends in the inline `/why-ai` link (the second route; distinct anchor text). **`ComparisonTable` (DS organism) stays rejected** — it is a pricing-matrix shape (sticky header, `featured` tier, short cell values) with no documented mobile stack; the honest sentence comparison is not a pricing matrix. This is resolved and shipped; not re-opened.
+
+- **DS primitive(s)**:
+  - The recessed band: a **site-side full-bleed wrapper** applying `--surface-section` (Section has no `surface` prop — A2). Inside it:
+  - `<Section as="section" title="Why pouk.ai">` (carries `<h2>` #2) wrapping, in order: the site-side deficit `<figure>` (conditional), the `<Text>` lead-in, the site-side semantic `<table>` (`HomeComparison.tsx`), and the inline `/why-ai` `<a>`.
+  - `<Text>` for the lead-in and the link (matching the shipped component).
+- **Props (substantive)**:
+  ```
+  {/* site-side recessed wrapper: full-bleed, background: --surface-section, content inset to --content-max */}
+  <div class="home-whyus-band">
+    <Section as="section" size="default" title="Why pouk.ai">
+      {/* HEAD OF EXHIBIT — conditional on comparison.metric present+complete */}
+      <figure class="home-deficit">
+        <svg aria-hidden="true" /* single filled-vs-empty 100% track, currentColor; 95% inked */ />
+        <p class="home-deficit__value">95%</p>                {/* final value on first paint; NOT a heading */}
+        <p class="home-deficit__label">of enterprise AI pilots deliver no measurable business impact. The gap is integration, not the model.</p>
+        <figcaption class="home-deficit__caption">MIT NANDA, The GenAI Divide, 2025</figcaption>  {/* mono, VISIBLE */}
+      </figure>
+
+      {/* COMPARISON — HomeComparison.tsx body, unchanged */}
+      <Text className="home-comparison-leadin">You have four honest options. Here's when each one is right.</Text>
+      <table class="home-comparison-table"> … 4 cols × 3 rows, scope headers, sr-only caption … </table>
+      <Text className="home-comparison-link"><a href="/why-ai">See when to hire us, and when not to →</a></Text>
+    </Section>
+  </div>
+  ```
+  - **Composition note:** the deficit `<figure>` is a **new site-side block at the head of `HomeComparison`** (or a sibling rendered before it inside the same `Section`). Cleanest: extend `HomeComparison` to accept an optional `metric` prop and render the `<figure>` when present, so the exhibit is one component (one `Section`, one `<h2>`, mark + table together). That keeps the exhibit literally one object in the DOM. (Engineer's structural call; the recipe requires only that they share one `Section`/`<h2>` and read as one exhibit.)
 - **Layout / spacing**:
-  - Internal Hero rhythm — `status → title → lede → cta` — is **owned by `<Hero>` in the DS**. The DS uses `--space-6` (24px, "Hero status-to-title") between status and title, and `--space-8` (32px, "Hero title-to-lede") between title and lede. CTA spacing is DS-internal. The site does not introduce, override, or compensate for any of these. Closes R21.
-  - **[Revised 2026-05-17]** Hero text column width is capped at `--hero-max` (38rem / 608px) by the DS. The illustration column sits adjacent at remaining width (up to a DS-owned cap defined as part of the `illustration` slot — see §6.2). The site does not widen the text column.
-  - **[Revised 2026-05-17]** The vertical space between the Hero block and the SiteShell footer is governed by `.site-page { padding-block: var(--space-12); }` in `site.css` — **48px top and bottom** of the content area (was 64px). This is a page-level composition decision (not a DS internal). It is consistent with the other three routes once each route's amendment lands; PM-side, the change is a universal site-shell rhythm shift. See §3 for math.
-  - **[New 2026-05-17]** Below 720px viewport width, the two-column Hero collapses to a single-column text-only layout (illustration hidden via `display: none` in site CSS). This is a site-side responsive behavior, not a DS prop. Worth being explicit here so a future engineer reading this composition knows the mobile parity target is "today's shipped Hero, unchanged."
-
+  - **The band**: full-bleed `--surface-section`; content inset to `--content-max`. `Section size="default"` supplies `--space-16` block padding inside the band (the air the band needs to read as a framed event, not a thin stripe).
+  - **Intra-exhibit rhythm** (the unity moves above): `<h2>` → figure `--space-12` (DS Section header gap); figure (caption) → lead-in `--space-8`; lead-in → table `--space-6` (shipped); table → link `--space-6` (shipped). The mark→table `--space-8` is deliberately **tighter** than the `--space-16` cross-beat turns so the exhibit reads bound.
+  - Cells use `--fg` on the band; row/column hairlines via `--hairline` (shipped). The cells are short sentences (longest ~13 words) — legible on desktop, compact when stacked.
 - **Motion**:
-  - `<StatusBadge status="available">` triggers an automatic CSS keyframe pulse. **No JS, no `client:*` directive, no inline animation override.** The DS's `:root !important` block in `tokens.css` disables the pulse under `prefers-reduced-motion: reduce`. This composition forbids any site-side animation on top of the badge or on the Hero block. Confirms spec §8 AC.
-  - **[Revised 2026-05-17 — was: "no entrance animation, would be a JS hydration cost"; faulty premise corrected after recall of holding-page motion]** Hero entrance animation is now consumed on `/` via `<Hero entrance="stagger">` from DS 0.8.0 ([poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47) → [PR #48](https://github.com/poukai-inc/poukai-ui/pull/48)). Staggered reveal of status / title / lede / CTA over ~1.05s, CSS-only, R-079 honored. The lockout's old rationale ("would force `client:visible`, breaking R-079") was wrong — the holding page proved the effect is achievable with pure CSS keyframes + `animation-delay` + `animation-fill-mode: both`, zero JS. Intersection-triggered reveal remains locked out (would require IntersectionObserver = JS).
-  - **[New 2026-05-17]** The illustration is **static**. No hover state. No scroll trigger. No CSS animation of any kind. CSS-only positioning. R-079 zero-JS still binds. `prefers-reduced-motion: reduce` is trivially satisfied.
-  - Link hover (the lede-extension `<a>` and the email anchor inside the `<Button>`) uses the DS's `--easing-link` and `--dur-fast` via `<Hero>`-internal and `<Button>`-internal styling. No site-side override.
-
-- **Content slot**: Homepage prose is **hardcoded in `HomeHero.tsx`**, not driven by a JSON file. Per spec §6 ("The homepage is hardcoded prose in the page template — no JSON file"). The tagline, lede, status-line text, and CTA target are all source-of-truth in `HomeHero.tsx`. Treat that file as the home-content surface for any future copy edit. **[Added 2026-05-17]** The illustration asset path (e.g., `src/assets/pouakai-engraving.svg` or equivalent) is imported by `HomeHero.tsx` and passed to the `illustration` prop. The asset file itself is the source of truth for the engraving.
-
+  - **Section scroll-reveal — same fade + 8–12px rise, once, `--dur-slow`, `--easing`, the whole exhibit (mark + table) as ONE unit** (via the shipped island). No per-row, no per-element reveal — the exhibit reveals as one object, reinforcing the "one exhibit" read.
+  - **Optional deficit-mark CSS-only render-time fill** (B.1 technique): the inked segment may grow 0→final width via a render-time `@keyframes`, `--dur-slow` + `--easing`, **on first paint** (not scroll-driven, no JS). It is *inside* the section that scroll-reveals, so the fill plays once as the exhibit settles. **Hard:** NO count-up of the number (renders at `95%` immediately); NO scroll-driven JS on the mark; collapses to the **full static mark at final fill** under `prefers-reduced-motion`. **Recommendation: ship the mark STATIC for v1** (B.1's own recommendation — the spareness of the inked field against the empty sliver lands with no motion; the fill is "add only if it earns it"). The fill is an optional enhancement, Arian's call (§7 OQ-5).
+- **Content slot**: `home.json` `comparison` — `heading` + optional `metric` (value/label/source/year) + `columns[4]` + `rows[3]` + `link`. The honesty audit and the sourced-citation audit (content §6) are Arian-verified.
 - **Brand notes**:
-  - **Status-line text is locked at `"Currently taking conversations for Q3."`** — verbatim from the pre-cutover `public/index.html` per D-12 (parity AC, byte-identical at cutover). The DS's `llms-full.txt` voice example reads `"Taking conversations for Q3."` (without "Currently"); **the engineer's rendered string is the authoritative one on this page**. A future engineer reading the DS docs MUST NOT normalize toward the DS example. D-12 supersedes the DS voice example for this specific surface. Closes R15.
-  - **Lede-extension hand-off renders as `Here's why →` with the literal `→` HTML entity (`&rarr;`)**, not a Lucide `ArrowRight` icon. Ratified as the editorial choice. Rationale: the entity arrow inherits body-font metrics (Geist, `--fs-body` clamp 17–19px) and reads as part of the prose — which is exactly what D-11 demanded ("a single integrated link sentence at the end of the lede, not a tertiary line under the CTA"). A Lucide `ArrowRight` would import as an SVG with a fixed pixel size, introduce a vertical-align fiddle, and visually separate the glyph from the anchor text — re-introducing the "tertiary affordance" feel D-11 explicitly rejected. The trade-off: the entity does not auto-color-invert if we ever ship dark mode, and it cannot animate on hover. Neither trade-off matters at this brand stage; both are revisitable. Closes R12.
-  - **Email link appears twice on the page**: once as the Hero CTA `<Button asChild size="sm"><a href="mailto:hello@pouk.ai">hello@pouk.ai</a></Button>`, and once as the SiteShell footer line `<a href="mailto:hello@pouk.ai">hello@pouk.ai</a>`. The DS rules do not forbid this. It is **deliberate**: the Hero CTA is the conversion path (a button-shaped affordance below the lede); the footer line is the chrome-level signal that the site is reachable on every route. Removing either would change behavior the spec authorizes — the Hero CTA serves spec §5 outcome ("email link must remain the primary conversion path"); the footer line is part of `<SiteShell>`'s standing chrome and appears identically on `/why-ai`, `/roles`, `/principles`. **A future deduplication refactor MUST NOT collapse these two surfaces.** Closes R13.
-  - **[New 2026-05-17] CTA scale**: the Hero CTA `<Button>` now uses `size="sm"` (32px min height per DS contract) rather than the DS default `size="md"` (44px). Rationale: at `<Hero size="intimate">` the title's reduced visual weight makes the default `md` button feel disproportionately heavy in the Hero composition (Arian's observation). Stepping down to `sm` returns the CTA to *proportional* prominence — still the only Button on the page, still the conversion path, still sentence-case verbatim, still default variant. **Spec §5 conversion-path criterion is preserved**: "email link must remain the primary conversion path" is about *presence and accessibility*, not visual weight. The `sm` button is the same affordance; it is just sized to the new Hero density. **Trade-off acknowledged**: at `sm`, the Button's tap target is 32px minimum, comfortably above the WCAG 2.5.5 AAA 44px guidance and meets the 24px AA floor. On mobile where the Hero collapses to single-column, the `sm` button remains usable (Geist label text is `--fs-meta` 14px, which reads cleanly at this size). **No DS-gap needed** — `size` is in the public API at `@poukai-inc/ui@0.6.1`.
-  - **[New 2026-05-17] Title text is unchanged**: `<>Technical consulting for teams shipping with <em>AI</em>.</>` — same 8 words, same italic accent. The softening comes from **scale**, not from a content rewrite. PM amendment §4.2 Lever C (content rewrite) is rejected; Lever A (DS-gap `size`) is chosen.
-  - The `<em>AI</em>` inside the title is preserved verbatim from the pre-cutover `index.html`. Instrument Serif italic on the word "AI" is a tactile editorial accent the DS's `<Hero>` title slot renders correctly because `title` accepts `ReactNode`. Do not strip the `<em>`.
-  - The Hero is **the only `<Hero>` on the page** (DS rule: "One per page. Do NOT nest Hero inside another Hero.") and the `<StatusBadge>` is **the only StatusBadge on the page** (DS rule: max 1 per page). Both confirmed.
-  - The Hero CTA is **the only Button on the page**. Default variant (no `variant="primary"` set). `size="sm"`. One CTA, one conversion path. (DS rule "Maximum one variant='primary' per visual section" — trivially satisfied; the page ships with zero `primary` Buttons.)
-  - **No hydration**: `<HomeHero>` and `<ShellWrapper>` both render as static HTML at build time. No `client:load`, `client:idle`, `client:visible`, or `client:only` directive. The page ships zero React runtime. Closes R30.
+  - **The mark is a single monochrome filled-vs-empty form, NOT a chart** (spec §10; A2 §17). One bar, one figure, one caption. No axes, no legend, no second metric, no dashboard, no multi-bar. Monochrome `currentColor` only — the accent never appears at rest (anti-slop floor).
+  - **Honesty is load-bearing** (spec §3; direction §12 decision 3). pouk.ai does not win every row; do **not** highlight/feature the pouk.ai column (no `featured` styling — one more reason `ComparisonTable` is wrong). The composition must not re-tilt the candor visually.
+  - **Second `/why-ai` route** (first is the Hero D-11 hand-off); distinct anchor text; spec §7 permits two on a longer page. It is a **compression** of `/why-ai`'s vs-alternatives, not a reproduction.
+  - **Lighter fallback (named, not pre-built):** if the mark + 3-row table reads heavy in the band at review, the lever is **keep the mark, drop the comparison's third row to 2** (content §5/§6 Flag 2 — the mark is the new mandated element; the third row is discretionary). Only if even that reads heavy: drop the table to `Section` + `<Pull variant="sans">` lifting the pouk.ai verdict (content §6 Flag 3 copy) — but the `Pull` keeps the mark above it, and sits on the recessed band (not adjacent to the Statement, so the anti-pattern is not tripped). This loses the per-alternative candor, so it is the last resort.
 
-### Section 3 — `Statement` (the conviction beat) **[NEW 2026-06-15 — destination Section 3 / spec §4 §5.3]**
+### Beat 5 — Convert — THE EXIT (`<h2>` #3) — UNCHANGED · recessed band #2
 
-The page's one raised-voice moment. The single felt assertion — *pouk.ai is a technical partner that ships, not an advisor that decks* — stated once, at editorial scale, so the destination reads as **authored**, not as a list. This is the beat the IA lock specifically forbade; re-opening the lock without it would be re-opening it for the weaker additions only (spec RR-3).
+The destination ends on a conversion — restate availability, offer both paths, no scroll-back. **Carries the page's second `--surface-section` band.** Carried from the shipped `HomeClosingCta.tsx` (was Beat 6, now Beat 5; `<h2>` #4 → `<h2>` #3).
 
-- **DS primitive(s)**: `<Statement>` (molecule). One instance — the **only** `Statement` on the page (DS rule: "use sparingly, once per page"; ds-capability §2 #4 — idle everywhere on the site today). Emits **no heading element** (`--fs-statement`, 28–44px, italic Instrument Serif, `line-height 1.2`, `letter-spacing -0.005em`, `text-wrap: balance`) — so it does **not** disturb the page's h1→h2 hierarchy (see §2 heading-hierarchy note and R-026). It is not an `<h2>`; the first `<h2>` on the page is Section 4.
-- **Props (substantive)**:
-  ```
-  <Statement
-    statement={<>…the single conviction line…</>}   // content slot, ~8–14 words — see budget below
-    // supporting:  NOT set. The Statement carries no second line on /.
-    // as:          "p" (default). NOT "blockquote" — this is the brand's own
-    //              assertion, not an attributed external source.
-    // hairline:    false (default). NO top rule — see Layout note for why the
-    //              bare-canvas turn is the right read here, not a banner.
-  />
-  ```
-- **Layout / spacing**: On `--bg` — **no band** (OQ-1 call: the page's one `--surface-section` band is spent at the close, not here; see §3). Rendered inside a thin site-side wrapper (a `<Section as="div" size="tight">` with no eyebrow/title/lede so its empty-header guard fires and it contributes only block padding, OR a bare site `<div>` on the `.site-page` rhythm — engineer's structural call; the DS `Statement` carries no block padding of its own). The interval **above** the Statement is the load-bearing spacing decision: a generous `--space-16` (64px) gap between the Hero block and the Statement so the assertion reads as a *quiet turn after a breath*, not as a subtitle crowding the Hero. Below the Statement, `--space-16` again into Section 4. Header-block / content max-width: the Statement inherits `--content-max` (64rem) via `.site-page`; the line itself wraps via `text-wrap: balance` and reads best at 1–2 lines (the word budget below enforces this). `hairline={false}` deliberately: a top rule would read as a section divider and start building the "module stack" the §3 failure mode warns against; the bare turn keeps it editorial.
-- **Motion**: **None.** The `Statement` is static — no entrance animation, no scroll trigger. The display Hero's `entrance="stagger"` is the page's one entrance moment; adding a second entrance to the Statement would (a) require either DS support the `Statement` molecule does not expose or a site-side scroll trigger (= `IntersectionObserver` = JS, breaking R-079), and (b) dilute the Hero's signature moment. The Statement *arrives by being read*, not by animating. `prefers-reduced-motion`: trivially satisfied (no motion to gate).
-- **Content slot**: **net-new draft, content's lane — anchored to an existing parked candidate.** `statement-beats.md` §5 parked the `/` line for the record under the old IA lock: `Most teams can build now. Few can ship and keep it running.` On RR-3 ratification, content promotes that parked line (or supplies a replacement) from "parked / not for build" to an `Approved` Statement draft. No new conviction is invented — the assertion already lives across the lede and the parked line; this section gives it a home. **Slot budget handed to content: one or two short sentences, target 8–14 words total, ideally landing on 1–2 balanced lines at `--fs-statement` on a 13–14" laptop.** No CTA, no stat, no attribution (the `Statement` discipline, `statement-beats.md` §0).
-- **Brand notes**:
-  - Exactly one `Statement` on the page. It is the page's only editorial-scale line between the Hero `<h1>` and body type — that uniqueness is what makes it read as conviction rather than copy.
-  - Do **not** stack a `Pull` on the same surface (DS anti-pattern: "Do NOT stack Pull with `<Statement>` on the same surface"). The page carries no `Pull`.
-  - If RR-3 had been *declined* (RR-4 fallback), this section would be absent and the conviction would stay lede-carried; RR-3 is ratified, so it ships.
-
-### Section 4 — "Why pouk.ai, specifically" (the differentiation preview) **[NEW 2026-06-15 — destination Section 4 / spec §4 §5.4]**
-
-Closes the PROOF/DIFFERENTIATION gap the whole site is weakest on (sales-content-gaps §1). A visitor who never clicks into the funnel must still get *one* concrete reason pouk.ai beats the alternatives they're silently weighing (DIY, agency, in-house). A **short preview** — two or three lines of honest trade-off framing — that routes into `/why-ai`'s full `vs-alternatives` section and never reproduces it.
-
-- **DS primitive(s)**: `<Section>` (molecule) — structural wrapper, **no visual surface by design** (this is the OQ-1 trade-off: the band is spent at the close, so this section is type-only on `--bg`). It carries the page's **first `<h2>`** (the Hero owns the only `<h1>`; this is the first heading subdivision below it — clean descending hierarchy, R-026, no skipped levels). The body is short prose with an inline link to `/why-ai`. **No `Stat` atoms** (categorical-only on this preview — the cited stats live on `/why-ai`, reproducing them here would risk the "category proof masquerading as pouk.ai proof" confusion, sales-content-gaps §3). **No `FeatureCard`/`FeatureGrid`** — a card grid here is the single fastest route to the "generic SaaS landing page" failure mode (§3); the preview stays prose, which is the brand's editorial register.
-- **Props (substantive)**:
-  ```
-  <Section
-    as="section"                 // region landmark (it has a title → aria-labelledby auto-wired)
-    size="default"               // --space-16 (64px) block padding, top + bottom
-    title="…"                    // the page's first <h2>; ~3–6 words — see budget. titleAs default "h2".
-    // eyebrow:  NOT set. An eyebrow here would add a third type register
-    //           between Statement and body and edge toward the module-stack look.
-    // lede:     NOT set as a Section prop — the differentiation argument IS the
-    //           body, not a sub-lede. Keep the header to title-only.
-  >
-    {/* body: 2–3 short sentences of honest trade-off framing, ending in an
-        inline <a href="/why-ai">…read the full comparison →</a> link.
-        Plain prose, not a DS molecule. The → is the literal &rarr; entity to
-        match the Hero lede hand-off register (see Section 2 brand notes / R12),
-        NOT a Lucide ArrowRight. */}
-  </Section>
-  ```
-- **Layout / spacing**: On `--bg`, no band. `Section size="default"` supplies `--space-16` block padding internally; the cross-section gap into Section 5 is handled by that padding plus the closing `CTASection`'s own frame (see §3 — do not add a manual spacer, and do **not** nest this `Section` inside another `Section`, DS anti-pattern). Header→body gap is DS-owned (`--space-12`). Body prose wraps at the Section header max-width register; keep it to a single short paragraph so it reads as a *preview*, not an essay.
-- **Motion**: **None.** No entrance, no scroll reveal (zero-JS contract; creative §1 — "no scroll-triggered reveals"). Link hover on the `/why-ai` anchor uses the DS `--easing-link` / `--dur-fast` internally. `prefers-reduced-motion`: trivially satisfied.
-- **Content slot**: **net-new draft, content's lane — derived from an existing approved-track draft.** The full candor framing lives in `vs-alternatives.md` (`/why-ai`-bound: the three alternatives with "X is right when / pouk.ai is right when"). This homepage section is a **compression** of that draft's through-line — its §2 closing ("pouk.ai earns its place when the integration is the hard part and the work has to keep running after handoff") — plus the link to read the full honest comparison on `/why-ai`. **Slot budget handed to content: one `<h2>` of ~3–6 words; body of 2–3 sentences, target 30–55 words total, ending in the inline `/why-ai` link.** It must **not** restate the three full `vs-alternatives` beats — that is `/why-ai`'s job (spec §10; AC: "materially shorter than `/why-ai`'s vs-alternatives section and links to it"). The verifier check is length + link presence.
-- **Brand notes**:
-  - This is the page's **first and only `<h2>`** (Section 3's `Statement` emits no heading; Section 5's closing CTA carries the second `<h2>` — see hierarchy note). Two `<h2>`s total on the page, both at the same level, no skipped levels.
-  - One inline `/why-ai` link here is an *additional, lower-weight* route into `/why-ai` alongside the locked D-11 lede hand-off (spec OQ-3: two routes into `/why-ai` on a longer page is fine; D-11 stays the primary, this is secondary). Do not duplicate the D-11 sentence verbatim — this link carries its own "read the full comparison" register.
-  - No card, no grid, no stat, no logo — the preview is prose. If a future revision is tempted toward a 3-up card grid here, that is the §3 failure mode and a spec-level conversation, not a composition tweak.
-
-### Section 5 — Closing conversion section (the destination's exit) **[NEW 2026-06-15 — destination Section 5 / spec §4 §5.5]**
-
-The destination must *end* on a conversion, not trail off. A short closing band that restates availability and offers both conversion paths, so a visitor who read the whole page converts here without scrolling back to the Hero. **This section carries the page's one `--surface-section` band** (OQ-1 call).
-
-- **DS primitive(s)**: `<CTASection surface="recessed">` (organism — the DS's purpose-built "full-width end-of-page conversion band," wraps a `CtaBlock` in a landmark `<section>`). This is the correct vehicle for the page's single recessed band: it is documented as **end-of-page only** ("Do NOT use CTASection mid-page"), which is exactly where it sits, and `surface="recessed"` applies `--surface-section` + a `--hairline` top rule in one move — the band lever from ds-capability §2 #2, deployed once, at the close.
-  - **Considered and rejected: `ContactBlock`.** The DS also ships `ContactBlock` (EmailLink + `StatusBadge` slot + actions), which is tempting for a closing contact moment. **Rejected** because (a) it has a `status` slot designed to carry a `StatusBadge`, and the page's one availability `StatusBadge` is locked in the Hero (DS rule: max 1 availability badge per page) — using `ContactBlock`'s status slot would force a second availability badge or leave the slot conspicuously empty; (b) `ContactBlock` has **no surface-band option**, so it cannot carry the OQ-1 band; (c) `CTASection` is the documented end-of-page conversion organism, `ContactBlock` is a "content-section contact moment." `CTASection` wins on all three.
+- **DS primitive(s)**: `<CTASection surface="recessed">` (organism — the DS's purpose-built end-of-page conversion band; documented end-of-page only — exactly where it sits). `surface="recessed"` applies `--surface-section` + a `--hairline` top rule in one move (confirmed DS snapshot l.1217). Via `HomeClosingCta.tsx`.
+  - **`ContactBlock` stays rejected**: it has a `StatusBadge status` slot (would force a second availability badge — locked to the Hero, DS max 1) and no surface-band option. `CTASection` wins.
 - **Props (substantive)**:
   ```
   <CTASection
-    surface="recessed"                 // → --surface-section band + --hairline top rule.
-                                       //   This is the page's ONE band (OQ-1). Verifier: built-CSS.
-    size="default"                     // --space-16 (64px) block padding — the close gets full air,
-                                       //   not "tight"; it is the page's terminal beat.
-    align="center"                     // DS brand-correct default for end-of-page CTA: bilateral
-                                       //   symmetry signals "this is the conclusion."
-    headingAs="h2"                     // the page's SECOND (and final) <h2>. Same level as Section 4.
-    heading="…"                        // closing line — ~4–8 words. See budget.
-    body={…}                           // optional one-line availability restate — see content note.
-    actions={
-      <>
-        <Button asChild size="md">                        {/* primary — mailto, proportional to display register, matches Hero CTA size */}
-          <a href="mailto:hello@pouk.ai">hello@pouk.ai</a>
-        </Button>
-        <Button asChild variant="secondary" size="md">    {/* secondary — booking, subordinate per contact-flow §8 */}
-          <a href="https://cal.pouk.ai/…">or grab a time →</a>
-        </Button>
-      </>
-    }                                  // exactly TWO actions (DS rule: "Do NOT use more than two actions").
+    surface="recessed"           // --surface-section band + --hairline top rule. Band #2.
+    size="default"               // --space-16 block padding
+    align="center"               // end-of-page brand default
+    headingAs="h2"               // the page's THIRD (and final) <h2>
+    heading="If the hard part is shipping it, let's talk."     // Approved draft; callbacks Statement + Beat 4
+    body={<>Taking on a few engagements this quarter.</>}      // optional one-line availability restate, no new urgency
+    actions={/* mailto primary + booking secondary, both <Button asChild size="md"> */}
   />
   ```
-- **Layout / spacing**: This is the only `--surface-section` band on the page. `CTASection` owns its own frame and block padding (`--space-16` at `size="default"`) — **do not wrap it in a `Section`** (DS anti-pattern: "Do NOT nest inside another Section — CTASection owns its own frame and block padding") and do not add a manual spacer between Section 4 and it. The `--hairline` top rule the recessed surface paints is the *only* divider on the page; it earns its keep precisely because it is singular — it tells the reader "this is the moment to act" without any other section having claimed a band first. The band runs full-width (the recessed surface bleeds to the viewport edge, content constrained to `--content-max` inside).
-- **Motion**: **None.** No entrance, no scroll reveal. The dual CTA is static; `Button` hover/focus uses DS `--dur-fast` / `--easing` internally. The `StatusBadge` pulse does **not** appear here (no second availability badge). `prefers-reduced-motion`: trivially satisfied — no site-added motion.
-- **Content slot**: **mechanism existing (`contact-flow.md`), copy is content's lane.** `contact-flow.md` governs the dual-CTA mechanism (`mailto:` primary + `cal.pouk.ai` secondary, the "or grab a time →" register, contact-flow §6); the CTA labels reuse the Hero's register. The closing `heading` and optional `body` are **net-new but should reuse the existing availability framing** to avoid a second scarcity signal (spec §4 Section 5 recommendation). **Slot budget handed to content: `heading` ~4–8 words (the page's second `<h2>`); optional `body` one short line, ≤12 words, restating availability without a new urgency claim; CTA labels per contact-flow.** No urgency, no scarcity, no countdown (contact-flow §5).
-- **Brand notes**:
-  - This is the **second** appearance of the dual CTA on the page (Hero + close) — deliberate and standard for a scrollable page, mirroring the existing intentional `mailto:` duplication (Hero CTA + footer, R13). It stays one-primary (`mailto:`) / one-secondary (`cal.pouk.ai`); it does **not** stack a third CTA register (spec / contact-flow FS-CF-1).
-  - `mailto:` is the primary affordance here too (visual-weight check per contact-flow §8) — booking is the subordinate secondary. Do not let the booking link out-weigh the email.
-  - This is now the **third** appearance of the email on the page (Hero CTA + this close + the SiteShell footer line). All three are deliberate and serve distinct jobs (conversion / conversion / standing reachability). A future dedup refactor must not collapse them (R13 extended).
-  - No `Stat`, no `Quote`, no scarcity badge, no scheduling embed/iframe — the booking link is a plain `<a href>` (zero-JS; spec AC). No second `StatusBadge`.
-
-### Section 6 — End / `SiteShell` footer **[Revised 2026-06-15 — was "Section 3 — End (no further sections)"]**
-
-The old single-Hero terminator ("No additional sections … adding them is a brand violation") is **retired** by `home-amendment-destination.md` RR-1/RR-2. The page now ends on the closing `CTASection` (Section 5) flowing into the `SiteShell` footer.
-
-- **DS primitive(s)**: None new. The `<SiteShell>` hairline footer (already specified in Section 1) closes the page, exactly as on every other route.
-- **Props (substantive)**: None (footer line is carried by `ShellWrapper`, per Section 1).
-- **Layout / spacing**: No manual spacer between the closing `CTASection` and the footer — the `CTASection` block padding (`--space-16` bottom) plus the footer's own internal padding handle the interval. `.site-page` `padding-block` (`--space-12`) still wraps the page content area between header and footer; the destination sections live inside it.
-- **Motion**: None.
-- **Content slot**: Existing — footer `mailto:` + `cal.pouk.ai` per contact-flow footer tier (Section 1).
-- **Brand notes**:
-  - **The minimum-set discipline is the new lock.** The page renders exactly the §5 IA regions: SiteShell → Hero → Statement → differentiation preview → closing CTA → footer. **No further sections.** Specifically still banned (carried forward from home.md §10 + destination §6): no logo bar / "trusted by" strip, no `Quote`/`TestimonialBlock`/testimonial cards, no carousel, no pricing tiers, no animated stat counter, no `Stat` band, no newsletter signup, no scheduling embed/iframe, no roles preview / role grid, no engagements/ladder preview, no FAQ on `/`, no founder/about preview, no personalization. Adding any of these is a spec-level conversation (a regression toward the §3 failure mode), not a composition revision. The minimum-set test for any future section: *does removing it cost a conversion the funnel can't recover downstream?* (spec §1). Closes R28 for the destination IA.
+- **Layout / spacing**: The **second** `--surface-section` band. `CTASection` owns its own frame + block padding (`--space-16`) — **do not wrap in a `Section`** (DS anti-pattern). See §3 merge-guard for the Why-us→Convert adjacency treatment. Band runs full-bleed; content constrained to `--content-max`. Below into `.site-page` bottom-pad (`--space-12`) → footer.
+- **Motion**: **Scroll-reveal: NONE** (it is the terminus the reader scrolls *to*; revealing it means it's fading in as they arrive at the ask). Static on arrival. `Button` hover/focus uses DS `--dur-fast`/`--easing`. No `StatusBadge` here (no second badge). Collapses trivially under reduced-motion (no site motion to gate).
+- **Content slot**: `home.json` `closingCta` — `heading` + optional `body` + CTA labels/hrefs per `contact-flow.md`.
+- **Brand notes**: Second appearance of the dual CTA (Hero + close), one-primary (mailto) / one-secondary (booking), no third register, no urgency, no scarcity (FS-CF-1). Third deliberate email appearance (Hero CTA + this + footer) — distinct jobs; a dedup refactor must not collapse them. `mailto:` is the primary affordance; booking must not out-weigh it. No `Stat`, `Quote`, scarcity badge, or scheduling embed.
 
 ---
 
-### The 13–14" laptop read — what keeps the destination off the "generic SaaS landing page" line **[NEW 2026-06-15 — the §3 judged criterion]**
+## 3. Cross-section rhythm
 
-The spec's single most important failure mode (§3) is *"the doorway became a generic SaaS landing page."* This is a **judged criterion** — it needs a 13–14" capture (1440×900 and 1440×768) at design review, the same way the raise-the-ceiling display Hero needed one. What keeps this composition on the right side of the line, concretely:
+Top to bottom — five beats inside the `SiteShell` chrome, built from the published `--space-N` scale only, with **two** surface events (the recessed Why-us band + the recessed Convert band).
 
-- **Five regions, not modules.** A generic SaaS landing page reads as a *stack of equal-weight modules* (hero, feature trio, logo strip, testimonial row, stat counters, CTA). This page has one loud beat (Hero), one quiet conviction (Statement), one short prose justification, and one recessed close. No two sections share a visual weight; nothing repeats a pattern.
-- **One band, at the end only.** The single `--surface-section` band sits at the close (OQ-1). Every other section is on the bare `--bg` canvas. A SaaS landing page alternates bands the whole way down to manufacture "depth"; this page earns depth from *type scale and interval*, and spends its one band as a closing signal. The restraint floor (at most one band) is the difference.
-- **No card grid, no stat counters, no logos, no testimonials.** The differentiation preview is *prose with one link*, not a 3-up `FeatureCard` grid — the card grid is the single most SaaS-coded element and it is deliberately absent. No fabricated proof of any kind (categorical-only posture, absolute).
-- **The interval is the strike.** The page's memorable moment is the *interval* between a 60px display serif Hero and a 28–44px italic Statement on a bare canvas — spare and large at once (the Apple/Linear/Stripe register, creative §0). That interval cannot be pattern-matched to a SaaS template, which never leaves that much air between a hero and its next beat.
-- **It reads more finished, not more salesy.** The referrer test (spec §3 Signal): a person who forwarded the doorway link should look at the destination and think "it got *more* finished," never "it got more salesy." The Statement + one honest trade-off line + a quiet recessed close is a *front room*, not a funnel.
+1. `<SiteShell>` header — DS-owned chrome.
+2. `.site-page` content area — `padding-block: --space-12` (48px), wrapping all five beats.
+3. **Hero** (`size="display"`, internal rhythm DS-owned) → **`--space-16`** → **Statement** (on `--bg`, `hairline={false}`) → **`--space-16`** → **What we do** (`FeatureGrid size="default"`, `--space-16` block pad, `<h2>` #1, lever spent) → **`--space-16`** → **[BAND #1] Why us** (site-side `--surface-section` wrapper + `Section size="default"`, the deficit-mark + comparison exhibit, `<h2>` #2) → **`--space-16` air + band boundary** → **[BAND #2] Convert** (`CTASection surface="recessed"`, `<h2>` #3).
+4. `.site-page` bottom-pad (`--space-12`) → `<SiteShell>` hairline footer.
 
-If the 13–14" capture reads as a module stack — if the differentiation preview grows a card grid, if a second band appears, if the Statement reads as a subtitle rather than a turn — the move was applied wrong and the band/section in question is cut before anything else changes.
+**The `--space-16` interval discipline (the strike).** Every cross-beat turn is `--space-16` (64px) — the direction §6 interval that keeps density low even with the new exhibit. The exception is *inside* the Why-us exhibit, where the mark→table interval is deliberately **tighter** (`--space-8`) to bind them as one object (§2 Beat 4). No raw px anywhere; `--space-16`/`--space-12` are the cross-beat tokens; `--space-6`/`--space-8` are intra-section.
 
----
+**The escalation logic (5-beat).** Loud (display Hero + glyph) → quiet turn (Statement, bare canvas) → composed substance (Disciplines, lever-weighted, on `--bg`) → **first surface event: the Why-us exhibit recesses** (the eye re-engages inside a framed band with the page's one number) → **second surface event: the Convert band** (resolve, act). The variety is front-loaded (Hero glyph) and back-loaded (the two bands + the exhibit), with the lever-weighted Disciplines bridging the middle (A2 §15).
 
-## 3. Cross-section rhythm **[Revised 2026-06-15 — destination: five regions, one band, escalation into the close]**
+### Surface rhythm — the two-band floor + merge-guard
 
-The vertical rhythm of `/` as a whole, top to bottom. The page is now five render regions inside the `SiteShell` chrome, not a single Hero. The rhythm is built from the published `--space-N` scale only; the one surface event is the recessed band at the close.
+- **Exactly TWO `--surface-section` bands** (spec §8 AC; A2 §16): Why us (band #1, site-side wrapper) + Convert (band #2, `CTASection surface="recessed"`). Hero, Statement, What we do all on `--bg`. **No third band, ever.**
+- **The two bands are adjacent** in the IA (Why us → Convert) and **must read as two distinct surface events, not one merged slab** (spec §3 failure mode). **The treatment I am specifying (primary):**
+  1. **Full `--space-16` air between them** on `--bg` — i.e. the Why-us band ends, the page returns to `--bg` for a full 64px turn, then the Convert band begins. The two bands do NOT touch; `--bg` shows between them. (This is the single most important separator — the eye sees the canvas return.)
+  2. **The Convert band's own `--hairline` top rule** (`CTASection surface="recessed"` renders it automatically) — a crisp edge announcing "new surface."
+  3. **Distinct content registers** — Why us is a dense framed quantitative + comparison *exhibit*; Convert is a centered, sparse *conversion ask*. Different internal density and `align` (Why-us left-register exhibit vs. Convert `align="center"`) make them read as different kinds of object.
+- **Engineering note for the gap:** the Why-us site-side band wrapper must **not** bleed its `--surface-section` straight into the `CTASection`. The `--space-16` return-to-`--bg` between them is load-bearing — the band wrapper closes, `.site-page` `--bg` shows for the turn, then `CTASection` opens its own band. If the wrapper and the CTASection abut with no `--bg` between, they slab.
+- **Merge-guard / Why-us-only fallback (binding, spec §8 / A2 §16):** if at composition/visual review (13–14" + 375px captures) the two recessed beats still read as one continuous slab despite the three separators above, the fallback is: **Why us KEEPS the band; Convert DROPS to `--bg`** (total then = exactly one band, at Why us). Convert never keeps the band while Why us drops — Why us is the framed exhibit that needs the recess; Convert is fine on `--bg` with its own `--hairline` top rule for the closing edge. **I am specifying the two-band approach as primary, with the Why-us-only drop as the named fallback.** Record which shipped at visual review.
 
-1. `<SiteShell>` header — DS-owned internal padding via `--page-pad` (clamp 1.5rem–3rem horizontal), Wordmark height 56px (ADR-0008), nav inline.
-2. `.site-page` content area — `padding-block: var(--space-12)` (48px top, 48px bottom). Now wraps **all four content regions** (Hero, Statement, preview, closing CTA), not a single `<HomeHero />`.
-3. `<Hero size="display">` internal rhythm — DS-owned: status → `--space-6` → title → `--space-8` → lede → DS-internal → CTA. **At `size="display"` the title clamp is `--fs-tagline` (36–68px)** — the carried-forward raise-the-ceiling register.
-4. **Hero → Statement gap: `--space-16` (64px).** A full breath before the conviction line so it reads as a *turn*, not a Hero subtitle.
-5. `<Statement>` on `--bg` — DS-owned internal type rhythm (`--fs-statement`, no block padding of its own; the gap tokens above/below carry it). `hairline={false}`.
-6. **Statement → differentiation preview gap: `--space-16` (64px).** Symmetric with the gap above the Statement so the conviction sits in equal air on both sides.
-7. `<Section size="default">` (differentiation preview) on `--bg` — DS-owned `--space-16` block padding (top + bottom), header→body `--space-12`. Carries the first `<h2>`.
-8. **Preview → closing CTA gap: handled by the two frames' own block padding** — the `Section`'s `--space-16` bottom + the `CTASection`'s own frame. No manual spacer. This is the **escalation into the close**: the reader leaves the bare-canvas preview and arrives at the page's one recessed surface.
-9. `<CTASection surface="recessed" size="default">` — the page's **one `--surface-section` band**, `--space-16` block padding, `--hairline` top rule. The terminal beat.
-10. `.site-page` bottom padding — `--space-12` (48px) — flows into the `<SiteShell>` hairline footer.
-11. `<SiteShell>` hairline footer — DS-owned internal padding, single `<p>` line.
+### Heading hierarchy (R-026 — no skipped levels)
 
-**The escalation logic.** The page opens loud (display Hero), drops to a quiet large turn (Statement, bare canvas, equal air both sides), settles into the lowest-key beat (prose preview, bare canvas), then *rises* into the one recessed band at the close — the only surface event, signalling "this is the moment to act." The dynamic is **loud → quiet → quietest → recessed-resolve**, not a flat plane and not an alternating-band staircase. The band is held in reserve for exactly one beat (OQ-1).
+- **`<h1>`** — the `<Hero>` title (the only `<h1>`).
+- *(no heading)* — the `<Statement>` emits no heading element.
+- **`<h2>` #1** — What we do (`FeatureGrid` heading → `Section` title).
+- **`<h3>` ×3** — the three discipline card titles (`FeatureCard titleAs="h3"`) under `<h2>` #1. (The lever's mono ordinals are decorative `aria-hidden` spans, NOT headings — they must not pollute the `<h3>` accessible name.)
+- **`<h2>` #2** — Why us (`Section` title). The deficit figure/label/caption are a `<figure>`/`<figcaption>`, **not** headings. The comparison's column/row heads are table semantics (`<th>`), **not** document headings.
+- **`<h2>` #3** — Convert (`CTASection headingAs="h2"`).
 
-### Surface rhythm — the hard restraint floor
+**Exactly one `<h1>` + three `<h2>`s** in DOM order (What we do, Why us, Convert), `<h3>`s only beneath their `<h2>`, no skips. (The 6-beat page's fourth `<h2>` — How we work — is gone.) Verifier: heading-order audit (must count 1×h1 + 3×h2).
 
-- **At most ONE `--surface-section` band on the entire page** (ds-capability §2 #2; spec §6 AC). That band is the closing `CTASection surface="recessed"` (Section 5). **Every other region sits on `--bg`** (`#FBFBFD`): SiteShell chrome, Hero, Statement, differentiation preview. No `--surface`, no `--bg-elevated` is introduced anywhere. The Statement and the preview are explicitly **not** banded (OQ-1) — banding either would either spend the floor early or, if both banded, break the floor outright (a verifier failure).
-- The single band is never adjacent to another band (trivially — there is only one), honoring the DS "never stack `--surface-section` adjacent" rule.
+### Mobile collapse behavior (<`--bp-md` 768px; hard-checked at 375px)
 
-### Heading hierarchy (R-026 — no skipped levels) **[NEW]**
+- **Hero** — DS-owned collapse; `size="display"` `clamp()` floor; stagger CSS-only. "The Signal" glyph reflows per the shipped Hero. (No feather to place — removed.) Dual CTA stacks per DS.
+- **Statement** — single line at all widths; `--fs-statement` `clamp()` + `text-wrap: balance`.
+- **What we do** — `FeatureGrid` **collapses to one column** via `auto-fit` (DS-owned). The lever's mono ordinals + larger names reflow with the stacked cards; the optional column hairline becomes a top hairline per stacked card (site CSS) or drops on mobile — engineer's call (keep it quiet).
+- **Why us** — **the load-bearing mobile case.** (a) The **deficit mark** (single bar + figure + label + caption) is intrinsically narrow-friendly — a horizontal bar scales to full width; the figure, label, and mono caption stack. No horizontal scroll. (b) The **comparison table** reflows via the shipped `site.css` `@media (max-width: 768px)` block to a **dimension-first stacked layout**: `display:block` on table parts, `thead` hidden, each `<td>` self-labels its alternative via `data-col::before`, each row-header acts as a section separator. **NO horizontal scroll.** axe-clean (the `<th scope>`/`<caption>` semantics persist regardless of the visual reflow). **Note (A6):** this shipped degradation is *dimension-first with self-labelled cells*, not the prior recipe's "four blocks grouped by alternative" (pure CSS cannot regroup table rows into column groups without JS — the shipped CSS comments document this). The dimension-first stack satisfies the binding AC (no h-scroll, AA) and is the contract; the "by alternative" wording is superseded.
+- **Convert** — `align="center"` holds; dual-CTA row stacks (DS-owned via `CtaBlock`); recessed band full-bleed; `mailto:` first.
 
-The destination is no longer H1-only (the home.md content-draft Flag 3 "H1-only by design" is superseded by `home-amendment-destination.md` §5). Exactly one `<h1>` and two `<h2>`s, descending cleanly with no skipped levels:
-
-- **`<h1>`** — the `<Hero>` title (the only `<h1>`; one per page, DS rule).
-- *(no heading)* — the `<Statement>` emits **no heading element** (`--fs-statement` is editorial display, not a heading; DS rule "Statement emits no `<h1>`–`<h6>`"). It sits visually between h1 and h2 in scale but carries no level — so it cannot create a skip.
-- **`<h2>` #1** — the "Why pouk.ai, specifically" `Section` title (`titleAs="h2"`, default).
-- **`<h2>` #2** — the closing `CTASection` heading (`headingAs="h2"`). Same level as #1.
-
-No `<h3>` appears (no sub-subdivisions). The order is h1 → (Statement, no level) → h2 → h2. Verifier: heading-outline audit shows exactly one h1, two h2, zero skipped levels.
-
-### Mobile collapse behavior (<768px) **[NEW]**
-
-The destination is single-column everywhere; nothing on the page is a desktop multi-column layout that needs to reflow, so the mobile story is mostly "the same stack, narrower." Per section, below `--bp-md` (768px):
-
-- **Hero** — DS-owned collapse (carried forward). At `size="display"` the title clamp scales down via its `clamp()` floor; the stagger entrance still runs (CSS-only). If the optional feather colophon ships, it stays above the StatusBadge. The dual CTA stacks if needed per the DS Hero's own responsive rules. *(The deferred two-column illustration slot is not consumed in this revision, so there is no two-column → stacked reflow to manage on the Hero.)*
-- **Statement** — single line of running editorial type at all widths; `--fs-statement`'s `clamp()` floor (28px) and `text-wrap: balance` handle narrow viewports. It will wrap to more lines on mobile — that is fine; the word budget keeps it short. No layout change.
-- **Differentiation preview (`Section`)** — single-column prose at all widths; the h2 + body + inline link simply narrow. `--space-16` block padding is preserved (the DS clamps `--page-pad` horizontally). No change.
-- **Closing `CTASection`** — `align="center"` holds on mobile; the dual-CTA `actions` row stacks the two buttons vertically below the DS's button-row breakpoint (DS-owned via `CtaBlock`'s action slot). The recessed `--surface-section` band runs full-bleed on mobile too. `mailto:` stays the primary, on top.
-
-No section introduces a site-side media query beyond what the DS primitives already own; the mobile parity target is "the desktop stack, narrowed, with DS-internal reflow." Verifier: 375px and 768px captures show single-column, no horizontal scroll, the recessed band full-bleed, CTAs stacked with `mailto:` first.
-
-### Math at the two target viewports — destination (informational, NOT a fold gate)
-
-The doorway optimized for "footer at the fold" (the prior revision's §4.3 target). **The destination explicitly retires that target** (spec RR-1 accepted that the page now scrolls): a destination is *meant* to be scrolled, and the conversion is repeated at the close so the fold position of the footer no longer carries conversion weight. The table below is a rough height sketch for the HTML-weight / first-screen sanity check, not a fold gate.
-
-| Region | Approx height @ 1440 wide | Notes |
-|---|---|---|
-| SiteShell header | ~104 | DS chrome. |
-| `.site-page` top-pad | 48 | `--space-12`. |
-| Hero (`size="display"`) | ~420 | `--fs-tagline` 36–68px title; 8-word tagline 1–2 lines; lede ~88px; status ~32px; CTA pair `md` ~44px; DS internal gaps. |
-| gap → Statement | 64 | `--space-16`. |
-| Statement | ~110 | `--fs-statement` 28–44px, 1–2 balanced lines. |
-| gap → preview | 64 | `--space-16`. |
-| Differentiation preview (`Section`) | ~200 | `--space-16` pad top/bottom + h2 + ~3-sentence body. |
-| Closing `CTASection` (recessed band) | ~260 | `--space-16` pad + h2 + optional body + dual CTA row. |
-| `.site-page` bottom-pad | 48 | `--space-12`. |
-| SiteShell footer | ~70 | DS chrome. |
-| **Total** | **~1480** | A ~1.6-screen page at 1440×900. First screen still resolves the Hero + status ("alive and shipping") for the returning-visitor fast read; the rest is the rewarded scroll. |
-
-**First-screen guarantee (returning-visitor path, spec §3 Behavior):** the Hero + `StatusBadge` (~570px of content below a ~104px header) sits comfortably within the first screen at 1440×900 — the returning visitor still gets "alive and shipping in under 20s" without scrolling. The destination does not slow that path; it only rewards the one who keeps going.
-
-**HTML-weight gate (spec §6 AC):** a destination *will* add gzipped weight over the doorway. It must still clear the +25% post-cutover envelope (`meta/decisions/2026-05-17-home-illustration-and-density.md`). The added weight is three short text regions plus one `CTASection` — text and one recessed band, no images, no JS — so the delta is small. If the minimum section set ever breaches the budget, the section set is too large; cut before raising the budget (spec §6). Verifier: `gzip -c built.html | wc -c` on the preview.
-
-Token compliance: every spacing value above resolves to a published DS `--space-N` token (`--space-12`, `--space-16` are the only ones this page uses for cross-section rhythm; `--space-6`/`--space-8` are DS-internal to `Hero`/`Section`/`CTASection`). No raw pixels. **Note on `--space-10`**: the prior revision claimed `--space-10` "does not exist" — that was true of the 0.6.1 scale but is **stale**; `@poukai-inc/ui@2.17.0` publishes `--space-10` (2.5rem / 40px). This composition does not *use* `--space-10`, but the old "gap does not exist" assertion should not be relied on by a future reader. The published scale at 2.17.0 is `--space-1, 2, 3, 4, 6, 8, 10, 12, 16, 24, 32` (no `--space-5/7/9/11/...`).
+No section introduces a site-side media query beyond Beat 4's comparison reflow (shipped) and the Beat 3 lever's optional hairline tidy. Verifier: 375px + 13–14" captures show single-column, **no horizontal scroll on any beat**, both bands full-bleed (or Why-us-only if the merge-guard fallback shipped), the deficit mark legible, CTAs stacked with `mailto:` first.
 
 ---
 
-## 4. Motion choreography (page-level) **[Revised 2026-06-15 — destination: no new motion across the four added beats]**
+## 4. Motion choreography (page-level)
 
-**[Destination motion summary.]** The destination adds **zero new motion.** The page's one entrance moment stays the Hero's `entrance="stagger"` (carried forward); the three sections below it — Statement, differentiation preview, closing `CTASection` — are all **static**. There are **no scroll-triggered reveals** on any of them. This is a deliberate composition decision against the zero-JS contract (R-079, masterplan §4.3; creative §1): a scroll-triggered reveal on the Statement or the preview would require an `IntersectionObserver` (= client JS = a `client:*` directive), breaking the zero-JS posture for marginal payoff, and would also dilute the Hero's signature moment by introducing competing entrances. The destination earns its sense of *arrival* from **type scale, interval, and the one recessed band**, not from motion. The added sections do not change the page's motion budget at all: it remains the Hero stagger (on initial render) + DS-internal link/button hover transitions. Every animation is gated by `prefers-reduced-motion: reduce` via the DS `:root !important` block in `tokens.css`; there is no exception and the composition adds no `@media (prefers-reduced-motion)` rule of its own.
+D-25 permits client JS, hydration, and scroll-triggered motion. The page carries one quiet scroll-reveal grammar (now on **three** below-hero beats, down from four) plus the carried-forward Hero motion plus one optional CSS-only mark fill. Every animation gates on `prefers-reduced-motion: reduce` via the DS `:root !important` block AND the site `ScrollReveal` gate (HARD, D-25); **no exception**.
 
-The page ships zero JavaScript and one CSS-only animation:
+**Fires on initial render:**
+- **Hero `entrance="stagger"`** — status / title / lede / cta reveal top-down, CSS keyframes (DS-owned). Carried forward. The page's one entrance event.
+- **"The Signal" glyph CSS signal-pulse** — DS/site-owned, the page's one ambient "heartbeat." Do not add CSS on top of the `StatusBadge` pulse (DS rule). (No feather to be static — removed.)
+- **Optional: the deficit-mark CSS-only fill** — the inked bar grows 0→final on first paint, `--dur-slow` + `--easing`, no JS, gated by reduced-motion → full static fill. **Default: ship static** (B.1 recommendation; §7 OQ-5). NO count-up of `95%` (renders final on first paint).
 
-- **`<StatusBadge status="available">` pulse** — DS-owned, runs on initial render, indefinite. Disabled under `prefers-reduced-motion: reduce` via the DS's `:root !important` block in `tokens.css`. No site-side override. No JS trigger. No way for a hydration directive to influence it.
-- **Link hover transitions** — DS-owned, run on `:hover` / `:focus-visible`. Uses `--dur-fast` (180ms) and `--easing-link`. Applies to (a) nav links in `<SiteShell>`, (b) the lede-extension `<a href="/why-ai">`, (c) the Hero CTA's `<Button asChild><a>` underline, (d) the footer email link. All four are DS-internal styles; the site does not author transitions. Disabled under `prefers-reduced-motion: reduce`.
-- **[New 2026-05-17] Illustration motion**: **none**. The Pouākai engraving is fully static. No CSS keyframes, no SVG `<animate>` elements, no `transform` on hover, no scroll-driven transform, no opacity transition on intersection, no parallax. The CSS is positional only (Flexbox or Grid for the two-column layout, `display: none` below 720px). **`prefers-reduced-motion: reduce` is trivially satisfied** — no motion to gate. Any future urge to animate the bird (a wing-flap, a slow drift, a fade-in on load) is a separate composition revision and must clear the R-079 zero-JS contract and the DS's `:root !important` motion gate. The default for this revision is locked at **static**.
+**Fires on scroll (the one grammar):**
+- **A single consistent quiet reveal on exactly THREE beats — Statement, What we do, Why us.** Each reveals **once**, as **one unit** (no staggered children, no per-row/per-card/per-element sequence), fade + 8–12px rise, `--dur-slow` (600ms), `--easing`. Via the shipped `ScrollReveal` `client:visible` island (one component, three usages). The **Why-us exhibit reveals as one object** (mark + table together) — this is what makes it land as one exhibit, not two blocks. The Convert band does **not** reveal (terminus). No parallax, no count-ups, no horizontal-scroll, no hover-move beyond DS-native affordances, no draw-on of the glyph.
 
-- **[New 2026-06-15] Statement / differentiation preview / closing CTASection motion**: **none.** All three added sections are fully static — no entrance animation, no scroll-triggered reveal, no hover-driven layout shift. Their only motion is the DS-internal link/button hover transition (the `/why-ai` link in the preview; the dual-CTA buttons in the close), which uses `--dur-fast` / `--easing` and is gated by reduced-motion at the DS layer. The closing section does **not** carry a `StatusBadge`, so it adds no pulse.
+**Mechanism.** Unchanged from the shipped build: the `ScrollReveal` island toggles `data-revealed`; the fade+rise is CSS reading `--dur-slow` + `--easing` from `site.css`; the pre-reveal state is a no-op under reduced-motion (content visible, not hidden-awaiting-JS). The deficit-mark fill, if enabled, is a separate render-time `@keyframes` on the bar's inked segment (no scroll trigger, no JS).
 
-**Fires on scroll**: nothing. There is no scroll-triggered reveal, no intersection observer, no parallax, no scroll-spy — on any of the five regions. The destination is **meant to be scrolled** (it is no longer a single-screen page; see §3 height sketch), but the scroll reward is *content and the recessed band at the close*, not motion. A scroll-triggered animation on the Statement or preview would force `client:visible` (= `IntersectionObserver` = JS), breaking R-079 for marginal payoff, and would compete with the reader.
+**`prefers-reduced-motion: reduce` behavior (HARD).** Every motion collapses to the **fully static, fully legible page**: Hero stagger off, glyph pulse off, the three scroll-reveals present-on-load, the deficit mark at full fill, `95%` at final value, both bands present, nothing animating. The site reveal's reduced-motion branch is "render visible, do nothing" (shipped `ScrollReveal` + the `@media (prefers-reduced-motion)` `!important` collapse in `site.css`). The deficit-fill `@keyframes` must be wrapped in the same reduced-motion guard. **No exception.**
 
-**Fires on initial render**: the StatusBadge pulse (CSS keyframes, JS-free) and the Hero `entrance="stagger"`. Nothing else.
-
-**Fires never (locked out by this composition)**: scroll-triggered reveal on any section, parallax, scroll-spy, marquee on the status line, illustration animation of any kind, entrance animation on the Statement / preview / closing CTA, any animation tied to `IntersectionObserver`. All of these would require a `client:*` directive and would violate the spec's "zero client-side JS shipped on `/`" AC and masterplan §4.3.
-
-**Now consumed via DS-gap §6.6 ([poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47) → [PR #48](https://github.com/poukai-inc/poukai-ui/pull/48))**: Hero staggered entrance animation runs on `/` via `<Hero entrance="stagger">` from `@poukai-inc/ui@0.8.0`. Status / title / lede / CTA reveal in top-down order, ~1.05s, CSS keyframes + `animation-delay`, gated by `prefers-reduced-motion: reduce` via the DS `:root !important` block. The pre-cutover holding page (`public/index.html`, deleted in commit `9e56cdb`) shipped this exact motion with pure CSS — zero JS, R-079 honored. The original "locked out" rationale for entrance animation was faulty (claimed it required `client:*`); corrected on 2026-05-17 after recall of the holding-page implementation. SiteShell wordmark + footer fade-in are NOT in scope for #47 — separate DS-gap if Arian wants full-page parity.
-
-**`prefers-reduced-motion: reduce` behavior**: every animation on the page (the badge pulse and every link transition) is disabled by the DS's `:root !important` block in `tokens.css`. There is no exception. The composition does not need to instruct the engineer to add a `@media (prefers-reduced-motion)` rule — the DS handles it at the token layer. Closes the R21 motion-choreography concern.
+**Fires never (locked out):** parallax, scroll-jacking, scroll-spy, marquee, **count-ups (including the `95%` figure)**, per-child stagger on any beat, any reveal on the Hero beyond its own stagger, **scroll-driven JS on the deficit mark**, draw-on/flap/drift of the glyph, horizontal-scroll sections, hover-move beyond DS-native affordances.
 
 ---
 
 ## 5. Icon picks (if applicable)
 
-**[Revised 2026-06-15 — destination still uses no Lucide glyphs.]**
-
-None. The homepage uses no Lucide glyphs anywhere, including the four destination beats. The only glyphs on the page are **literal `→` HTML entities** (`&rarr;`): one in the Hero lede-extension hand-off (D-11, carried forward), and one in the differentiation preview's "read the full comparison →" `/why-ai` link (Section 4). Both are typographic characters rendered by the body font — **not** Lucide `ArrowRight` SVGs — so they inherit prose metrics and read as part of the sentence, exactly as the D-11 ruling (R12) demands. The closing `CTASection` "or grab a time →" booking label may carry the same entity arrow per the contact-flow register; it is likewise an entity, not an icon. The Statement carries no glyph. The Pouākai engraving (deferred) is an editorial illustration, not an icon — separate vocabulary.
+**None.** The homepage uses no Lucide glyphs. `FeatureCard` `icon` slots are deliberately omitted (anti-slop guardrail, Beat 3). The only glyphs are **literal `→` HTML entities** rendered by the body font (the Hero lede hand-off `Here's why →`, the Hero + Convert booking `Or grab a time →`, the Why-us `See when to hire us, and when not to →`). The Beat-3 lever's mono ordinals (`01 · / 02 · / 03 ·`) are typographic characters in `--font-mono`, not icons (and are `aria-hidden`). "The Signal" glyph and the Why-us deficit mark are editorial `currentColor` SVG marks (the page's one illustrative vocabulary — the glyph's hairline/mono draftsman hand + the deficit bar in the same register), not Lucide affordance icons.
 
 ---
 
 ## 6. DS gaps surfaced
 
-### 6.0 Destination revision (2026-06-15) — NEW gaps: **None.**
+**None that block the composition.** The 5-beat arc composes from primitives shipping in `@poukai-inc/ui@2.17.0`: `Hero size="display" entrance="stagger"`, `StatusBadge`, `Button`, `Statement`, `Section`, `FeatureGrid`, `FeatureCard`, `Text`, `CTASection surface="recessed"`, `SiteShell`/`Wordmark` — plus site-side inline SVGs ("The Signal" glyph, the deficit mark), one site-side `--surface-section` wrapper (Why-us band), the Beat-3 lever CSS, and the shipped `ScrollReveal` island. No new token: `--surface-section`, `--hairline`, `--dur-slow`, `--easing`, `--font-mono`, `--fs-*`, and the `--space-N` scale are all published.
 
-The destination section set composes entirely from primitives that ship in `@poukai-inc/ui@2.17.0` today: `<Statement>` (Section 3), `<Section>` (Section 4), `<CTASection surface="recessed">` (Section 5), `<Button>` (closing dual CTA), plus the carried-forward `<Hero size="display" entrance="stagger">` and `<StatusBadge>`. The assessments confirm this independently (creative §"DS gaps surfaced" = None; ds-capability §2 = all pure-site). **No DS proposal is needed for the destination.**
+**Two awareness-only flags (not blockers, not for escalation now — Arian's call, §7):**
 
-**One near-miss flagged, not invented (spec §8 anticipated this).** The spec named one candidate DS gap: "if the designer finds the closing-conversion section wants a `CTASection` surface variant the DS doesn't expose." It does not — `CTASection` already exposes `surface="recessed"` (= `--surface-section` + `--hairline` top rule), which is exactly the OQ-1 band vehicle. So the candidate gap **does not materialize**. The one real composition tension I hit was vehicle *selection*, not a missing primitive: `ContactBlock` would have been the more literal "closing contact moment" organism, but it has **no surface-band option** and a `StatusBadge` slot that would force a second availability badge (DS rule: max 1 per page). That is a reason to choose `CTASection` over `ContactBlock` (see Section 5 "considered and rejected"), **not** a DS gap — both primitives ship; neither needs changing. Per the designer agent definition I am flagging this, not authoring a DS API. **No new token is introduced by any destination section** (spec §6 AC): `--surface-section`, `--hairline`, and the `--space-N` scale are all published.
+- **Recessed non-CTA `Section` (A2 §21).** The Why-us band needs a recessed surface, but `Section` exposes **no `surface` prop** (confirmed DS snapshot: only `CTASection`, `StatsSection.fill`, `NewsletterSection.surface`, and `Pull`'s host `Section.tone="section"` carry `--surface-section`). A **site-side `--surface-section` wrapper is correct for this one page.** If recessed *non-CTA* sections recur across pouk.ai pages, a `Section surface="recessed"` prop (matching `CTASection`'s API) would be the clean long-term fix — a defensible maintainer enhancement, framed from the composition need (a non-CTA editorial section that must recess onto a band). **Do not escalate now**; one page does not establish the pattern.
 
-The historical `<Hero>` gaps below (6.1–6.6) are **all resolved/shipped** and are retained for the record; none is re-opened by the destination revision.
+- **`ComparisonTable` mobile degradation (carried from the 6-beat recipe).** Still not a DS gap to escalate — `ComparisonTable` is a pricing-matrix organism with no mobile stack; the honest sentence comparison is not a pricing matrix, so the site-side table is correct regardless. If the honest-comparison pattern recurs across pages, a "responsive stacked degradation for `ComparisonTable` below `--bp-md`" enhancement would benefit any consumer — file only if a second page needs it.
 
----
+The deficit mark is correctly a **site-side inline SVG** in the B.1 vocabulary, **not** a DS primitive: the DS ships no chart component by design (a single monochrome filled-vs-empty mark is editorial, not a chart organism). No DS gap there.
 
-### Historical `<Hero>` gaps (raise-the-ceiling / illustration era — all resolved) **[Revised — was "three gaps + one no-op"]**
-
-These three DS-gap proposals were introduced against `@poukai-inc/ui@0.6.1` by the earlier revisions. Authoring DS-side proposal markdown is **out of this composition's scope** per the designer agent definition — Arian decides routing.
-
-**Critical framing: all three gaps are universal `<Hero>` contract changes, not home-only overrides.** They land in the DS once and are composed by `/`, `/roles`, `/principles`, `/why-ai` independently. Each gap's *triggering* page is `/`; the *consuming* pages will follow once their own amendments arrive.
-
-### 6.1 `<Hero size>` prop — universal title-density contract
-
-- **Proposed file path in DS repo**: `proposals/hero-size-prop.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#39](https://github.com/poukai-inc/poukai-ui/issues/39) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
-- **Scope**: Add `size?: "display" | "intimate"` prop on `<Hero>` (default `"display"`, preserves current behavior on every existing consumer). At `"intimate"`, the Hero swaps its title font-size token from `--fs-tagline` (36–68px) to a new DS-defined token `--fs-tagline-intimate` (recommended range `clamp(2rem, 1.25rem + 2.5vw, 3.25rem)` — 32–52px). The Hero's internal rhythm tokens (`--space-6` status→title, `--space-8` title→lede) remain unchanged at `"intimate"`. Token addition is a DS-side **minor** version bump per ADR-0003.
-- **Where it appears**: `/` Hero (this composition). Future: `/principles` Hero is the most likely next consumer (the lower-density register suits a list page); `/roles` and `/why-ai` are open per their own amendments.
-- **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accepts and ships the prop + token before this composition moves from `Approved` to `Built`. The engineer waits.~~ **RESOLVED 2026-05-17**: DS shipped via [poukai-ui#41](https://github.com/poukai-inc/poukai-ui/pull/41) in `@poukai-inc/ui@0.7.0`. Site consumed at commit `38ee1e0` (`size="intimate"` on `<Hero>` in `src/components/HomeHero.tsx`).
-- **Workaround if rejected**: Not applicable — proposal accepted and shipped.
-- **Live-audit follow-up (2026-05-17)**: at `size="intimate"`, the Hero rhythm tokens (`--space-6` status→title, `--space-8` title→lede) initially read disproportionately generous against the smaller title. The 0.7.0 ship locked rhythm unchanged across size variants per the original proposal — that lock was reversed via follow-up DS-gap §6.5 ([poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44)). **RESOLVED 2026-05-17**: DS shipped via [poukai-ui#45](https://github.com/poukai-inc/poukai-ui/pull/45) in `@poukai-inc/ui@0.7.1`. Site consumed via bot PR [#20](https://github.com/poukai-inc/pouk.ai/pull/20). Live audit confirmed: status→title 12px, title→lede 24px desktop / 16px mobile.
-- **Density-signal guardrail (designer audit, 2026-05-17)**: `<Hero size="intimate">` is an **intentional density signal**, not a default downgrade. Future page specs adopting it (`/principles`, `/roles`, `/why-ai`) must justify the choice (e.g., editorial-dense page where smaller hero lets body content breathe earlier) rather than inherit from `/`. `display` remains the brand-canonical pattern for landing-class pages.
-
-### 6.2 `<Hero illustration>` slot — universal editorial illustration contract
-
-- **Proposed file path in DS repo**: `proposals/hero-illustration-slot.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#40](https://github.com/poukai-inc/poukai-ui/issues/40) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
-- **Scope**: Add an optional `illustration?: ReactNode` slot on `<Hero>`. Renders to the right of the Hero text column above a DS-owned breakpoint (recommended: `--content-max` 1024px or similar — DS picks). Below the breakpoint, the slot's content is hidden by DS CSS (`display: none`) and the Hero collapses to its existing single-column text layout — i.e., today's behavior is preserved on narrow viewports. The illustration column receives remaining width up to a DS-owned cap; the text column remains capped at `--hero-max` (38rem). Slot consumers pass an inline `<svg>`, `<img>`, or any other ReactNode; the DS does not opinionate on the asset type, only on positioning, breakpoint, and (recommended) a default `aria-hidden` if the consumer doesn't override.
-- **Where it appears**: `/` Hero (this composition). Future: any of `/why-ai`, `/roles`, `/principles` that adopts a per-page Pouākai illustration via its own amendment.
-- **Motion contract** (must be in the DS proposal): the slot is static by default. The DS does not animate the slot. Any animation a consumer adds inside the slot gates on the DS's `:root !important` `prefers-reduced-motion` block per existing rules.
-- **Blocking dependency**: `@poukai-inc/poukai-ui` maintainers accepts and ships the slot before this composition moves from `Approved` to `Built`. The engineer waits.
-- **Workaround if rejected**: Compose the illustration site-side as a sibling absolutely-positioned element next to the Hero, with the Hero wrapped in a positioning container. This is a soft violation of "no site-side override of Hero internals" (composition §2 lock) — but it would also work without the DS-gap. **Strongly prefer the DS-gap**; this workaround is here only to document the fallback if `@poukai-inc/poukai-ui` maintainers rejects.
-
-### 6.3 `<Button size>` prop — existing API used interim; new `compact` size proposed
-
-- **Status (revised after live audit 2026-05-17)**: `<Button>` `size` prop is in the public DS API at `@poukai-inc/ui@0.6.1` (`sm` 32px, `md` 44px, `lg` 52px). Partial-ship commit `9076cc4` shipped `<Button size="sm">` on `/`. **Live-page audit revealed the `sm/md` gap (12px) is too coarse**: `md` reads visually too heavy against brand restraint; `sm` reads visually too small against the (currently-default) `<Hero size="display">` title. New DS-gap filed for an intermediate `compact` size — see §6.4 below.
-- **Recommendation (composition-level, interim)**: `<Button asChild size="sm">` remains in `src/components/HomeHero.tsx` as a **transitional state** until [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42) ships `size="compact"`. Engineer then flips `size="sm"` → `size="compact"` in the same PR that consumes `<Hero size="intimate">` (poukai-ui#39).
-- **Pairing convention (revised)**: When `<Hero size="intimate">` lands, `size="sm"` Button is the proportional default. When `<Hero size="display">` (current default), the new `size="compact"` (~38px) is the proportional default once it ships; `size="md"` remains the DS-default fallback. This is a composition-layer convention, not a DS rule.
-
-### 6.6 `<Hero entrance>` prop — staggered CSS-only reveal on load
-
-- **Proposed file path in DS repo**: `proposals/hero-entrance-stagger.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#47](https://github.com/poukai-inc/poukai-ui/issues/47) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`. **CLOSED 2026-05-18** via [PR #48](https://github.com/poukai-inc/poukai-ui/pull/48).
-- **Scope**: Add `entrance?: "stagger"` prop on `<Hero>`. Default `undefined` (no animation, zero regression). When `"stagger"`, animates status (0ms) / title (150ms, +12px rise) / lede (300ms) / cta (450ms), each rising 8–12px with fade-in over 600–700ms. Total ~1.05s. CSS keyframes only; no JS, no IntersectionObserver. `animation-fill-mode: both` required. Gated by `prefers-reduced-motion: reduce`. **Minor** version bump per ADR-0003.
-- **Where it appears**: `/` Hero (this composition). Future: any consumer wanting an editorial-restrained entrance.
-- **Source-of-truth precedent**: pre-cutover `public/index.html` (deleted commit `9e56cdb`) shipped exactly this motion. The current composition's old §4 lockout was authored on the faulty premise that entrance animation requires JS; this gap corrects the premise + restores the capability.
-- **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accept and ship the prop. Engineer flips `<Hero entrance="stagger">` on consumption.~~ **RESOLVED 2026-05-18**: shipped in `@poukai-inc/ui@0.8.0` via [poukai-ui#48](https://github.com/poukai-inc/poukai-ui/pull/48). Site consumed at commit `882b8b3` (`entrance="stagger"` on `<Hero>` in `src/components/HomeHero.tsx`).
-
-### 6.5 `<Hero size="intimate">` rhythm scaling — follow-up to §6.1
-
-- **Proposed file path in DS repo**: `proposals/hero-intimate-rhythm.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#44](https://github.com/poukai-inc/poukai-ui/issues/44) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`. **Rev 2 (2026-05-17)** after designer audit: status→title tightened from `--space-4` to `--space-3` (label-relationship register).
-- **Scope**: At `<Hero size="intimate">`, scale internal rhythm tighter — status→title `--space-6` → `--space-3` (12px), title→lede `--space-8` → `--space-6` (24px desktop) / `--space-6` → `--space-4` (16px mobile). CTA-gap (`--space-8`) untouched. No new public API; internal Hero CSS change only. **Patch** version bump per ADR-0003.
-- **Where it appears**: `/` Hero. Future: any consumer of `<Hero size="intimate">`.
-- **Blocking dependency**: ~~`@poukai-inc/poukai-ui` maintainers accept and ship the rhythm tweak. Engineer flips zero code on adoption — `pnpm install` after the patch publishes is sufficient.~~ **RESOLVED 2026-05-17**: shipped in `@poukai-inc/ui@0.7.1` via [poukai-ui#45](https://github.com/poukai-inc/poukai-ui/pull/45). Site consumed via bot PR [#20](https://github.com/poukai-inc/pouk.ai/pull/20). Live audit confirms tight rhythm renders correctly.
-- **Why this is a follow-up, not a #39 amendment**: the original proposal we authored explicitly locked rhythm unchanged at `intimate`. Live audit on 2026-05-17 reversed that call. Audit trail preserved in the §6.5 issue body.
-
-### 6.4 `<Button size="compact">` — universal intermediate-size contract
-
-- **Proposed file path in DS repo**: `proposals/button-size-compact.md` in `poukai-inc/poukai-ui`.
-- **Tracked**: [poukai-ui#42](https://github.com/poukai-inc/poukai-ui/issues/42) — filed 2026-05-17, labels `proposal:from-consumer`, `consumer:pouk.ai`.
-- **Scope**: Add `compact` to the `<Button size>` enum (~38px min-height, between `sm` 32px and `md` 44px). Padding, typography, icon size scaled proportionally. WCAG 2.5.8 AA passes; WCAG 2.5.5 AAA fails (same trade-off as `sm`). Token addition is a DS-side **minor** version bump per ADR-0003.
-- **Where it appears**: `/` Hero CTA (this composition, after acceptance). Future: any pouk.ai route or external DS consumer needing editorial-restrained CTA register without dropping to AA-only `sm`.
-- **Blocking dependency**: `@poukai-inc/poukai-ui` maintainers accept and ship the size variant before the home Hero CTA flips to `compact`. Engineer waits.
-- **Workaround if rejected**: keep `size="sm"` interim (current state). Re-open the editorial-restraint vs proportional-read trade-off in a future composition revision. The composition has a documented fallback path.
-
-### Summary of DS-gap state
-
-| # | Gap | Universal or home-only? | DS-side action needed? | Blocks `Built`? |
-|---|---|---|---|---|
-| 6.1 | `<Hero size="intimate">` | Universal | Yes — file proposal, ship prop + token, minor version bump | Yes |
-| 6.2 | `<Hero illustration>` slot | Universal | Yes — file proposal, ship slot, minor version bump | Yes |
-| 6.3 | `<Button size="sm">` on Hero CTA | Composition-level, no DS change | **No** — already in API | No |
+Per the designer agent definition, the above are *flags*, not authored DS APIs. Arian decides any routing.
 
 ---
 
 ## 7. Open questions for Arian
 
-### Destination revision (2026-06-15) — open items
+Tight list; defaults proposed so each closes on a nod.
 
-The spec's two designer-lane open questions (OQ-1 band placement, OQ-4 Statement placement) are **resolved in this composition** (I took the PM recommendations and ratified them; see below). They are recorded here as *decisions made, confirm-or-override*, not as blockers — per the designer prompt I default and flag rather than ask. Two genuine confirmations remain.
+- **OQ-1 — Two-band approach + merge-guard fallback: confirm.** I specify TWO recessed bands (Why us + Convert) separated by full `--space-16` return-to-`--bg` + the Convert `--hairline` top rule + distinct registers (§3). Merge-guard fallback if they still slab at visual review: **Why us keeps the band, Convert drops to `--bg`** (never the reverse). **Default: ship two bands; drop Convert to `--bg` only if the 13–14"/375px captures show a merged slab.**
+- **OQ-2 — Beat 3 Disciplines lever: confirm I spent it (mono ordinals + larger names + optional column hairline), composition-only.** I judge the soft-middle risk real enough to spend the lever now rather than hold it. Fallback if review reads it as "loud": dial back to the mono numeral alone, then to the plain transparent grid, then (last) the `MetaList`/`Principle` editorial stack. **Default: ship the lever as specified.**
+- **OQ-3 — Confirm the feather colophon is removed from the live Hero.** A2 §12.A2 removed it; this recipe specifies "The Signal" glyph only in the right column. If `HomeHero.tsx` still renders the `sigil` feather, its removal is the engineer's lane on build. **Default: no feather anywhere on `/`.**
+- **OQ-4 — Deficit-mark polarity: ink the 95% failure (recommended) or ink the 5% success sliver against an empty track?** B.1 says "the empty space is the argument"; the figure's headline is the *failure* (95%), so I recommend the inked majority = the 95% deficit, with the thin empty remainder = the ~5% that succeeds. Alternate (ink the small success sliver) is the more literal "empty space is the argument" but buries the 95% headline. **Default: ink the 95% failure field.**
+- **OQ-5 — Deficit-mark motion: static (recommended) or the optional CSS-only render-time fill?** B.1 recommends static for v1 (the spareness lands with no motion); the fill is "add only if it earns it," no JS, reduced-motion-safe, no count-up either way. **Default: static for v1.**
 
-- **D-OQ-1 — band placement: RESOLVED → the one band goes to the Closing CTA.** I give the page's single `--surface-section` band to the closing `CTASection surface="recessed"` (Section 5); the Statement (Section 3) and the differentiation preview (Section 4) sit on `--bg`. **Why**: the recessed band is the page's only surface event, so it should land where it does the most work — signalling "this is the moment to act" at the conversion close (escalation logic, §3). Banding the Statement would make conviction read as a *banner* (off-brand — the Statement wants a quiet bare-canvas turn); banding the preview would spend the floor on the lowest-energy beat and risk the alternating-band SaaS read (§3 failure mode). One band, at the close, is the restrained-destination choice. Confirm or override. *(This is the spec OQ-1 PM recommendation; I concur.)*
-- **D-OQ-4 — Statement placement: RESOLVED → high, immediately after the Hero.** The Statement sits as Section 3, right after the Hero (present → assert → justify → convert). **Why**: the page's voice should land *before* the argument, so the reader meets the conviction at full editorial scale while the Hero's authority is still fresh, then gets the justification, then the ask. The alternative — the `/engagements` "summit Statement" pattern (conviction as the last line before the CTA) — suits an *argument* page that earns its conviction over a long scroll; `/` does not run that argument, so the summit pattern would leave the conviction stranded next to the CTA and double the "act now" register at the close. High placement keeps the doorway's job (assert early) intact. Confirm or override. *(This is the spec OQ-4 PM recommendation; I concur.)*
-- **D-OQ-A — content dependency (BLOCKS `Built`, not `Approved`).** Three slots need `Approved` content drafts before the destination can be `Built` (spec §6 content-approval AC): (1) the promoted `/` Statement line (`statement-beats.md` §5 parked candidate → real draft); (2) the differentiation-preview compression of `vs-alternatives.md` (new or extended draft); (3) the closing-CTA `heading`/`body` per `contact-flow.md`. Content is drafting in parallel; the slot budgets in §2 and below are handed to them. **Not a blocker for `Approved` on the design side** — the recipe is complete against the budgets — but the engineer waits on `Approved` copy before `Built`. No action needed from Arian beyond awareness.
-- **D-OQ-B — closing `align`: default `center`, confirm.** The closing `CTASection` uses the DS brand-correct default `align="center"` (bilateral symmetry = "this is the conclusion"). The rest of the page is left-aligned editorial register. The one centered moment at the very end is the DS's documented end-of-page pattern and reads as a deliberate resolution, not an inconsistency. If Arian prefers the close stay left-aligned (`align="start"`) for register consistency, that is a one-prop override. (Default if no answer: `center`, per the DS end-of-page convention.)
+Content dependency (not a blocker for `Approved`; blocks `Built`): the content draft (`meta/content/drafts/pages/home.md` v3.0) is **In review**, not yet Approved — its §6 sourced-citation audit (MIT NANDA 95%) and honesty audit route to Arian. The engineer builds the Why-us mark only once `comparison.metric` is Approved-and-complete; if the citation is dropped, the mark does not render and the exhibit is the table alone (§2 Beat 4, binding).
 
-**Content slot budgets handed to content (summary — full detail in §2):**
-| Slot | Region | Budget |
-|---|---|---|
-| Conviction line | Statement (S3) | 1–2 sentences, 8–14 words total, 1–2 balanced lines at `--fs-statement`; no CTA/stat/attribution. |
-| Section heading | Differentiation preview (S4) | one `<h2>`, ~3–6 words. |
-| Preview body | Differentiation preview (S4) | 2–3 sentences, 30–55 words, ending in inline `/why-ai` link; must not restate the three `vs-alternatives` beats. |
-| Closing heading | Closing CTA (S5) | one `<h2>`, ~4–8 words. |
-| Closing body (optional) | Closing CTA (S5) | one line, ≤12 words, availability restate, no new urgency. |
-| CTA labels | Hero + Closing CTA | per `contact-flow.md` (`mailto:` primary + "or grab a time →" secondary). |
+This composition flips to `Approved` on Arian's nod to OQ-1–OQ-5 (each defaults cleanly if silent).
 
 ---
 
-### Carried-forward illustration items (deferred — orthogonal to the destination)
+## 8. Out of scope
 
-**[Revised — carry forward unresolved items from round-1 §6; add new questions from round-2 CTA-scale and cross-page-reusability turns.]** These all concern the deferred Pouākai engraving (D-17), which the destination revision does **not** consume — they remain open on their own track and do not block the destination.
-
-Of the round-1 proposal's six open questions, three are now resolved by Arian's direction-pick:
-
-- ~~Q1 (engraving vs. modern-line)~~ — **engraving**.
-- ~~Q2 (in-flight vs. at-rest)~~ — **in-flight** (designer-side sub-recommendation: soaring, not stooping; see §2 illustration asset notes — confirm or override).
-- ~~Q3 (commission vs. AI-generated vs. archive)~~ — **AI-generated, curated by Arian**.
-- ~~Q4 (title softening — same-day vs. wait for DS)~~ — **wait for DS-gap A (`<Hero size="intimate">`)**.
-- ~~Q5 (padding change — bundle or separate)~~ — **bundle into one PR**.
-
-Carried forward / new for round 2:
-
-1. **Does the engraving register *land* at the brand stage, given AI-generated execution?** Engraving line-work is fragile — AI image-gen models can produce engraving-adjacent output, but the line discipline (consistent stroke weight, controlled cross-hatching, no painterly bleeding) is exactly what models struggle with most. The curation step Arian owns is doing the heavy lifting. **If the first round of curated output reads as "cheap AI engraving" rather than "considered ornithological plate," the brand fails on the §5 PM amendment failure-mode test ("the illustration performs"; "softening reads as weakness").** Sub-question: does Arian want a sanity-check pass from the designer agent on the curated asset before it ships, or is this purely Arian's call? (Default if no answer: purely Arian's call. The designer agent's lane is the recipe, not the asset.)
-
-2. **Soaring vs. stooping — confirm the designer's sub-recommendation.** §2 illustration asset notes default to **soaring** (wings extended horizontally) on the rationale that the lede already describes the stoop. If Arian prefers stooping, swap the asset; no other clause changes.
-
-3. **Vectorization quality vs. raster fallback.** §2 illustration asset notes default to **SVG output**. If AI-generated engraving output does not vectorize cleanly (engraving cross-hatch loses character under autotrace), fall back to raster (PNG 2x retina, served as AVIF/WebP). Sub-question: how aggressively does Arian want to insist on SVG vs. accept raster if vectorization is poor? (Default if no answer: prefer SVG, accept raster as fallback. Engineer's call after seeing both.)
-
-4. **Cross-page facing direction — right-facing default.** §2 illustration asset notes default to a **right-facing** bird, on the rationale that right-facing reads as "looking into the page" on left-aligned text layouts. Sub-question: does Arian want the default flipped to left-facing? (Default if no answer: right-facing.)
-
-5. **CTA `size="sm"` on the Hero — confirm the proportional-density framing.** This composition recommends `size="sm"` (32px min) on the Hero CTA because the Hero is now at `size="intimate"`. Sub-question: does Arian want the CTA at `sm` (this composition's recommendation) or at the DS default `md` (preserving today's CTA prominence even after the title shrinks)? (Default if no answer: `sm`. The Hero composition reads as proportionally balanced.) **This is the round-2 new open question on the CTA axis.**
-
-6. **Does any of this affect `/why-ai`, `/roles`, `/principles`?** (Carried forward from round-1 Q6.) The illustration is asset-level reusable — same SVG file lands on all four pages. The DS-gaps (`<Hero size>`, `<Hero illustration>`) are universal contract changes. **Sub-question**: does Arian want the same engraving on all four pages (one asset, four placements), or does he want per-page variations (different birds, different postures, different sizes per page)? **Designer-side recommendation: one asset, four placements.** Per-page variations would multiply asset-production work and dilute the "single chosen mark" brand framing. Confirm or override.
-
-The six illustration items above (1–6) are **deferred on the illustration track** and do not gate the destination revision (the destination consumes no illustration). They reach resolution when the engraving asset work resumes; "deferred pending curated asset" remains an acceptable resolution for item 1.
-
-**For the destination revision to reach `Approved`:** the design-side recipe is complete. The destination items D-OQ-1 and D-OQ-4 are resolved (PM recommendations ratified); D-OQ-B has a sensible default. The only item that needs an explicit Arian call is **confirm-or-override on D-OQ-1, D-OQ-4, D-OQ-B** (each defaults cleanly if he is silent). D-OQ-A (content drafts) blocks `Built`, not `Approved`. So: this composition can flip to `Approved` on Arian's nod to the four destination decisions; it then waits on content for `Built`.
-
----
-
-## 8. Out of scope **[Revised 2026-06-15 — destination additions.]**
-
-This composition deliberately does not cover:
-
-- **[Added 2026-06-15] Any sixth region or beyond the §5 IA.** The destination is the *minimum* section set that does the conversion job, not a maximal page. Specifically out of scope (carried from home.md §10 + destination §6/§10): no roles preview / role grid, no engagements/ladder preview, no FAQ on `/`, no founder/about preview, no stats band, no logo bar / "trusted by" strip, no `Quote`/`TestimonialBlock`/testimonial cards, no carousel, no pricing tiers, no animated stat counter, no newsletter signup, no scheduling embed/iframe, no personalization, no A/B variants. Adding any is a spec-level conversation (the §3 "generic SaaS landing page" failure mode), not a composition tweak.
-- **[Added 2026-06-15] Reproducing any downstream page's body on `/`.** The differentiation preview *compresses-and-links* `/why-ai`'s vs-alternatives; it does not reproduce the three beats. No failure-mode list (that's `/why-ai`), no role cards (`/roles`), no rung ladder (`/engagements`), no FAQ (`/engagements`/`/onboarding`). (spec §10.)
-- **[Added 2026-06-15] Self-ID on `/` (spec OQ-2).** A roles-style self-ID nudge on `/` would be a sixth section and a separate Arian decision (PM recommends no). Not composed here.
-- **[Added 2026-06-15] The final copy for any destination slot.** The Statement line, the differentiation-preview prose, and the closing-CTA heading/body are content's lane (slot budgets handed in §2/§7). This composition anchors lengths and register, not words. No `Draft:` copy is authored here — content is drafting against the budgets in parallel.
-- **[Added 2026-06-15] Re-opening the Hero, D-11, D-12, or the contact-flow CTA contract.** The display Hero (RR-1/RR-2), the lede hand-off, the status line, and the dual-CTA contract are carried forward intact; the destination builds beneath them.
-- **[Added 2026-06-15] The `/` OG card.** Governed by `og-cards.md` (fast-follow). If the Statement becomes the page's defining line, the `/` OG copy should align to it when that card is produced — flagged for the og-cards pass, not composed here (spec §8).
-- **[Added 2026-06-15] PM cascade annotations (RR-5).** The supersession notes on the raise-the-ceiling §4.2 and the home.md content-draft Flag 3, and routing the new section copy needs to content, are PM obligations (spec §7 RR-5), not this composition's.
-- **Future homepage evolution.** If `/` ever needs a featured stat, a customer story, or a proof move beyond the five regions, that is a new spec, new content, new composition — not an amendment here. *(The "adding a section is a brand violation" doorway framing is superseded; the new lock is the minimum-set discipline above.)*
-- **Dark-mode behavior.** The DS palette inverts cleanly per its "never pure edges" principle, but dark mode is not shipped. If/when it ships, the lede-extension `→` glyph's color-inversion behavior is a known trade-off (see Section 2 brand notes) that may need revisiting. **[Added 2026-05-17]** Same applies to the engraving asset: inline SVG with `currentColor` inverts cleanly; a raster fallback would need a dark-mode variant. Out of scope until dark mode is.
-- **OG image, favicon, apple-touch-icon, robots.txt, sitemap.xml.** These are launch-infrastructure surfaces owned by `BaseLayout.astro` and the site's `public/` directory. Not composition concerns. **[Added 2026-05-17]** The Pouākai engraving might one day be adapted into an OG image or favicon — those are separate surfaces and are decided in their own ratification, not here.
-- **Matomo and Bugsink script tags.** Owned by `BaseLayout.astro` and gated on env vars. They are first-party analytics/error-reporting per D-15/D-16 and are *not* page-level composition decisions — they apply uniformly to every route.
-- **Visual parity diff against pre-cutover `index.html`.** That is the engineer's cutover-checklist gate (masterplan §6.1), not a composition output. This composition assumes parity already passed.
-- **`/why-ai`, `/roles`, `/principles` compositions.** Each is its own document. The funnel-order nav decision (D-13) is referenced here only because `<SiteShell>` carries it on every page; the per-page recipes belong in their own files.
-- **[Added 2026-05-17] Per-page illustration variations.** This composition specifies a single shared SVG asset (engraving Pouākai, in-flight, right-facing, soaring). Pose variations per page (e.g., a stooping Pouākai for `/why-ai` because the page is about "why AI projects fail"; a perched Pouākai for `/roles` because the page is about engagement modes) are **explicitly deferred** to each page's future composition. If Arian wants per-page variants, that is a separate decision and a separate set of asset-production rounds.
-- **[Added 2026-05-17] Mobile-specific illustration variants.** The composition specifies a single SVG that hides below 720px. Tablet-specific, mobile-portrait-specific, or mobile-landscape-specific variants (smaller crops, simplified line-work, sigil-sized fallbacks) are explicitly **out** — single asset, responsive sizing (or hide), no per-breakpoint variants.
-- **[Added 2026-05-17] Asset production specifics.** The composition specifies the *output shape* of the illustration (engraving register, single SVG, monochrome `--fg`, right-facing soaring Pouākai, ≤8KB gzip). It does **not** specify the AI image-generation prompt, the model, the curation passes, the vectorization tool, or the asset's exact pixel-level content. Those are Arian's domain per the round-2 direction (AI-generated, curated). The designer agent does not produce or describe the illustration's pixel-level content.
-- **[Added 2026-05-17] DS-side proposal authoring.** Sections 6.1 and 6.2 name and scope two DS-gap proposals. **Authoring the DS-side markdown** (the actual `proposals/hero-size-prop.md` and `proposals/hero-illustration-slot.md` files in the `@poukai-inc/ui` repo) is **not in this composition's scope** per the designer agent definition. Arian decides whether to route each to `@poukai-inc/poukai-ui` maintainers; `@poukai-inc/poukai-ui` maintainers authors the DS-side artifact.
-- **[Added 2026-05-17] PM-side amendments for `/why-ai`, `/roles`, `/principles`.** Once this composition is `Approved` and the DS-gaps are in flight, PM-side amendments for the other three routes will need to land before each page's successor composition can consume the new `<Hero>` contract. Sequencing those amendments is `pouk-ai-pm`'s job, not this composition's. Flagged here so a future reader knows the sequence: this composition first, then DS-gaps, then PM-amendments for the other three routes, then each route's composition revision.
+- **Any beat beyond the five in spec §4** — no roles/engagements/about/FAQ/stats preview, no logo wall, no `Quote`/`TestimonialBlock`, no carousel, no pricing, no newsletter, no scheduling embed, no second metric. **Specifically NOT re-adding the removed "How we work" / Method beat** (A2 §14 — the glyph is the sole pipeline statement; if the method ever needs prose, it is a `/why-ai` or future page, not a home beat).
+- **A third `--surface-section` band** (the floor is exactly two; A2 §16). Recessing Hero, Statement, or What we do.
+- **The deficit mark as anything other than a single monochrome filled-vs-empty form** — no dashboard, no multi-bar chart, no axes/legend, no second metric, no count-up of the figure.
+- **Re-opening the Hero, "The Signal" glyph, D-11, D-12, D-13, or the contact-flow CTA contract** — all carried forward LOCKED.
+- **The "The Signal" glyph geometry** (LOCKED, Hero) and **the deficit-mark SVG geometry + the optional CSS-only fill implementation** (the recipe fixes vocabulary, form, polarity, and motion grammar; the exact SVG path geometry and the `@keyframes` are the engineer's lane, within B.1).
+- **Final copy for any beat** — content's lane (the deficit figure/label/caption, the 3 disciplines, the comparison cells, the Convert heading/body). This composition anchors arrangement and register, authors no copy.
+- **`src/content/_schemas/home.ts` + `home.json` wiring** — removing the `howWeWork` block, adding the optional all-or-nothing `comparison.metric` object, removing the `HomeMethod` import + wiring from `index.astro` — engineer's lane (spec §6).
+- **The Pouākai eagle / feather** (D-17 closed; feather removed A2 §12.A2; not reintroduced); Māori ornament; any figurative element beyond the Signal glyph + the single Why-us deficit mark.
+- **Color, new tokens, dark mode, a theme toggle, parallax, or any motion beyond the §4 grammar + the optional CSS-only mark fill.**
+- **`/why-ai`, `/roles`, `/principles` compositions** — each its own document.
+- **DS-side proposal authoring** — §6 surfaces no blocker; the two awareness-only flags would, if Arian routes them, be authored DS-side by maintainers, not here.

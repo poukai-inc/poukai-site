@@ -34,11 +34,22 @@
    of horizontal scroll at every viewport — discovered in the 2026-05-17
    320px audit. Reset is universal so it covers DS components without
    reaching into their hashed class names. The DS may add its own reset
-   later, at which point this rule becomes a harmless redundancy. */
+   later, at which point these rules become harmless redundancies. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Browser default `margin: 8px` on <body> shifts <main> off the viewport
+   left-edge, which breaks the full-bleed band re-inset formula at the exact
+   viewport where `100vw === --content-max` (e.g. 1280px with 80rem home
+   column): `<main>` starts at 8px instead of 0, making its content-left
+   8px narrower than the formula expects. Zero the margin so <main> always
+   anchors at 0 and the band re-inset is width-invariant across all viewports.
+   Standard normalisation; no DS rule conflicts with this. */
+body {
+  margin: 0;
 }
 
 /* ---------- SiteShell header — wordmark height (DS bug workaround) ----------
@@ -66,6 +77,36 @@ header a[href="/"] svg {
   margin-inline: auto;
   padding-inline: var(--page-pad);
   padding-block: var(--space-12);
+}
+
+/* Home-only wider column. The DS default --content-max (64rem) is a reading
+   width — correct for text pages like /why-ai, /principles, /about, where long
+   lines hurt legibility. The home page is card/band/hero-driven, not a reading
+   column, so it carries too much side whitespace at 64rem on wide viewports.
+
+   Override is on body.home (set in BaseLayout.astro when currentRoute === "/"),
+   NOT on .site-page or a child wrapper. This matters for alignment: the DS
+   <main> (poukai_C3RmFN) uses max-width: var(--content-max). Overriding below
+   <main> (e.g. on .site-page--wide) causes <main> to resolve the DS default
+   64rem while full-bleed bands inherit the local 80rem — they diverge and the
+   column breaks. body.home sits ABOVE <main>, so every reference to
+   --content-max (main, .site-page, .home-hero-split re-inset,
+   .home-whyus-band re-inset) resolves 80rem in lockstep and stays aligned.
+   Text pages keep the DS reading width (64rem is unchanged on them). */
+body.home {
+  --content-max: 80rem;
+}
+
+/* Home-only: strip the .site-page trailing block padding.
+   The closing beat (CTASection / .home-convert-close-wrap) is a full-bleed
+   recessed band — it visually fills the bottom of the page. The default
+   padding-block-end: --space-12 (48px) on .site-page adds dead space BELOW
+   the band, which (stacked with the DS <main> padding-block-end of 96px)
+   produces ~144px of empty canvas between the CTA and the footer.
+   Zero it on home so the footer follows the band at the DS main's own cadence.
+   padding-block-start is unchanged — the hero still needs the top breathing room. */
+body.home .site-page {
+  padding-block-end: 0;
 }
 
 /* ---------- Why AI page — layout ---------- */
@@ -317,21 +358,35 @@ header a[href="/"] svg {
    with the sections below it. */
 @media (min-width: 1024px) {
   .home-hero-split {
-    /* Centre the pair at a capped width: full-bleed out of the narrow content
-       column, then pad so the content caps at 68rem and centres, never
-       narrower than the page gutter. Symmetric margins remove the lean, while
-       the 68rem cap keeps the illustration a real size (not squeezed into the
-       narrow body column). */
+    /* Break out of .site-page's content column so the hero can expand, then
+       re-inset to the CANONICAL COLUMN — the same content left-edge as every
+       other beat on the page.
+
+       Layout chain: DS <main> (padding=--page-pad, max-width=--content-max) →
+         .site-page (padding=--page-pad, max-width=--content-max, margin:auto) →
+           content at (100vw - --content-max)/2 + 2×--page-pad.
+
+       Full-bleed escape via margin-inline: calc(50% - 50vw) moves the element
+       to viewport edge. Re-inset must restore BOTH padding layers to land
+       text content on the canonical column:
+         padding = (100vw - --content-max) / 2 + 2 × --page-pad
+
+       Floor: at narrow viewports where (100vw - --content-max)/2 would go
+       negative, clamp to --page-pad so the gutter is never crushed. */
     width: 100vw;
     margin-inline: calc(50% - 50vw);
-    padding-inline: max(var(--page-pad), calc((100vw - 68rem) / 2));
+    padding-inline: max(var(--page-pad), calc((100vw - var(--content-max)) / 2 + 2 * var(--page-pad)));
     /* MAIN and .site-page each add --space-12 top padding, stacking to ~96px
        above the hero and making it float. Pull back one step. */
     margin-block-start: calc(-1 * var(--space-8));
-    grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
-    /* Tight gap: the mark's viewBox is cropped to its content
-       (HomeHeroIllustration), so this is the only space between the columns. */
-    gap: var(--space-8);
+    /* A3 LEAN-IN (spec §4.3 / composition §A3-2 Beat 1):
+       Text column narrowed from 34rem to 32rem; illustration takes the rest
+       of the canonical content column. The glyph still occupies a meaningful
+       column width — confirmed acceptable (text alignment is the priority).
+       Gap tightened from --space-8 to --space-6 so the glyph reads as paired-
+       with, not appended-to, the title. Content and motion unchanged. */
+    grid-template-columns: minmax(0, 32rem) minmax(0, 1fr);
+    gap: var(--space-6);
     align-items: center;
   }
 
@@ -353,6 +408,381 @@ header a[href="/"] svg {
 .home-statement-gap {
   padding-block: var(--space-16);
 }
+
+/* ---------- Home Artifact gap — cross-beat spacing for Beat 3 ----------
+   --space-12 (48px) above and below the Artifact exhibit.
+   Stepped down one token from --space-16 to tighten the art-gallery gap between
+   the artifact object and "What we do" — the DS Section below it contributes its
+   own --space-16 internal padding-block-start, so the combined rhythm is
+   48 + 64 = 112px, down from 64 + 64 = 128px (a noticeable but not cramped step).
+   The .home-artifact object framing (surface, border, radius, max-width) lives
+   separately in the "Home Artifact" section. */
+.home-artifact-gap {
+  padding-block: var(--space-12);
+}
+
+/* ---------- Site-wide section reveal — [data-reveal] ----------
+   Vanilla-JS path (src/scripts/reveal.ts). IntersectionObserver adds
+   .is-visible once per element on scroll.
+   astro:page-load re-inits after each SPA navigation via <ClientRouter />.
+
+   Safety contract (no-blank-content guarantee):
+     - Base: [data-reveal] has NO hidden state — opacity/transform unset.
+       Content is always visible when .reveal-on is absent (no-JS, reduced-motion).
+     - Hidden state is ONLY applied via .reveal-on [data-reveal] — the gating
+       class added by an inline <head> script only when JS runs AND motion allowed.
+     - Belt-and-suspenders: prefers-reduced-motion block below forces opacity:1
+       and strips transitions even if .reveal-on somehow got set.
+
+   Stagger: [data-reveal-stagger] children have --reveal-i set by the JS,
+   driving transition-delay: calc(var(--reveal-i,0) * 60ms). Max ≤5 children
+   = ≤300ms total stagger, well within the restrained range. */
+
+/* No hidden state on the base selector — content visible by default. */
+[data-reveal] {
+  /* Intentionally empty: no opacity, no transform, no transition here.
+     Transitions are only added via .is-visible (for the reveal animation)
+     when .reveal-on is active. Without .reveal-on the element is always shown. */
+}
+
+/* Gated initial hidden state — ONLY when .reveal-on is present on <html>.
+   Set by the inline head script only when JS runs AND motion is allowed.
+   S2 (§A3-4.3): travel upgraded 10px → 20px for a "landing" arrival. */
+.reveal-on [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Revealed state — transition fires when .is-visible is added by the observer.
+   S2 (§A3-4.3): duration upgraded 0.5s literal → --dur-slow (600ms); easing
+   now references --easing token (same expo-out value, but on-contract). */
+.reveal-on [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-slow) var(--easing),
+    transform var(--dur-slow) var(--easing);
+}
+
+/* Stagger delay — JS sets --reveal-i per child in [data-reveal-stagger].
+   60ms step, capped by child count (JS observes each child independently). */
+.reveal-on [data-reveal].is-visible {
+  transition-delay: calc(var(--reveal-i, 0) * 60ms);
+}
+
+/* Belt-and-suspenders: force all [data-reveal] visible under reduced-motion,
+   regardless of whether .reveal-on was set or .is-visible was added.
+   !important: intentional a11y override (same pattern as view-transition block). */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ---------- Home Why-us band — recessed surface (#1 of 2) ----------
+   Full-bleed --surface-section wrapper for the Why-us beat (Beat 4).
+   Section has no surface prop in DS 2.17.0; site-side wrapper is the correct
+   vehicle for one-page use (A2 §21 / composition assumption A2).
+
+   Content is inset to --content-max via the inner .site-page rhythm:
+   the band goes full-bleed; the Section inside constrains its own content.
+
+   MERGE-GUARD: this band must NOT bleed into CTASection (band #2).
+   The .home-convert-gap div below provides --space-16 (64px) of --bg
+   between band #1 closing and band #2 opening. */
+
+.home-whyus-band {
+  /* Break out of .site-page's max-width/padding-inline to go full-bleed, THEN
+     re-inset content to the CANONICAL COLUMN so it aligns with every other beat.
+
+     Layout chain: DS <main> (padding=--page-pad) → .site-page (padding=--page-pad)
+     → content at (100vw - --content-max)/2 + 2×--page-pad.
+
+     Full-bleed escape (margin-inline: calc(50% - 50vw)) moves the band to the
+     viewport edge. Re-inset must restore BOTH padding layers:
+       padding = (100vw - --content-max) / 2 + 2 × --page-pad
+
+     The band's --surface-section background still bleeds full-width; only its
+     CONTENT (the DS Section inside) is inset to the canonical column.
+     Floor: --page-pad keeps the gutter intact on narrow viewports. */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding-inline: max(var(--page-pad), calc((100vw - var(--content-max)) / 2 + 2 * var(--page-pad)));
+  background: var(--surface-section);
+}
+
+/* ---------- Home convert gap — merge-guard between band #1 and band #2 ----------
+   --space-12 (48px) of --bg canvas between the Why-us band and CTASection.
+   Stepped down one token from --space-16 to match the tighter inter-beat rhythm.
+   48px of bare canvas still reads as "two separate things" — the bands don't abut.
+   Without this gap the two --surface-section bands read as one continuous slab
+   (spec §3 failure mode; composition §3 merge-guard). */
+
+.home-convert-gap {
+  height: var(--space-12);
+}
+
+/* ---------- Home Artifact — inset object surface (A3 Beat 3) ----------
+   The artifact exhibit is a FRAMED OBJECT on --surface (recessed inline tier),
+   NOT a --surface-section band. The DS token system makes the distinction:
+   --surface = recessed inline (code blocks, quote fills); --surface-section = bands.
+   Width-capped and centered so --bg canvas shows on both sides — the visual
+   signature of "object," not "band."
+
+   Cross-beat spacing (--space-16 above and below) is applied via the wrapper
+   div in index.astro (.home-artifact-gap), not here. This rule owns the object's
+   own framing only. */
+
+.home-artifact {
+  /* Inset object framing: recessed surface, hairline border, radius, width cap. */
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-3);
+  /* Width cap ~44rem — narrow enough that --bg shows on both sides at desktop,
+     wide enough for the longest Candidate A line (44 chars at --fs-meta mono). */
+  max-width: 44rem;
+  margin-inline: auto;
+  /* Overflow clip so the <pre> scroll doesn't break the border-radius. */
+  overflow: hidden;
+}
+
+/* S4 (§A3-4.3) — one quiet artifact hover: hairline border warms --hairline → --fg-muted.
+   Pure CSS :hover / :focus-within on the wrapper. No transform, no lift, no shadow, no scale.
+   Tokens: --dur-fast (180ms) + --easing (expo-out).
+   The border-color transition collapses to instant under reduced-motion
+   (DS :root !important clamp strips transitions), so the warm still applies on hover
+   but without the tween — acceptable; it is a color shift, not a motion.
+   No-JS: pure CSS :hover, works without JS.
+   OQ-A9: if at visual review this reads as "clickable widget", remove both rules below. */
+.home-artifact {
+  transition: border-color var(--dur-fast) var(--easing);
+}
+
+.home-artifact:hover,
+.home-artifact:focus-within {
+  border-color: var(--fg-muted);
+}
+
+/* ---------- Home Disciplines — asymmetric layout (A3 Beat 4) ----------
+   A3 recast: 3-equal FeatureGrid → asymmetric lead-plus-two.
+   Lead discipline occupies the full top row at larger scale.
+   Two subordinates share the row beneath at a step down.
+   Stacks single-column at <768px, lead first (DOM order preserved).
+
+   The A2 mono-ordinal lever (.home-discipline-card / .home-discipline-ordinal)
+   is REMOVED — the asymmetric composition is the real fix; ordinals were the
+   in-medium soft-middle patch A3 supersedes. */
+
+.home-disciplines {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+/* Two-column subordinate row at ≥768px:
+   Lead spans full width (grid-column: 1 / -1 via .home-discipline--lead).
+   The two subordinates sit side-by-side in a 2-column subgrid row beneath. */
+@media (min-width: 768px) {
+  .home-disciplines {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* Lead discipline — spans the full top row. Larger title scale + more padding. */
+.home-discipline--lead {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--hairline);
+  padding-block: var(--space-8);
+}
+
+/* Subordinate disciplines — sit side-by-side beneath the lead. */
+.home-discipline {
+  border-top: 1px solid var(--hairline);
+  padding-block: var(--space-6);
+}
+
+/* Lead title scale — one editorial rung above the subordinates.
+   Targets the <h3> rendered by FeatureCard inside the lead wrapper.
+   2-level selector within the no-deeper-than-2-levels rule. */
+.home-discipline--lead h3 {
+  font-size: var(--fs-h3);
+}
+
+/* ---------- Home Deficit block — display number + thin bar (A3 Beat 5) ----------
+   The number is now the section HERO (not the bar). --fs-stat-large via <Stat size="lg">.
+   The thin bar is secondary supporting texture beneath the number.
+   B.1 vocabulary: currentColor, filled-vs-empty.
+
+   T1 — DEFICIT-BAR SCROLL-DRAW (§A3-4.1):
+   The inked segment (.home-deficit__bar-ink) draws left-to-right via scaleX 0→1
+   when the Why-us band scrolls into view (.home-whyus-band.is-visible).
+   Safety contract mirrors [data-reveal]:
+     - Base (no .reveal-on): bar-ink is scaleX(1) — always fully visible.
+     - Hidden start state ONLY applied via .reveal-on :not(.is-visible) so
+       no-JS / reduced-motion paths always show the complete bar.
+     - transition-delay ~240ms (--dur-mid) so the band's own fade+rise settles
+       before the bar inks open ("band lands, then the gap draws" — §A3-4.1).
+   Under prefers-reduced-motion: reduce: scaleX(1) immediately, no draw. */
+
+.home-deficit-block {
+  margin-block: 0 var(--space-8);
+}
+
+/* Thin deficit bar SVG container — secondary to the display number.
+   Retained per OQ-A4 default (drop if it competes with the number at review). */
+.home-deficit__bar {
+  display: block;
+  width: min(240px, 100%);
+  height: 8px;
+  color: var(--fg);
+  margin-block-start: var(--space-4);
+}
+
+/* Inked segment — resting state: always fully drawn.
+   transform-origin must be set on the SVG element (fill-box so it uses
+   the element's own bounding box as origin, not the SVG root). */
+.home-deficit__bar-ink {
+  transform-origin: left center;
+  transform-box: fill-box;
+  /* Default: full scaleX so no-JS / reduced-motion shows the complete bar. */
+}
+
+/* T1 — start state: inked segment collapsed to 0 width.
+   Applied ONLY when .reveal-on is present (JS runs + motion allowed) AND the
+   band is not yet visible — mirrors the [data-reveal] safety contract exactly. */
+.reveal-on .home-whyus-band[data-reveal]:not(.is-visible) .home-deficit__bar-ink {
+  transform: scaleX(0);
+}
+
+/* T1 — draw: scaleX 0→1 at --dur-slow (600ms) + --easing (expo-out),
+   delayed by --dur-mid (240ms) so the band's fade+rise settles first. */
+.reveal-on .home-whyus-band[data-reveal].is-visible .home-deficit__bar-ink {
+  transform: scaleX(1);
+  transition: transform var(--dur-slow) var(--easing);
+  transition-delay: var(--dur-mid);
+}
+
+/* T1 — reduced-motion: strip the draw entirely; bar shows full immediately.
+   !important: intentional a11y override (same pattern as [data-reveal] block). */
+@media (prefers-reduced-motion: reduce) {
+  .home-deficit__bar-ink {
+    transform: scaleX(1) !important;
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ---------- Home Comparison — 2-axis honest cut (A3 Beat 5) ----------
+   A3 recast: table → <dl> of four label+line pairs.
+   Sparse structural dividers: one --hairline rule above the pouk.ai (last) row.
+   Rhythm from --space-6/--space-8, NOT a hairline on every row.
+   Bigger type (--fs-body for lines, semibold for labels).
+   pouk.ai row gets NO special styling — honesty guardrail (no accent, no box). */
+
+/* Stance lead-in — "Four honest options. pouk.ai is only one of them." */
+.home-comparison-stance {
+  margin-block: 0 var(--space-6);
+  color: var(--fg-muted);
+}
+
+/* The four-pair <dl> stack. */
+.home-comparison-cut {
+  margin: 0 0 var(--space-6);
+  padding: 0;
+}
+
+/* Each label+line pair as a flex column. */
+.home-comparison-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+}
+
+/* One structural divider — above the pouk.ai (last) row only.
+   Marks "and here's us" without over-emphasizing the pouk.ai position. */
+.home-comparison-row--last {
+  border-top: 1px solid var(--hairline);
+}
+
+/* Alternative label — slightly heavier, reads as a stance label not a cell. */
+.home-comparison-row__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  /* <dt> default display:block; reset any browser margin. */
+  margin: 0;
+}
+
+/* The honest line — body register, bigger type than old table cells. */
+.home-comparison-row__line {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  color: var(--fg);
+  /* <dd> default has browser margin-inline-start; reset it. */
+  margin: 0;
+  max-width: 48rem;
+}
+
+/* Link below the cut */
+.home-comparison-link {
+  margin-block: var(--space-6) 0;
+}
+
+/* ---------- T3 — Link-arrow nudge (§A3-4.1) ----------
+   The trailing → in the two inline editorial links:
+     (a) Hero lede hand-off "Here's why →"
+     (b) Why-us "See when to hire us, and when not to →"
+   nudges right ~2px on :hover AND :focus-visible (keyboard parity required).
+   Only the arrow glyph (.home-link-arrow span) translates; the link text
+   and the DS two-layer underline are completely untouched.
+   Trigger: .home-editorial-link:hover / :focus-visible → child .home-link-arrow.
+   Tokens: --dur-fast (180ms) + --easing-link (matches the underline-grow hand).
+   Scope: the TWO editorial links only. NOT the CTA buttons, NOT the booking link.
+   Reduced-motion: no nudge (arrow stays static; underline still grows — DS-safe).
+   The display:inline-block on .home-link-arrow is required so translateX applies
+   (inline elements ignore transform in most browsers). */
+
+.home-link-arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--easing-link);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-editorial-link:hover .home-link-arrow,
+  .home-editorial-link:focus-visible .home-link-arrow {
+    transform: translateX(2px);
+  }
+}
+
+/* ---------- Home Convert close — display-adjacent serif scale (A3 Beat 6) ----------
+   The closing heading "The demo was never the hard part." renders at
+   --fs-tagline-intimate (32–52px), --font-serif, italic — the Statement's louder sibling.
+   Applied via a wrapper div (.home-convert-close-wrap) targeting the h2 rendered
+   by CTASection. Same 2-level selector pattern as .about-band h1 (site.css §about).
+   It is the <h2> element styled large — NOT a second heading. */
+
+.home-convert-close-wrap h2 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-tagline-intimate);
+  line-height: 1.1;
+}
+
+/* A2 Home Deficit mark + Comparison table CSS removed (A3 recast).
+   Replaced above by:
+   - .home-deficit-block / .home-deficit__bar (thin secondary bar, A3 Beat 5)
+   - .home-comparison-stance / .home-comparison-cut / .home-comparison-row* (<dl> 2-axis cut)
+   - .home-comparison-link
+   The A2 table (<table>, thead, tbody, .home-comparison-table-wrap, etc.) and
+   the A2 figure (.home-deficit / .home-deficit__value / .home-deficit__label /
+   .home-deficit__caption) are retired. */
 
 /* ---------- "The Signal" hero illustration (HomeHeroIllustration) ----------
    These were inline in the SVG's <defs><style>, but the production CSP
@@ -392,10 +822,14 @@ header a[href="/"] svg {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* ── Ambient loops (already shipping) ──────────────────────────────────── */
+
   .wb .pulse-halo {
     transform-origin: center;
     transform-box: fill-box;
+    /* Delayed until construction completes (~1200ms) so it begins AFTER build. */
     animation: wb-pulse 2.8s ease-in-out infinite;
+    animation-delay: 1200ms;
   }
 
   @keyframes wb-pulse {
@@ -412,7 +846,9 @@ header a[href="/"] svg {
   .wb .signal-pulse {
     stroke-dasharray: 6 200;
     stroke-dashoffset: 206;
+    /* Delayed until construction completes (~1200ms) so it begins AFTER build. */
     animation: wb-signal 4.2s linear infinite;
+    animation-delay: 1200ms;
   }
 
   @keyframes wb-signal {
@@ -422,6 +858,179 @@ header a[href="/"] svg {
     to {
       stroke-dashoffset: -200;
     }
+  }
+
+  /* ── THE SIGNATURE — "The Signal" self-constructs on first paint (§A3-4.2) ─
+     All construction keyframes live INSIDE this block so they ONLY apply when
+     motion is allowed. Outside it the resting state (fully drawn diagram)
+     renders immediately — that is the reduced-motion AND no-JS guarantee.
+
+     Timeline (t=0 = first paint):
+       0–200ms   Grid + axis fade in   (wb-grid-axis)
+       160ms     Trace begins drawing  (wb-trace, 880ms draw)
+       336ms     OBSERVE node lands    (wb-node-0, wb-leader-0, wb-label-0)
+       512ms     MODEL node lands      (wb-node-1, wb-leader-1, wb-label-1)
+       688ms     PLAN node lands       (wb-node-2, wb-leader-2, wb-label-2)
+       864ms     ACT node lands        (wb-node-3, wb-leader-3, wb-label-3)
+       1040ms    SHIP node lands LAST — accent arrives (wb-node-4, wb-leader-4, wb-label-4)
+       1120ms    Caption registers     (wb-caption)
+       1200ms    Ambient loops begin   (pulse-halo, signal-pulse — see above)
+
+     Delay formula:
+       node_land(i) = 160 + (i+1)/5 × 880  →  336, 512, 688, 864, 1040 ms
+       label_in(i)  = node_land(i) + 80ms
+
+     animation-fill-mode: both on every rule so each sub-element holds its
+     drawn end-state after one play and never snaps back.
+
+     TRACE_PATH length is ~408 SVG user units (measured via numeric integration).
+     Hard-coded constant = 430 (slightly above path length, spec allows either).
+     The start state (stroke-dashoffset: 430) is ONLY set here inside the media
+     query — never as a base style — so the no-JS path shows a fully drawn trace.
+
+     Double-arrival resolution (§A3-4.2 §4):
+     The SVG carries .wb-visible-immediately which overrides the DS Hero stagger
+     slot opacity fade on the illustration column (no-ops the whole-glyph fade).
+     This means the wrapper is visible from paint; sub-elements animate individually.
+     One arrival, not a fade-then-draw. ──────────────────────────────────── */
+
+  /* No-op the DS Hero stagger slot on the illustration SVG.
+     The DS entrance="stagger" fades the illustration wrapper in at ~600ms (index 4).
+     We override that so the glyph is visible from paint and the construction
+     draws sub-elements individually. */
+  .wb-visible-immediately {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Grid + axis: fade 0→1, 0–200ms, --easing */
+  @keyframes wb-build-surface {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .wb .wb-grid-axis {
+    animation: wb-build-surface var(--dur-mid) var(--easing) both;
+    animation-delay: 0ms;
+  }
+
+  /* Trace draw: stroke-dashoffset 430→0, starts at 160ms, draws 880ms.
+     stroke-dasharray must be set here (not on the element) so it only applies
+     inside this block — the resting SVG has no dasharray on .trace. */
+  @keyframes wb-build-trace {
+    from { stroke-dashoffset: 430; }
+    to   { stroke-dashoffset: 0; }
+  }
+
+  .wb .wb-trace {
+    stroke-dasharray: 430;
+    stroke-dashoffset: 430;
+    animation: wb-build-trace 880ms var(--easing) both;
+    animation-delay: 160ms;
+  }
+
+  /* Node appearance: opacity 0→1 + micro-scale 0.6→1 (no overshoot).
+     transform-box: fill-box + transform-origin: center so scale is centered
+     on each node circle, not the SVG root. */
+  @keyframes wb-build-node {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* OBSERVE (i=0): node_land = 336ms */
+  .wb .wb-node-0 {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wb-build-node var(--dur-mid) var(--easing) both;
+    animation-delay: 336ms;
+  }
+
+  /* MODEL (i=1): node_land = 512ms */
+  .wb .wb-node-1 {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wb-build-node var(--dur-mid) var(--easing) both;
+    animation-delay: 512ms;
+  }
+
+  /* PLAN (i=2): node_land = 688ms */
+  .wb .wb-node-2 {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wb-build-node var(--dur-mid) var(--easing) both;
+    animation-delay: 688ms;
+  }
+
+  /* ACT (i=3): node_land = 864ms */
+  .wb .wb-node-3 {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wb-build-node var(--dur-mid) var(--easing) both;
+    animation-delay: 864ms;
+  }
+
+  /* SHIP (i=4): node_land = 1040ms — climax, accent arrives here (resting fill). */
+  .wb .wb-node-4 {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wb-build-node var(--dur-mid) var(--easing) both;
+    animation-delay: 1040ms;
+  }
+
+  /* Leaders + labels: fade in at node_land(i) + 80ms.
+     Single opacity fade — no scale (they are lines/text, not circles). */
+  @keyframes wb-build-label {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* OBSERVE leader + label: 336 + 80 = 416ms */
+  .wb .wb-leader-0,
+  .wb .wb-label-0 {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 416ms;
+  }
+
+  /* MODEL leader + label: 512 + 80 = 592ms */
+  .wb .wb-leader-1,
+  .wb .wb-label-1 {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 592ms;
+  }
+
+  /* PLAN leader + label: 688 + 80 = 768ms */
+  .wb .wb-leader-2,
+  .wb .wb-label-2 {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 768ms;
+  }
+
+  /* ACT leader + label: 864 + 80 = 944ms */
+  .wb .wb-leader-3,
+  .wb .wb-label-3 {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 944ms;
+  }
+
+  /* SHIP leader + label: 1040 + 80 = 1120ms — last element to register. */
+  .wb .wb-leader-4,
+  .wb .wb-label-4 {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 1120ms;
+  }
+
+  /* Caption: same timing as SHIP label (~1120ms). */
+  .wb .wb-caption {
+    animation: wb-build-label var(--dur-fast) var(--easing) both;
+    animation-delay: 1120ms;
   }
 }
 

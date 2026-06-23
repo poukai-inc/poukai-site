@@ -13,8 +13,9 @@
  *   - as="p" (default): brand's own assertion, not an external quotation.
  *   - No CTA, no stat, no attribution (statement-beats.md §0 discipline).
  *   - On --bg (no band). The page's one --surface-section band is the CTASection.
- *   - Static — no entrance animation, no scroll trigger (design choice; hydration
- *     not warranted here). [R-079 zero-JS contract superseded by D-25, 2026-06-16.]
+ *   - Scroll-reveal: wrapped in <ScrollReveal> at the page level (index.astro) so
+ *     the reveal grammar is owned by one island, not duplicated per component.
+ *     This component itself is static; the fade+rise is the island's job.
  *
  * Copy passes in via scalar prop sourced from src/content/home.json (R-076 HARD).
  * Rendered as static HTML at build time — static by design (no hydration needed here).

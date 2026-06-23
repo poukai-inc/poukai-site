@@ -1,5 +1,7 @@
 # Amendment: Home — Destination (re-open the IA lock; doorway → destination)
 
+> **SUPERSEDED / CONSOLIDATED 2026-06-19** by the re-specced [`home.md`](./home.md) (In review), which builds on the APPROVED `meta/direction/home-direction.md`. This amendment's proof-on-home re-open is now the baseline in `home.md`; its §4/§5 section set (Statement + single differentiation preview + closing CTA) is replaced by `home.md`'s 6-beat arc (ANNOUNCE → ASSERT → HOW WE WORK → WHAT WE DO → WHY US → CONVERT). Retained for record. Not for build.
+
 **Route**: `/`
 **Status**: Approved — Arian ratified RR-1, RR-2, RR-3 (full section set) on 2026-06-15. RR-5 cascade obligations executed (see §7).
 **Owner**: Arian (founder) · Author: pouk-ai-pm
@@ -151,7 +153,7 @@ Engineer-checkable. The home.md §8 negative-assertion ACs (no sections; no node
 - [ ] **Lighthouse mobile**: Perf ≥ 95, A11y = 100, BP = 100, SEO = 100 (R-013), every region included. axe-core: 0 violations.
 - [ ] **HTML-weight gate**: gzipped `/` HTML stays within the budget the raise-the-ceiling track operates under (the +25% post-cutover envelope per `meta/decisions/2026-05-17-home-illustration-and-density.md`). A destination homepage *will* add weight; it must still clear the gate. If the minimum section set breaches the budget, the section set is too large — cut before raising the budget. Verifier: `gzip -c built.html | wc -c` on the preview (masterplan §6.1).
 - [ ] **`prefers-reduced-motion` honored** — Hero `entrance="stagger"` and the StatusBadge pulse collapse via the DS `:root !important` block; no new motion is introduced by any added section (no scroll-triggered reveals — they cost JS and break zero-JS; creative §1). Verifier: reduced-motion capture.
-- [ ] **One-theme lock** — the page renders in the single shipped theme; no theme toggle, no dark-mode-only asset. Verifier: visual review.
+- [ ] ~~**One-theme lock** — the page renders in the single shipped theme; no theme toggle, no dark-mode-only asset.~~ **SUPERSEDED 2026-06-16.** The DS ships an approved dual-theme contract (light + dark via `prefers-color-scheme`, `meta/design/dark-mode.md`, AAA-validated, pure-black canvas by deliberate Apple-convention choice). The site supports both modes; BaseLayout declares `color-scheme: light dark` + per-mode `theme-color`. The surviving rule is the no-mid-page-inversion discipline: **within a given mode, no section inverts** (a dark-mode page stays dark top to bottom; a light-mode page stays light). Dark-mode-only assets are still disallowed (assets must adapt via `currentColor`/tokens). Verifier: visual review in BOTH modes.
 - [ ] **No new design token** is introduced by the site for any section. If a section genuinely needs a token the DS does not ship, it is flagged as a DS dependency in §9 and the section does not ship until resolved (verifier: built-CSS uses only published `--*` tokens).
 - [ ] **Feather max-one** — at most one deliberate feather beyond the Wordmark renders on `/` (feather-policy). Verifier: asset review.
 - [ ] **Content-approval artifact** — each new section's copy is evidenced by an `Approved` content draft (the Statement line in a promoted `statement-beats.md` entry; the differentiation preview in a new or extended draft; the closing CTA copy per contact-flow). No section reaches `Built` on unapproved copy (PM DoD §7).

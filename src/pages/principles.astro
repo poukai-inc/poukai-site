@@ -46,14 +46,14 @@ const { meta, hero, endCta, jsonLd } = principlesPageSchema.parse(principlesPage
     />
 
     <!-- 2. Introduction — Instrument Serif italic per D-10 -->
-    <div class="principles-bookend">
+    <div class="principles-bookend" data-reveal>
       <p>{intro}</p>
     </div>
 
     <!-- 3. Ten Principle molecules — sans per D-10 -->
     <!-- sr-only h2 bridges h1 → h3 (Principle) to satisfy axe heading-order (R-026). -->
     <h2 class="visually-hidden">The ten principles</h2>
-    <div class="principles-list">
+    <div class="principles-list" data-reveal>
       {principles.map((p) => (
         <div id={p.anchor}>
           <Principle numeral={p.numeral} title={p.title}>
@@ -64,12 +64,12 @@ const { meta, hero, endCta, jsonLd } = principlesPageSchema.parse(principlesPage
     </div>
 
     <!-- 4. Conclusion — Instrument Serif italic per D-10 -->
-    <div class="principles-bookend">
+    <div class="principles-bookend" data-reveal>
       <p>{conclusion}</p>
     </div>
 
     <!-- 5. End CTA — single muted line per spec IA item 6 -->
-    <div class="end-cta">
+    <div class="end-cta" data-reveal>
       <p>
         {endCta.lead}{" "}
         <a href={endCta.href}>{endCta.email}</a>

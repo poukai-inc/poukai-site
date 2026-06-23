@@ -174,10 +174,16 @@ const matomoConfigJson = hasMatomoConfig
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
+    {/* The DS ships a dual-theme contract (light + dark via prefers-color-scheme,
+       meta/design/dark-mode.md). Declare both so the browser themes native UI
+       (form controls, scrollbars) to match the rendered mode instead of forcing
+       light over a dark page. */}
+    <meta name="color-scheme" content="light dark" />
     {/* R-027 exception: <meta> attributes can't reference CSS custom properties, so the literal hex
-       is unavoidable here. Keep in sync with --bg-base in @poukai-inc/ui/tokens.css. */}
-    <meta name="theme-color" content="#FFFFFF" />
+       is unavoidable here. Two media-scoped tags keep the mobile browser chrome in sync with the
+       actual page floor per mode: --bg #FFFFFF (light) / #000000 (dark) in @poukai-inc/ui/tokens.css. */}
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -283,8 +289,34 @@ const matomoConfigJson = hasMatomoConfig
       --dur-fast, and disabled under prefers-reduced-motion (R-030).
     -->
     <ClientRouter />
+
+    <!--
+      Section reveal — gating script.
+
+      Runs synchronously before first paint (no defer/async) so the .reveal-on
+      class is set before the stylesheet is applied, preventing a flash where
+      [data-reveal] elements are briefly visible then hidden by the CSS gate.
+
+      Adds class="reveal-on" to <html> ONLY when:
+        (a) this script executes (JS is enabled), AND
+        (b) prefers-reduced-motion: no-preference (motion is allowed).
+
+      Without .reveal-on the CSS gate is never active — [data-reveal] elements
+      have no hidden state and are fully visible. This covers:
+        - JS disabled: script never runs → no class → content always visible.
+        - prefers-reduced-motion: reduce → condition false → no class → visible.
+
+      The reveal observer logic lives in src/scripts/reveal.ts (loaded below).
+      CSP: is:inline is required for the synchronous pre-paint timing; this is
+      the documented exception pattern (same as the JSON-LD script above).
+    -->
+    <script is:inline>
+      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        document.documentElement.classList.add("reveal-on");
+      }
+    </script>
   </head>
-  <body>
+  <body class={currentRoute === "/" ? "home" : undefined}>
     <!-- SiteShell renders as static HTML — static by design (no hydration needed here). [R-079 zero-JS contract superseded by D-25, 2026-06-16; static is chosen default.] -->
     <ShellWrapper
       currentRoute={currentRoute}
@@ -293,6 +325,13 @@ const matomoConfigJson = hasMatomoConfig
     >
       <slot />
     </ShellWrapper>
+    <!-- Section reveal observer — first-party module (src/scripts/reveal.ts).
+         astro:page-load re-inits after every SPA navigation via <ClientRouter />.
+         Vanilla TS compiled by Astro/Vite — no hydration framework needed.
+         Astro bundles and hoists this to <head> as a module script automatically. -->
+    <script>
+      import "../scripts/reveal.ts";
+    </script>
     {isVercelBuild ? <Analytics /> : null}
   </body>
 </html>

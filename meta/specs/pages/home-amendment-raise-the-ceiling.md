@@ -1,5 +1,7 @@
 # Amendment: Home — Raise the Ceiling (Display doorway + thesis Statement)
 
+> **SUPERSEDED / CONSOLIDATED 2026-06-19** by the re-specced [`home.md`](./home.md) (In review). RR-1/RR-2 (Hero `size="display"` + proportional CTA) are carried forward intact into `home.md` §4. The §4.2 "no Statement section on `/`" ruling was already superseded by `home-amendment-destination.md` and is now retired entirely (a Statement ships per `home.md` §4 beat 3). Retained for record. Not for build.
+
 **Route**: `/`
 **Status**: PROPOSAL — In review (Arian per-page approval required; nothing ships without sign-off)
 **Owner**: Arian (founder) · Author: pouk-ai-pm

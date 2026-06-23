@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "pouk.ai — Technical consulting for teams shipping with AI",
-    "description": "Custom AI builds. Automations. Advisory engagements. Currently taking conversations for Q3.",
+    "description": "Custom AI builds, automations, and advisory for teams that need to ship. Currently taking conversations for Q3.",
     "canonical": "https://pouk.ai/"
   },
   "hero": {
@@ -28,16 +28,68 @@
   "statement": {
     "text": "Most teams can build now. Few can ship it and keep it running."
   },
-  "differentiation": {
-    "heading": "Why pouk.ai, specifically",
-    "body": "You can build this yourself, hire a generic agency, or staff an in-house team. Each is the right call sometimes. pouk.ai earns its place when the hard part is wiring the work into the systems you already run, and keeping it running after the demo.",
+  "artifact": {
+    "language": "typescript",
+    "code": "// keep it running after the demo:\n// retry the transient, surface the rest\nasync function call(input: Input) {\n  for (let attempt = 1; ; attempt++) {\n    try {\n      return await upstream(input)\n    } catch (err) {\n      if (!isTransient(err) || attempt === 3) throw err\n      await sleep(250 * 2 ** attempt)\n    }\n  }\n}",
+    "caption": "integration.ts — keeping it running, not just standing it up",
+    "label": "Example fragment: a retry wrapper around a flaky upstream integration"
+  },
+  "disciplines": {
+    "heading": "What we do",
+    "lead": "automations",
+    "items": [
+      {
+        "id": "builds",
+        "name": "Custom AI builds",
+        "description": "We build the AI system your problem actually needs, wired into the tools and data you already run on."
+      },
+      {
+        "id": "automations",
+        "name": "Automations",
+        "description": "We turn the manual, repeated work between your systems into something that runs without a person in the loop."
+      },
+      {
+        "id": "advisory",
+        "name": "Advisory",
+        "description": "We help you decide what to build, what to skip, and where AI is the wrong tool, before you spend on it."
+      }
+    ]
+  },
+  "comparison": {
+    "heading": "Why pouk.ai",
+    "metric": {
+      "value": "95%",
+      "label": "of enterprise AI pilots deliver no measurable business impact. The gap is integration, not the model.",
+      "source": "MIT NANDA",
+      "reportTitle": "The GenAI Divide",
+      "year": 2025
+    },
+    "stance": "Four honest options. pouk.ai is only one of them.",
+    "rows": [
+      {
+        "label": "Build it yourself",
+        "line": "the scope is small and bounded and you have the time. The modern stack makes this real. You will not need anyone."
+      },
+      {
+        "label": "Hire an agency",
+        "line": "the work is a known commodity and the value is in volume, not depth."
+      },
+      {
+        "label": "Hire in-house",
+        "line": "AI is core to your product and the work is permanent. A strong in-house team is the best outcome there is."
+      },
+      {
+        "label": "pouk.ai",
+        "line": "the integration is the hard part and it has to keep running after the demo. Not before. This is more than you need for work you could ship yourself."
+      }
+    ],
     "link": {
       "text": "See when to hire us, and when not to →",
       "href": "/why-ai"
     }
   },
   "closingCta": {
-    "heading": "If the hard part is shipping it, let's talk.",
+    "heading": "The demo was never the hard part.",
     "body": "Taking on a few engagements this quarter.",
     "ctaLabel": "hello@pouk.ai",
     "ctaHref": "mailto:hello@pouk.ai",
