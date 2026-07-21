@@ -3,42 +3,57 @@
  * / — Homepage. All copy sourced from src/content/home.json (R-076 HARD) and
  * validated at build time via src/content/_schemas/home.ts (R-074 HARD).
  *
- * Page structure (destination IA — home-amendment-destination.md §5):
- *   1. SiteShell chrome (via BaseLayout + ShellWrapper)
- *   2. Hero (display doorway — size="display" entrance="stagger", RR-1/RR-2)
- *   3. Statement (conviction beat — Section 3, on --bg, no band)
- *   4. "Why pouk.ai, specifically" differentiation preview (Section 4, on --bg)
- *   5. Closing CTASection (Section 5, surface="recessed" — the page's ONE band)
- *   6. SiteShell footer
+ * Page structure (6-beat IA — A3 artifact-anchor revision):
+ *   Beat 1 — Hero (display — size="display" entrance="stagger", glyph leaned in)
+ *   Beat 2 — Statement (conviction beat — on --bg, no band)
+ *   Beat 3 — Artifact exhibit (HomeArtifact — inset OBJECT on --surface, NO <h2>)
+ *   Beat 4 — What we do / HomeDisciplines (first <h2>, asymmetric lead+two, --bg)
+ *   Beat 5 — Why us / HomeComparison (second <h2>, number-led exhibit, recessed band #1)
+ *   Beat 6 — Closing CTASection (third <h2>, designed serif close, recessed band #2)
  *
  * Heading hierarchy (R-026, no skipped levels):
- *   <h1> Hero title | <h2> "Why pouk.ai, specifically" | <h2> closing heading
- *   Statement emits NO heading element (DS rule).
+ *   <h1>  Hero title (one only)
+ *   Statement emits NO heading element (DS rule)
+ *   Artifact emits NO heading element (it is an exhibit — spec §4.1)
+ *   <h2>  "What we do" (HomeDisciplines via Section)        — <h2> #1
+ *   <h3>s  within HomeDisciplines cards (under What-we-do <h2>)
+ *   <h2>  "Why pouk.ai" (HomeComparison via Section)        — <h2> #2
+ *   <h2>  closing heading (HomeClosingCta via CTASection)   — <h2> #3
+ *   Exactly 1 <h1> + 3 <h2>s. No skipped levels.
  *
- * All four components render as static HTML at build time — static by design.
- * No client:* directive needed. Booking is a plain <a href>.
- * [R-079 zero-JS contract superseded by D-25, 2026-06-16; client JS now permitted,
- * static is the chosen default. a11y + prefers-reduced-motion remain binding.]
+ * Surface rhythm (exactly TWO --surface-section bands — A2 §16, unchanged):
+ *   Band #1 — Why us: site-side .home-whyus-band wrapper
+ *   Band #2 — Convert: CTASection surface="recessed" (via .home-convert-close-wrap)
+ *   Hero, Statement, Artifact, and What we do all sit on --bg.
+ *   Artifact is on --surface (recessed inline, NOT a band — different DS tier).
+ *   Merge-guard: --space-16 air between bands (.home-convert-gap div).
  *
- * At most ONE --surface-section band on the page (OQ-1): the closing CTASection.
- * Statement + differentiation preview sit on --bg.
+ * Scroll-reveal (composition §A3-4):
+ *   Five below-hero beats carry data-reveal on their wrapper div:
+ *     #1 Statement (.home-statement-gap), #2 Artifact (.home-artifact-gap),
+ *     #3 What-we-do (anon div), #4 Why-us (.home-whyus-band), #5 Closing CTA (anon div).
+ *   Hero (stagger entrance) is NOT wrapped — DS entrance="stagger" is the entrance.
+ *   Reveal driven by site.css (.reveal-on [data-reveal]) + src/scripts/reveal.ts (IO observer).
+ *   No React hydration — vanilla TS, once-only, re-inits on astro:page-load.
  *
- * Contact-flow wiring (FS-CF-1, booking-affordance §2):
- *   Hero: mailto: primary Button + booking secondary Button (Context A).
- *   Close: mailto: primary Button + booking secondary Button (Context A).
+ * Contact-flow wiring (FS-CF-1):
+ *   Hero: mailto: primary Button + booking secondary Button.
+ *   Close: mailto: primary Button + booking secondary Button.
  *   Both: mailto: stays primary; booking is the subordinate secondary.
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { HomeHero } from "../components/HomeHero";
 import { HomeStatement } from "../components/HomeStatement";
-import { HomeDifferentiation } from "../components/HomeDifferentiation";
+import { HomeArtifact } from "../components/HomeArtifact";
+import { HomeDisciplines } from "../components/HomeDisciplines";
+import { HomeComparison } from "../components/HomeComparison";
 import { HomeClosingCta } from "../components/HomeClosingCta";
 import homeRaw from "../content/home.json";
 import { homeSchema } from "../content/_schemas/home";
 
 const home = homeSchema.parse(homeRaw);
-const { meta, hero, statement, differentiation, closingCta, jsonLd } = home;
+const { meta, hero, statement, artifact, disciplines, comparison, closingCta, jsonLd } = home;
 ---
 
 <BaseLayout
@@ -49,7 +64,9 @@ const { meta, hero, statement, differentiation, closingCta, jsonLd } = home;
   currentRoute="/"
 >
   <div class="site-page">
-    {/* Section 2 — Hero (display doorway, unchanged) */}
+    {/* Beat 1 — Hero (display doorway, glyph leaned in A3 §4.3).
+        NOT scroll-revealed — the stagger IS the entrance.
+        Content byte-identical; lean-in is CSS column sizing only (site.css). */}
     <HomeHero
       status={hero.status}
       titleBefore={hero.title.before}
@@ -64,29 +81,72 @@ const { meta, hero, statement, differentiation, closingCta, jsonLd } = home;
       bookingLabel={hero.bookingLabel}
     />
 
-    {/* Section 3 — Statement (conviction beat, --bg, no band, --space-16 gap above/below) */}
-    <div class="home-statement-gap">
+    {/* Beat 2 — Statement (conviction beat, --bg, no band).
+        --space-16 (64px) above/below via .home-statement-gap.
+        Scroll-reveal: data-reveal on the gap wrapper — whole unit fades+rises. */}
+    <div class="home-statement-gap" data-reveal>
       <HomeStatement text={statement.text} />
     </div>
 
-    {/* Section 4 — "Why pouk.ai, specifically" (first <h2>, --bg, no band) */}
-    <HomeDifferentiation
-      heading={differentiation.heading}
-      body={differentiation.body}
-      linkText={differentiation.link.text}
-      linkHref={differentiation.link.href}
+    {/* Beat 3 — Artifact exhibit (inset OBJECT on --surface — NOT a band).
+        --space-16 cross-beat gap above and below via .home-artifact-gap.
+        Renders ONLY if artifact block is present and complete (all-or-nothing).
+        If absent, this beat does not render; What-we-do absorbs mid-page weight.
+        Scroll-reveal: whole CodeBlock reveals as ONE unit, no line-by-line. */}
+    {artifact && (
+      <div class="home-artifact-gap" data-reveal>
+        <HomeArtifact
+          language={artifact.language}
+          code={artifact.code}
+          caption={artifact.caption}
+          label={artifact.label}
+        />
+      </div>
+    )}
+
+    {/* Beat 4 — What we do (first <h2>). Asymmetric lead+two, --bg, no band.
+        Scroll-reveal: stagger=true — each card reveals individually (60ms step).
+        Composition §A3-4 "whole-unit" default overridden by Arian 2026-06-21. */}
+    <HomeDisciplines
+      heading={disciplines.heading}
+      items={disciplines.items}
+      lead={disciplines.lead}
+      stagger
     />
 
-    {/* Section 5 — Closing CTASection (second <h2>, --surface-section band — page's ONE band) */}
-    <HomeClosingCta
-      heading={closingCta.heading}
-      body={closingCta.body}
-      ctaLabel={closingCta.ctaLabel}
-      ctaHref={closingCta.ctaHref}
-      bookingLabel={closingCta.bookingLabel}
-    />
+    {/* Beat 5 — Why us (second <h2>). Recessed band #1 of 2.
+        .home-whyus-band: full-bleed --surface-section wrapper.
+        Scroll-reveal: data-reveal on the band wrapper — whole exhibit reveals together. */}
+    <div class="home-whyus-band" data-reveal>
+      <HomeComparison
+        heading={comparison.heading}
+        metric={comparison.metric}
+        rows={comparison.rows}
+        stance={comparison.stance}
+        link={comparison.link}
+      />
+    </div>
+
+    {/* --space-12 (48px) air between band #1 and band #2 — merge-guard.
+        The band wrapper closes above; --bg canvas shows here; CTASection opens below.
+        This gap is the single most important separator between the two bands. */}
+    <div class="home-convert-gap"></div>
+
+    {/* Beat 6 — Closing CTASection (third <h2>). Recessed band #2 of 2.
+        "The demo was never the hard part." — display-adjacent serif italic close.
+        CTASection surface="recessed" (inside .home-convert-close-wrap for serif CSS).
+        data-reveal: conversion terminus still gets a quiet entrance. */}
+    <div data-reveal>
+      <HomeClosingCta
+        heading={closingCta.heading}
+        body={closingCta.body}
+        ctaLabel={closingCta.ctaLabel}
+        ctaHref={closingCta.ctaHref}
+        bookingLabel={closingCta.bookingLabel}
+      />
+    </div>
   </div>
 </BaseLayout>
-{/* .home-statement-gap lives in src/styles/site.css, not a scoped <style> here:
+{/* All page-level CSS lives in src/styles/site.css (not a scoped <style> here):
     Astro inlines small scoped styles into the page <style>, which the
     production CSP (style-src 'self') blocks — it failed csp-compat (CR-4). */}

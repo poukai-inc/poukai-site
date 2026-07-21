@@ -60,7 +60,7 @@ const { meta, hero, ladderIndex, endCta, jsonLd } =
     <Hero title={hero.title} lede={hero.lede} />
 
     <!-- 2. Ladder index — one-line typographic jump nav per spec IA item 3 -->
-    <nav class="engagements-ladder-index" aria-label="Engagement ladder">
+    <nav class="engagements-ladder-index" aria-label="Engagement ladder" data-reveal>
       <Eyebrow variant="muted">{ladderIndex.leadIn}</Eyebrow>
       {orderedRungs.map((rung, i) => (
         <>
@@ -73,13 +73,15 @@ const { meta, hero, ladderIndex, endCta, jsonLd } =
     <!-- 3. Four rung FeatureCards (via EngagementsLadder — Lucide JSX needs React context) -->
     <!-- Rendered as static HTML at build time; static by design. [R-079 superseded by D-25, 2026-06-16; static is chosen default.] -->
     <!-- Each FeatureCard title is an h2, descending cleanly from the Hero h1. -->
-    <EngagementsLadder rungs={orderedRungs} />
+    <div data-reveal>
+      <EngagementsLadder rungs={orderedRungs} />
+    </div>
 
     <!-- 4. End CTA — catch the undecided-but-ready reader (spec IA item 8).
          Dual contact mechanism (FS-CF-1, booking-affordance §2 Context B):
          mailto: primary (EmailLink) + booking secondary (muted link).
          /onboarding hand-off sits below as a separate navigational line (spec §8 cross-surface AC). -->
-    <Section size="tight" as="div" className="engagements-end-cta">
+    <Section size="tight" as="div" className="engagements-end-cta" data-reveal>
       <p>{endCta.lead}</p>
       <p class="end-cta-affordances">
         <EmailLink email={endCta.email} variant="default" />

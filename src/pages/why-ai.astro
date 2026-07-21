@@ -92,7 +92,7 @@ const toSuperscript = (n: number) =>
       <div class="why-ai-main">
 
         <!-- Section 3: Opening argument with inline cited stats -->
-        <section aria-label="The deployment gap">
+        <section aria-label="The deployment gap" data-reveal>
           <p>
             {openingArgument.intro}
             {openingArgument.stats.map((stat, i) => (
@@ -110,11 +110,13 @@ const toSuperscript = (n: number) =>
              The page's ONE --surface-section fill band (W-A floor).
              heading omitted: adjacent prose names the moment; omitting avoids a stray
              <h2> ahead of the first real section heading. -->
-        <StatsSection fill dividers>
-          {openingArgument.statsRow.map((stat) => (
-            <Stat value={stat.value} caption={stat.caption} source={stat.source} size="lg" />
-          ))}
-        </StatsSection>
+        <div data-reveal>
+          <StatsSection fill dividers>
+            {openingArgument.statsRow.map((stat) => (
+              <Stat value={stat.value} caption={stat.caption} source={stat.source} size="lg" />
+            ))}
+          </StatsSection>
+        </div>
 
         <!-- Section 5: FailureModeList per §4.3.
              heading + lede move INTO the organism; no standalone <h2> remains.
@@ -122,6 +124,7 @@ const toSuperscript = (n: number) =>
              (#data-readiness … #change-management) and sticky TOC (D-02).
              Per-mode stats stay as the current .stats-row (NOT a nested StatsSection —
              would paint extra bands; breaks the one-band budget). -->
+        <div data-reveal>
         <FailureModeList
           heading={failureModesIntro.heading}
           lede={failureModesIntro.paragraph}
@@ -143,82 +146,90 @@ const toSuperscript = (n: number) =>
             </section>
           ))}
         </FailureModeList>
+        </div>
 
         <!-- Section 6: Statement thesis pivot per §4.4.
              On --bg (no band). hairline={false} default — editorial, not a section divider.
              Sits between FailureModeList and the "What the leaders do differently" heading. -->
-        <Statement statement={statement} />
+        <div data-reveal>
+          <Statement statement={statement} />
+        </div>
 
         <!-- Section 7: What the leaders do differently.
              Quartile stats as StatsSection WITHOUT fill — stays on --bg (no second band, W-A). -->
-        <h2>{leaders.heading}</h2>
-        <p>{leaders.intro}</p>
-        <ul class="leaders-list">
-          {leaders.items.map((item) => (
-            <li><strong>{item.title}</strong> — {item.body}</li>
-          ))}
-        </ul>
+        <div data-reveal>
+          <h2>{leaders.heading}</h2>
+          <p>{leaders.intro}</p>
+          <ul class="leaders-list">
+            {leaders.items.map((item) => (
+              <li><strong>{item.title}</strong> — {item.body}</li>
+            ))}
+          </ul>
 
-        <p>{leaders.outro}</p>
+          <p>{leaders.outro}</p>
 
-        <StatsSection dividers>
-          {leaders.stats.map((stat) => (
-            <Stat value={stat.value} caption={stat.caption} size="lg" />
-          ))}
-        </StatsSection>
+          <StatsSection dividers>
+            {leaders.stats.map((stat) => (
+              <Stat value={stat.value} caption={stat.caption} size="lg" />
+            ))}
+          </StatsSection>
+        </div>
 
         <!-- Section 8: Where pouk.ai works — heading + body (unchanged) -->
-        <h2>{whereWorks.heading}</h2>
-        <p>{whereWorks.body}</p>
+        <!-- Section 9: vs-alternatives — PrincipleList per §4.5/§4.5a. -->
+        <!-- Section 10+11+12: discoveryIntro, blockquote, closing — grouped as one reveal beat. -->
+        <div data-reveal>
+          <h2>{whereWorks.heading}</h2>
+          <p>{whereWorks.body}</p>
 
-        <!-- Section 9: vs-alternatives — PrincipleList per §4.5/§4.5a.
-             On --bg, no band, no figures, no Stat atoms (categorical-only, D-01 untouched).
-             Inserted after whereWorks.body and before the repositioned discoveryIntro (A6).
-             F-101 payoff: heading "When to hire pouk.ai — and when not to" answers the
-             homepage link "See when to hire us, and when not to →". -->
-        <PrincipleList
-          heading={vsAlternatives.heading}
-          lede={vsAlternatives.leadIn}
-        >
-          <Principle numeral="i" title={vsAlternatives.alternatives[0].name}>
-            <p>{vsAlternatives.alternatives[0].rightWhen}</p>
-            <p>{vsAlternatives.alternatives[0].poukaiWhen}</p>
-          </Principle>
-          <Principle numeral="ii" title={vsAlternatives.alternatives[1].name}>
-            <p>{vsAlternatives.alternatives[1].rightWhen}</p>
-            <p>{vsAlternatives.alternatives[1].poukaiWhen}</p>
-          </Principle>
-          <Principle numeral="iii" title={vsAlternatives.alternatives[2].name}>
-            <p>{vsAlternatives.alternatives[2].rightWhen}</p>
-            <p>{vsAlternatives.alternatives[2].poukaiWhen}</p>
-          </Principle>
-        </PrincipleList>
+          <!-- Section 9: vs-alternatives — PrincipleList per §4.5/§4.5a.
+               On --bg, no band, no figures, no Stat atoms (categorical-only, D-01 untouched).
+               Inserted after whereWorks.body and before the repositioned discoveryIntro (A6).
+               F-101 payoff: heading "When to hire pouk.ai — and when not to" answers the
+               homepage link "See when to hire us, and when not to →". -->
+          <PrincipleList
+            heading={vsAlternatives.heading}
+            lede={vsAlternatives.leadIn}
+          >
+            <Principle numeral="i" title={vsAlternatives.alternatives[0].name}>
+              <p>{vsAlternatives.alternatives[0].rightWhen}</p>
+              <p>{vsAlternatives.alternatives[0].poukaiWhen}</p>
+            </Principle>
+            <Principle numeral="ii" title={vsAlternatives.alternatives[1].name}>
+              <p>{vsAlternatives.alternatives[1].rightWhen}</p>
+              <p>{vsAlternatives.alternatives[1].poukaiWhen}</p>
+            </Principle>
+            <Principle numeral="iii" title={vsAlternatives.alternatives[2].name}>
+              <p>{vsAlternatives.alternatives[2].rightWhen}</p>
+              <p>{vsAlternatives.alternatives[2].poukaiWhen}</p>
+            </Principle>
+          </PrincipleList>
 
-        <p>{vsAlternatives.closing}</p>
+          <p>{vsAlternatives.closing}</p>
 
-        <!-- Section 10: discoveryIntro repositioned immediately before the blockquote (A6).
-             Composition §4.5a resolution: moves past vsAlternatives so "Four questions…"
-             reads as the direct lead-in to the discovery <blockquote>, not to vs-alternatives. -->
-        <p>{whereWorks.discoveryIntro}</p>
+          <!-- Section 10: discoveryIntro repositioned immediately before the blockquote (A6).
+               Composition §4.5a resolution: moves past vsAlternatives so "Four questions…"
+               reads as the direct lead-in to the discovery <blockquote>, not to vs-alternatives. -->
+          <p>{whereWorks.discoveryIntro}</p>
 
-        <!-- Section 11: Discovery questions — inline italic blockquote per D-04 -->
-        <blockquote class="discovery-questions" cite="https://pouk.ai/why-ai">
-          <ol>
-            {whereWorks.questions.map((q) => (
-              <li><em>{q}</em></li>
-            ))}
-          </ol>
-        </blockquote>
+          <!-- Section 11: Discovery questions — inline italic blockquote per D-04 -->
+          <blockquote class="discovery-questions" cite="https://pouk.ai/why-ai">
+            <ol>
+              {whereWorks.questions.map((q) => (
+                <li><em>{q}</em></li>
+              ))}
+            </ol>
+          </blockquote>
 
-        <!-- Section 12: whereWorks.closing — non-conviction handoff line.
-             The promoted Statement sentence has moved to the pivot; this is the new handoff. -->
-        <p>{whereWorks.closing}</p>
+          <!-- Section 12: whereWorks.closing — non-conviction handoff line. -->
+          <p>{whereWorks.closing}</p>
+        </div>
 
         <!-- Section 13: End CTA — dual contact mechanism (FS-CF-1, booking-affordance §2 Context B).
              Conversion pair: mailto: primary + booking secondary (muted link).
              Navigational hand-off: Roles → stays as a separate read-on line below.
              Three affordances read as: conversion pair | navigation hand-off (§6 Flag 1 resolved). -->
-        <div class="end-cta">
+        <div class="end-cta" data-reveal>
           <p>
             {endCta.primary.lead}{" "}
             <a href={endCta.primary.href}>{endCta.primary.email}</a>

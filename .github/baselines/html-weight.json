@@ -1,7 +1,7 @@
 {
-  "_comment": "Gzipped HTML byte counts per route. Baseline refreshed 2026-06-18 on explore/raise-the-ceiling: '/' grew with the home destination IA + 'The Signal' hero illustration; '/why-ai' grew with the raise-the-ceiling depth pass. Intentional growth. R-015 is advisory since D-25 (2026-06-16). See .github/scripts/html-weight-check.mjs for the update protocol.",
+  "_comment": "Gzipped HTML byte counts per route. Baseline refreshed 2026-07-21 on explore/raise-the-ceiling (CI fix pass, R-049/CR-4/R-015): '/' grew further with the destination sections + signature/reveal CSS+JS from the raise-the-ceiling depth pass — legitimate, intentional growth per the PR. Other routes grew too but stayed within the existing baseline's 110% ceiling once the reveal.ts hoisted script + reveal-gate CSP fix (astro.config.mjs assetsInlineLimit:0) stopped inlining JS into every page's HTML, so only '/' needed a bump this round. R-015 is advisory since D-25 (2026-06-16). See .github/scripts/html-weight-check.mjs for the update protocol.",
   "routes": {
-    "/": 6412,
+    "/": 7882,
     "/why-ai": 10103,
     "/roles": 6320,
     "/principles": 7160,

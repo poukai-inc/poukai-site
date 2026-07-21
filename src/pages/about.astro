@@ -49,18 +49,18 @@ const { meta, band, story, poukai, endCta, jsonLd } = about;
   />
 
   <div class="site-page about-tail">
-    <section class="about-story" aria-label="About pouk.ai">
+    <section class="about-story" aria-label="About pouk.ai" data-reveal>
       <div class="about-story__body">
         {story.paragraphs.map((p) => <p>{p}</p>)}
       </div>
     </section>
 
-    <section class="about-poukai" aria-labelledby={poukai.anchor}>
+    <section class="about-poukai" aria-labelledby={poukai.anchor} data-reveal>
       <h2 id={poukai.anchor} class="about-poukai__heading">{poukai.heading}</h2>
       <p class="about-poukai__body">{poukai.body}</p>
     </section>
 
-    <div class="end-cta">
+    <div class="end-cta" data-reveal>
       <p>
         {endCta.text}{" "}
         <a href={endCta.href}>{endCta.email}</a>.

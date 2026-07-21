@@ -1,5 +1,7 @@
 # Amendment: Home — Illustration Presence + Title/Density Softening
 
+> **SUPERSEDED / CONSOLIDATED 2026-06-19** by the re-specced [`home.md`](./home.md) (In review). Non-load-bearing here: the Hero is at `size="display"` (RR-1, not `intimate`), so the §4.2 density levers and §4.4 CTA step-down no longer apply; the Pouākai eagle illustration (§4.1, D-17) stays deferred, and the brand's figurative finish on `/` is the **feather colophon** + "The Signal" glyph per `home-direction.md` §12 decision 5. Retained for record. Not for build.
+
 **Route**: `/`
 **Status**: Approved (2026-05-17)
 **Owner**: Arian (founder) · Author: pouk-ai-pm

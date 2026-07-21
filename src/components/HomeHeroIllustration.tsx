@@ -23,6 +23,39 @@
  * Placement: passed to the DS <Hero illustration> slot. The DS renders it in
  * the right column above 720px and hides the column below 720px (single-column
  * fallback owned by the DS Hero).
+ *
+ * THE SIGNATURE (§A3-4.2) — "The Signal" self-constructs on first paint.
+ *
+ * Construction CSS lives entirely in site.css §"The Signal" inside the
+ * existing @media (prefers-reduced-motion: no-preference) block. This file
+ * only adds the construction class names to each sub-element so CSS can
+ * address them individually:
+ *
+ *   .wb-grid-axis     — grid <g> + axis <line>   → fade 0→1 (0–200ms)
+ *   .wb-trace         — trace <path>              → stroke-dashoffset L→0 (160→1040ms)
+ *   .wb-node-N        — each node <g> (0-indexed) → opacity + micro-scale, per-node delay
+ *   .wb-label-N       — each label <g>            → opacity, per-label delay
+ *   .wb-leader-N      — each leader <line>        → opacity, per-leader delay
+ *   .wb-caption       — caption <text>            → opacity, ~1120ms
+ *
+ * The ambient signal-pulse and pulse-halo already live in the
+ * prefers-reduced-motion: no-preference block. Their animation-delay is set to
+ * ~1200ms in site.css so they begin AFTER the construction completes.
+ *
+ * Reduced-motion / no-JS: the construction CSS only applies inside the media
+ * query. Outside it the resting state — the finished diagram — renders
+ * immediately. The trace's stroke-dashoffset start-state (L) is only set inside
+ * the media query, never as a base style. A no-JS or reduced-motion visitor
+ * always sees the completed diagram.
+ *
+ * Double-arrival resolution (§A3-4.2 §4 / §5 S1):
+ * The DS Hero entrance="stagger" fades the illustration wrapper in at ~600ms
+ * (index 4 of the stagger ladder). To prevent a whole-glyph fade concurrent
+ * with the construction, the .home-hero-split__aside wrapper is set to
+ * opacity: 1 from the start (the DS stagger slot no-ops on this element)
+ * via the .wb-visible-immediately class. The construction then owns each
+ * sub-element's opacity individually — one arrival, not a fade-then-draw.
+ * See site.css §"The Signal" for the override that no-ops the DS slot fade.
  */
 
 const AX = 400; // vertical axis
@@ -83,10 +116,17 @@ export function HomeHeroIllustration() {
     // wasted space. With the caption pulled up to y396 (below) the live content
     // is y176..420, so this tight viewBox makes the diagram a dense band with
     // no internal dead space.
-    <svg viewBox="40 176 720 250" className="wb" aria-hidden="true" focusable="false">
+    //
+    // wb-visible-immediately: overrides the DS Hero stagger slot (index 4,
+    // ~600ms whole-glyph fade) so the glyph wrapper stays at opacity:1 from
+    // paint. The construction owns each sub-element's opacity instead.
+    // Without this, the DS would fade the whole SVG in as one block concurrently
+    // with the construction, producing a double-arrival (fade-then-draw).
+    <svg viewBox="40 176 720 250" className="wb wb-visible-immediately" aria-hidden="true" focusable="false">
 
-      {/* hairline draftsman grid */}
-      <g className="grid" strokeWidth="0.6">
+      {/* hairline draftsman grid + axis — resolve first (fade 0→1, 0–200ms).
+          Both grouped under .wb-grid-axis so CSS can address them as one unit. */}
+      <g className="grid wb-grid-axis" strokeWidth="0.6">
         {GRID_VX.map((x) => (
           <line key={`vx${x}`} x1={x} y1="56" x2={x} y2="464" strokeDasharray="1 6" />
         ))}
@@ -95,12 +135,18 @@ export function HomeHeroIllustration() {
         ))}
       </g>
 
-      {/* central axis */}
-      <line x1={AX} y1="48" x2={AX} y2="476" className="axis" strokeWidth="0.6" strokeDasharray="1 4" />
+      {/* central axis — same fade group as the grid */}
+      <line x1={AX} y1="48" x2={AX} y2="476" className="axis wb-grid-axis" strokeWidth="0.6" strokeDasharray="1 4" />
 
       {/* system — trace, signal pulse, leaders, nodes, labels */}
       <g>
-        <path d={TRACE_PATH} className="trace" strokeWidth="1.6" />
+        {/* THE ONE CONFIDENT LINE — draws stroke-on OBSERVE→SHIP.
+            stroke-dasharray/offset set in site.css inside no-preference block only.
+            Resting state (outside media query): fully drawn (no dash offset). */}
+        <path d={TRACE_PATH} className="trace wb-trace" strokeWidth="1.6" />
+
+        {/* Ambient signal pulse — suppressed (opacity:0, animation paused) during
+            the construction build; animation-delay:~1200ms releases it after. */}
         <path
           d={TRACE_PATH}
           className="signal-pulse"
@@ -110,7 +156,9 @@ export function HomeHeroIllustration() {
           strokeLinecap="round"
         />
 
-        {SYSTEM_NODES.map((n) => {
+        {/* Leaders — fade in paired with each node (+80ms after node lands).
+            wb-leader-N class drives per-leader animation-delay in site.css. */}
+        {SYSTEM_NODES.map((n, i) => {
           const { lx, ly } = labelPos(n);
           return (
             <line
@@ -119,15 +167,20 @@ export function HomeHeroIllustration() {
               y1={n.y}
               x2={lx}
               y2={ly + 4}
-              className="leader"
+              className={`leader wb-leader-${i}`}
               strokeWidth="0.6"
               strokeDasharray="2 3"
             />
           );
         })}
 
-        {SYSTEM_NODES.map((n) => (
-          <g key={`node-${n.id}`}>
+        {/* Nodes — set down in sequence as the trace reaches each.
+            opacity 0→1 + micro-scale 0.6→1 (no overshoot).
+            wb-node-N class drives per-node animation-delay in site.css.
+            transform-box:fill-box + transform-origin:center ensures the scale
+            is centered on the node, not the SVG root. */}
+        {SYSTEM_NODES.map((n, i) => (
+          <g key={`node-${n.id}`} className={`wb-node-${i}`}>
             {n.accent && (
               <circle cx={n.x} cy={n.y} r="7" fill="var(--accent-glow)" className="pulse-halo" />
             )}
@@ -142,10 +195,14 @@ export function HomeHeroIllustration() {
           </g>
         ))}
 
-        {SYSTEM_NODES.map((n) => {
+        {/* Labels — fade in just after each node lands (+80ms).
+            wb-label-N class drives per-label animation-delay in site.css.
+            SHIP label (i=4) carries --accent fill (the resting fill, revealed
+            by the build — not a motion-introduced color). */}
+        {SYSTEM_NODES.map((n, i) => {
           const { lx, ly, anchor } = labelPos(n);
           return (
-            <g key={`lbl-${n.id}`}>
+            <g key={`lbl-${n.id}`} className={`wb-label-${i}`}>
               <text
                 x={lx}
                 y={ly}
@@ -174,7 +231,7 @@ export function HomeHeroIllustration() {
         })}
       </g>
 
-      {/* caption */}
+      {/* caption — resolves last (~1120ms), after SHIP label registers. */}
       <text
         x={AX}
         y="396"
@@ -183,6 +240,7 @@ export function HomeHeroIllustration() {
         fontSize="13"
         fill="var(--fg-muted)"
         letterSpacing="0.18em"
+        className="wb-caption"
         style={{ textTransform: "uppercase" }}
       >
         pipeline · 5 stages

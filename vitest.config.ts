@@ -38,6 +38,12 @@ export default defineConfig({
 			// applies. Missing-test cases are reviewer NITs, not CI failures.
 			include: [
 				"src/components/HomeHero.tsx",
+				"src/components/HomeStatement.tsx",
+				// HomeMethod.tsx removed — Method beat dropped (A2 §14).
+				"src/components/HomeDisciplines.tsx",
+				"src/components/HomeComparison.tsx",
+				"src/components/HomeArtifact.tsx",
+				"src/components/ScrollReveal.tsx",
 				// Add as smoke tests land:
 				// "src/components/RolesGrid.tsx",
 				// "src/components/ShellWrapper.tsx",

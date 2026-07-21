@@ -58,10 +58,12 @@ const hasEmailLine = Boolean(buttondownEndpoint);
     <!-- 2. Essay list — reverse-chronological index of LinkCards -->
     <!-- sr-only h2 bridges h1 → h3 (LinkCard titleAs) for axe heading-order. -->
     <h2 class="visually-hidden">Essays</h2>
-    {orderedEssays.length > 0 && <WritingList essays={orderedEssays} />}
+    <div data-reveal>
+      {orderedEssays.length > 0 && <WritingList essays={orderedEssays} />}
+    </div>
 
     <!-- 3. Retention block — ungated email line (native <form action>, no JS) + RSS -->
-    <Section size="tight" as="div" className="writing-retention">
+    <Section size="tight" as="div" className="writing-retention" data-reveal>
       {hasEmailLine ? (
         <>
           <p>{retention.emailLine}</p>

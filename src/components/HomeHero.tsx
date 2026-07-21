@@ -65,9 +65,7 @@ export function HomeHero({
       <Hero
         size="display"
         entrance="stagger"
-      status={
-        <StatusBadge status="available">{status}</StatusBadge>
-      }
+      status={<StatusBadge status="available">{status}</StatusBadge>}
       title={
         <>
           {titleBefore}
@@ -79,7 +77,16 @@ export function HomeHero({
         <>
           {ledeSentence1}{" "}
           {ledeSentence2}{" "}
-          <a href={ledeAnchorHref}>{ledeAnchorText}</a>
+          {/* T3 — link-arrow nudge. The trailing → is wrapped in aria-hidden so
+              only the glyph translates; the link text + DS underline are untouched.
+              The text prop from home.json ends with " →" — split it here so the
+              JSON copy stays clean and the span is a pure presentational wrapper.
+              CSS in site.css animates .home-link-arrow via translateX on :hover/:focus-visible. */}
+          <a href={ledeAnchorHref} className="home-editorial-link">
+            {ledeAnchorText.replace(/\s*→$/, "")}
+            {" "}
+            <span className="home-link-arrow" aria-hidden="true">→</span>
+          </a>
         </>
       }
       cta={

@@ -49,7 +49,7 @@ const { meta, hero, endCta, jsonLd } = rolesPageSchema.parse(rolesPageRaw);
     />
 
     <!-- 2. Role jump nav — one-line typographic nav per spec IA item 3 -->
-    <nav class="role-jump-nav" aria-label="Jump to role">
+    <nav class="role-jump-nav" aria-label="Jump to role" data-reveal>
       {orderedRoles.map((role) => (
         <a href={`#${role.id}`}>{role.title}</a>
       ))}
@@ -59,12 +59,14 @@ const { meta, hero, endCta, jsonLd } = rolesPageSchema.parse(rolesPageRaw);
     <!-- Rendered as static HTML at build time; static by design. [R-079 superseded by D-25, 2026-06-16; static is chosen default.] -->
     <!-- sr-only h2 bridges h1 → h3 (RoleCard) to satisfy axe heading-order (R-026). -->
     <h2 class="visually-hidden">Role archetypes</h2>
-    <RolesGrid roles={orderedRoles} />
+    <div data-reveal>
+      <RolesGrid roles={orderedRoles} />
+    </div>
 
     <!-- 4. Universal end CTA — per D-08, single block for all four roles.
          Dual contact mechanism (FS-CF-1, booking-affordance §2 Context B):
          mailto: primary + booking secondary (muted link). No per-card booking (D-08). -->
-    <div class="end-cta">
+    <div class="end-cta" data-reveal>
       <p>
         {endCta.lead}
         <a href={endCta.href}>{endCta.email} &rarr;</a>
