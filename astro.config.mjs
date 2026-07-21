@@ -47,5 +47,18 @@ export default defineConfig({
       // where the CSS plugin extracts the styles into Astro's per-page bundle.
       noExternal: ["@poukai-inc/ui"],
     },
+    build: {
+      // CR-4/CSP: Astro's default hoisted-script handling inlines small
+      // <script> bundles (e.g. the end-of-body `import "../scripts/reveal.ts"`
+      // hoisted script) directly into each page's HTML as `<script
+      // type="module">...</script>` to save a request. That inline module is
+      // exactly what `script-src 'self'` (vercel.json, no unsafe-inline/nonce)
+      // blocks — csp-compat-check.mjs flags it on every route.
+      // assetsInlineLimit: 0 forces Astro/Vite to always emit hoisted scripts
+      // (and other would-be-inlined assets) as real external files under
+      // /_astro/*, so they load via `<script type="module" src="...">` and
+      // satisfy `script-src 'self'` like the ClientRouter script already does.
+      assetsInlineLimit: 0,
+    },
   },
 });

@@ -306,15 +306,23 @@ const matomoConfigJson = hasMatomoConfig
         - JS disabled: script never runs → no class → content always visible.
         - prefers-reduced-motion: reduce → condition false → no class → visible.
 
-      The reveal observer logic lives in src/scripts/reveal.ts (loaded below).
-      CSP: is:inline is required for the synchronous pre-paint timing; this is
-      the documented exception pattern (same as the JSON-LD script above).
+      Externalized to a first-party same-origin /reveal-gate.js (CR-4): the
+      production CSP (vercel.json — `script-src 'self'`, no unsafe-inline/
+      nonce/hash) blocks inline executable scripts outright, so the prior
+      `<script is:inline>` broke prod while shipping green in `pnpm preview`
+      (which serves dist/ without the vercel.json headers). This is the same
+      externalization pattern used for the Matomo bootstrap (see the analytics
+      comment above / public/matomo.js): move the executable logic to
+      public/, which Astro copies as-is and serves same-origin, so
+      `script-src 'self'` is satisfied without weakening the CSP.
+      No defer/async — kept parser-blocking, in this exact <head> position, so
+      it still runs before first paint. `is:inline` here tells Astro to emit
+      the tag as a literal same-origin <script src> reference to the public/
+      asset verbatim, instead of trying to resolve/bundle "/reveal-gate.js"
+      as a module graph entry point (which Astro does by default for any
+      <script src> pointing into public/).
     -->
-    <script is:inline>
-      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-        document.documentElement.classList.add("reveal-on");
-      }
-    </script>
+    <script is:inline src="/reveal-gate.js"></script>
   </head>
   <body class={currentRoute === "/" ? "home" : undefined}>
     <!-- SiteShell renders as static HTML — static by design (no hydration needed here). [R-079 zero-JS contract superseded by D-25, 2026-06-16; static is chosen default.] -->
